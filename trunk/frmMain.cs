@@ -84,25 +84,37 @@ namespace WebCamServiceSample
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (txtUserName.Text.Trim() == "") {
-                MessageBox.Show("Enter UserName and Password.","Try Again.",MessageBoxButtons.OK);
-                return;
-            }
-            btnLogin.Text = "Wait...";
-            ZSICam.WebFileService.WebFileManager fm = new ZSICam.WebFileService.WebFileManager();
-            this.UserId = fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString();
-            if (int.Parse(this.UserId) < 1)
+            try
             {
-                MessageBox.Show("Invalid User, Please Login.");
-                btnLogin.Text = "Login";
-                return;
+
+                if (txtUserName.Text.Trim() == "")
+                {
+                    MessageBox.Show("Enter UserName and Password.", "Try Again.", MessageBoxButtons.OK);
+                    return;
+                }
+                btnLogin.Text = "Wait...";
+                ZSICam.WebFileService.WebFileManager fm = new ZSICam.WebFileService.WebFileManager();
+                this.UserId = fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString();
+                if (int.Parse(this.UserId) < 1)
+                {
+                    MessageBox.Show("Invalid User, Please Login.");
+                    btnLogin.Text = "Login";
+                    return;
+                }
+                btnLogin.Enabled = false;
+                btnLogOut.Enabled = true;
+                enableUserNamePass(false);
             }
-         
-            enableUserNamePass(false);
-            btnLogOut.Enabled = true;
-            btnLogin.Enabled = false;
-            btnSave.Enabled = true;
-            btnLogin.Text = "Login";
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                btnSave.Enabled = true;
+                btnLogin.Text = "Login";
+            }
+
 
         }
 
