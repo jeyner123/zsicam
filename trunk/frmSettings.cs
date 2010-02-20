@@ -5,26 +5,38 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Xml;
 namespace ZSICam
 {
     public partial class frmSettings : Form
     {
+        XmlDocument doc;
+        XmlNode node;
+        string AppConfigFile = "ZSICam.exe.config";
+
         public frmSettings()
         {
             InitializeComponent();
+            doc = new XmlDocument();
+            doc.Load(AppConfigFile);
+
+            XmlNodeList _nodes;
+            _nodes = doc.SelectNodes("//applicationSettings");
+            node = _nodes.Item(0).ChildNodes.Item(0).ChildNodes.Item(0).ChildNodes.Item(0);
+
         }
 
         private void frmSettings_Load(object sender, EventArgs e)
         {
-            txtWebRef.Text = ZSICam.Properties.Settings.Default["ZSICam_WebFileService_WebFileManager"].ToString();
-
+            txtWebRef.Text = node.InnerText;
         }
+
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            ZSICam.Properties.Settings.Default["ZSICam_WebFileService_WebFileManager"] = txtWebRef.Text;
-            ZSICam.Properties.Settings.Default.Save();
+            node.InnerText = txtWebRef.Text;
+            doc.Save(AppConfigFile);
+            
             this.Close();
 
 
