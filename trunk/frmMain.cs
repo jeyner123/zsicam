@@ -122,6 +122,17 @@ namespace WebCamServiceSample
             txtPassword.Enabled = enable;
  
         }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            ZSICam.frmSettings frmSettings = new ZSICam.frmSettings();
+            frmSettings.ShowDialog();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

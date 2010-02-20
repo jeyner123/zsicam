@@ -26,10 +26,10 @@ namespace ZSICam.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/beta-police-records/WebFileServices.asmx")]
-        public string GMFPhotoCapture_WebFileService_WebFileManager {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.zetta-solutions.net/pnp/WebFileServices.asmx")]
+        public string ZSICam_WebFileService_WebFileManager {
             get {
-                return ((string)(this["GMFPhotoCapture_WebFileService_WebFileManager"]));
+                return ((string)(this["ZSICam_WebFileService_WebFileManager"]));
             }
         }
     }

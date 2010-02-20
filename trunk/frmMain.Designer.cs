@@ -41,6 +41,7 @@ namespace WebCamServiceSample
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCapture = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).BeginInit();
             this.bgLogin.SuspendLayout();
@@ -163,11 +164,22 @@ namespace WebCamServiceSample
             this.btnCapture.UseVisualStyleBackColor = true;
             this.btnCapture.Click += new System.EventHandler(this.btnCapture_Click);
             // 
+            // btnSettings
+            // 
+            this.btnSettings.Location = new System.Drawing.Point(627, 50);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(59, 23);
+            this.btnSettings.TabIndex = 16;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(728, 404);
+            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnCapture);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.bgLogin);
@@ -175,6 +187,7 @@ namespace WebCamServiceSample
             this.Controls.Add(this.picture);
             this.Name = "Form1";
             this.Text = "ZSICam 3.0 - Zetta Solutions, Inc.";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).EndInit();
             this.bgLogin.ResumeLayout(false);
@@ -197,6 +210,7 @@ namespace WebCamServiceSample
         private System.Windows.Forms.Button btnLogOut;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCapture;
+        private System.Windows.Forms.Button btnSettings;
     }
 }
 
