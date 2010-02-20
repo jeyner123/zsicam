@@ -104,10 +104,10 @@
   </wsdl:binding>
   <wsdl:service name="WebFileManager">
     <wsdl:port name="WebFileManagerSoap" binding="tns:WebFileManagerSoap">
-      <soap:address location="http://localhost/beta-police-records/WebFileServices.asmx" />
+      <soap:address location="http://www.zetta-solutions.net/pnp/WebFileServices.asmx" />
     </wsdl:port>
     <wsdl:port name="WebFileManagerSoap12" binding="tns:WebFileManagerSoap12">
-      <soap12:address location="http://localhost/beta-police-records/WebFileServices.asmx" />
+      <soap12:address location="http://www.zetta-solutions.net/pnp/WebFileServices.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -37,7 +37,7 @@ namespace ZSICam.WebFileService {
         
         /// <remarks/>
         public WebFileManager() {
-            this.Url = global::ZSICam.Properties.Settings.Default.GMFPhotoCapture_WebFileService_WebFileManager;
+            this.Url = global::ZSICam.Properties.Settings.Default.ZSICam_WebFileService_WebFileManager;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
