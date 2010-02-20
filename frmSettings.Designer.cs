@@ -64,7 +64,7 @@ namespace ZSICam
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(562, 143);
+            this.ClientSize = new System.Drawing.Size(526, 126);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtWebRef);
             this.Controls.Add(this.label1);
