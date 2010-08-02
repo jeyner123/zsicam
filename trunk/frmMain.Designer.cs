@@ -28,9 +28,7 @@ namespace WebCamServiceSample
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.picture = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pbResult = new System.Windows.Forms.PictureBox();
             this.bgLogin = new System.Windows.Forms.GroupBox();
             this.btnLogOut = new System.Windows.Forms.Button();
@@ -42,32 +40,33 @@ namespace WebCamServiceSample
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCapture = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
+            this.cbImagePosition = new System.Windows.Forms.ComboBox();
+            this.rdbITProfile = new System.Windows.Forms.RadioButton();
+            this.rdbITCase = new System.Windows.Forms.RadioButton();
+            this.gbImageType = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).BeginInit();
             this.bgLogin.SuspendLayout();
+            this.gbImageType.SuspendLayout();
             this.SuspendLayout();
             // 
             // picture
             // 
             this.picture.BackColor = System.Drawing.Color.White;
             this.picture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picture.Location = new System.Drawing.Point(28, 95);
+            this.picture.Location = new System.Drawing.Point(28, 142);
             this.picture.Name = "picture";
             this.picture.Size = new System.Drawing.Size(320, 240);
             this.picture.TabIndex = 0;
             this.picture.TabStop = false;
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 50;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // pbResult
             // 
             this.pbResult.BackColor = System.Drawing.Color.White;
             this.pbResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbResult.Location = new System.Drawing.Point(366, 95);
+            this.pbResult.Location = new System.Drawing.Point(366, 142);
             this.pbResult.Name = "pbResult";
             this.pbResult.Size = new System.Drawing.Size(320, 240);
             this.pbResult.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -77,6 +76,7 @@ namespace WebCamServiceSample
             // bgLogin
             // 
             this.bgLogin.Controls.Add(this.btnLogOut);
+            this.bgLogin.Controls.Add(this.btnSettings);
             this.bgLogin.Controls.Add(this.txtPassword);
             this.bgLogin.Controls.Add(this.label2);
             this.bgLogin.Controls.Add(this.txtUserName);
@@ -84,7 +84,7 @@ namespace WebCamServiceSample
             this.bgLogin.Controls.Add(this.btnLogin);
             this.bgLogin.Location = new System.Drawing.Point(28, 12);
             this.bgLogin.Name = "bgLogin";
-            this.bgLogin.Size = new System.Drawing.Size(571, 61);
+            this.bgLogin.Size = new System.Drawing.Size(424, 93);
             this.bgLogin.TabIndex = 13;
             this.bgLogin.TabStop = false;
             this.bgLogin.Text = "User Login";
@@ -92,7 +92,7 @@ namespace WebCamServiceSample
             // btnLogOut
             // 
             this.btnLogOut.Enabled = false;
-            this.btnLogOut.Location = new System.Drawing.Point(448, 20);
+            this.btnLogOut.Location = new System.Drawing.Point(165, 59);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Size = new System.Drawing.Size(68, 23);
             this.btnLogOut.TabIndex = 18;
@@ -102,7 +102,7 @@ namespace WebCamServiceSample
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(255, 22);
+            this.txtPassword.Location = new System.Drawing.Point(248, 22);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '+';
             this.txtPassword.Size = new System.Drawing.Size(100, 20);
@@ -135,7 +135,7 @@ namespace WebCamServiceSample
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(374, 20);
+            this.btnLogin.Location = new System.Drawing.Point(91, 59);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(68, 23);
             this.btnLogin.TabIndex = 13;
@@ -146,7 +146,7 @@ namespace WebCamServiceSample
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(366, 341);
+            this.btnSave.Location = new System.Drawing.Point(136, 59);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(68, 23);
             this.btnSave.TabIndex = 14;
@@ -156,7 +156,7 @@ namespace WebCamServiceSample
             // 
             // btnCapture
             // 
-            this.btnCapture.Location = new System.Drawing.Point(28, 341);
+            this.btnCapture.Location = new System.Drawing.Point(28, 388);
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Size = new System.Drawing.Size(68, 23);
             this.btnCapture.TabIndex = 15;
@@ -166,7 +166,7 @@ namespace WebCamServiceSample
             // 
             // btnSettings
             // 
-            this.btnSettings.Location = new System.Drawing.Point(627, 50);
+            this.btnSettings.Location = new System.Drawing.Point(359, 59);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(59, 23);
             this.btnSettings.TabIndex = 16;
@@ -174,32 +174,103 @@ namespace WebCamServiceSample
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
+            // cbImagePosition
+            // 
+            this.cbImagePosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbImagePosition.FormattingEnabled = true;
+            this.cbImagePosition.Items.AddRange(new object[] {
+            "Front",
+            "Left",
+            "Right",
+            "Back",
+            "Full"});
+            this.cbImagePosition.Location = new System.Drawing.Point(145, 23);
+            this.cbImagePosition.Name = "cbImagePosition";
+            this.cbImagePosition.Size = new System.Drawing.Size(59, 21);
+            this.cbImagePosition.TabIndex = 17;
+            // 
+            // rdbITProfile
+            // 
+            this.rdbITProfile.AutoSize = true;
+            this.rdbITProfile.Checked = true;
+            this.rdbITProfile.Location = new System.Drawing.Point(30, 25);
+            this.rdbITProfile.Name = "rdbITProfile";
+            this.rdbITProfile.Size = new System.Drawing.Size(54, 17);
+            this.rdbITProfile.TabIndex = 18;
+            this.rdbITProfile.TabStop = true;
+            this.rdbITProfile.Text = "Profile";
+            this.rdbITProfile.UseVisualStyleBackColor = true;
+            // 
+            // rdbITCase
+            // 
+            this.rdbITCase.AutoSize = true;
+            this.rdbITCase.Location = new System.Drawing.Point(90, 25);
+            this.rdbITCase.Name = "rdbITCase";
+            this.rdbITCase.Size = new System.Drawing.Size(49, 17);
+            this.rdbITCase.TabIndex = 19;
+            this.rdbITCase.Text = "Case";
+            this.rdbITCase.UseVisualStyleBackColor = true;
+            // 
+            // gbImageType
+            // 
+            this.gbImageType.Controls.Add(this.rdbITProfile);
+            this.gbImageType.Controls.Add(this.cbImagePosition);
+            this.gbImageType.Controls.Add(this.rdbITCase);
+            this.gbImageType.Controls.Add(this.btnSave);
+            this.gbImageType.Location = new System.Drawing.Point(458, 12);
+            this.gbImageType.Name = "gbImageType";
+            this.gbImageType.Size = new System.Drawing.Size(228, 93);
+            this.gbImageType.TabIndex = 20;
+            this.gbImageType.TabStop = false;
+            this.gbImageType.Text = "Image Type";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(25, 126);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(48, 13);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "Preview:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(363, 126);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Actual View:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 404);
-            this.Controls.Add(this.btnSettings);
+            this.ClientSize = new System.Drawing.Size(716, 425);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.gbImageType);
             this.Controls.Add(this.btnCapture);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.bgLogin);
             this.Controls.Add(this.pbResult);
             this.Controls.Add(this.picture);
             this.Name = "Form1";
-            this.Text = "ZSICam 3.0 - Zetta Solutions, Inc.";
+            this.Text = "PhotoCapture 4.0 - Zetta Solutions, Inc.";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).EndInit();
             this.bgLogin.ResumeLayout(false);
             this.bgLogin.PerformLayout();
+            this.gbImageType.ResumeLayout(false);
+            this.gbImageType.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox picture;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pbResult;
         private System.Windows.Forms.GroupBox bgLogin;
         private System.Windows.Forms.TextBox txtPassword;
@@ -211,6 +282,12 @@ namespace WebCamServiceSample
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCapture;
         private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.ComboBox cbImagePosition;
+        private System.Windows.Forms.RadioButton rdbITProfile;
+        private System.Windows.Forms.RadioButton rdbITCase;
+        private System.Windows.Forms.GroupBox gbImageType;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
 
