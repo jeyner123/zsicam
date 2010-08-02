@@ -6,13 +6,13 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
-namespace ZSICam
+namespace PhotoCapture
 {
     public partial class frmSettings : Form
     {
         XmlDocument doc;
         XmlNode node;
-        string AppConfigFile = "ZSICam.exe.config";
+        string AppConfigFile = "PhotoCapture.exe.config";
 
         public frmSettings()
         {
@@ -35,11 +35,8 @@ namespace ZSICam
         private void btnSave_Click(object sender, EventArgs e)
         {
             node.InnerText = txtWebRef.Text;
-            doc.Save(AppConfigFile);
-            
-            this.Close();
-
-
+            doc.Save(AppConfigFile);            
+            this.Close();            
         }
     }
 }

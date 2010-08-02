@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace ZSICam.WebFileService {
+namespace PhotoCapture.WebFileService {
     using System.Diagnostics;
     using System.Web.Services;
     using System.ComponentModel;
@@ -37,7 +37,7 @@ namespace ZSICam.WebFileService {
         
         /// <remarks/>
         public WebFileManager() {
-            this.Url = global::ZSICam.Properties.Settings.Default.ZSICam_WebFileService_WebFileManager;
+            this.Url = global::PhotoCapture.Properties.Settings.Default.PhotoCapture_WebFileService_WebFileManager;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

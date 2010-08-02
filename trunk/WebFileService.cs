@@ -11,7 +11,7 @@ namespace WebFileService
         public static string FileUploadViaWebService(FileInfo oFileInfo,String UserId)
         {
             FileStream objFileStream;
-            ZSICam.WebFileService.WebFileManager fm = new ZSICam.WebFileService.WebFileManager();
+            PhotoCapture.WebFileService.WebFileManager fm = new PhotoCapture.WebFileService.WebFileManager();
             String strReturn = string.Empty;
             bool bolResult = false;
             try
@@ -19,7 +19,7 @@ namespace WebFileService
                 if (File.Exists(oFileInfo.FullName) == false) throw new Exception("No File found.");
 
                 //fm.Url = System.Configuration.ConfigurationSettings.AppSettings["WebFile_URI"];
-                fm.Url = ZSICam.Properties.Settings.Default["ZSICam_WebFileService_WebFileManager"].ToString();
+                fm.Url = PhotoCapture.Properties.Settings.Default["PhotoCapture_WebFileService_WebFileManager"].ToString();
                 objFileStream = oFileInfo.Open(FileMode.Open, FileAccess.Read);
 
                 byte[] objFileByte = new Byte[objFileStream.Length];

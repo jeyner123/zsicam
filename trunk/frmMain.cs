@@ -11,11 +11,8 @@ using System.IO;
 using WebCamService;
 using WebFileService;
 using System.Web;
-
 using System.Threading;
 using System.Net;
-  
- 
 namespace WebCamServiceSample
 {
     
@@ -59,12 +56,30 @@ namespace WebCamServiceSample
             pbResult.Image = picture.Image; 
         }
 
+        private string GetImageFileNameByPosition()
+        {
+            string _ImagePosition = cbImagePosition.SelectedItem.ToString().ToLower();
+            string _fileName = string.Empty;
+            switch (_ImagePosition)
+            {
+                case "front": _fileName = ".jpg"; break;
+                case "left": _fileName = "-left.jpg"; break;
+                case "right": _fileName ="-right.jpg"; break;
+                case "back": _fileName = "-back.jpg"; break;
+                case "full": _fileName = "-full.jpg"; break;
+                default: break;
+            }
+
+            _fileName = "image" + _fileName;
+            if (rdbITProfile.Checked != true) _fileName = "case-" + _fileName;            
+            return _fileName;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
              try
              {
-                string fileName = "c:\\image.jpg";
-
+                string fileName = GetImageFileNameByPosition();
                 pbResult.Image.Save(fileName);
                 System.IO.FileInfo oFileInfo = new System.IO.FileInfo(fileName);
                 WebFileManager.FileUploadViaWebService(oFileInfo,this.UserId);
@@ -93,7 +108,7 @@ namespace WebCamServiceSample
                     return;
                 }
                 btnLogin.Text = "Wait...";
-                ZSICam.WebFileService.WebFileManager fm = new ZSICam.WebFileService.WebFileManager();
+                PhotoCapture.WebFileService.WebFileManager fm = new PhotoCapture.WebFileService.WebFileManager();
                 this.UserId = fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString();
                 if (int.Parse(this.UserId) < 1)
                 {
@@ -137,7 +152,7 @@ namespace WebCamServiceSample
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            ZSICam.frmSettings frmSettings = new ZSICam.frmSettings();
+            PhotoCapture.frmSettings frmSettings = new PhotoCapture.frmSettings();
             frmSettings.ShowDialog();
         }
 
@@ -145,6 +160,7 @@ namespace WebCamServiceSample
         {
             cbImagePosition.SelectedIndex = 0;
         }
+ 
     }
 
 
