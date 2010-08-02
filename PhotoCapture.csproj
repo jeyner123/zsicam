@@ -7,8 +7,8 @@
     <ProjectGuid>{ABFADCEE-4AA8-4F87-9221-6A5068E00C42}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZSICam</RootNamespace>
-    <AssemblyName>ZSICam</AssemblyName>
+    <RootNamespace>PhotoCapture</RootNamespace>
+    <AssemblyName>PhotoCapture</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ApplicationIcon>PhotoCapture.ico</ApplicationIcon>
     <FileUpgradeFlags>

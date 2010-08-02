@@ -1,4 +1,4 @@
-namespace ZSICam
+namespace PhotoCapture
 {
     partial class frmSettings
     {

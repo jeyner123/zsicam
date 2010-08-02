@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ZSICam.Properties {
+namespace PhotoCapture.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -27,9 +27,9 @@ namespace ZSICam.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://www.zetta-solutions.net/pnp/WebFileServices.asmx")]
-        public string ZSICam_WebFileService_WebFileManager {
+        public string PhotoCapture_WebFileService_WebFileManager {
             get {
-                return ((string)(this["ZSICam_WebFileService_WebFileManager"]));
+                return ((string)(this["PhotoCapture_WebFileService_WebFileManager"]));
             }
         }
     }
