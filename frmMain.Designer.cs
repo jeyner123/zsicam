@@ -211,7 +211,7 @@ namespace WebCamServiceSample
             this.gbImageType.Controls.Add(this.btnSave);
             this.gbImageType.Location = new System.Drawing.Point(458, 12);
             this.gbImageType.Name = "gbImageType";
-            this.gbImageType.Size = new System.Drawing.Size(254, 93);
+            this.gbImageType.Size = new System.Drawing.Size(229, 93);
             this.gbImageType.TabIndex = 20;
             this.gbImageType.TabStop = false;
             this.gbImageType.Text = "Image Type";
@@ -251,16 +251,15 @@ namespace WebCamServiceSample
             // pbResult
             // 
             this.pbResult.BackColor = System.Drawing.Color.Transparent;
-            this.pbResult.Location = new System.Drawing.Point(387, 156);
+            this.pbResult.Location = new System.Drawing.Point(390, 152);
             this.pbResult.Name = "pbResult";
-            this.pbResult.Size = new System.Drawing.Size(305, 224);
+            this.pbResult.Size = new System.Drawing.Size(274, 228);
             this.pbResult.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pbResult.TabIndex = 2;
             this.pbResult.TabStop = false;
             // 
             // picture
             // 
-            this.picture.BackColor = System.Drawing.Color.White;
             this.picture.Location = new System.Drawing.Point(28, 140);
             this.picture.Name = "picture";
             this.picture.Size = new System.Drawing.Size(320, 240);
@@ -296,9 +295,9 @@ namespace WebCamServiceSample
             // pictureBox3
             // 
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox3.Location = new System.Drawing.Point(363, 139);
+            this.pictureBox3.Location = new System.Drawing.Point(366, 139);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(349, 257);
+            this.pictureBox3.Size = new System.Drawing.Size(321, 258);
             this.pictureBox3.TabIndex = 37;
             this.pictureBox3.TabStop = false;
             // 
@@ -306,7 +305,7 @@ namespace WebCamServiceSample
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 409);
+            this.ClientSize = new System.Drawing.Size(714, 422);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pbLeft);
             this.Controls.Add(this.pbRight);
