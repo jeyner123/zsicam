@@ -28,7 +28,6 @@ namespace WebCamServiceSample
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.bgLogin = new System.Windows.Forms.GroupBox();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
@@ -45,7 +44,6 @@ namespace WebCamServiceSample
             this.gbImageType = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pbResult = new System.Windows.Forms.PictureBox();
             this.picture = new System.Windows.Forms.PictureBox();
             this.bgLogin.SuspendLayout();
@@ -224,11 +222,6 @@ namespace WebCamServiceSample
             this.label4.TabIndex = 22;
             this.label4.Text = "Actual View:";
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 50;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // pbResult
             // 
             this.pbResult.BackColor = System.Drawing.Color.White;
@@ -236,7 +229,7 @@ namespace WebCamServiceSample
             this.pbResult.Location = new System.Drawing.Point(367, 140);
             this.pbResult.Name = "pbResult";
             this.pbResult.Size = new System.Drawing.Size(320, 240);
-            this.pbResult.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbResult.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbResult.TabIndex = 2;
             this.pbResult.TabStop = false;
             // 
@@ -298,7 +291,6 @@ namespace WebCamServiceSample
         private System.Windows.Forms.GroupBox gbImageType;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Timer timer1;
     }
 }
 
