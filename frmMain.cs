@@ -17,14 +17,15 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 namespace WebCamServiceSample
 {
-    
+
     public partial class Form1 : Form
     {
-        WebCamService.WebCamManager WebCam;
+        //WebCamService.WebCamManager WebCam;
         private static string _UserId;
-        public string UserId{
-            set { _UserId = value;}
-            get { return _UserId;}
+        public string UserId
+        {
+            set { _UserId = value; }
+            get { return _UserId; }
         }
 
         public Form1()
@@ -32,31 +33,41 @@ namespace WebCamServiceSample
             try
             {
                 this.InitializeComponent();
-                WebCam = new WebCamManager();
+                //WebCam = new WebCamManager();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message);
             }
         }
-        
+
+        public Thread CameraThread { get; set; }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             try
             {
-                System.IO.MemoryStream st = new System.IO.MemoryStream(WebCam.GrabFrame());
-                picture.Image = System.Drawing.Image.FromStream(st);
+               // System.IO.MemoryStream st = new System.IO.MemoryStream(WebCam.GrabFrame());
+                //picture.Image = System.Drawing.Image.FromStream(st);
+                //Image _img = System.Drawing.Image.FromStream(st);
+
+
+                //picture.Image =CropImage((Bitmap)_img, 310, 233);
+
+                //picture.Image = _img;
+                //
 
             }
-            catch(Exception )
+            catch (Exception)
             {
             }
         }
 
         private void btnCapture_Click(object sender, EventArgs e)
         {
-                
-            Image ImageResult = CropImage((Bitmap)picture.Image, 310, 233);
-            pbResult.Image = ImageResult;
+
+            
+            pbResult.Image = picture.Image;
         }
 
         private string GetImageFileNameByPosition()
@@ -67,37 +78,38 @@ namespace WebCamServiceSample
             {
                 case "front": _fileName = ".jpg"; break;
                 case "left": _fileName = "-left.jpg"; break;
-                case "right": _fileName ="-right.jpg"; break;
+                case "right": _fileName = "-right.jpg"; break;
                 case "back": _fileName = "-back.jpg"; break;
                 default: break;
             }
 
             _fileName = "image" + _fileName;
-            if (rdbITProfile.Checked != true) _fileName = "case-" + _fileName;            
+            if (rdbITProfile.Checked != true) _fileName = "case-" + _fileName;
             return _fileName;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-             try
-             {
+            try
+            {
                 string fileName = GetImageFileNameByPosition();
-                pbResult.Image.Save(fileName,ImageFormat.Jpeg);
+                pbResult.Image.Save(fileName, ImageFormat.Jpeg);
                 System.IO.FileInfo oFileInfo = new System.IO.FileInfo(fileName);
-                WebFileManager.FileUploadViaWebService(oFileInfo,this.UserId);
+                WebFileManager.FileUploadViaWebService(oFileInfo, this.UserId);
                 MessageBox.Show("Photo has been uploaded to the server.");
-           }
-             catch (Exception ex ) {
-                 MessageBox.Show(ex.Message);
-             };
-            
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            };
+
         }
- 
- 
 
- 
 
- 
+
+
+
+
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
@@ -143,16 +155,17 @@ namespace WebCamServiceSample
             btnLogOut.Enabled = false;
             btnLogin.Enabled = true;
             btnSave.Enabled = false;
-            txtUserName.Text= "";
+            txtUserName.Text = "";
             txtPassword.Text = "";
             this.UserId = "";
- 
- 
+
+
         }
-        private void enableUserNamePass(bool enable) {
+        private void enableUserNamePass(bool enable)
+        {
             txtUserName.Enabled = enable;
             txtPassword.Enabled = enable;
- 
+
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -164,6 +177,8 @@ namespace WebCamServiceSample
         private void Form1_Load(object sender, EventArgs e)
         {
             cbImagePosition.SelectedIndex = 0;
+            this.Show();
+            LoadCamera();
         }
 
  
@@ -175,13 +190,72 @@ namespace WebCamServiceSample
         }
 
 
+     
+
+
+        public void LoadCamera()
+        {
+            MotionImages _montionImages = new MotionImages(picture);
+
+            // Create the thread object, passing in the Alpha.Beta method
+            // via a ThreadStart delegate. This does not start the thread.
+            this.CameraThread = new Thread(new ThreadStart(_montionImages.Run));
+
+            try
+            {
+                // Start the thread
+                this.CameraThread.Start();
+
+                // Spin for a while waiting for the started thread to become
+                // alive:
+                while (!this.CameraThread.IsAlive) ;
+
+                // Put the Main thread to sleep for 1 millisecond to allow oThread
+                // to do some work:
+                Thread.Sleep(1);
+
+                // Request that oThread be stopped
+                // oThread.Abort();
+
+                // Wait until oThread finishes. Join also has overloads
+                // that take a millisecond interval or a TimeSpan object.
+                //this.CameraThread.Join();
+            }
+            catch (ThreadStateException ex)
+            {
+                Console.Write(ex);
+            }
+        }
+
+ 
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.CameraThread.Abort();
+        }
+
+     
+
+    }
+
+    public class MotionImages
+    {
+
+        public MotionImages(PictureBox PictureBox)
+        {
+            this.PictureBox = PictureBox;
+        }
+        public PictureBox PictureBox { get; set; }
+        public WebCamService.WebCamManager WebCam { get; set; }
+        // This method that will be called when the thread is started
+
         public Image CropImage(Bitmap bmpSource, int width, int height)
         {
             try
             {
                 Rectangle cropRect = new Rectangle(0, 0, width, height);
-             
-                
+
+
                 //resize
                 Bitmap _resizedImg = new Bitmap(width, height);
                 Graphics g = Graphics.FromImage(_resizedImg);
@@ -191,11 +265,11 @@ namespace WebCamServiceSample
                 //crop
 
 
-                Bitmap _CropImg = new Bitmap(270, height-10);
+                Bitmap _CropImg = new Bitmap(270, height - 10);
                 g = Graphics.FromImage(_CropImg);
                 g.DrawImage(_resizedImg, cropRect, new Rectangle(18, 10, width, height), GraphicsUnit.Pixel);
 
-                 return (Image)_CropImg;
+                return (Image)_CropImg;
             }
             catch (Exception ex)
             {
@@ -204,19 +278,30 @@ namespace WebCamServiceSample
             }
         }
 
- 
+        public void Run()
+        {
+            WebCam = new WebCamManager();
+        
+            while (true)
+            {
+                if (this.WebCam != null)
+                {
 
+                    byte[] _byteimg = WebCam.GrabFrame();
+                    
+                    if (_byteimg != null)
+                    {
+                        System.IO.MemoryStream st = new System.IO.MemoryStream(_byteimg);
+                        // picture.Image = System.Drawing.Image.FromStream(st);
+                        Image _img = System.Drawing.Image.FromStream(st);
+                       // PictureBox.Image = _img;
+
+                        PictureBox.Image =CropImage((Bitmap)_img, 310, 233);
+
+                    }
+                }
+              
+            }
+        }
     }
-
-
-
-
-
-
-
-
-       
-
-
-
 }
