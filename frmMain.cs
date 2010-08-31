@@ -43,25 +43,6 @@ namespace WebCamServiceSample
 
         public Thread CameraThread { get; set; }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-               // System.IO.MemoryStream st = new System.IO.MemoryStream(WebCam.GrabFrame());
-                //picture.Image = System.Drawing.Image.FromStream(st);
-                //Image _img = System.Drawing.Image.FromStream(st);
-
-
-                //picture.Image =CropImage((Bitmap)_img, 310, 233);
-
-                //picture.Image = _img;
-                //
-
-            }
-            catch (Exception)
-            {
-            }
-        }
 
         private void btnCapture_Click(object sender, EventArgs e)
         {
