@@ -16,14 +16,20 @@ namespace WebCamService
 
                 cam = WebCamLibrary.WebCam.NewWebCam();
             }
-            catch (Exception ex) {
-               
-            }
+            catch (Exception ) {}
         }
  
     public byte[] GrabFrame()
     {
-        return cam.GrabFrame();
+        try
+        {
+            return cam.GrabFrame();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return null;
+        }
     }
  
     public string[] GetConnectedCameras()
