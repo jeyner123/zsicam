@@ -22,6 +22,7 @@ namespace zsi.PhotoFingCapture.WebFileService {
     using System.Xml.Serialization;
     
     
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -41,7 +42,7 @@ namespace zsi.PhotoFingCapture.WebFileService {
         
         /// <remarks/>
         public WebFileManager() {
-            this.Url = global::zsi.PhotoFingCapture.Properties.Settings.Default.zsi_PhotoFingCapture_WebFileService_WebFileManager;
+            this.Url = zsi.PhotoFingCapture.Util.GetWebServiceURL;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

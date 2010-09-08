@@ -19,8 +19,9 @@ namespace WebFileService
             {
                 if (File.Exists(oFileInfo.FullName) == false) throw new Exception("No File found.");
 
-                //fm.Url = System.Configuration.ConfigurationSettings.AppSettings["WebFile_URI"];
-                fm.Url = zsi.PhotoFingCapture.Properties.Settings.Default["zsi.PhotoFingCapture_WebFileService_WebFileManager"].ToString();
+                fm.Url = System.Configuration.ConfigurationSettings.AppSettings["WebFile_URI"];
+                
+                //fm.Url = zsi.PhotoFingCapture.Properties.Settings.Default["zsi.PhotoFingCapture_WebFileService_WebFileManager"].ToString();
                 objFileStream = oFileInfo.Open(FileMode.Open, FileAccess.Read);
 
                 byte[] objFileByte = new Byte[objFileStream.Length];

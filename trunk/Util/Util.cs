@@ -2,11 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Xml;
 namespace zsi.PhotoFingCapture
 {
     public class Util
     {
+
+
+        public static string GetConfigFileName
+        {
+            get
+            {
+                return "zsi.PhotoFingCapture.exe.config";
+            }
+        }
+ 
+        public static string GetWebServiceURL
+        {
+            get
+            {
+
+                XmlDocument _doc;
+                XmlNode _node;
+                string AppConfigFile = Util.GetConfigFileName;
+                _doc = new XmlDocument();
+                _doc.Load(AppConfigFile);
+                XmlNodeList _nodes;
+                _nodes = _doc.SelectNodes("//applicationSettings");
+                _node = _nodes.Item(0).ChildNodes.Item(0).ChildNodes.Item(0).ChildNodes.Item(0);
+                return _node.InnerText;
+            }
+        }
+
+
         public static byte[] StreamToByte(System.IO.Stream stream)
         {
             long originalPosition = stream.Position;
