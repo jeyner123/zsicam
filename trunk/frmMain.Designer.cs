@@ -36,20 +36,34 @@ namespace WebCamServiceSample
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCapture = new System.Windows.Forms.Button();
-            this.cbImagePosition = new System.Windows.Forms.ComboBox();
-            this.rdbITProfile = new System.Windows.Forms.RadioButton();
-            this.rdbITCase = new System.Windows.Forms.RadioButton();
+            this.txtProfileNo = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblProfileName = new System.Windows.Forms.Label();
+            this.btnFind = new System.Windows.Forms.Button();
+            this.btnRegisterFP = new System.Windows.Forms.Button();
+            this.btnVerifyFP = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.tab = new System.Windows.Forms.TabControl();
+            this.tabPhoto = new System.Windows.Forms.TabPage();
             this.gbImageType = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.rdbITProfile = new System.Windows.Forms.RadioButton();
+            this.cbImagePosition = new System.Windows.Forms.ComboBox();
+            this.rdbITCase = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnCapture = new System.Windows.Forms.Button();
             this.pbResult = new System.Windows.Forms.PictureBox();
+            this.btnSave = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.PictureBox();
+            this.tabFingers = new System.Windows.Forms.TabPage();
             this.bgLogin.SuspendLayout();
+            this.tab.SuspendLayout();
+            this.tabPhoto.SuspendLayout();
             this.gbImageType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
+            this.tabFingers.SuspendLayout();
             this.SuspendLayout();
             // 
             // bgLogin
@@ -61,9 +75,9 @@ namespace WebCamServiceSample
             this.bgLogin.Controls.Add(this.txtUserName);
             this.bgLogin.Controls.Add(this.label1);
             this.bgLogin.Controls.Add(this.btnLogin);
-            this.bgLogin.Location = new System.Drawing.Point(28, 12);
+            this.bgLogin.Location = new System.Drawing.Point(519, 12);
             this.bgLogin.Name = "bgLogin";
-            this.bgLogin.Size = new System.Drawing.Size(424, 93);
+            this.bgLogin.Size = new System.Drawing.Size(221, 111);
             this.bgLogin.TabIndex = 13;
             this.bgLogin.TabStop = false;
             this.bgLogin.Text = "User Login";
@@ -71,9 +85,9 @@ namespace WebCamServiceSample
             // btnLogOut
             // 
             this.btnLogOut.Enabled = false;
-            this.btnLogOut.Location = new System.Drawing.Point(165, 59);
+            this.btnLogOut.Location = new System.Drawing.Point(147, 73);
             this.btnLogOut.Name = "btnLogOut";
-            this.btnLogOut.Size = new System.Drawing.Size(68, 23);
+            this.btnLogOut.Size = new System.Drawing.Size(54, 23);
             this.btnLogOut.TabIndex = 18;
             this.btnLogOut.Text = "Log Out";
             this.btnLogOut.UseVisualStyleBackColor = true;
@@ -81,7 +95,7 @@ namespace WebCamServiceSample
             // 
             // btnSettings
             // 
-            this.btnSettings.Location = new System.Drawing.Point(359, 59);
+            this.btnSettings.Location = new System.Drawing.Point(26, 73);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(59, 23);
             this.btnSettings.TabIndex = 16;
@@ -91,16 +105,16 @@ namespace WebCamServiceSample
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(248, 22);
+            this.txtPassword.Location = new System.Drawing.Point(90, 47);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(100, 20);
+            this.txtPassword.Size = new System.Drawing.Size(111, 20);
             this.txtPassword.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(196, 25);
+            this.label2.Location = new System.Drawing.Point(38, 50);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 16;
@@ -110,7 +124,7 @@ namespace WebCamServiceSample
             // 
             this.txtUserName.Location = new System.Drawing.Point(90, 21);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(100, 20);
+            this.txtUserName.Size = new System.Drawing.Size(111, 20);
             this.txtUserName.TabIndex = 0;
             // 
             // label1
@@ -124,35 +138,139 @@ namespace WebCamServiceSample
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(91, 59);
+            this.btnLogin.Location = new System.Drawing.Point(91, 73);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(68, 23);
+            this.btnLogin.Size = new System.Drawing.Size(54, 23);
             this.btnLogin.TabIndex = 2;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // btnSave
+            // txtProfileNo
             // 
-            this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(136, 59);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(68, 23);
-            this.btnSave.TabIndex = 14;
-            this.btnSave.Text = "Upload";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.txtProfileNo.Location = new System.Drawing.Point(168, 14);
+            this.txtProfileNo.Name = "txtProfileNo";
+            this.txtProfileNo.Size = new System.Drawing.Size(158, 20);
+            this.txtProfileNo.TabIndex = 23;
             // 
-            // btnCapture
+            // label5
             // 
-            this.btnCapture.Enabled = false;
-            this.btnCapture.Location = new System.Drawing.Point(30, 59);
-            this.btnCapture.Name = "btnCapture";
-            this.btnCapture.Size = new System.Drawing.Size(68, 23);
-            this.btnCapture.TabIndex = 15;
-            this.btnCapture.Text = "Capture";
-            this.btnCapture.UseVisualStyleBackColor = true;
-            this.btnCapture.Click += new System.EventHandler(this.btnCapture_Click);
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(23, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(87, 13);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Enter Profile No.:";
+            // 
+            // lblProfileName
+            // 
+            this.lblProfileName.AutoSize = true;
+            this.lblProfileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProfileName.Location = new System.Drawing.Point(164, 55);
+            this.lblProfileName.Name = "lblProfileName";
+            this.lblProfileName.Size = new System.Drawing.Size(14, 20);
+            this.lblProfileName.TabIndex = 25;
+            this.lblProfileName.Text = " ";
+            // 
+            // btnFind
+            // 
+            this.btnFind.Location = new System.Drawing.Point(332, 14);
+            this.btnFind.Name = "btnFind";
+            this.btnFind.Size = new System.Drawing.Size(45, 23);
+            this.btnFind.TabIndex = 26;
+            this.btnFind.Text = "Find";
+            this.btnFind.UseVisualStyleBackColor = true;
+            this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
+            // 
+            // btnRegisterFP
+            // 
+            this.btnRegisterFP.Location = new System.Drawing.Point(59, 27);
+            this.btnRegisterFP.Name = "btnRegisterFP";
+            this.btnRegisterFP.Size = new System.Drawing.Size(125, 23);
+            this.btnRegisterFP.TabIndex = 27;
+            this.btnRegisterFP.Text = "Register Finger Prints";
+            this.btnRegisterFP.UseVisualStyleBackColor = true;
+            this.btnRegisterFP.Click += new System.EventHandler(this.btnRegisterFP_Click);
+            // 
+            // btnVerifyFP
+            // 
+            this.btnVerifyFP.Location = new System.Drawing.Point(59, 56);
+            this.btnVerifyFP.Name = "btnVerifyFP";
+            this.btnVerifyFP.Size = new System.Drawing.Size(125, 23);
+            this.btnVerifyFP.TabIndex = 28;
+            this.btnVerifyFP.Text = "Verify Finger Prints";
+            this.btnVerifyFP.UseVisualStyleBackColor = true;
+            this.btnVerifyFP.Click += new System.EventHandler(this.btnVerifyFP_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(23, 55);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 13);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Profile Name:";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(59, 110);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 30;
+            this.button3.Text = "Test";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // tab
+            // 
+            this.tab.Controls.Add(this.tabPhoto);
+            this.tab.Controls.Add(this.tabFingers);
+            this.tab.Location = new System.Drawing.Point(26, 129);
+            this.tab.Name = "tab";
+            this.tab.SelectedIndex = 0;
+            this.tab.Size = new System.Drawing.Size(714, 391);
+            this.tab.TabIndex = 31;
+            // 
+            // tabPhoto
+            // 
+            this.tabPhoto.Controls.Add(this.gbImageType);
+            this.tabPhoto.Controls.Add(this.label4);
+            this.tabPhoto.Controls.Add(this.label3);
+            this.tabPhoto.Controls.Add(this.btnCapture);
+            this.tabPhoto.Controls.Add(this.pbResult);
+            this.tabPhoto.Controls.Add(this.btnSave);
+            this.tabPhoto.Controls.Add(this.picture);
+            this.tabPhoto.Location = new System.Drawing.Point(4, 22);
+            this.tabPhoto.Name = "tabPhoto";
+            this.tabPhoto.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPhoto.Size = new System.Drawing.Size(706, 365);
+            this.tabPhoto.TabIndex = 0;
+            this.tabPhoto.Text = "Photo Capture";
+            this.tabPhoto.UseVisualStyleBackColor = true;
+            // 
+            // gbImageType
+            // 
+            this.gbImageType.Controls.Add(this.rdbITProfile);
+            this.gbImageType.Controls.Add(this.cbImagePosition);
+            this.gbImageType.Controls.Add(this.rdbITCase);
+            this.gbImageType.Location = new System.Drawing.Point(14, 10);
+            this.gbImageType.Name = "gbImageType";
+            this.gbImageType.Size = new System.Drawing.Size(229, 62);
+            this.gbImageType.TabIndex = 27;
+            this.gbImageType.TabStop = false;
+            this.gbImageType.Text = "Image Type";
+            // 
+            // rdbITProfile
+            // 
+            this.rdbITProfile.AutoSize = true;
+            this.rdbITProfile.Checked = true;
+            this.rdbITProfile.Location = new System.Drawing.Point(10, 27);
+            this.rdbITProfile.Name = "rdbITProfile";
+            this.rdbITProfile.Size = new System.Drawing.Size(54, 17);
+            this.rdbITProfile.TabIndex = 18;
+            this.rdbITProfile.TabStop = true;
+            this.rdbITProfile.Text = "Profile";
+            this.rdbITProfile.UseVisualStyleBackColor = true;
             // 
             // cbImagePosition
             // 
@@ -168,18 +286,6 @@ namespace WebCamServiceSample
             this.cbImagePosition.Size = new System.Drawing.Size(59, 21);
             this.cbImagePosition.TabIndex = 17;
             // 
-            // rdbITProfile
-            // 
-            this.rdbITProfile.AutoSize = true;
-            this.rdbITProfile.Checked = true;
-            this.rdbITProfile.Location = new System.Drawing.Point(30, 25);
-            this.rdbITProfile.Name = "rdbITProfile";
-            this.rdbITProfile.Size = new System.Drawing.Size(54, 17);
-            this.rdbITProfile.TabIndex = 18;
-            this.rdbITProfile.TabStop = true;
-            this.rdbITProfile.Text = "Profile";
-            this.rdbITProfile.UseVisualStyleBackColor = true;
-            // 
             // rdbITCase
             // 
             this.rdbITCase.AutoSize = true;
@@ -190,82 +296,106 @@ namespace WebCamServiceSample
             this.rdbITCase.Text = "Case";
             this.rdbITCase.UseVisualStyleBackColor = true;
             // 
-            // gbImageType
+            // label4
             // 
-            this.gbImageType.Controls.Add(this.rdbITProfile);
-            this.gbImageType.Controls.Add(this.cbImagePosition);
-            this.gbImageType.Controls.Add(this.rdbITCase);
-            this.gbImageType.Controls.Add(this.btnCapture);
-            this.gbImageType.Controls.Add(this.btnSave);
-            this.gbImageType.Location = new System.Drawing.Point(458, 12);
-            this.gbImageType.Name = "gbImageType";
-            this.gbImageType.Size = new System.Drawing.Size(229, 93);
-            this.gbImageType.TabIndex = 20;
-            this.gbImageType.TabStop = false;
-            this.gbImageType.Text = "Image Type";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(350, 85);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Actual View:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(25, 118);
+            this.label3.Location = new System.Drawing.Point(12, 85);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 13);
-            this.label3.TabIndex = 21;
+            this.label3.TabIndex = 25;
             this.label3.Text = "Preview:";
             // 
-            // label4
+            // btnCapture
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(363, 118);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 13);
-            this.label4.TabIndex = 22;
-            this.label4.Text = "Actual View:";
+            this.btnCapture.Enabled = false;
+            this.btnCapture.Location = new System.Drawing.Point(258, 49);
+            this.btnCapture.Name = "btnCapture";
+            this.btnCapture.Size = new System.Drawing.Size(68, 23);
+            this.btnCapture.TabIndex = 15;
+            this.btnCapture.Text = "Capture";
+            this.btnCapture.UseVisualStyleBackColor = true;
             // 
             // pbResult
             // 
             this.pbResult.BackColor = System.Drawing.Color.White;
             this.pbResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbResult.Location = new System.Drawing.Point(367, 140);
+            this.pbResult.Location = new System.Drawing.Point(353, 107);
             this.pbResult.Name = "pbResult";
             this.pbResult.Size = new System.Drawing.Size(320, 240);
             this.pbResult.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbResult.TabIndex = 2;
+            this.pbResult.TabIndex = 24;
             this.pbResult.TabStop = false;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(258, 20);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(68, 23);
+            this.btnSave.TabIndex = 14;
+            this.btnSave.Text = "Upload";
+            this.btnSave.UseVisualStyleBackColor = true;
             // 
             // picture
             // 
             this.picture.BackColor = System.Drawing.Color.White;
             this.picture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picture.Location = new System.Drawing.Point(28, 140);
+            this.picture.Location = new System.Drawing.Point(15, 107);
             this.picture.Name = "picture";
             this.picture.Size = new System.Drawing.Size(320, 240);
             this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picture.TabIndex = 0;
+            this.picture.TabIndex = 23;
             this.picture.TabStop = false;
+            // 
+            // tabFingers
+            // 
+            this.tabFingers.Controls.Add(this.btnRegisterFP);
+            this.tabFingers.Controls.Add(this.button3);
+            this.tabFingers.Controls.Add(this.btnVerifyFP);
+            this.tabFingers.Location = new System.Drawing.Point(4, 22);
+            this.tabFingers.Name = "tabFingers";
+            this.tabFingers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFingers.Size = new System.Drawing.Size(706, 365);
+            this.tabFingers.TabIndex = 1;
+            this.tabFingers.Text = "Fingers Capture";
+            this.tabFingers.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(714, 401);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.gbImageType);
+            this.ClientSize = new System.Drawing.Size(756, 534);
+            this.Controls.Add(this.tab);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.btnFind);
+            this.Controls.Add(this.lblProfileName);
+            this.Controls.Add(this.txtProfileNo);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.bgLogin);
-            this.Controls.Add(this.pbResult);
-            this.Controls.Add(this.picture);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PhotoCapture 4.5.0 - Zetta Solutions, Inc.";
+            this.Text = "PhotoFingCapture 1.0.0 - Zetta Solutions, Inc.";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.bgLogin.ResumeLayout(false);
             this.bgLogin.PerformLayout();
+            this.tab.ResumeLayout(false);
+            this.tabPhoto.ResumeLayout(false);
+            this.tabPhoto.PerformLayout();
             this.gbImageType.ResumeLayout(false);
             this.gbImageType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
+            this.tabFingers.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,8 +403,6 @@ namespace WebCamServiceSample
 
         #endregion
 
-        private System.Windows.Forms.PictureBox picture;
-        private System.Windows.Forms.PictureBox pbResult;
         private System.Windows.Forms.GroupBox bgLogin;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label2;
@@ -282,15 +410,28 @@ namespace WebCamServiceSample
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnLogOut;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnCapture;
         private System.Windows.Forms.Button btnSettings;
-        private System.Windows.Forms.ComboBox cbImagePosition;
-        private System.Windows.Forms.RadioButton rdbITProfile;
-        private System.Windows.Forms.RadioButton rdbITCase;
+        private System.Windows.Forms.TextBox txtProfileNo;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblProfileName;
+        private System.Windows.Forms.Button btnFind;
+        private System.Windows.Forms.Button btnRegisterFP;
+        private System.Windows.Forms.Button btnVerifyFP;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TabControl tab;
+        private System.Windows.Forms.TabPage tabPhoto;
+        private System.Windows.Forms.TabPage tabFingers;
         private System.Windows.Forms.GroupBox gbImageType;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RadioButton rdbITProfile;
+        private System.Windows.Forms.ComboBox cbImagePosition;
+        private System.Windows.Forms.RadioButton rdbITCase;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnCapture;
+        private System.Windows.Forms.PictureBox pbResult;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.PictureBox picture;
     }
 }
 
