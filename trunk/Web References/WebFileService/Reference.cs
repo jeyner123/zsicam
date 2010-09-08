@@ -41,7 +41,7 @@ namespace PhotoFingCapture.WebFileService {
         
         /// <remarks/>
         public WebFileManager() {
-            this.Url = global::PhotoFingCapture.Properties.Settings.Default.ZSICam_WebFileService_WebFileManager;
+            this.Url = global::PhotoFingCapture.Properties.Settings.Default.PhotoFingCapture_WebFileService_WebFileManager;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
