@@ -12,7 +12,7 @@ namespace zsi.PhotoFingCapture
     {
         XmlDocument doc;
         XmlNode node;
-        string AppConfigFile = "zsi.PhotoFingCapture.exe.config";
+        string AppConfigFile = Util.GetConfigFileName;
 
         public frmSettings()
         {
