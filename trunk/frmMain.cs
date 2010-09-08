@@ -279,10 +279,17 @@ namespace WebCamServiceSample
         {
             zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
-            Stream _stream = this.FingersData.Templates[9].Serialize(_MemoryStream);
-            byte[] _byte = Util.StreamToByte(_stream);
+ 
+            DPFP.Template[] tmps = this.FingersData.Templates;
 
-            wf.UploadBiometricsData("18", "fingers-1.fpt", _byte);
+            for (int i = 0; i < tmps.Length; i++)
+            {
+
+                Stream _stream = this.FingersData.Templates[i].Serialize(_MemoryStream);
+                byte[] _byte = Util.StreamToByte(_stream);
+
+                wf.UploadBiometricsData(this.UserId, "fingers-" + i.ToString() + ".fpt", _byte);
+            }
         }
 
  
