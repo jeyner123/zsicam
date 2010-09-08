@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PhotoFingCapture.Properties {
+namespace zsi.PhotoFingCapture.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -27,12 +27,10 @@ namespace PhotoFingCapture.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:2593/webfileservices.asmx")]
-        public string PhotoFingCapture_WebFileService_WebFileManager {
+        public string zsi_PhotoFingCapture_WebFileService_WebFileManager {
             get {
-                return ((string)(this["PhotoFingCapture_WebFileService_WebFileManager"]));
+                return ((string)(this["zsi_PhotoFingCapture_WebFileService_WebFileManager"]));
             }
         }
-        
-  
     }
 }

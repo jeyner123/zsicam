@@ -107,12 +107,13 @@ namespace zsi.Biometrics {
 
     private void btnUploadData_Click(object sender, EventArgs e)
     {
-        PhotoFingCapture.WebFileService.WebFileManager wf = new PhotoFingCapture.WebFileService.WebFileManager();
-        System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
-        Stream _stream = Data.Templates[9].Serialize(_MemoryStream);
-        byte[] _byte = ReadToEnd(_stream);
+       
+        //zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+        //System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
+        //Stream _stream = Data.Templates[9].Serialize(_MemoryStream);
+        //byte[] _byte = zsi.PhotoFingCapture.Util.StreamToByte(_stream);
 
-        wf.UploadBiometricsData("18", "fingers-1.fpt", _byte);
+        //wf.UploadBiometricsData("18", "fingers-1.fpt", _byte);
     }
 
     private void MainForm_Load(object sender, EventArgs e)

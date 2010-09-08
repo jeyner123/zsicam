@@ -16,6 +16,7 @@ using System.Net;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using zsi.Biometrics;
+using zsi.PhotoFingCapture;
 namespace WebCamServiceSample
 {
 
@@ -113,7 +114,7 @@ namespace WebCamServiceSample
                     return;
                 }
                 btnLogin.Text = "Wait...";
-                PhotoFingCapture.WebFileService.WebFileManager fm = new PhotoFingCapture.WebFileService.WebFileManager();
+                zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
                 this.UserId = fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString();
                 if (int.Parse(this.UserId) < 1)
                 {
@@ -121,10 +122,7 @@ namespace WebCamServiceSample
                     btnLogin.Text = "Login";
                     return;
                 }
-                btnLogin.Enabled = false;
-                btnLogOut.Enabled = true;
-                btnCapture.Enabled = true;
-                enableUserNamePass(false);
+                EnableControls(true);
             }
             catch (Exception ex)
             {
@@ -139,29 +137,34 @@ namespace WebCamServiceSample
 
         }
 
+        void EnableControls(Boolean IsEnable){
+
+            btnCapture.Enabled = IsEnable;
+            btnLogOut.Enabled = IsEnable;
+            btnLogin.Enabled = (IsEnable == false ? true : false);
+            btnSave.Enabled = IsEnable;
+            txtUserName.Enabled = IsEnable;
+            txtPassword.Enabled = IsEnable;
+            btnUploadFG.Enabled = IsEnable;
+            btnRegisterFP.Enabled = IsEnable;
+            btnVerifyFP.Enabled = IsEnable;
+            btnFind.Enabled = IsEnable;
+            txtProfileNo.Enabled = IsEnable;
+
+        }
+
         private void btnLogOut_Click(object sender, EventArgs e)
         {
-            enableUserNamePass(true);
-            btnCapture.Enabled = false;
-            btnLogOut.Enabled = false;
-            btnLogin.Enabled = true;
-            btnSave.Enabled = false;
+            EnableControls(false);
             txtUserName.Text = "";
             txtPassword.Text = "";
             this.UserId = "";
-
-
         }
-        private void enableUserNamePass(bool enable)
-        {
-            txtUserName.Enabled = enable;
-            txtPassword.Enabled = enable;
-
-        }
+ 
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            PhotoFingCapture.frmSettings frmSettings = new PhotoFingCapture.frmSettings();
+            zsi.PhotoFingCapture.frmSettings frmSettings = new zsi.PhotoFingCapture.frmSettings();
             frmSettings.ShowDialog();
         }
 
@@ -227,7 +230,7 @@ namespace WebCamServiceSample
 
         private void btnFind_Click(object sender, EventArgs e)
         {
-            PhotoFingCapture.WebFileService.WebFileManager wfm = new PhotoFingCapture.WebFileService.WebFileManager();
+            zsi.PhotoFingCapture.WebFileService.WebFileManager wfm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             string _profileNo = this.txtProfileNo.Text.Trim() ;            
             try
             {
@@ -270,6 +273,16 @@ namespace WebCamServiceSample
             zsi.Biometrics.frmVerification _frmVerify = new frmVerification();
             _frmVerify.Show();
 
+        }
+
+        private void btnUploadFG_Click(object sender, EventArgs e)
+        {
+            zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+            System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
+            Stream _stream = this.FingersData.Templates[9].Serialize(_MemoryStream);
+            byte[] _byte = Util.StreamToByte(_stream);
+
+            wf.UploadBiometricsData("18", "fingers-1.fpt", _byte);
         }
 
  

@@ -6,13 +6,13 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
-namespace PhotoFingCapture
+namespace zsi.PhotoFingCapture
 {
     public partial class frmSettings : Form
     {
         XmlDocument doc;
         XmlNode node;
-        string AppConfigFile = "PhotoFingCapture.exe.config";
+        string AppConfigFile = "zsi.PhotoFingCapture.exe.config";
 
         public frmSettings()
         {
