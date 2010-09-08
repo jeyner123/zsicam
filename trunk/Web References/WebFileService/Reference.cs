@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace PhotoFingCapture.WebFileService {
+namespace zsi.PhotoFingCapture.WebFileService {
     using System.Diagnostics;
     using System.Web.Services;
     using System.ComponentModel;
@@ -41,7 +41,7 @@ namespace PhotoFingCapture.WebFileService {
         
         /// <remarks/>
         public WebFileManager() {
-            this.Url = global::PhotoFingCapture.Properties.Settings.Default.PhotoFingCapture_WebFileService_WebFileManager;
+            this.Url = global::zsi.PhotoFingCapture.Properties.Settings.Default.zsi_PhotoFingCapture_WebFileService_WebFileManager;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

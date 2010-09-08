@@ -1,4 +1,4 @@
-namespace PhotoFingCapture
+namespace zsi.PhotoFingCapture
 {
     partial class frmSettings
     {

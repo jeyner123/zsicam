@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoFingCapture", "PhotoFingCapture.csproj", "{ABFADCEE-4AA8-4F87-9221-6A5068E00C42}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zsi.PhotoFingCapture", "zsi.PhotoFingCapture.csproj", "{ABFADCEE-4AA8-4F87-9221-6A5068E00C42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

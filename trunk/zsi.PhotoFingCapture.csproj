@@ -7,8 +7,8 @@
     <ProjectGuid>{ABFADCEE-4AA8-4F87-9221-6A5068E00C42}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PhotoFingCapture</RootNamespace>
-    <AssemblyName>PhotoFingCapture</AssemblyName>
+    <RootNamespace>zsi.PhotoFingCapture</RootNamespace>
+    <AssemblyName>zsi.PhotoFingCapture</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ApplicationIcon>PhotoCapture.ico</ApplicationIcon>
     <FileUpgradeFlags>
@@ -159,9 +159,9 @@
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
       <SubType>
       </SubType>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Web References\WebFileService\WebFileServices.wsdl" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -169,17 +169,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Biometrics\VerificationForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Biometrics\VerificationForm.designer.cs">
       <DependentUpon>VerificationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Util\Util.cs" />
     <Compile Include="Web References\WebFileService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

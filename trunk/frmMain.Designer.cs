@@ -57,6 +57,7 @@ namespace WebCamServiceSample
             this.btnSave = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.PictureBox();
             this.tabFingers = new System.Windows.Forms.TabPage();
+            this.btnUploadFG = new System.Windows.Forms.Button();
             this.bgLogin.SuspendLayout();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
@@ -148,6 +149,7 @@ namespace WebCamServiceSample
             // 
             // txtProfileNo
             // 
+            this.txtProfileNo.Enabled = false;
             this.txtProfileNo.Location = new System.Drawing.Point(168, 14);
             this.txtProfileNo.Name = "txtProfileNo";
             this.txtProfileNo.Size = new System.Drawing.Size(158, 20);
@@ -174,9 +176,10 @@ namespace WebCamServiceSample
             // 
             // btnFind
             // 
+            this.btnFind.Enabled = false;
             this.btnFind.Location = new System.Drawing.Point(332, 14);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(45, 23);
+            this.btnFind.Size = new System.Drawing.Size(41, 21);
             this.btnFind.TabIndex = 26;
             this.btnFind.Text = "Find";
             this.btnFind.UseVisualStyleBackColor = true;
@@ -184,9 +187,10 @@ namespace WebCamServiceSample
             // 
             // btnRegisterFP
             // 
-            this.btnRegisterFP.Location = new System.Drawing.Point(59, 27);
+            this.btnRegisterFP.Enabled = false;
+            this.btnRegisterFP.Location = new System.Drawing.Point(220, 134);
             this.btnRegisterFP.Name = "btnRegisterFP";
-            this.btnRegisterFP.Size = new System.Drawing.Size(125, 23);
+            this.btnRegisterFP.Size = new System.Drawing.Size(139, 53);
             this.btnRegisterFP.TabIndex = 27;
             this.btnRegisterFP.Text = "Register Finger Prints";
             this.btnRegisterFP.UseVisualStyleBackColor = true;
@@ -194,9 +198,10 @@ namespace WebCamServiceSample
             // 
             // btnVerifyFP
             // 
-            this.btnVerifyFP.Location = new System.Drawing.Point(59, 56);
+            this.btnVerifyFP.Enabled = false;
+            this.btnVerifyFP.Location = new System.Drawing.Point(363, 134);
             this.btnVerifyFP.Name = "btnVerifyFP";
-            this.btnVerifyFP.Size = new System.Drawing.Size(125, 23);
+            this.btnVerifyFP.Size = new System.Drawing.Size(139, 53);
             this.btnVerifyFP.TabIndex = 28;
             this.btnVerifyFP.Text = "Verify Finger Prints";
             this.btnVerifyFP.UseVisualStyleBackColor = true;
@@ -213,12 +218,13 @@ namespace WebCamServiceSample
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(59, 110);
+            this.button3.Location = new System.Drawing.Point(24, 66);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 30;
             this.button3.Text = "Test";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // tab
@@ -358,6 +364,7 @@ namespace WebCamServiceSample
             // 
             // tabFingers
             // 
+            this.tabFingers.Controls.Add(this.btnUploadFG);
             this.tabFingers.Controls.Add(this.btnRegisterFP);
             this.tabFingers.Controls.Add(this.button3);
             this.tabFingers.Controls.Add(this.btnVerifyFP);
@@ -368,6 +375,17 @@ namespace WebCamServiceSample
             this.tabFingers.TabIndex = 1;
             this.tabFingers.Text = "Fingers Capture";
             this.tabFingers.UseVisualStyleBackColor = true;
+            // 
+            // btnUploadFG
+            // 
+            this.btnUploadFG.Enabled = false;
+            this.btnUploadFG.Location = new System.Drawing.Point(220, 66);
+            this.btnUploadFG.Name = "btnUploadFG";
+            this.btnUploadFG.Size = new System.Drawing.Size(68, 23);
+            this.btnUploadFG.TabIndex = 31;
+            this.btnUploadFG.Text = "Upload";
+            this.btnUploadFG.UseVisualStyleBackColor = true;
+            this.btnUploadFG.Click += new System.EventHandler(this.btnUploadFG_Click);
             // 
             // Form1
             // 
@@ -383,7 +401,7 @@ namespace WebCamServiceSample
             this.Controls.Add(this.bgLogin);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PhotoFingCapture 1.0.0 - Zetta Solutions, Inc.";
+            this.Text = "zsi.PhotoFingCapture 1.0.0 - Zetta Solutions, Inc.";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.bgLogin.ResumeLayout(false);
@@ -432,6 +450,7 @@ namespace WebCamServiceSample
         private System.Windows.Forms.PictureBox pbResult;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.PictureBox picture;
+        private System.Windows.Forms.Button btnUploadFG;
     }
 }
 
