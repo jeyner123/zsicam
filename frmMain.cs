@@ -15,6 +15,7 @@ using System.Threading;
 using System.Net;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using zsi.Biometrics;
 namespace WebCamServiceSample
 {
 
@@ -27,18 +28,27 @@ namespace WebCamServiceSample
             set { _UserId = value; }
             get { return _UserId; }
         }
+        public string ProfileNo{get;set;}
+
+        public FingersData FingersData { get; set; }
 
         public Form1()
         {
             try
             {
                 this.InitializeComponent();
-                //WebCam = new WebCamManager();
+                InitFingerPrintSettings();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void InitFingerPrintSettings(){
+            this.FingersData = new FingersData();	
+            this.FingersData.EnrolledFingersMask=0;
+            this.FingersData.MaxEnrollFingerCount=10;
+            this.FingersData.IsEventHandlerSucceeds=true;
         }
 
         public Thread CameraThread { get; set; }
@@ -103,7 +113,7 @@ namespace WebCamServiceSample
                     return;
                 }
                 btnLogin.Text = "Wait...";
-                PhotoCapture.WebFileService.WebFileManager fm = new PhotoCapture.WebFileService.WebFileManager();
+                PhotoFingCapture.WebFileService.WebFileManager fm = new PhotoFingCapture.WebFileService.WebFileManager();
                 this.UserId = fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString();
                 if (int.Parse(this.UserId) < 1)
                 {
@@ -151,7 +161,7 @@ namespace WebCamServiceSample
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            PhotoCapture.frmSettings frmSettings = new PhotoCapture.frmSettings();
+            PhotoFingCapture.frmSettings frmSettings = new PhotoFingCapture.frmSettings();
             frmSettings.ShowDialog();
         }
 
@@ -214,6 +224,55 @@ namespace WebCamServiceSample
         {
             this.CameraThread.Abort();
         }
+
+        private void btnFind_Click(object sender, EventArgs e)
+        {
+            PhotoFingCapture.WebFileService.WebFileManager wfm = new PhotoFingCapture.WebFileService.WebFileManager();
+            string _profileNo = this.txtProfileNo.Text.Trim() ;            
+            try
+            {
+                if(_profileNo.Length<13) throw new Exception();
+                Int64.Parse(_profileNo);
+                             
+            }
+            catch{
+                MessageBox.Show("Please enter 13 digit numbers.");
+                return;
+            }
+          
+            string _result = wfm.GetProfileInfo(this.UserId, _profileNo);
+            if (string.IsNullOrEmpty(_result) == false)
+            {
+                lblProfileName.Text = _result;
+                this.ProfileNo = this.txtProfileNo.Text.Trim();
+            }
+            else {
+                lblProfileName.Text  ="Profile Not found";
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.MainForm mf = new zsi.Biometrics.MainForm();
+            mf.Show();
+        }
+
+        private void btnRegisterFP_Click(object sender, EventArgs e)
+        {
+ 
+            zsi.Biometrics.frmRegisterFP _frmRegFP = new frmRegisterFP(this.FingersData);
+            _frmRegFP.Show();
+
+        }
+
+        private void btnVerifyFP_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmVerification _frmVerify = new frmVerification();
+            _frmVerify.Show();
+
+        }
+
+ 
 
      
 

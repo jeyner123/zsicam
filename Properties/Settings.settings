@@ -1,9 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PhotoCapture.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PhotoFingCapture.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="PhotoCapture_WebFileService_WebFileManager" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://www.zetta-solutions.net/pnp/WebFileServices.asmx</Value>
+    <Setting Name="PhotoFingCapture_WebFileService_WebFileManager" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:2593/webfileservices.asmx</Value>
+    </Setting>
+    <Setting Name="ZSICam_WebFileService_WebFileManager" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:2593/WebFileServices.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

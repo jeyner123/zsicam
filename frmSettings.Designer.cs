@@ -1,4 +1,4 @@
-namespace PhotoCapture
+namespace PhotoFingCapture
 {
     partial class frmSettings
     {
