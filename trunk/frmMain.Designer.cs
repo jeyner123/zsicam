@@ -101,7 +101,7 @@ namespace zsi.PhotoFingCapture
             // btnRegisterFP
             // 
             this.btnRegisterFP.Enabled = false;
-            this.btnRegisterFP.Location = new System.Drawing.Point(220, 134);
+            this.btnRegisterFP.Location = new System.Drawing.Point(220, 188);
             this.btnRegisterFP.Name = "btnRegisterFP";
             this.btnRegisterFP.Size = new System.Drawing.Size(139, 53);
             this.btnRegisterFP.TabIndex = 27;
@@ -112,7 +112,7 @@ namespace zsi.PhotoFingCapture
             // btnVerifyFP
             // 
             this.btnVerifyFP.Enabled = false;
-            this.btnVerifyFP.Location = new System.Drawing.Point(363, 134);
+            this.btnVerifyFP.Location = new System.Drawing.Point(363, 188);
             this.btnVerifyFP.Name = "btnVerifyFP";
             this.btnVerifyFP.Size = new System.Drawing.Size(139, 53);
             this.btnVerifyFP.TabIndex = 28;
