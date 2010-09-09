@@ -114,24 +114,9 @@ namespace zsi.PhotoFingCapture
             zsi.PhotoFingCapture.frmSettings frmSettings = new zsi.PhotoFingCapture.frmSettings();
             frmSettings.ShowDialog();
         }
-  
-
- 
-        private Image ByteArrayToImage(byte[] byteArrayIn)
-        {
-            MemoryStream ms = new MemoryStream(byteArrayIn);
-            Image returnImage = Image.FromStream(ms);
-            return returnImage;
-        }
-
-
-     
-
-
         public void LoadCamera()
         {
             MotionImages _montionImages = new MotionImages(picture);
-
             // Create the thread object, passing in the Alpha.Beta method
             // via a ThreadStart delegate. This does not start the thread.
             this.CameraThread = new Thread(new ThreadStart(_montionImages.Run));
@@ -161,9 +146,6 @@ namespace zsi.PhotoFingCapture
                 Console.Write(ex);
             }
         }
-
- 
- 
 
         private void btnFind_Click(object sender, EventArgs e)
         {

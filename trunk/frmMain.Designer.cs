@@ -81,7 +81,7 @@ namespace zsi.PhotoFingCapture
             // 
             this.lblProfileName.AutoSize = true;
             this.lblProfileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProfileName.Location = new System.Drawing.Point(164, 55);
+            this.lblProfileName.Location = new System.Drawing.Point(169, 48);
             this.lblProfileName.Name = "lblProfileName";
             this.lblProfileName.Size = new System.Drawing.Size(14, 20);
             this.lblProfileName.TabIndex = 25;
@@ -123,7 +123,7 @@ namespace zsi.PhotoFingCapture
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(23, 55);
+            this.label6.Location = new System.Drawing.Point(23, 48);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 29;
@@ -303,7 +303,7 @@ namespace zsi.PhotoFingCapture
             // btnLogOut
             // 
             this.btnLogOut.Enabled = false;
-            this.btnLogOut.Location = new System.Drawing.Point(682, 4);
+            this.btnLogOut.Location = new System.Drawing.Point(681, 13);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Size = new System.Drawing.Size(54, 23);
             this.btnLogOut.TabIndex = 35;
@@ -313,7 +313,7 @@ namespace zsi.PhotoFingCapture
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(615, 4);
+            this.btnLogin.Location = new System.Drawing.Point(614, 13);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(68, 23);
             this.btnLogin.TabIndex = 34;
@@ -325,7 +325,7 @@ namespace zsi.PhotoFingCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(756, 534);
+            this.ClientSize = new System.Drawing.Size(756, 485);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.tab);

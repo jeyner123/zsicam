@@ -4,10 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Drawing;
+using System.IO;
 namespace zsi.PhotoFingCapture
 {
     public class Util
     {
+
+        public Image ByteArrayToImage(byte[] byteArrayIn)
+        {
+            MemoryStream ms = new MemoryStream(byteArrayIn);
+            Image returnImage = Image.FromStream(ms);
+            return returnImage;
+        }
 
         public static Image CropImage(Bitmap bmpSource, int width, int height)
         {
