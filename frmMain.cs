@@ -7,9 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-using System.IO;
- 
-using WebFileService;
+using System.IO; 
+
 using System.Web;
 using System.Threading;
 using System.Net;
@@ -18,26 +17,22 @@ using System.Drawing.Imaging;
 using zsi.Biometrics;
 using zsi.PhotoFingCapture;
 using zsi.WebCamServices;
+using zsi.WebFileService;
 namespace zsi.PhotoFingCapture
 {
 
     public partial class frmMain : Form
     {
-        private static string _UserId;
-        public string UserId
-        {
-            set { _UserId = value; }
-            get { return _UserId; }
-        }
+        public string UserId { get; set; }
         public string ProfileNo{get;set;}
         public FingersData FingersData { get; set; }
-        public Thread CameraThread { get; set; }
-
+        private WebCamera WebCam { get; set; }
         public frmMain()
         {
             try
             {
                 this.InitializeComponent();
+                this.WebCam = new WebCamera(this.picture);
                 InitFingerPrintSettings();
             }
             catch (Exception ex)
@@ -114,39 +109,6 @@ namespace zsi.PhotoFingCapture
             zsi.PhotoFingCapture.frmSettings frmSettings = new zsi.PhotoFingCapture.frmSettings();
             frmSettings.ShowDialog();
         }
-        public void LoadCamera()
-        {
-            MotionImages _montionImages = new MotionImages(picture);
-            // Create the thread object, passing in the Alpha.Beta method
-            // via a ThreadStart delegate. This does not start the thread.
-            this.CameraThread = new Thread(new ThreadStart(_montionImages.Run));
-
-            try
-            {
-                // Start the thread
-                this.CameraThread.Start();
-
-                // Spin for a while waiting for the started thread to become
-                // alive:
-                while (!this.CameraThread.IsAlive) ;
-
-                // Put the Main thread to sleep for 1 millisecond to allow oThread
-                // to do some work:
-                Thread.Sleep(1);
-
-                // Request that oThread be stopped
-                // oThread.Abort();
-
-                // Wait until oThread finishes. Join also has overloads
-                // that take a millisecond interval or a TimeSpan object.
-                //this.CameraThread.Join();
-            }
-            catch (ThreadStateException ex)
-            {
-                Console.Write(ex);
-            }
-        }
-
         private void btnFind_Click(object sender, EventArgs e)
         {
             zsi.PhotoFingCapture.WebFileService.WebFileManager wfm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
@@ -172,13 +134,11 @@ namespace zsi.PhotoFingCapture
                 lblProfileName.Text  ="Profile Not found";
             }
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             zsi.Biometrics.MainForm mf = new zsi.Biometrics.MainForm();
             mf.Show();
         }
-
         private void btnRegisterFP_Click(object sender, EventArgs e)
         {
  
@@ -186,14 +146,12 @@ namespace zsi.PhotoFingCapture
             _frmRegFP.Show();
 
         }
-
         private void btnVerifyFP_Click(object sender, EventArgs e)
         {
             zsi.Biometrics.frmVerification _frmVerify = new frmVerification();
             _frmVerify.Show();
 
         }
-
         private void btnUploadFG_Click(object sender, EventArgs e)
         {
             zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
@@ -210,24 +168,21 @@ namespace zsi.PhotoFingCapture
                 wf.UploadBiometricsData(this.UserId, "fingers-" + i.ToString() + ".fpt", _byte);
             }
         }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
             frmLogin _frmLogin = new frmLogin(this);
 
             _frmLogin.ShowDialog();
         }
-
         private void frmMain_Load(object sender, EventArgs e)
         {
             cbImagePosition.SelectedIndex = 0;
             this.Show();
-            LoadCamera();
+            WebCam.Show();
         }
-
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.CameraThread.Abort();
+            WebCam.Close();
         }
 
     }

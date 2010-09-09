@@ -47,12 +47,12 @@ namespace zsi.PhotoFingCapture
             {
                 EnableControls(true);
                 btnLogin.Text = "Login";
+                this.Close();
             }
         }
 
         private void EnableControls(Boolean IsEnable)
         {
-            btnLogin.Enabled = (IsEnable == false ? true : false);
             txtUserName.Enabled = IsEnable;
             txtPassword.Enabled = IsEnable;
             this.ParentForm.EnableControls(IsEnable);

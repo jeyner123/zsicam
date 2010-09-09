@@ -44,6 +44,7 @@
             this.btnSettings.TabIndex = 16;
             this.btnSettings.Text = "Settings";
             this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Visible = false;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // txtPassword
