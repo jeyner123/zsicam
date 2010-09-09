@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Configuration;
 
-namespace WebFileService
+namespace zsi.WebFileService
 {
     public class WebFileManager
     {
