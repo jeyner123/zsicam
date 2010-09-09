@@ -48,7 +48,6 @@ namespace zsi.PhotoFingCapture
         }
         private void btnCapture_Click(object sender, EventArgs e)
         {
-
             
             pbResult.Image = picture.Image;
         }
@@ -65,30 +64,14 @@ namespace zsi.PhotoFingCapture
                 default: break;
             }
 
-            _fileName = "image" + _fileName;
+            _fileName = this.ProfileNo + _fileName;
             if (rdbITProfile.Checked != true) _fileName = "case-" + _fileName;
             return _fileName;
         }
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string fileName = GetImageFileNameByPosition();
-                pbResult.Image.Save(fileName, ImageFormat.Jpeg);
-                System.IO.FileInfo oFileInfo = new System.IO.FileInfo(fileName);
-                WebFileManager.FileUploadViaWebService(oFileInfo, this.UserId);
-                MessageBox.Show("Photo has been uploaded to the server.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            };
-
-        }
+ 
         public void EnableControls(Boolean IsEnable)
         {
             btnCapture.Enabled = IsEnable;
-            btnSave.Enabled = IsEnable;
             btnUploadFG.Enabled = IsEnable;
             btnRegisterFP.Enabled = IsEnable;
             btnVerifyFP.Enabled = IsEnable;
@@ -100,9 +83,9 @@ namespace zsi.PhotoFingCapture
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             EnableControls(false);
-            //txtUserName.Text = "";
-            //txtPassword.Text = "";
+            btnUploadPhoto.Enabled = false;
             this.UserId = "";
+
         }
         private void btnSettings_Click(object sender, EventArgs e)
         {
@@ -129,6 +112,7 @@ namespace zsi.PhotoFingCapture
             {
                 lblProfileName.Text = _result;
                 this.ProfileNo = this.txtProfileNo.Text.Trim();
+                this.btnUploadPhoto.Enabled = true;
             }
             else {
                 lblProfileName.Text  ="Profile Not found";
@@ -183,6 +167,35 @@ namespace zsi.PhotoFingCapture
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             WebCam.Close();
+        }
+
+        private void btnUploadPhoto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (pbResult.Image == null) {
+                    MessageBox.Show("Sorry, No photo has been captured.");
+                    return;
+                }
+
+                btnUploadPhoto.Text = "Uploading...";
+                btnUploadPhoto.Enabled = false;
+                string fileName = GetImageFileNameByPosition();
+                pbResult.Image.Save(fileName, ImageFormat.Jpeg);
+                System.IO.FileInfo oFileInfo = new System.IO.FileInfo(fileName);
+                WebFileManager.FileUploadViaWebService(oFileInfo, this.UserId);
+                MessageBox.Show("Photo has been uploaded to the server.");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally{
+                btnUploadPhoto.Text = "Upload";
+                btnUploadPhoto.Enabled = true;
+            }
         }
 
     }
