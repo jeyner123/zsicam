@@ -1,6 +1,6 @@
-namespace WebCamServiceSample
+namespace zsi.PhotoFingCapture
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,6 @@ namespace WebCamServiceSample
         /// </summary>
         private void InitializeComponent()
         {
-            this.bgLogin = new System.Windows.Forms.GroupBox();
-            this.btnLogOut = new System.Windows.Forms.Button();
-            this.btnSettings = new System.Windows.Forms.Button();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtUserName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnLogin = new System.Windows.Forms.Button();
             this.txtProfileNo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.lblProfileName = new System.Windows.Forms.Label();
@@ -58,7 +50,8 @@ namespace WebCamServiceSample
             this.picture = new System.Windows.Forms.PictureBox();
             this.tabFingers = new System.Windows.Forms.TabPage();
             this.btnUploadFG = new System.Windows.Forms.Button();
-            this.bgLogin.SuspendLayout();
+            this.btnLogOut = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             this.gbImageType.SuspendLayout();
@@ -66,86 +59,6 @@ namespace WebCamServiceSample
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.tabFingers.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // bgLogin
-            // 
-            this.bgLogin.Controls.Add(this.btnLogOut);
-            this.bgLogin.Controls.Add(this.btnSettings);
-            this.bgLogin.Controls.Add(this.txtPassword);
-            this.bgLogin.Controls.Add(this.label2);
-            this.bgLogin.Controls.Add(this.txtUserName);
-            this.bgLogin.Controls.Add(this.label1);
-            this.bgLogin.Controls.Add(this.btnLogin);
-            this.bgLogin.Location = new System.Drawing.Point(519, 12);
-            this.bgLogin.Name = "bgLogin";
-            this.bgLogin.Size = new System.Drawing.Size(221, 111);
-            this.bgLogin.TabIndex = 13;
-            this.bgLogin.TabStop = false;
-            this.bgLogin.Text = "User Login";
-            // 
-            // btnLogOut
-            // 
-            this.btnLogOut.Enabled = false;
-            this.btnLogOut.Location = new System.Drawing.Point(147, 73);
-            this.btnLogOut.Name = "btnLogOut";
-            this.btnLogOut.Size = new System.Drawing.Size(54, 23);
-            this.btnLogOut.TabIndex = 18;
-            this.btnLogOut.Text = "Log Out";
-            this.btnLogOut.UseVisualStyleBackColor = true;
-            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Location = new System.Drawing.Point(26, 73);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(59, 23);
-            this.btnSettings.TabIndex = 16;
-            this.btnSettings.Text = "Settings";
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(90, 47);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(111, 20);
-            this.txtPassword.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Password";
-            // 
-            // txtUserName
-            // 
-            this.txtUserName.Location = new System.Drawing.Point(90, 21);
-            this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(111, 20);
-            this.txtUserName.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "User Name";
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.Location = new System.Drawing.Point(91, 73);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(54, 23);
-            this.btnLogin.TabIndex = 2;
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // txtProfileNo
             // 
@@ -231,7 +144,7 @@ namespace WebCamServiceSample
             // 
             this.tab.Controls.Add(this.tabPhoto);
             this.tab.Controls.Add(this.tabFingers);
-            this.tab.Location = new System.Drawing.Point(26, 129);
+            this.tab.Location = new System.Drawing.Point(26, 78);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
             this.tab.Size = new System.Drawing.Size(714, 391);
@@ -387,25 +300,45 @@ namespace WebCamServiceSample
             this.btnUploadFG.UseVisualStyleBackColor = true;
             this.btnUploadFG.Click += new System.EventHandler(this.btnUploadFG_Click);
             // 
-            // Form1
+            // btnLogOut
+            // 
+            this.btnLogOut.Enabled = false;
+            this.btnLogOut.Location = new System.Drawing.Point(682, 4);
+            this.btnLogOut.Name = "btnLogOut";
+            this.btnLogOut.Size = new System.Drawing.Size(54, 23);
+            this.btnLogOut.TabIndex = 35;
+            this.btnLogOut.Text = "Log Out";
+            this.btnLogOut.UseVisualStyleBackColor = true;
+            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Location = new System.Drawing.Point(615, 4);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(68, 23);
+            this.btnLogin.TabIndex = 34;
+            this.btnLogin.Text = "Log-in";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(756, 534);
+            this.Controls.Add(this.btnLogOut);
+            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.tab);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnFind);
             this.Controls.Add(this.lblProfileName);
             this.Controls.Add(this.txtProfileNo);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.bgLogin);
-            this.Name = "Form1";
+            this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PhotoFingCapture 1.0.0 - Zetta Solutions, Inc.";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.bgLogin.ResumeLayout(false);
-            this.bgLogin.PerformLayout();
+            this.Load += new System.EventHandler(this.frmMain_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.tab.ResumeLayout(false);
             this.tabPhoto.ResumeLayout(false);
             this.tabPhoto.PerformLayout();
@@ -421,14 +354,6 @@ namespace WebCamServiceSample
 
         #endregion
 
-        private System.Windows.Forms.GroupBox bgLogin;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtUserName;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.Button btnLogOut;
-        private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.TextBox txtProfileNo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblProfileName;
@@ -451,6 +376,8 @@ namespace WebCamServiceSample
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.PictureBox picture;
         private System.Windows.Forms.Button btnUploadFG;
+        private System.Windows.Forms.Button btnLogOut;
+        private System.Windows.Forms.Button btnLogin;
     }
 }
 

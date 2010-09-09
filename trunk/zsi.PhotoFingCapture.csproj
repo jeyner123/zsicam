@@ -109,6 +109,12 @@
     <Compile Include="Biometrics\frmVerification.Designer.cs">
       <DependentUpon>frmVerification.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogin.designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +144,9 @@
     <EmbeddedResource Include="Biometrics\frmVerification.resx">
       <DependentUpon>frmVerification.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -166,9 +175,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="WebCamService.cs">
+    <Compile Include="WebCamServices\WebCamService.cs">
     </Compile>
-    <Compile Include="WebFileService.cs" />
+    <Compile Include="WebCamServices\MotionImages.cs" />
+    <Compile Include="WebServices\WebFileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />

@@ -3,11 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.Drawing;
 namespace zsi.PhotoFingCapture
 {
     public class Util
     {
 
+        public static Image CropImage(Bitmap bmpSource, int width, int height)
+        {
+            try
+            {
+                Rectangle cropRect = new Rectangle(0, 0, width, height);
+
+
+                //resize
+                Bitmap _resizedImg = new Bitmap(width, height);
+                Graphics g = Graphics.FromImage(_resizedImg);
+                g.DrawImage(bmpSource, cropRect, new Rectangle(0, 0, bmpSource.Width, bmpSource.Height), GraphicsUnit.Pixel);
+
+                //crop
+                Bitmap _CropImg = new Bitmap(270, height - 10);
+                g = Graphics.FromImage(_CropImg);
+                g.DrawImage(_resizedImg, cropRect, new Rectangle(18, 10, width, height), GraphicsUnit.Pixel);
+
+                return (Image)_CropImg;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public static string GetConfigFileName
         {
