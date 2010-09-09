@@ -46,7 +46,7 @@ namespace zsi.PhotoFingCapture
             this.label3 = new System.Windows.Forms.Label();
             this.btnCapture = new System.Windows.Forms.Button();
             this.pbResult = new System.Windows.Forms.PictureBox();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnUploadPhoto = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.PictureBox();
             this.tabFingers = new System.Windows.Forms.TabPage();
             this.btnUploadFG = new System.Windows.Forms.Button();
@@ -157,7 +157,7 @@ namespace zsi.PhotoFingCapture
             this.tabPhoto.Controls.Add(this.label3);
             this.tabPhoto.Controls.Add(this.btnCapture);
             this.tabPhoto.Controls.Add(this.pbResult);
-            this.tabPhoto.Controls.Add(this.btnSave);
+            this.tabPhoto.Controls.Add(this.btnUploadPhoto);
             this.tabPhoto.Controls.Add(this.picture);
             this.tabPhoto.Location = new System.Drawing.Point(4, 22);
             this.tabPhoto.Name = "tabPhoto";
@@ -236,12 +236,13 @@ namespace zsi.PhotoFingCapture
             // btnCapture
             // 
             this.btnCapture.Enabled = false;
-            this.btnCapture.Location = new System.Drawing.Point(258, 49);
+            this.btnCapture.Location = new System.Drawing.Point(258, 75);
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Size = new System.Drawing.Size(68, 23);
             this.btnCapture.TabIndex = 15;
             this.btnCapture.Text = "Capture";
             this.btnCapture.UseVisualStyleBackColor = true;
+            this.btnCapture.Click += new System.EventHandler(this.btnCapture_Click);
             // 
             // pbResult
             // 
@@ -254,15 +255,16 @@ namespace zsi.PhotoFingCapture
             this.pbResult.TabIndex = 24;
             this.pbResult.TabStop = false;
             // 
-            // btnSave
+            // btnUploadPhoto
             // 
-            this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(258, 20);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(68, 23);
-            this.btnSave.TabIndex = 14;
-            this.btnSave.Text = "Upload";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnUploadPhoto.Enabled = false;
+            this.btnUploadPhoto.Location = new System.Drawing.Point(605, 75);
+            this.btnUploadPhoto.Name = "btnUploadPhoto";
+            this.btnUploadPhoto.Size = new System.Drawing.Size(68, 23);
+            this.btnUploadPhoto.TabIndex = 14;
+            this.btnUploadPhoto.Text = "Upload";
+            this.btnUploadPhoto.UseVisualStyleBackColor = true;
+            this.btnUploadPhoto.Click += new System.EventHandler(this.btnUploadPhoto_Click);
             // 
             // picture
             // 
@@ -373,7 +375,7 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCapture;
         private System.Windows.Forms.PictureBox pbResult;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnUploadPhoto;
         private System.Windows.Forms.PictureBox picture;
         private System.Windows.Forms.Button btnUploadFG;
         private System.Windows.Forms.Button btnLogOut;

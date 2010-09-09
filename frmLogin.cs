@@ -38,16 +38,13 @@ namespace zsi.PhotoFingCapture
                     btnLogin.Text = "Login";
                     return;
                 }
+                EnableControls(true);
+                btnLogin.Text = "Login";
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                EnableControls(true);
-                btnLogin.Text = "Login";
-                this.Close();
             }
         }
 
