@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace WebCamServiceSample
+namespace zsi.PhotoFingCapture
 {
     static class Program
     {
@@ -14,7 +14,7 @@ namespace WebCamServiceSample
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new frmMain());
         }
     }
 }
