@@ -169,6 +169,11 @@
     <Compile Include="Biometrics\VerificationForm.designer.cs">
       <DependentUpon>VerificationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Util\Util.cs" />
     <Compile Include="Web References\WebFileService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -212,6 +217,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PhotoCapture.ico" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Web References\WebFileService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -219,10 +228,10 @@
     <None Include="Web References\WebFileService\WebFileServices.disco" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:2593/WebFileServices.asmx">
+    <WebReferenceUrl Include="http://www.zetta-solutions.net/phgovdemo/WebFileServices.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\WebFileService\</RelPath>
-      <UpdateFromURL>http://localhost:2593/WebFileServices.asmx</UpdateFromURL>
+      <UpdateFromURL>http://www.zetta-solutions.net/phgovdemo/WebFileServices.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
