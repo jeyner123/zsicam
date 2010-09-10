@@ -91,12 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Biometrics\FingersData.cs" />
-    <Compile Include="Biometrics\EnrollmentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Biometrics\EnrollmentForm.designer.cs">
-      <DependentUpon>EnrollmentForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Biometrics\frmRegisterFP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,17 +121,8 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Biometrics\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Biometrics\MainForm.designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Biometrics\EnrollmentForm.resx">
-      <DependentUpon>EnrollmentForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Biometrics\frmRegisterFP.resx">
       <DependentUpon>frmRegisterFP.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,20 +140,8 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Biometrics\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Biometrics\VerificationForm.resx">
-      <DependentUpon>VerificationForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Web References\WebFileService\WebFileServices.wsdl" />
-    <Compile Include="Biometrics\VerificationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Biometrics\VerificationForm.designer.cs">
-      <DependentUpon>VerificationForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

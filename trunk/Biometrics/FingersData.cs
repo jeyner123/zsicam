@@ -4,13 +4,10 @@ using System.Text;
 
 namespace zsi.Biometrics
 {
-	public delegate void OnChangeHandler();
-    
-	
+	public delegate void OnChangeHandler();	
 	public class FingersData
     {
-        public event OnChangeHandler DataChanged; 
-		
+        public event OnChangeHandler DataChanged; 		
         public const int MaxFingers = 10;
 		// shared data
         public int EnrolledFingersMask = 0;
@@ -21,14 +18,6 @@ namespace zsi.Biometrics
 		
         public DPFP.Template[] Templates = new DPFP.Template[MaxFingers];
 
-		// data change notification
-        public void Update()
-        {
-            if (DataChanged != null)
-            {
-                this.DataChanged();
-            }
-        }
 
         public static void SyncData(bool IsDataFromControl,DPFP.Gui.Enrollment.EnrollmentControl EnrollmentControl,FingersData Data)
         {

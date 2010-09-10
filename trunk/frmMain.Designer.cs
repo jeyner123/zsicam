@@ -35,7 +35,6 @@ namespace zsi.PhotoFingCapture
             this.btnRegisterFP = new System.Windows.Forms.Button();
             this.btnVerifyFP = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.tab = new System.Windows.Forms.TabControl();
             this.tabPhoto = new System.Windows.Forms.TabPage();
             this.gbImageType = new System.Windows.Forms.GroupBox();
@@ -128,17 +127,6 @@ namespace zsi.PhotoFingCapture
             this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 29;
             this.label6.Text = "Profile Name:";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(24, 66);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 30;
-            this.button3.Text = "Test";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // tab
             // 
@@ -281,7 +269,6 @@ namespace zsi.PhotoFingCapture
             // 
             this.tabFingers.Controls.Add(this.btnUploadFG);
             this.tabFingers.Controls.Add(this.btnRegisterFP);
-            this.tabFingers.Controls.Add(this.button3);
             this.tabFingers.Controls.Add(this.btnVerifyFP);
             this.tabFingers.Location = new System.Drawing.Point(4, 22);
             this.tabFingers.Name = "tabFingers";
@@ -366,7 +353,6 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Button btnRegisterFP;
         private System.Windows.Forms.Button btnVerifyFP;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TabControl tab;
         private System.Windows.Forms.TabPage tabPhoto;
         private System.Windows.Forms.TabPage tabFingers;

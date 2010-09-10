@@ -131,11 +131,7 @@ namespace zsi.PhotoFingCapture
             }
             OnFingersDataChange();
         }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            zsi.Biometrics.MainForm mf = new zsi.Biometrics.MainForm();
-            mf.Show();
-        }
+ 
         private void btnRegisterFP_Click(object sender, EventArgs e)
         {
  
