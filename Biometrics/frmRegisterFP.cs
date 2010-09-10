@@ -27,6 +27,7 @@ namespace zsi.Biometrics
     public void EnrollmentControl_OnEnroll(Object Control, int Finger, DPFP.Template Template, ref DPFP.Gui.EventHandlerStatus Status) {
         if (FingersData.IsEventHandlerSucceeds)
         {
+            MessageBox.Show((Finger - 1).ToString());
             this.FingersData.Templates[Finger - 1] = Template;		    // store a finger template
             FingersData.SyncData(true, this.EnrollmentControl, this.FingersData);
 

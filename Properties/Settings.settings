@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="zsi.PhotoFingCapture.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WebFile_URI" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:2593/webfileservices.asmx</Value>
+    </Setting>
+    <Setting Name="ZSICam_WebFileService_WebFileManager" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://www.zetta-solutions.net/phgovdemo/WebFileServices.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
