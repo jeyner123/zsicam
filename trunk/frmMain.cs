@@ -8,11 +8,6 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 using System.IO; 
-
-using System.Web;
-using System.Threading;
-using System.Net;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using zsi.Biometrics;
 using zsi.PhotoFingCapture;
@@ -34,6 +29,7 @@ namespace zsi.PhotoFingCapture
                 this.InitializeComponent();
                 this.WebCam = new WebCamera(this.picture);
                 InitFingerPrintSettings();
+
             }
             catch (Exception ex)
             {
@@ -45,6 +41,9 @@ namespace zsi.PhotoFingCapture
             this.FingersData.EnrolledFingersMask=0;
             this.FingersData.MaxEnrollFingerCount=10;
             this.FingersData.IsEventHandlerSucceeds=true;
+            this.FingersData.DataChanged += new OnChangeHandler(OnFingersDataChange);  
+            
+
         }
         private void btnCapture_Click(object sender, EventArgs e)
         {
@@ -68,11 +67,25 @@ namespace zsi.PhotoFingCapture
             if (rdbITProfile.Checked != true) _fileName = "case-" + _fileName;
             return _fileName;
         }
- 
+        private void OnFingersDataChange() {
+            int _registeredFingers = CountRegisteredFingers(this.FingersData);
+            if (_registeredFingers > 0 && string.IsNullOrEmpty(this.ProfileNo)==false ) btnUploadFG.Enabled = true; else btnUploadFG.Enabled = false;
+        
+
+        }
+
+        private int CountRegisteredFingers(FingersData data) {
+            int _result=0;
+            foreach(DPFP.Template item in data.Templates)
+            {
+                if (item != null) _result += 1;
+            }
+            return _result;
+        }
+
         public void EnableControls(Boolean IsEnable)
         {
             btnCapture.Enabled = IsEnable;
-            btnUploadFG.Enabled = IsEnable;
             btnRegisterFP.Enabled = IsEnable;
             btnVerifyFP.Enabled = IsEnable;
             btnFind.Enabled = IsEnable;
@@ -100,7 +113,6 @@ namespace zsi.PhotoFingCapture
             {
                 if(_profileNo.Length<13) throw new Exception();
                 Int64.Parse(_profileNo);
-                             
             }
             catch{
                 MessageBox.Show("Please enter 13 digit numbers.");
@@ -111,12 +123,13 @@ namespace zsi.PhotoFingCapture
             if (string.IsNullOrEmpty(_result) == false)
             {
                 lblProfileName.Text = _result;
-                this.ProfileNo = this.txtProfileNo.Text.Trim();
+                this.ProfileNo = this.txtProfileNo.Text.Trim();                
                 this.btnUploadPhoto.Enabled = true;
             }
             else {
                 lblProfileName.Text  ="Profile Not found";
             }
+            OnFingersDataChange();
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -138,18 +151,32 @@ namespace zsi.PhotoFingCapture
         }
         private void btnUploadFG_Click(object sender, EventArgs e)
         {
-            zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-            System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
- 
-            DPFP.Template[] tmps = this.FingersData.Templates;
-
-            for (int i = 0; i < tmps.Length; i++)
+            try
             {
+                btnUploadFG.Text = "Uploading...";
+                btnUploadFG.Enabled = false;
+                zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+                System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
 
-                Stream _stream = this.FingersData.Templates[i].Serialize(_MemoryStream);
-                byte[] _byte = Util.StreamToByte(_stream);
+                DPFP.Template[] tmps = this.FingersData.Templates;
 
-                wf.UploadBiometricsData(this.UserId, "fingers-" + i.ToString() + ".fpt", _byte);
+                for (int i = 0; i < tmps.Length; i++)
+                {
+                    if(this.FingersData.Templates[i]!=null){
+                        Stream _stream = this.FingersData.Templates[i].Serialize(_MemoryStream);
+                        byte[] _byte = Util.StreamToByte(_stream);
+                        wf.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".fpt", _byte);
+                    }
+                }
+                MessageBox.Show("Finger prints has been uploaded to the server.");
+            }            
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally{
+                btnUploadFG.Text = "Upload";
+                btnUploadFG.Enabled = true;
             }
         }
         private void btnLogin_Click(object sender, EventArgs e)

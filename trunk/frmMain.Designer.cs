@@ -336,7 +336,10 @@ namespace zsi.PhotoFingCapture
             this.Controls.Add(this.lblProfileName);
             this.Controls.Add(this.txtProfileNo);
             this.Controls.Add(this.label5);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "frmMain";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PhotoFingCapture 1.0.0 - Zetta Solutions, Inc.";
             this.Load += new System.EventHandler(this.frmMain_Load);

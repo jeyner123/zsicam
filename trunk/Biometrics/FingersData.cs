@@ -36,6 +36,7 @@ namespace zsi.Biometrics
             {
                 Data.EnrolledFingersMask = EnrollmentControl.EnrolledFingerMask;
                 Data.MaxEnrollFingerCount = EnrollmentControl.MaxEnrollFingerCount;
+                Data.DataChanged();
             }
             else
             {
