@@ -4,17 +4,55 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 namespace zsi.PhotoFingCapture
 {
     public class Util
     {
 
+        public static void SaveBmpToFile(Bitmap bmp, string filename)
+        {
+            EncoderParameters encoderParameters = new EncoderParameters(1);
+            encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
+            bmp.Save(filename, GetEncoder(ImageFormat.Jpeg), encoderParameters);
+        }
+
+        public static Stream BmpToStream(Bitmap bmp)
+        {
+            MemoryStream _ms= new MemoryStream();
+            EncoderParameters encoderParameters = new EncoderParameters(1);
+            encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
+            bmp.Save(_ms, GetEncoder(ImageFormat.Jpeg), encoderParameters);
+            return _ms;
+        }
+
+        public static ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                {
+                    return codec;
+                }
+            }
+            return null;
+        }
+
+
         public static Image ByteArrayToImage(byte[] byteArrayIn)
         {
             MemoryStream ms = new MemoryStream(byteArrayIn);
             Image returnImage = Image.FromStream(ms);
             return returnImage;
+        }
+        public static byte[] ImageToByte(Image img)
+        {
+            ImageConverter converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
         }
 
         public static byte[] LoadImage(string FilePath)

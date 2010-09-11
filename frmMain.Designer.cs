@@ -28,6 +28,7 @@ namespace zsi.PhotoFingCapture
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.txtProfileNo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.lblProfileName = new System.Windows.Forms.Label();
@@ -48,6 +49,7 @@ namespace zsi.PhotoFingCapture
             this.picture = new System.Windows.Forms.PictureBox();
             this.tabFingers = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkAutoClose = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnLTF = new System.Windows.Forms.Button();
             this.btnUploadFG = new System.Windows.Forms.Button();
@@ -63,7 +65,6 @@ namespace zsi.PhotoFingCapture
             this.btnLSF = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.chkAutoClose = new System.Windows.Forms.CheckBox();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             this.gbImageType.SuspendLayout();
@@ -302,6 +303,16 @@ namespace zsi.PhotoFingCapture
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Register Fingers";
             // 
+            // chkAutoClose
+            // 
+            this.chkAutoClose.AutoSize = true;
+            this.chkAutoClose.Location = new System.Drawing.Point(574, 19);
+            this.chkAutoClose.Name = "chkAutoClose";
+            this.chkAutoClose.Size = new System.Drawing.Size(77, 17);
+            this.chkAutoClose.TabIndex = 44;
+            this.chkAutoClose.Text = "Auto Close";
+            this.chkAutoClose.UseVisualStyleBackColor = true;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -462,16 +473,6 @@ namespace zsi.PhotoFingCapture
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // chkAutoClose
-            // 
-            this.chkAutoClose.AutoSize = true;
-            this.chkAutoClose.Location = new System.Drawing.Point(574, 19);
-            this.chkAutoClose.Name = "chkAutoClose";
-            this.chkAutoClose.Size = new System.Drawing.Size(77, 17);
-            this.chkAutoClose.TabIndex = 44;
-            this.chkAutoClose.Text = "Auto Close";
-            this.chkAutoClose.UseVisualStyleBackColor = true;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -486,9 +487,9 @@ namespace zsi.PhotoFingCapture
             this.Controls.Add(this.txtProfileNo);
             this.Controls.Add(this.label5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmMain";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PhotoFingCapture 1.0.0 - Zetta Solutions, Inc.";
             this.Load += new System.EventHandler(this.frmMain_Load);

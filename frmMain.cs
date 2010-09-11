@@ -67,9 +67,19 @@ namespace zsi.PhotoFingCapture
         }
         private void OnFingersDataChange() {
             int _registeredFingers = CountRegisteredFingers(this.FingersData);
-            if (_registeredFingers > 0 && string.IsNullOrEmpty(this.ProfileNo)==false ) btnUploadFG.Enabled = true; else btnUploadFG.Enabled = false;
-        
-
+            if (_registeredFingers > 0 && string.IsNullOrEmpty(this.ProfileNo)==false ) 
+            {
+             this.Invoke(new Function(delegate{   
+                btnUploadFG.Enabled = true; 
+             }));
+            }
+            else{
+            
+             this.Invoke(new Function(delegate{   
+                    btnUploadFG.Enabled = false;
+             }));
+            
+            }
         }
 
         private int CountRegisteredFingers(FingersData data) {
@@ -152,12 +162,17 @@ namespace zsi.PhotoFingCapture
                 {
                     if(this.FingersData.Templates[i]!=null){
                         System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
-                        Stream _stream = this.FingersData.Templates[i].Serialize(_MemoryStream);
+                        this.FingersData.Templates[i].Serialize(_MemoryStream);
                         byte[] _byte = Util.StreamToByte(_MemoryStream);
                         wf.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".fpt", _byte);
+
+ 
+                        byte[] _byteImage = Util.StreamToByte(Util.BmpToStream((Bitmap)this.FingersData.Images[i]));
+                        wf.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".jpg", _byteImage);
                     }
                 }
                 MessageBox.Show("Finger prints has been uploaded to the server.");
+                ClearFingersData();
             }            
             catch (Exception ex)
             {
@@ -179,11 +194,11 @@ namespace zsi.PhotoFingCapture
             cbImagePosition.SelectedIndex = 0;
             this.Show();
          
-           // WebCam.Show();
+             WebCam.Show();
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-           // WebCam.Close();
+              WebCam.Close();
         }
 
         private void btnUploadPhoto_Click(object sender, EventArgs e)
@@ -216,14 +231,41 @@ namespace zsi.PhotoFingCapture
         }
         private void ShowScanForm(object sender, int FingerPosition) {
             Color _bcolor =((Control)sender).BackColor;
+            DialogResult result=DialogResult.None;
 
-            if(_bcolor==Color.Green){
-                MessageBox.Show("Do you want to delete data?","Confirmation!",MessageBoxButtons.OKCancel,MessageBoxIcon.Question);
+            if (_bcolor == Color.Green)
+            {
+                result = MessageBox.Show("Do you want to delete data?", "Confirmation!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
             }
+            if (result == DialogResult.Cancel) return;
 
             zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, FingerPosition);
             scanf.IsAutoClose = chkAutoClose.Checked;
             scanf.ShowDialog();
+        }
+        private void ResetColor(object sender) 
+        {
+            Control Ctrl =((Control)sender);
+            Ctrl.BackColor =Color.White;
+            Ctrl.ForeColor =Color.Black;
+        }
+
+        private void ClearFingersData(){        
+            ResetColor(btnLSF);
+            ResetColor(btnLRF);
+            ResetColor(btnLMF);
+            ResetColor(btnLIF);
+            ResetColor(btnLTF);
+            ResetColor(btnRSF);
+            ResetColor(btnRRF);
+            ResetColor(btnRMF);
+            ResetColor(btnRIF);
+            ResetColor(btnRTF);
+            FingersData.Templates = new DPFP.Template[10];
+            FingersData.Samples = new DPFP.Sample[10];
+            FingersData.Images= new Image[10];
+
         }
 
         private void btnLSF_Click(object sender, EventArgs e)
@@ -284,6 +326,7 @@ namespace zsi.PhotoFingCapture
             ShowScanForm(sender, 0);
 
         }
+ 
 
     }
 
