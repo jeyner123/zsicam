@@ -32,7 +32,6 @@ namespace zsi.PhotoFingCapture
             this.label5 = new System.Windows.Forms.Label();
             this.lblProfileName = new System.Windows.Forms.Label();
             this.btnFind = new System.Windows.Forms.Button();
-            this.btnRegisterFP = new System.Windows.Forms.Button();
             this.btnVerifyFP = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.tab = new System.Windows.Forms.TabControl();
@@ -48,15 +47,33 @@ namespace zsi.PhotoFingCapture
             this.btnUploadPhoto = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.PictureBox();
             this.tabFingers = new System.Windows.Forms.TabPage();
+            this.tabFingersCapture = new System.Windows.Forms.TabControl();
+            this.tabPageFRegister = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnRTF = new System.Windows.Forms.Button();
+            this.btnRIF = new System.Windows.Forms.Button();
+            this.btnRMF = new System.Windows.Forms.Button();
+            this.btnRSF = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnLTF = new System.Windows.Forms.Button();
+            this.btnLIF = new System.Windows.Forms.Button();
+            this.btnLMF = new System.Windows.Forms.Button();
+            this.btnLRF = new System.Windows.Forms.Button();
+            this.btnLSF = new System.Windows.Forms.Button();
             this.btnUploadFG = new System.Windows.Forms.Button();
+            this.tabPageFVerify = new System.Windows.Forms.TabPage();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.btnRRF = new System.Windows.Forms.Button();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             this.gbImageType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.tabFingers.SuspendLayout();
+            this.tabFingersCapture.SuspendLayout();
+            this.tabPageFRegister.SuspendLayout();
+            this.tabPageFVerify.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtProfileNo
@@ -97,21 +114,9 @@ namespace zsi.PhotoFingCapture
             this.btnFind.UseVisualStyleBackColor = true;
             this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
             // 
-            // btnRegisterFP
-            // 
-            this.btnRegisterFP.Enabled = false;
-            this.btnRegisterFP.Location = new System.Drawing.Point(220, 188);
-            this.btnRegisterFP.Name = "btnRegisterFP";
-            this.btnRegisterFP.Size = new System.Drawing.Size(139, 53);
-            this.btnRegisterFP.TabIndex = 27;
-            this.btnRegisterFP.Text = "Register Finger Prints";
-            this.btnRegisterFP.UseVisualStyleBackColor = true;
-            this.btnRegisterFP.Click += new System.EventHandler(this.btnRegisterFP_Click);
-            // 
             // btnVerifyFP
             // 
-            this.btnVerifyFP.Enabled = false;
-            this.btnVerifyFP.Location = new System.Drawing.Point(363, 188);
+            this.btnVerifyFP.Location = new System.Drawing.Point(342, 60);
             this.btnVerifyFP.Name = "btnVerifyFP";
             this.btnVerifyFP.Size = new System.Drawing.Size(139, 53);
             this.btnVerifyFP.TabIndex = 28;
@@ -267,9 +272,7 @@ namespace zsi.PhotoFingCapture
             // 
             // tabFingers
             // 
-            this.tabFingers.Controls.Add(this.btnUploadFG);
-            this.tabFingers.Controls.Add(this.btnRegisterFP);
-            this.tabFingers.Controls.Add(this.btnVerifyFP);
+            this.tabFingers.Controls.Add(this.tabFingersCapture);
             this.tabFingers.Location = new System.Drawing.Point(4, 22);
             this.tabFingers.Name = "tabFingers";
             this.tabFingers.Padding = new System.Windows.Forms.Padding(3);
@@ -278,16 +281,168 @@ namespace zsi.PhotoFingCapture
             this.tabFingers.Text = "Fingers Capture";
             this.tabFingers.UseVisualStyleBackColor = true;
             // 
+            // tabFingersCapture
+            // 
+            this.tabFingersCapture.Controls.Add(this.tabPageFRegister);
+            this.tabFingersCapture.Controls.Add(this.tabPageFVerify);
+            this.tabFingersCapture.Location = new System.Drawing.Point(24, 48);
+            this.tabFingersCapture.Name = "tabFingersCapture";
+            this.tabFingersCapture.SelectedIndex = 0;
+            this.tabFingersCapture.Size = new System.Drawing.Size(582, 187);
+            this.tabFingersCapture.TabIndex = 32;
+            // 
+            // tabPageFRegister
+            // 
+            this.tabPageFRegister.Controls.Add(this.label2);
+            this.tabPageFRegister.Controls.Add(this.btnRTF);
+            this.tabPageFRegister.Controls.Add(this.btnRIF);
+            this.tabPageFRegister.Controls.Add(this.btnRMF);
+            this.tabPageFRegister.Controls.Add(this.btnRRF);
+            this.tabPageFRegister.Controls.Add(this.btnRSF);
+            this.tabPageFRegister.Controls.Add(this.label1);
+            this.tabPageFRegister.Controls.Add(this.btnLTF);
+            this.tabPageFRegister.Controls.Add(this.btnLIF);
+            this.tabPageFRegister.Controls.Add(this.btnLMF);
+            this.tabPageFRegister.Controls.Add(this.btnLRF);
+            this.tabPageFRegister.Controls.Add(this.btnLSF);
+            this.tabPageFRegister.Controls.Add(this.btnUploadFG);
+            this.tabPageFRegister.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFRegister.Name = "tabPageFRegister";
+            this.tabPageFRegister.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageFRegister.Size = new System.Drawing.Size(574, 161);
+            this.tabPageFRegister.TabIndex = 0;
+            this.tabPageFRegister.Text = "Register";
+            this.tabPageFRegister.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 13);
+            this.label2.TabIndex = 43;
+            this.label2.Text = "Right Fingers";
+            // 
+            // btnRTF
+            // 
+            this.btnRTF.Location = new System.Drawing.Point(450, 47);
+            this.btnRTF.Name = "btnRTF";
+            this.btnRTF.Size = new System.Drawing.Size(73, 25);
+            this.btnRTF.TabIndex = 42;
+            this.btnRTF.Text = "Thumb";
+            this.btnRTF.UseVisualStyleBackColor = true;
+            this.btnRTF.Click += new System.EventHandler(this.btnRTF_Click);
+            // 
+            // btnRIF
+            // 
+            this.btnRIF.Location = new System.Drawing.Point(361, 47);
+            this.btnRIF.Name = "btnRIF";
+            this.btnRIF.Size = new System.Drawing.Size(73, 25);
+            this.btnRIF.TabIndex = 41;
+            this.btnRIF.Text = "Index";
+            this.btnRIF.UseVisualStyleBackColor = true;
+            this.btnRIF.Click += new System.EventHandler(this.btnRIF_Click);
+            // 
+            // btnRMF
+            // 
+            this.btnRMF.Location = new System.Drawing.Point(272, 47);
+            this.btnRMF.Name = "btnRMF";
+            this.btnRMF.Size = new System.Drawing.Size(73, 25);
+            this.btnRMF.TabIndex = 40;
+            this.btnRMF.Text = "Middle";
+            this.btnRMF.UseVisualStyleBackColor = true;
+            this.btnRMF.Click += new System.EventHandler(this.btnRMF_Click);
+            // 
+            // btnRSF
+            // 
+            this.btnRSF.Location = new System.Drawing.Point(94, 47);
+            this.btnRSF.Name = "btnRSF";
+            this.btnRSF.Size = new System.Drawing.Size(73, 25);
+            this.btnRSF.TabIndex = 38;
+            this.btnRSF.Text = "Small ";
+            this.btnRSF.UseVisualStyleBackColor = true;
+            this.btnRSF.Click += new System.EventHandler(this.btnRSF_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 13);
+            this.label1.TabIndex = 37;
+            this.label1.Text = "Left Fingers";
+            // 
+            // btnLTF
+            // 
+            this.btnLTF.Location = new System.Drawing.Point(450, 16);
+            this.btnLTF.Name = "btnLTF";
+            this.btnLTF.Size = new System.Drawing.Size(73, 25);
+            this.btnLTF.TabIndex = 36;
+            this.btnLTF.Text = "Thumb";
+            this.btnLTF.UseVisualStyleBackColor = true;
+            this.btnLTF.Click += new System.EventHandler(this.btnLTF_Click);
+            // 
+            // btnLIF
+            // 
+            this.btnLIF.Location = new System.Drawing.Point(361, 16);
+            this.btnLIF.Name = "btnLIF";
+            this.btnLIF.Size = new System.Drawing.Size(73, 25);
+            this.btnLIF.TabIndex = 35;
+            this.btnLIF.Text = "Index";
+            this.btnLIF.UseVisualStyleBackColor = true;
+            this.btnLIF.Click += new System.EventHandler(this.btnLIF_Click);
+            // 
+            // btnLMF
+            // 
+            this.btnLMF.Location = new System.Drawing.Point(272, 16);
+            this.btnLMF.Name = "btnLMF";
+            this.btnLMF.Size = new System.Drawing.Size(73, 25);
+            this.btnLMF.TabIndex = 34;
+            this.btnLMF.Text = "Middle";
+            this.btnLMF.UseVisualStyleBackColor = true;
+            this.btnLMF.Click += new System.EventHandler(this.btnLMF_Click);
+            // 
+            // btnLRF
+            // 
+            this.btnLRF.Location = new System.Drawing.Point(183, 16);
+            this.btnLRF.Name = "btnLRF";
+            this.btnLRF.Size = new System.Drawing.Size(73, 25);
+            this.btnLRF.TabIndex = 33;
+            this.btnLRF.Text = "Ring";
+            this.btnLRF.UseVisualStyleBackColor = true;
+            this.btnLRF.Click += new System.EventHandler(this.btnLRF_Click);
+            // 
+            // btnLSF
+            // 
+            this.btnLSF.Location = new System.Drawing.Point(94, 16);
+            this.btnLSF.Name = "btnLSF";
+            this.btnLSF.Size = new System.Drawing.Size(73, 25);
+            this.btnLSF.TabIndex = 32;
+            this.btnLSF.Text = "Small ";
+            this.btnLSF.UseVisualStyleBackColor = true;
+            this.btnLSF.Click += new System.EventHandler(this.btnLSF_Click);
+            // 
             // btnUploadFG
             // 
             this.btnUploadFG.Enabled = false;
-            this.btnUploadFG.Location = new System.Drawing.Point(220, 66);
+            this.btnUploadFG.Location = new System.Drawing.Point(277, 93);
             this.btnUploadFG.Name = "btnUploadFG";
-            this.btnUploadFG.Size = new System.Drawing.Size(68, 23);
+            this.btnUploadFG.Size = new System.Drawing.Size(68, 36);
             this.btnUploadFG.TabIndex = 31;
             this.btnUploadFG.Text = "Upload";
             this.btnUploadFG.UseVisualStyleBackColor = true;
             this.btnUploadFG.Click += new System.EventHandler(this.btnUploadFG_Click);
+            // 
+            // tabPageFVerify
+            // 
+            this.tabPageFVerify.Controls.Add(this.btnVerifyFP);
+            this.tabPageFVerify.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFVerify.Name = "tabPageFVerify";
+            this.tabPageFVerify.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageFVerify.Size = new System.Drawing.Size(574, 161);
+            this.tabPageFVerify.TabIndex = 1;
+            this.tabPageFVerify.Text = "Verify";
+            this.tabPageFVerify.UseVisualStyleBackColor = true;
             // 
             // btnLogOut
             // 
@@ -309,6 +464,16 @@ namespace zsi.PhotoFingCapture
             this.btnLogin.Text = "Log-in";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // btnRRF
+            // 
+            this.btnRRF.Location = new System.Drawing.Point(183, 47);
+            this.btnRRF.Name = "btnRRF";
+            this.btnRRF.Size = new System.Drawing.Size(73, 25);
+            this.btnRRF.TabIndex = 39;
+            this.btnRRF.Text = "Ring";
+            this.btnRRF.UseVisualStyleBackColor = true;
+            this.btnRRF.Click += new System.EventHandler(this.btnRRF_Click);
             // 
             // frmMain
             // 
@@ -339,6 +504,10 @@ namespace zsi.PhotoFingCapture
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.tabFingers.ResumeLayout(false);
+            this.tabFingersCapture.ResumeLayout(false);
+            this.tabPageFRegister.ResumeLayout(false);
+            this.tabPageFRegister.PerformLayout();
+            this.tabPageFVerify.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -350,7 +519,6 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblProfileName;
         private System.Windows.Forms.Button btnFind;
-        private System.Windows.Forms.Button btnRegisterFP;
         private System.Windows.Forms.Button btnVerifyFP;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabControl tab;
@@ -369,6 +537,21 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Button btnUploadFG;
         private System.Windows.Forms.Button btnLogOut;
         private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.TabControl tabFingersCapture;
+        private System.Windows.Forms.TabPage tabPageFRegister;
+        private System.Windows.Forms.TabPage tabPageFVerify;
+        private System.Windows.Forms.Button btnLTF;
+        private System.Windows.Forms.Button btnLIF;
+        private System.Windows.Forms.Button btnLMF;
+        private System.Windows.Forms.Button btnLRF;
+        private System.Windows.Forms.Button btnLSF;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnRTF;
+        private System.Windows.Forms.Button btnRIF;
+        private System.Windows.Forms.Button btnRMF;
+        private System.Windows.Forms.Button btnRSF;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnRRF;
     }
 }
 

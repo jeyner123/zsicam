@@ -50,6 +50,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DPFPDevNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=696774c42ee28c57, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DPFPDevNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPEngNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=7fe76e7adf19964b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DPFPEngNET.dll</HintPath>
+    </Reference>
     <Reference Include="DPFPGuiNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=d4f4a0bd9c559145, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\DPFPGuiNET.dll</HintPath>
@@ -90,12 +98,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Biometrics\FingersData.cs" />
-    <Compile Include="Biometrics\frmRegisterFP.cs">
+    <Compile Include="Biometrics\CaptureForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Biometrics\frmRegisterFP.Designer.cs">
-      <DependentUpon>frmRegisterFP.cs</DependentUpon>
+    <Compile Include="Biometrics\CaptureForm.designer.cs">
+      <DependentUpon>CaptureForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Biometrics\FingerCapture.cs" />
+    <Compile Include="Biometrics\FingersData.cs" />
+    <Compile Include="Biometrics\frmScanFinger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Biometrics\frmScanFinger.Designer.cs">
+      <DependentUpon>frmScanFinger.cs</DependentUpon>
     </Compile>
     <Compile Include="Biometrics\frmVerification.cs">
       <SubType>Form</SubType>
@@ -123,8 +138,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Biometrics\frmRegisterFP.resx">
-      <DependentUpon>frmRegisterFP.cs</DependentUpon>
+    <EmbeddedResource Include="Biometrics\CaptureForm.resx">
+      <DependentUpon>CaptureForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Biometrics\frmScanFinger.resx">
+      <DependentUpon>frmScanFinger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Biometrics\frmVerification.resx">
       <DependentUpon>frmVerification.cs</DependentUpon>
@@ -140,8 +158,17 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Web References\WebFileService\WebFileServices.wsdl" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -201,10 +228,10 @@
     <None Include="Web References\WebFileService\WebFileServices.disco" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://www.zetta-solutions.net/phgovdemo/WebFileServices.asmx">
+    <WebReferenceUrl Include="http://localhost:2593/WebFileServices.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\WebFileService\</RelPath>
-      <UpdateFromURL>http://www.zetta-solutions.net/phgovdemo/WebFileServices.asmx</UpdateFromURL>
+      <UpdateFromURL>http://localhost:2593/WebFileServices.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

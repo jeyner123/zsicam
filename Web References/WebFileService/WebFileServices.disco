@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
-  <contractRef ref="http://www.zetta-solutions.net/phgovdemo/WebFileServices.asmx?wsdl" docRef="http://www.zetta-solutions.net/phgovdemo/WebFileServices.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
-  <soap address="http://www.zetta-solutions.net/phgovdemo/WebFileServices.asmx" xmlns:q1="http://tempuri.org/police-records/WebFileServices" binding="q1:WebFileManagerSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
-  <soap address="http://www.zetta-solutions.net/phgovdemo/WebFileServices.asmx" xmlns:q2="http://tempuri.org/police-records/WebFileServices" binding="q2:WebFileManagerSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <contractRef ref="http://localhost:2593/WebFileServices.asmx?wsdl" docRef="http://localhost:2593/WebFileServices.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://localhost:2593/WebFileServices.asmx" xmlns:q1="http://tempuri.org/police-records/WebFileServices" binding="q1:WebFileManagerSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://localhost:2593/WebFileServices.asmx" xmlns:q2="http://tempuri.org/police-records/WebFileServices" binding="q2:WebFileManagerSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
 </discovery>

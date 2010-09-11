@@ -84,6 +84,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Verify Your Identity";
+            this.Load += new System.EventHandler(this.frmVerification_Load);
             this.ResumeLayout(false);
 
         }
