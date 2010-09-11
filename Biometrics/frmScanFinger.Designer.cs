@@ -68,7 +68,7 @@
             this.CloseButton.TabIndex = 14;
             this.CloseButton.Text = "Close";
             this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
+ 
             // 
             // StatusLine
             // 
@@ -135,8 +135,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Fingerprint Enrollment";
-            this.Load += new System.EventHandler(this.frmRegisterFP_Load);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmRegisterFP_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.Picture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

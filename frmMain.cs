@@ -214,65 +214,75 @@ namespace zsi.PhotoFingCapture
                 btnUploadPhoto.Enabled = true;
             }
         }
+        private void ShowScanForm(object sender, int FingerPosition) {
+            Color _bcolor =((Control)sender).BackColor;
+
+            if(_bcolor==Color.Green){
+                MessageBox.Show("Do you want to delete data?","Confirmation!",MessageBoxButtons.OKCancel,MessageBoxIcon.Question);
+            }
+
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, FingerPosition);
+            scanf.IsAutoClose = chkAutoClose.Checked;
+            scanf.ShowDialog();
+        }
 
         private void btnLSF_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender,this.FingersData, 9);
-            scanf.ShowDialog();
+            ShowScanForm(sender, 9);
         }
 
         private void btnLRF_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 8);
-            scanf.ShowDialog();
+            ShowScanForm(sender, 8);
+
         }
 
         private void btnLMF_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 7);
-            scanf.ShowDialog();
+            ShowScanForm(sender, 7);
+
         }
 
         private void btnLIF_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 6);
-            scanf.ShowDialog();
+            ShowScanForm(sender,6);
+
         }
 
         private void btnLTF_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 5);
-            scanf.ShowDialog();
+            ShowScanForm(sender, 5);
+
         }
 
         private void btnRSF_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 4);
-            scanf.ShowDialog();
+            ShowScanForm(sender,4);
+
         }
 
         private void btnRRF_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 3);
-            scanf.ShowDialog();
+            ShowScanForm(sender, 3);
+
         }
 
         private void btnRMF_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 2);
-            scanf.ShowDialog();
+            ShowScanForm(sender, 2);
+
         }
 
         private void btnRIF_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 1);
-            scanf.ShowDialog();
+            ShowScanForm(sender, 1);
+
         }
 
         private void btnRTF_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 0);
-            scanf.ShowDialog();
+            ShowScanForm(sender, 0);
+
         }
 
     }
