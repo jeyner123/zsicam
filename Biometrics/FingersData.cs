@@ -10,9 +10,10 @@ namespace zsi.Biometrics
     {
         public event OnChangeHandler DataChanged; 		
         public const int MaxFingers = 10;
-        public System.Drawing.Image Image { get; set; }
+        public System.Drawing.Image[] Images = new System.Drawing.Image[MaxFingers];
         public DPFP.Template[] Templates = new DPFP.Template[MaxFingers];
         public DPFP.Sample[] Samples = new DPFP.Sample[MaxFingers];
+
         public void UpdateTemplates(int FingerPosition,DPFP.Template Template)
         {
             this.Templates[FingerPosition] = Template;

@@ -221,7 +221,7 @@ namespace zsi.Biometrics
 
         private void DrawPicture(Bitmap bitmap)
         {
-            this.Data.Image = bitmap;
+            this.Data.Images[this.FingerPosition] = bitmap;
             if(this.PBox!=null) this.PBox.Image = new Bitmap(bitmap, PBox.Size);
         }
     }
