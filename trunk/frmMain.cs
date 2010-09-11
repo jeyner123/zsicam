@@ -21,6 +21,7 @@ namespace zsi.PhotoFingCapture
         public string UserId { get; set; }
         public string ProfileNo{get;set;}
         public FingersData FingersData { get; set; }
+        public DPFP.Template[] Templates = new DPFP.Template[10];
         private WebCamera WebCam { get; set; }
         public frmMain()
         {
@@ -38,9 +39,6 @@ namespace zsi.PhotoFingCapture
         }
         private void InitFingerPrintSettings(){
             this.FingersData = new FingersData();	
-            this.FingersData.EnrolledFingersMask=0;
-            this.FingersData.MaxEnrollFingerCount=10;
-            this.FingersData.IsEventHandlerSucceeds=true;
             this.FingersData.DataChanged += new OnChangeHandler(OnFingersDataChange);  
             
 
@@ -86,7 +84,6 @@ namespace zsi.PhotoFingCapture
         public void EnableControls(Boolean IsEnable)
         {
             btnCapture.Enabled = IsEnable;
-            btnRegisterFP.Enabled = IsEnable;
             btnVerifyFP.Enabled = IsEnable;
             btnFind.Enabled = IsEnable;
             txtProfileNo.Enabled = IsEnable;
@@ -132,17 +129,12 @@ namespace zsi.PhotoFingCapture
             OnFingersDataChange();
         }
  
-        private void btnRegisterFP_Click(object sender, EventArgs e)
-        {
  
-            zsi.Biometrics.frmRegisterFP _frmRegFP = new frmRegisterFP(this.FingersData);
-            _frmRegFP.Show();
-
-        }
         private void btnVerifyFP_Click(object sender, EventArgs e)
         {
             zsi.Biometrics.frmVerification _frmVerify = new frmVerification();
-            _frmVerify.Show();
+            _frmVerify.Data = this.FingersData;
+            _frmVerify.ShowDialog();
 
         }
         private void btnUploadFG_Click(object sender, EventArgs e)
@@ -152,15 +144,16 @@ namespace zsi.PhotoFingCapture
                 btnUploadFG.Text = "Uploading...";
                 btnUploadFG.Enabled = false;
                 zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-                System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
+                
 
                 DPFP.Template[] tmps = this.FingersData.Templates;
 
                 for (int i = 0; i < tmps.Length; i++)
                 {
                     if(this.FingersData.Templates[i]!=null){
+                        System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
                         Stream _stream = this.FingersData.Templates[i].Serialize(_MemoryStream);
-                        byte[] _byte = Util.StreamToByte(_stream);
+                        byte[] _byte = Util.StreamToByte(_MemoryStream);
                         wf.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".fpt", _byte);
                     }
                 }
@@ -185,11 +178,12 @@ namespace zsi.PhotoFingCapture
         {
             cbImagePosition.SelectedIndex = 0;
             this.Show();
-            WebCam.Show();
+         
+           // WebCam.Show();
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            WebCam.Close();
+           // WebCam.Close();
         }
 
         private void btnUploadPhoto_Click(object sender, EventArgs e)
@@ -219,6 +213,66 @@ namespace zsi.PhotoFingCapture
                 btnUploadPhoto.Text = "Upload";
                 btnUploadPhoto.Enabled = true;
             }
+        }
+
+        private void btnLSF_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender,this.FingersData, 9);
+            scanf.ShowDialog();
+        }
+
+        private void btnLRF_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 8);
+            scanf.ShowDialog();
+        }
+
+        private void btnLMF_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 7);
+            scanf.ShowDialog();
+        }
+
+        private void btnLIF_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 6);
+            scanf.ShowDialog();
+        }
+
+        private void btnLTF_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 5);
+            scanf.ShowDialog();
+        }
+
+        private void btnRSF_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 4);
+            scanf.ShowDialog();
+        }
+
+        private void btnRRF_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 3);
+            scanf.ShowDialog();
+        }
+
+        private void btnRMF_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 2);
+            scanf.ShowDialog();
+        }
+
+        private void btnRIF_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 1);
+            scanf.ShowDialog();
+        }
+
+        private void btnRTF_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, 0);
+            scanf.ShowDialog();
         }
 
     }

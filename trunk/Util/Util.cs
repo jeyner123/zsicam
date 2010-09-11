@@ -10,11 +10,27 @@ namespace zsi.PhotoFingCapture
     public class Util
     {
 
-        public Image ByteArrayToImage(byte[] byteArrayIn)
+        public static Image ByteArrayToImage(byte[] byteArrayIn)
         {
             MemoryStream ms = new MemoryStream(byteArrayIn);
             Image returnImage = Image.FromStream(ms);
             return returnImage;
+        }
+
+        public static byte[] LoadImage(string FilePath)
+        {
+            try
+            {
+                FileStream fs = new FileStream(FilePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+                byte[] Image = new byte[fs.Length];
+                fs.Read(Image, 0, Convert.ToInt32(fs.Length));
+                fs.Close();
+                return Image;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static Image CropImage(Bitmap bmpSource, int width, int height)

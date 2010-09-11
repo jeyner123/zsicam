@@ -9,30 +9,8 @@ namespace zsi.Biometrics
     {
         public event OnChangeHandler DataChanged; 		
         public const int MaxFingers = 10;
-		// shared data
-        public int EnrolledFingersMask = 0;
-		public int MaxEnrollFingerCount = MaxFingers;
-        public bool IsEventHandlerSucceeds = true;
-        public bool IsFeatureSetMatched = false;
-        public int FalseAcceptRate = 0;
-		
+
         public DPFP.Template[] Templates = new DPFP.Template[MaxFingers];
-
-
-        public static void SyncData(bool IsDataFromControl,DPFP.Gui.Enrollment.EnrollmentControl EnrollmentControl,FingersData Data)
-        {
-            if (IsDataFromControl)
-            {
-                Data.EnrolledFingersMask = EnrollmentControl.EnrolledFingerMask;
-                Data.MaxEnrollFingerCount = EnrollmentControl.MaxEnrollFingerCount;
-                Data.DataChanged();
-            }
-            else
-            {
-                EnrollmentControl.EnrolledFingerMask = Data.EnrolledFingersMask;
-                EnrollmentControl.MaxEnrollFingerCount = Data.MaxEnrollFingerCount;
-            }
-        }
-       
+        public DPFP.Sample[] Samples = new DPFP.Sample[MaxFingers];
 	}
 }
