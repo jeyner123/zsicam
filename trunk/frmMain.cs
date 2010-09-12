@@ -38,11 +38,7 @@ namespace zsi.PhotoFingCapture
             }
         
         }
-            
-
- 
-
-
+     
         public frmMain()
         {
             try
@@ -87,7 +83,7 @@ namespace zsi.PhotoFingCapture
         }
         private void OnFingersDataChange() {
             int _registeredFingers = CountRegisteredFingers(this.FingersData);
-            if (_registeredFingers > 0 && string.IsNullOrEmpty(this.ProfileNo)==false ) 
+            if (_registeredFingers > 0 ) 
             {
              this.Invoke(new Function(delegate{   
                 btnUploadFG.Enabled = true; 
@@ -115,8 +111,7 @@ namespace zsi.PhotoFingCapture
         {
             btnCapture.Enabled = IsEnable;
             btnVerifyFP.Enabled = IsEnable;
-            //btnFind.Enabled = IsEnable;
-            //txtProfileNo.Enabled = IsEnable;
+            btnLogin.Enabled = (IsEnable==true?false:true);
             btnLogOut.Enabled = IsEnable;
             btnUploadPhoto.Enabled = IsEnable;
 
@@ -133,32 +128,7 @@ namespace zsi.PhotoFingCapture
             zsi.PhotoFingCapture.frmSettings frmSettings = new zsi.PhotoFingCapture.frmSettings();
             frmSettings.ShowDialog();
         }
-        private void btnFind_Click(object sender, EventArgs e)
-        {
-            ////zsi.PhotoFingCapture.WebFileService.WebFileManager wfm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-            //string _profileNo = this.txtProfileNo.Text.Trim() ;            
-            //try
-            //{
-            //    if(_profileNo.Length<13) throw new Exception();
-            //    Int64.Parse(_profileNo);
-            //}
-            //catch{
-            //    MessageBox.Show("Please enter 13 digit numbers.");
-            //    return;
-            //}
-
-            //string _result = WebFileMgr.GetProfileInfo(this.UserId, _profileNo);
-            //if (string.IsNullOrEmpty(_result) == false)
-            //{
-            //    lblProfileName.Text = _result;
-            //    this.ProfileNo = this.txtProfileNo.Text.Trim();                
-            //    this.btnUploadPhoto.Enabled = true;
-            //}
-            //else {
-            //    lblProfileName.Text  ="Profile Not found";
-            //}
-            //OnFingersDataChange();
-        }
+       
  
  
         private void btnVerifyFP_Click(object sender, EventArgs e)
