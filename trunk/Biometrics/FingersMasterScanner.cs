@@ -206,6 +206,7 @@ namespace zsi.Biometrics
 
         protected void SetPrompt(string prompt)
         {
+
              this.Invoke(new Function(delegate()
              {
                  if (this.PromptText != null) this.PromptText.Text = prompt;
@@ -219,10 +220,22 @@ namespace zsi.Biometrics
              }));
         }
 
+ 
         private void DrawPicture(Bitmap bitmap)
         {
-            this.Data.Images[this.FingerPosition] = bitmap;
-            if(this.PBox!=null) this.PBox.Image = new Bitmap(bitmap, PBox.Size);
+            //resize
+            Rectangle cropRect = new Rectangle(0, 0, 200, 220);
+            Bitmap _resizedImg = new Bitmap(200, 220);
+            Graphics g = Graphics.FromImage(_resizedImg);
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.Default;
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+
+            g.DrawImage(bitmap, cropRect, new Rectangle(0, 0, bitmap.Width, bitmap.Height), GraphicsUnit.Pixel);
+
+            this.Data.Images[this.FingerPosition] = _resizedImg;
+            if (this.PBox != null) this.PBox.Image = new Bitmap(_resizedImg, PBox.Size);
+ 
         }
     }
 }
