@@ -31,5 +31,15 @@ namespace zsi.PhotoFingCapture.Properties {
                 return ((string)(this["WebFile_URI"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:2593/WebFileServices.asmx")]
+        public string ZSICam_WebFileService_WebFileManager {
+            get {
+                return ((string)(this["ZSICam_WebFileService_WebFileManager"]));
+            }
+        }
     }
 }

@@ -18,12 +18,12 @@ namespace zsi.PhotoFingCapture
             bmp.Save(filename, GetEncoder(ImageFormat.Jpeg), encoderParameters);
         }
 
-        public static Stream BmpToStream(Bitmap bmp)
+        public static Stream BmpToStream(Image img)
         {
             MemoryStream _ms= new MemoryStream();
             EncoderParameters encoderParameters = new EncoderParameters(1);
             encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
-            bmp.Save(_ms, GetEncoder(ImageFormat.Jpeg), encoderParameters);
+            img.Save(_ms, GetEncoder(ImageFormat.Jpeg), encoderParameters);            
             return _ms;
         }
 
@@ -164,6 +164,7 @@ namespace zsi.PhotoFingCapture
             {
                 stream.Position = originalPosition;
             }
+
         }
     }
 }

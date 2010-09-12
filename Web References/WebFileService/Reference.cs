@@ -31,6 +31,8 @@ namespace zsi.PhotoFingCapture.WebFileService {
         
         private System.Threading.SendOrPostCallback UploadBiometricsDataOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetUserTempProfileIdOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetProfileInfoOperationCompleted;
         
         private System.Threading.SendOrPostCallback UploadFileOperationCompleted;
@@ -41,7 +43,7 @@ namespace zsi.PhotoFingCapture.WebFileService {
         
         /// <remarks/>
         public WebFileManager() {
-            this.Url = Util.GetWebServiceURL;
+            this.Url = global::zsi.PhotoFingCapture.Properties.Settings.Default.ZSICam_WebFileService_WebFileManager;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -77,6 +79,9 @@ namespace zsi.PhotoFingCapture.WebFileService {
         
         /// <remarks/>
         public event UploadBiometricsDataCompletedEventHandler UploadBiometricsDataCompleted;
+        
+        /// <remarks/>
+        public event GetUserTempProfileIdCompletedEventHandler GetUserTempProfileIdCompleted;
         
         /// <remarks/>
         public event GetProfileInfoCompletedEventHandler GetProfileInfoCompleted;
@@ -121,6 +126,35 @@ namespace zsi.PhotoFingCapture.WebFileService {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/police-records/WebFileServices/GetUserTempProfileId", RequestNamespace="http://tempuri.org/police-records/WebFileServices", ResponseNamespace="http://tempuri.org/police-records/WebFileServices", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string GetUserTempProfileId(int UserId) {
+            object[] results = this.Invoke("GetUserTempProfileId", new object[] {
+                        UserId});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetUserTempProfileIdAsync(int UserId) {
+            this.GetUserTempProfileIdAsync(UserId, null);
+        }
+        
+        /// <remarks/>
+        public void GetUserTempProfileIdAsync(int UserId, object userState) {
+            if ((this.GetUserTempProfileIdOperationCompleted == null)) {
+                this.GetUserTempProfileIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetUserTempProfileIdOperationCompleted);
+            }
+            this.InvokeAsync("GetUserTempProfileId", new object[] {
+                        UserId}, this.GetUserTempProfileIdOperationCompleted, userState);
+        }
+        
+        private void OnGetUserTempProfileIdOperationCompleted(object arg) {
+            if ((this.GetUserTempProfileIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetUserTempProfileIdCompleted(this, new GetUserTempProfileIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/police-records/WebFileServices/GetProfileInfo", RequestNamespace="http://tempuri.org/police-records/WebFileServices", ResponseNamespace="http://tempuri.org/police-records/WebFileServices", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string GetProfileInfo(string UserId, string ProfileId) {
             object[] results = this.Invoke("GetProfileInfo", new object[] {
@@ -153,30 +187,28 @@ namespace zsi.PhotoFingCapture.WebFileService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/police-records/WebFileServices/UploadFile", RequestNamespace="http://tempuri.org/police-records/WebFileServices", ResponseNamespace="http://tempuri.org/police-records/WebFileServices", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool UploadFile(string strUserId, string strFileName, [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] objFile, string strReturn) {
+        public bool UploadFile(string strUserId, string strFileName, [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] objFile) {
             object[] results = this.Invoke("UploadFile", new object[] {
                         strUserId,
                         strFileName,
-                        objFile,
-                        strReturn});
+                        objFile});
             return ((bool)(results[0]));
         }
         
         /// <remarks/>
-        public void UploadFileAsync(string strUserId, string strFileName, byte[] objFile, string strReturn) {
-            this.UploadFileAsync(strUserId, strFileName, objFile, strReturn, null);
+        public void UploadFileAsync(string strUserId, string strFileName, byte[] objFile) {
+            this.UploadFileAsync(strUserId, strFileName, objFile, null);
         }
         
         /// <remarks/>
-        public void UploadFileAsync(string strUserId, string strFileName, byte[] objFile, string strReturn, object userState) {
+        public void UploadFileAsync(string strUserId, string strFileName, byte[] objFile, object userState) {
             if ((this.UploadFileOperationCompleted == null)) {
                 this.UploadFileOperationCompleted = new System.Threading.SendOrPostCallback(this.OnUploadFileOperationCompleted);
             }
             this.InvokeAsync("UploadFile", new object[] {
                         strUserId,
                         strFileName,
-                        objFile,
-                        strReturn}, this.UploadFileOperationCompleted, userState);
+                        objFile}, this.UploadFileOperationCompleted, userState);
         }
         
         private void OnUploadFileOperationCompleted(object arg) {
@@ -258,6 +290,32 @@ namespace zsi.PhotoFingCapture.WebFileService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    public delegate void GetUserTempProfileIdCompletedEventHandler(object sender, GetUserTempProfileIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetUserTempProfileIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetUserTempProfileIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
             }
         }
     }
