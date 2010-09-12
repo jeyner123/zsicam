@@ -29,12 +29,7 @@ namespace zsi.PhotoFingCapture
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.txtProfileNo = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblProfileName = new System.Windows.Forms.Label();
-            this.btnFind = new System.Windows.Forms.Button();
             this.btnVerifyFP = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
             this.tab = new System.Windows.Forms.TabControl();
             this.tabPhoto = new System.Windows.Forms.TabPage();
             this.gbImageType = new System.Windows.Forms.GroupBox();
@@ -74,44 +69,6 @@ namespace zsi.PhotoFingCapture
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // txtProfileNo
-            // 
-            this.txtProfileNo.Enabled = false;
-            this.txtProfileNo.Location = new System.Drawing.Point(168, 14);
-            this.txtProfileNo.Name = "txtProfileNo";
-            this.txtProfileNo.Size = new System.Drawing.Size(158, 20);
-            this.txtProfileNo.TabIndex = 23;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 14);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 13);
-            this.label5.TabIndex = 24;
-            this.label5.Text = "Enter Profile No.:";
-            // 
-            // lblProfileName
-            // 
-            this.lblProfileName.AutoSize = true;
-            this.lblProfileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProfileName.Location = new System.Drawing.Point(169, 48);
-            this.lblProfileName.Name = "lblProfileName";
-            this.lblProfileName.Size = new System.Drawing.Size(14, 20);
-            this.lblProfileName.TabIndex = 25;
-            this.lblProfileName.Text = " ";
-            // 
-            // btnFind
-            // 
-            this.btnFind.Enabled = false;
-            this.btnFind.Location = new System.Drawing.Point(332, 14);
-            this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(41, 21);
-            this.btnFind.TabIndex = 26;
-            this.btnFind.Text = "Find";
-            this.btnFind.UseVisualStyleBackColor = true;
-            this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
-            // 
             // btnVerifyFP
             // 
             this.btnVerifyFP.Location = new System.Drawing.Point(20, 253);
@@ -122,20 +79,11 @@ namespace zsi.PhotoFingCapture
             this.btnVerifyFP.UseVisualStyleBackColor = true;
             this.btnVerifyFP.Click += new System.EventHandler(this.btnVerifyFP_Click);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(23, 48);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 13);
-            this.label6.TabIndex = 29;
-            this.label6.Text = "Profile Name:";
-            // 
             // tab
             // 
             this.tab.Controls.Add(this.tabPhoto);
             this.tab.Controls.Add(this.tabFingers);
-            this.tab.Location = new System.Drawing.Point(26, 78);
+            this.tab.Location = new System.Drawing.Point(21, 42);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
             this.tab.Size = new System.Drawing.Size(714, 391);
@@ -477,15 +425,10 @@ namespace zsi.PhotoFingCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(756, 485);
+            this.ClientSize = new System.Drawing.Size(756, 448);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.tab);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.btnFind);
-            this.Controls.Add(this.lblProfileName);
-            this.Controls.Add(this.txtProfileNo);
-            this.Controls.Add(this.label5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -505,18 +448,12 @@ namespace zsi.PhotoFingCapture
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtProfileNo;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblProfileName;
-        private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.Button btnVerifyFP;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabControl tab;
         private System.Windows.Forms.TabPage tabPhoto;
         private System.Windows.Forms.TabPage tabFingers;

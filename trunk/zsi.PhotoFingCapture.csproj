@@ -169,7 +169,6 @@
     <Compile Include="WebCamServices\WebCamService.cs">
     </Compile>
     <Compile Include="WebCamServices\MotionImages.cs" />
-    <Compile Include="WebServices\WebFileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />

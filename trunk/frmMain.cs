@@ -12,7 +12,7 @@ using System.Drawing.Imaging;
 using zsi.Biometrics;
 using zsi.PhotoFingCapture;
 using zsi.WebCamServices;
-using zsi.WebFileService;
+using zsi.PhotoFingCapture.WebFileService;
 namespace zsi.PhotoFingCapture
 {
 
@@ -23,6 +23,26 @@ namespace zsi.PhotoFingCapture
         public FingersData FingersData { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
         private WebCamera WebCam { get; set; }
+        private WebFileManager _WebFileMgr; 
+
+
+        private WebFileManager WebFileMgr
+        {
+            get { 
+            
+                if(_WebFileMgr==null) _WebFileMgr = new WebFileManager();
+                return _WebFileMgr;
+            }
+            set {
+                _WebFileMgr =value;             
+            }
+        
+        }
+            
+
+ 
+
+
         public frmMain()
         {
             try
@@ -95,9 +115,10 @@ namespace zsi.PhotoFingCapture
         {
             btnCapture.Enabled = IsEnable;
             btnVerifyFP.Enabled = IsEnable;
-            btnFind.Enabled = IsEnable;
-            txtProfileNo.Enabled = IsEnable;
+            //btnFind.Enabled = IsEnable;
+            //txtProfileNo.Enabled = IsEnable;
             btnLogOut.Enabled = IsEnable;
+            btnUploadPhoto.Enabled = IsEnable;
 
         }
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -114,29 +135,29 @@ namespace zsi.PhotoFingCapture
         }
         private void btnFind_Click(object sender, EventArgs e)
         {
-            zsi.PhotoFingCapture.WebFileService.WebFileManager wfm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-            string _profileNo = this.txtProfileNo.Text.Trim() ;            
-            try
-            {
-                if(_profileNo.Length<13) throw new Exception();
-                Int64.Parse(_profileNo);
-            }
-            catch{
-                MessageBox.Show("Please enter 13 digit numbers.");
-                return;
-            }
-          
-            string _result = wfm.GetProfileInfo(this.UserId, _profileNo);
-            if (string.IsNullOrEmpty(_result) == false)
-            {
-                lblProfileName.Text = _result;
-                this.ProfileNo = this.txtProfileNo.Text.Trim();                
-                this.btnUploadPhoto.Enabled = true;
-            }
-            else {
-                lblProfileName.Text  ="Profile Not found";
-            }
-            OnFingersDataChange();
+            ////zsi.PhotoFingCapture.WebFileService.WebFileManager wfm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+            //string _profileNo = this.txtProfileNo.Text.Trim() ;            
+            //try
+            //{
+            //    if(_profileNo.Length<13) throw new Exception();
+            //    Int64.Parse(_profileNo);
+            //}
+            //catch{
+            //    MessageBox.Show("Please enter 13 digit numbers.");
+            //    return;
+            //}
+
+            //string _result = WebFileMgr.GetProfileInfo(this.UserId, _profileNo);
+            //if (string.IsNullOrEmpty(_result) == false)
+            //{
+            //    lblProfileName.Text = _result;
+            //    this.ProfileNo = this.txtProfileNo.Text.Trim();                
+            //    this.btnUploadPhoto.Enabled = true;
+            //}
+            //else {
+            //    lblProfileName.Text  ="Profile Not found";
+            //}
+            //OnFingersDataChange();
         }
  
  
@@ -151,9 +172,10 @@ namespace zsi.PhotoFingCapture
         {
             try
             {
+                UpdateProfileNo();
                 btnUploadFG.Text = "Uploading...";
                 btnUploadFG.Enabled = false;
-                zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+                //zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
                 
 
                 DPFP.Template[] tmps = this.FingersData.Templates;
@@ -164,11 +186,11 @@ namespace zsi.PhotoFingCapture
                         System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
                         this.FingersData.Templates[i].Serialize(_MemoryStream);
                         byte[] _byte = Util.StreamToByte(_MemoryStream);
-                        wf.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".fpt", _byte);
+                        WebFileMgr.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".fpt", _byte);
 
  
                         byte[] _byteImage = Util.StreamToByte(Util.BmpToStream((Bitmap)this.FingersData.Images[i]));
-                        wf.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".jpg", _byteImage);
+                        WebFileMgr.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".jpg", _byteImage);
                     }
                 }
                 MessageBox.Show("Finger prints has been uploaded to the server.");
@@ -201,22 +223,34 @@ namespace zsi.PhotoFingCapture
               WebCam.Close();
         }
 
+        private void UpdateProfileNo() { 
+                WebFileManager wfm = new WebFileManager();
+                this.ProfileNo = wfm.GetUserTempProfileId(Convert.ToInt32(this.UserId));
+        }
+
         private void btnUploadPhoto_Click(object sender, EventArgs e)
         {
             try
             {
 
+                UpdateProfileNo();
+
                 if (pbResult.Image == null) {
                     MessageBox.Show("Sorry, No photo has been captured.");
                     return;
                 }
-
+                if (Convert.ToInt64(this.ProfileNo)==0)
+                {
+                    MessageBox.Show("Sorry, You cannot upload this picture, please go to [Edit Profile] view in order to upload this picture.","No Profile Selected!");
+                    return;
+                }
                 btnUploadPhoto.Text = "Uploading...";
                 btnUploadPhoto.Enabled = false;
                 string fileName = GetImageFileNameByPosition();
                 pbResult.Image.Save(fileName, ImageFormat.Jpeg);
                 System.IO.FileInfo oFileInfo = new System.IO.FileInfo(fileName);
-                WebFileManager.FileUploadViaWebService(oFileInfo, this.UserId);
+                byte[] _byteImage = Util.StreamToByte(Util.BmpToStream(pbResult.Image));
+                WebFileMgr.UploadFile(UserId, oFileInfo.Name, _byteImage);
                 MessageBox.Show("Photo has been uploaded to the server.");
 
             }
@@ -326,6 +360,7 @@ namespace zsi.PhotoFingCapture
             ShowScanForm(sender, 0);
 
         }
+
  
 
     }
