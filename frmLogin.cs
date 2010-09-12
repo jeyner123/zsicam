@@ -30,8 +30,9 @@ namespace zsi.PhotoFingCapture
                     return;
                 }
                 btnLogin.Text = "Wait...";
+                btnLogin.Enabled = false;
                 zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-                 this.ParentForm.UserId = fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString();
+                this.ParentForm.UserId = fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString();
                 if (int.Parse(this.ParentForm.UserId) < 1)
                 {
                     MessageBox.Show("Invalid User, Please Login.");
@@ -39,12 +40,16 @@ namespace zsi.PhotoFingCapture
                     return;
                 }
                 EnableControls(true);
-                btnLogin.Text = "Login";
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                btnLogin.Enabled = true;
+                btnLogin.Text = "Login";
             }
         }
 
