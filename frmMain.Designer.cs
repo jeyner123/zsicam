@@ -417,7 +417,6 @@ namespace zsi.PhotoFingCapture
             this.tabSign.TabIndex = 2;
             this.tabSign.Text = "Signature";
             this.tabSign.UseVisualStyleBackColor = true;
-            this.tabSign.MouseHover += new System.EventHandler(this.tabSign_MouseHover);
             // 
             // btnUploadSig
             // 
