@@ -233,8 +233,14 @@ namespace zsi.Biometrics
 
             g.DrawImage(bitmap, cropRect, new Rectangle(0, 0, bitmap.Width, bitmap.Height), GraphicsUnit.Pixel);
 
-            this.Data.Images[this.FingerPosition] = _resizedImg;
-            if (this.PBox != null) this.PBox.Image = new Bitmap(_resizedImg, PBox.Size);
+
+            //crop
+            Bitmap _CropImg = new Bitmap(200, 200);
+            g = Graphics.FromImage(_CropImg);
+            g.DrawImage(_resizedImg, cropRect, new Rectangle(0, 20,200,200), GraphicsUnit.Pixel);
+
+            this.Data.Images[this.FingerPosition] = _CropImg;
+            if (this.PBox != null) this.PBox.Image = new Bitmap(_CropImg, PBox.Size);
  
         }
     }
