@@ -46,6 +46,7 @@ namespace zsi.PhotoFingCapture
                 this.InitializeComponent();
                 this.WebCam = new WebCamera(this.picture);
                 InitFingerPrintSettings();
+                  
 
             }
             catch (Exception ex)
@@ -114,6 +115,7 @@ namespace zsi.PhotoFingCapture
             btnLogin.Enabled = (IsEnable==true?false:true);
             btnLogOut.Enabled = IsEnable;
             btnUploadPhoto.Enabled = IsEnable;
+            btnUploadSig.Enabled = IsEnable;
 
         }
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -142,9 +144,11 @@ namespace zsi.PhotoFingCapture
         {
             try
             {
-                UpdateProfileNo();
                 btnUploadFG.Text = "Uploading...";
                 btnUploadFG.Enabled = false;
+                
+                UpdateProfileNo();
+                
                 //zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
                 
 
@@ -202,7 +206,8 @@ namespace zsi.PhotoFingCapture
         {
             try
             {
-
+                btnUploadPhoto.Text = "Uploading...";
+                btnUploadPhoto.Enabled = false;
                 UpdateProfileNo();
 
                 if (pbResult.Image == null) {
@@ -214,8 +219,7 @@ namespace zsi.PhotoFingCapture
                     MessageBox.Show("Sorry, You cannot upload this picture, please go to [Edit Profile] view in order to upload this picture.","No Profile Selected!");
                     return;
                 }
-                btnUploadPhoto.Text = "Uploading...";
-                btnUploadPhoto.Enabled = false;
+                
                 string fileName = GetImageFileNameByPosition();
                 pbResult.Image.Save(fileName, ImageFormat.Jpeg);
                 System.IO.FileInfo oFileInfo = new System.IO.FileInfo(fileName);
@@ -234,6 +238,10 @@ namespace zsi.PhotoFingCapture
             }
         }
         private void ShowScanForm(object sender, int FingerPosition) {
+            if (Convert.ToInt32(this.ProfileNo) == 0) {
+                MessageBox.Show("Please login first.", "Sorry!");
+                return;
+            }
             Color _bcolor =((Control)sender).BackColor;
             DialogResult result=DialogResult.None;
 
@@ -329,6 +337,58 @@ namespace zsi.PhotoFingCapture
         {
             ShowScanForm(sender, 0);
 
+        }
+
+        private void btnClearSig_Click(object sender, EventArgs e)
+        {
+            signature1.Clear();
+
+
+           
+            
+        }
+
+        private void signature1_MouseMove(object sender, MouseEventArgs e)
+        {
+           
+        }
+
+        private void tabSign_MouseHover(object sender, EventArgs e)
+        {
+             Point _p = System.Windows.Forms.Cursor.Position;
+            //Cursor.Position = new Point(_p.X, _p.Y + 1);   
+
+             Cursor.Position = new Point(signature1.Location.X+10, signature1.Location.Y+10);   
+        }
+
+        private void btnUploadSig_Click(object sender, EventArgs e)
+        {
+            try
+            {   
+                btnUploadSig.Text = "Uploading...";
+                btnUploadSig.Enabled = false;                
+                UpdateProfileNo();
+                
+
+                DPFP.Template[] tmps = this.FingersData.Templates;
+
+                System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
+                this.signature1.bmp.Save(_MemoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                byte[] _byte = Util.StreamToByte(_MemoryStream);
+                WebFileMgr.UploadBiometricsData(this.UserId, this.ProfileNo + "-sig.jpg", _byte);
+
+                MessageBox.Show("Signature has been uploaded to the server.");
+                signature1.Clear();
+            }
+                      
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally{
+                btnUploadSig.Text = "Upload";
+                btnUploadSig.Enabled = true;
+            }
         }
 
  

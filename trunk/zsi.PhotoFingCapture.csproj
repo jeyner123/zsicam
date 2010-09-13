@@ -155,6 +155,9 @@
     <None Include="app.config" />
     <None Include="Web References\WebFileService\WebFileServices.wsdl" />
     <Compile Include="Biometrics\Util\BiometricsUtil.cs" />
+    <Compile Include="Signatures\Signature.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Util\Util.cs" />
     <Compile Include="Web References\WebFileService\Reference.cs">
       <AutoGen>True</AutoGen>
