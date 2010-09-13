@@ -146,12 +146,7 @@ namespace zsi.PhotoFingCapture
             {
                 btnUploadFG.Text = "Uploading...";
                 btnUploadFG.Enabled = false;
-                
                 UpdateProfileNo();
-                
-                //zsi.PhotoFingCapture.WebFileService.WebFileManager wf = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-                
-
                 DPFP.Template[] tmps = this.FingersData.Templates;
 
                 for (int i = 0; i < tmps.Length; i++)
@@ -353,13 +348,7 @@ namespace zsi.PhotoFingCapture
            
         }
 
-        private void tabSign_MouseHover(object sender, EventArgs e)
-        {
-             Point _p = System.Windows.Forms.Cursor.Position;
-            //Cursor.Position = new Point(_p.X, _p.Y + 1);   
 
-             Cursor.Position = new Point(signature1.Location.X+10, signature1.Location.Y+10);   
-        }
 
         private void btnUploadSig_Click(object sender, EventArgs e)
         {
