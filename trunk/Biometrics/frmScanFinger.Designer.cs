@@ -68,7 +68,6 @@
             this.CloseButton.TabIndex = 14;
             this.CloseButton.Text = "Close";
             this.CloseButton.UseVisualStyleBackColor = true;
- 
             // 
             // StatusLine
             // 
@@ -101,7 +100,7 @@
             this.Prompt.Location = new System.Drawing.Point(285, 28);
             this.Prompt.Name = "Prompt";
             this.Prompt.ReadOnly = true;
-            this.Prompt.Size = new System.Drawing.Size(216, 20);
+            this.Prompt.Size = new System.Drawing.Size(256, 20);
             this.Prompt.TabIndex = 10;
             // 
             // Picture
@@ -109,7 +108,6 @@
             this.Picture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.Picture.BackColor = System.Drawing.SystemColors.Window;
-            this.Picture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Picture.Location = new System.Drawing.Point(12, 28);
             this.Picture.Name = "Picture";
             this.Picture.Size = new System.Drawing.Size(248, 293);

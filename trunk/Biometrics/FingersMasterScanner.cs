@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 namespace zsi.Biometrics
 {
+ 
     delegate void Function();
     public delegate void CompeletedHandler();
     public class FingersMasterScanner:Form,DPFP.Capture.EventHandler
@@ -25,11 +26,14 @@ namespace zsi.Biometrics
             });
 
         }
+        //private properties
         private PictureBox PBox { get; set; }
         private TextBox EventStatus { get; set; }
         private TextBox PromptText { get; set; }
         private Label StatusLine { get; set; }
-
+        private Control Control { get; set; }
+        
+        //public properties
         public DPFP.Processing.Enrollment Enroller;
         public DPFP.Capture.Capture Capturer;
         public DPFP.Sample Sample{get;set;}
@@ -38,7 +42,6 @@ namespace zsi.Biometrics
         public FingersData Data { get; set; }
         public bool IsComplete { get; set; } 
         public string ReaderSerialNumber{get;set;}
-        private Control Control { get; set; }
 
         public void SetControls(PictureBox PBox, TextBox EventStatus, TextBox PromptText, Label StatusLine)
         {
@@ -46,6 +49,10 @@ namespace zsi.Biometrics
             this.EventStatus = EventStatus;
             this.PromptText = PromptText;
             this.StatusLine = StatusLine;
+        }
+        public void SetControls(PictureBox PBox)
+        {
+            this.PBox = PBox;
         }
 
         public void OnCompleted()
@@ -97,53 +104,12 @@ namespace zsi.Biometrics
                 MessageBox.Show("Can't initiate capture operation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        protected void Process(DPFP.Sample Sample)
-        {
-            this.Data.UpdateSamples(this.FingerPosition, Sample);
-            
+ 
+        public virtual void Process(DPFP.Sample Sample){
+        
             DrawPicture(Util.ConvertSampleToBitmap(Sample));
-            // Process the sample and create a feature set for the enrollment purpose.
-            DPFP.FeatureSet features = Util.ExtractFeatures(Sample, DPFP.Processing.DataPurpose.Enrollment);
-            // Check quality of the sample and add to enroller if it's good
-            if (features != null) try
-                {
-                    MakeReport("The fingerprint feature set was created.");
-                    Enroller.AddFeatures(features);		// Add feature set to template.
-                }
-                finally
-                {
-                    UpdateStatus();
-
-                    // Check if template has been created.
-                    switch (Enroller.TemplateStatus)
-                    {
-                        case DPFP.Processing.Enrollment.Status.Ready:	// report success and stop capturing
-                            //OnTemplate(Enroller.Template);
-                            this.Data.UpdateTemplates(this.FingerPosition, Enroller.Template);
-
-                            this.IsComplete = true;
-                            SetPrompt("Click Close, and then click Fingerprint Verification.");
-                            Stop();
-                            if (IsAutoClose == true) {
-
-                                this.Invoke(new Function(delegate()
-                                {
-                                    this.Close();
-                                }));
-
-                            }
-                            break;
-
-                        case DPFP.Processing.Enrollment.Status.Failed:	// report failure and restart capturing
-                            Enroller.Clear();
-                            Stop();
-                            UpdateStatus();
-                            //OnTemplate(null);
-                            Start();
-                            break;
-                    }
-                }
         }
+       
 
       
         #region EventHandler Members:
@@ -154,7 +120,6 @@ namespace zsi.Biometrics
             MakeReport("The fingerprint sample was captured.");
             SetPrompt("Scan the same fingerprint again.");            
             this.Process(Sample);
-            this.Sample = Sample;
         }
 
         public void OnFingerGone(object Capture, string ReaderSerialNumber)
@@ -190,11 +155,6 @@ namespace zsi.Biometrics
         }
         #endregion
 
-        private void UpdateStatus()
-        {
-            // Show number of samples needed.
-            SetStatus(String.Format("Fingerprint samples needed: {0}", Enroller.FeaturesNeeded));
-        }
 
         protected void SetStatus(string status)
         {
@@ -221,7 +181,7 @@ namespace zsi.Biometrics
         }
 
  
-        private void DrawPicture(Bitmap bitmap)
+        public void DrawPicture(Bitmap bitmap)
         {
             //resize
             Rectangle cropRect = new Rectangle(0, 0, 200, 220);
@@ -239,7 +199,7 @@ namespace zsi.Biometrics
             g = Graphics.FromImage(_CropImg);
             g.DrawImage(_resizedImg, cropRect, new Rectangle(0, 20,200,200), GraphicsUnit.Pixel);
 
-            this.Data.Images[this.FingerPosition] = _CropImg;
+            //this.Data.Images[this.FingerPosition] = _CropImg;
             if (this.PBox != null) this.PBox.Image = new Bitmap(_CropImg, PBox.Size);
  
         }

@@ -18,6 +18,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="VerifyBiometricsData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerifyBiometricsDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VerifyBiometricsDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetUserTempProfileId">
         <s:complexType>
           <s:sequence>
@@ -86,6 +101,12 @@
   <wsdl:message name="UploadBiometricsDataSoapOut">
     <wsdl:part name="parameters" element="tns:UploadBiometricsDataResponse" />
   </wsdl:message>
+  <wsdl:message name="VerifyBiometricsDataSoapIn">
+    <wsdl:part name="parameters" element="tns:VerifyBiometricsData" />
+  </wsdl:message>
+  <wsdl:message name="VerifyBiometricsDataSoapOut">
+    <wsdl:part name="parameters" element="tns:VerifyBiometricsDataResponse" />
+  </wsdl:message>
   <wsdl:message name="GetUserTempProfileIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetUserTempProfileId" />
   </wsdl:message>
@@ -116,6 +137,11 @@
       <wsdl:input message="tns:UploadBiometricsDataSoapIn" />
       <wsdl:output message="tns:UploadBiometricsDataSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="VerifyBiometricsData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verify Biometrics Data</wsdl:documentation>
+      <wsdl:input message="tns:VerifyBiometricsDataSoapIn" />
+      <wsdl:output message="tns:VerifyBiometricsDataSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetUserTempProfileId">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get UserTempProfileId</wsdl:documentation>
       <wsdl:input message="tns:GetUserTempProfileIdSoapIn" />
@@ -141,6 +167,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="UploadBiometricsData">
       <soap:operation soapAction="http://tempuri.org/police-records/WebFileServices/UploadBiometricsData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyBiometricsData">
+      <soap:operation soapAction="http://tempuri.org/police-records/WebFileServices/VerifyBiometricsData" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -189,6 +224,15 @@
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="UploadBiometricsData">
       <soap12:operation soapAction="http://tempuri.org/police-records/WebFileServices/UploadBiometricsData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyBiometricsData">
+      <soap12:operation soapAction="http://tempuri.org/police-records/WebFileServices/VerifyBiometricsData" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
