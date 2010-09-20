@@ -30,7 +30,6 @@ namespace zsi.Biometrics
             {
                 base.Process(Sample);
                 frmMain _frm = this.ParentForm;
-               // _frm.UpdateProfileNo();
                 System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
                 Sample.Serialize(_MemoryStream);
                 byte[] _byte = zsi.PhotoFingCapture.Util.StreamToByte(_MemoryStream);

@@ -54,7 +54,7 @@ namespace zsi.PhotoFingCapture
                 MessageBox.Show(ex.Message);
             }
         }
-        public void UpdateProfileNo()
+        private void UpdateProfileNo()
         {
            
             this.ProfileNo = WebFileMgr.GetUserTempProfileId(Convert.ToInt32(this.UserId));
@@ -190,11 +190,11 @@ namespace zsi.PhotoFingCapture
             cbImagePosition.SelectedIndex = 0;
             this.Show();
          
-           //  WebCam.Show();
+            WebCam.Show();
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-             // WebCam.Close();
+            WebCam.Close();
         }
 
          private void btnUploadPhoto_Click(object sender, EventArgs e)
