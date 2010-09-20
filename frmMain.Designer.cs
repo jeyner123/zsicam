@@ -76,6 +76,7 @@ namespace zsi.PhotoFingCapture
             // 
             // btnVerifyFP
             // 
+            this.btnVerifyFP.Enabled = false;
             this.btnVerifyFP.Location = new System.Drawing.Point(20, 253);
             this.btnVerifyFP.Name = "btnVerifyFP";
             this.btnVerifyFP.Size = new System.Drawing.Size(139, 53);
@@ -442,6 +443,7 @@ namespace zsi.PhotoFingCapture
             // signature1
             // 
             this.signature1.Background = null;
+            this.signature1.bmp = null;
             this.signature1.Location = new System.Drawing.Point(135, 110);
             this.signature1.Name = "signature1";
             this.signature1.Size = new System.Drawing.Size(307, 116);

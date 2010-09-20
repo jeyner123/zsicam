@@ -26,7 +26,7 @@ namespace zsi.PhotoFingCapture
         private WebFileManager _WebFileMgr; 
 
 
-        private WebFileManager WebFileMgr
+        public WebFileManager WebFileMgr
         {
             get { 
             
@@ -53,6 +53,11 @@ namespace zsi.PhotoFingCapture
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        public void UpdateProfileNo()
+        {
+           
+            this.ProfileNo = WebFileMgr.GetUserTempProfileId(Convert.ToInt32(this.UserId));
         }
         private void InitFingerPrintSettings(){
             this.FingersData = new FingersData();	
@@ -116,6 +121,7 @@ namespace zsi.PhotoFingCapture
             btnLogOut.Enabled = IsEnable;
             btnUploadPhoto.Enabled = IsEnable;
             btnUploadSig.Enabled = IsEnable;
+            btnVerifyFP.Enabled = IsEnable;
 
         }
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -135,8 +141,7 @@ namespace zsi.PhotoFingCapture
  
         private void btnVerifyFP_Click(object sender, EventArgs e)
         {
-            zsi.Biometrics.frmVerification _frmVerify = new frmVerification();
-            _frmVerify.Data = this.FingersData;
+            zsi.Biometrics.frmVerification _frmVerify = new frmVerification(this);
             _frmVerify.ShowDialog();
 
         }
@@ -185,19 +190,14 @@ namespace zsi.PhotoFingCapture
             cbImagePosition.SelectedIndex = 0;
             this.Show();
          
-             WebCam.Show();
+           //  WebCam.Show();
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-              WebCam.Close();
+             // WebCam.Close();
         }
 
-        private void UpdateProfileNo() { 
-                WebFileManager wfm = new WebFileManager();
-                this.ProfileNo = wfm.GetUserTempProfileId(Convert.ToInt32(this.UserId));
-        }
-
-        private void btnUploadPhoto_Click(object sender, EventArgs e)
+         private void btnUploadPhoto_Click(object sender, EventArgs e)
         {
             try
             {
@@ -233,7 +233,7 @@ namespace zsi.PhotoFingCapture
             }
         }
         private void ShowScanForm(object sender, int FingerPosition) {
-            if (Convert.ToInt32(this.ProfileNo) == 0) {
+            if (Convert.ToInt32(this.UserId) == 0) {
                 MessageBox.Show("Please login first.", "Sorry!");
                 return;
             }

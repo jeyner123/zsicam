@@ -31,6 +31,8 @@ namespace zsi.PhotoFingCapture.WebFileService {
         
         private System.Threading.SendOrPostCallback UploadBiometricsDataOperationCompleted;
         
+        private System.Threading.SendOrPostCallback VerifyBiometricsDataOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetUserTempProfileIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetProfileInfoOperationCompleted;
@@ -81,6 +83,9 @@ namespace zsi.PhotoFingCapture.WebFileService {
         public event UploadBiometricsDataCompletedEventHandler UploadBiometricsDataCompleted;
         
         /// <remarks/>
+        public event VerifyBiometricsDataCompletedEventHandler VerifyBiometricsDataCompleted;
+        
+        /// <remarks/>
         public event GetUserTempProfileIdCompletedEventHandler GetUserTempProfileIdCompleted;
         
         /// <remarks/>
@@ -122,6 +127,37 @@ namespace zsi.PhotoFingCapture.WebFileService {
             if ((this.UploadBiometricsDataCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.UploadBiometricsDataCompleted(this, new UploadBiometricsDataCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/police-records/WebFileServices/VerifyBiometricsData", RequestNamespace="http://tempuri.org/police-records/WebFileServices", ResponseNamespace="http://tempuri.org/police-records/WebFileServices", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string VerifyBiometricsData(string UserId, [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] Data) {
+            object[] results = this.Invoke("VerifyBiometricsData", new object[] {
+                        UserId,
+                        Data});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void VerifyBiometricsDataAsync(string UserId, byte[] Data) {
+            this.VerifyBiometricsDataAsync(UserId, Data, null);
+        }
+        
+        /// <remarks/>
+        public void VerifyBiometricsDataAsync(string UserId, byte[] Data, object userState) {
+            if ((this.VerifyBiometricsDataOperationCompleted == null)) {
+                this.VerifyBiometricsDataOperationCompleted = new System.Threading.SendOrPostCallback(this.OnVerifyBiometricsDataOperationCompleted);
+            }
+            this.InvokeAsync("VerifyBiometricsData", new object[] {
+                        UserId,
+                        Data}, this.VerifyBiometricsDataOperationCompleted, userState);
+        }
+        
+        private void OnVerifyBiometricsDataOperationCompleted(object arg) {
+            if ((this.VerifyBiometricsDataCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.VerifyBiometricsDataCompleted(this, new VerifyBiometricsDataCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -290,6 +326,32 @@ namespace zsi.PhotoFingCapture.WebFileService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    public delegate void VerifyBiometricsDataCompletedEventHandler(object sender, VerifyBiometricsDataCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class VerifyBiometricsDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal VerifyBiometricsDataCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
             }
         }
     }

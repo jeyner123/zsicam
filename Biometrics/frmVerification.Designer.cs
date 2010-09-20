@@ -30,9 +30,10 @@
         {
             System.Windows.Forms.Label lblPrompt;
             System.Windows.Forms.Button CloseButton;
-            this.VerificationControl = new DPFP.Gui.Verification.VerificationControl();
+            this.pbFinger = new System.Windows.Forms.PictureBox();
             lblPrompt = new System.Windows.Forms.Label();
             CloseButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).BeginInit();
             this.SuspendLayout();
             // 
             // lblPrompt
@@ -40,9 +41,9 @@
             lblPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            lblPrompt.Location = new System.Drawing.Point(66, 26);
+            lblPrompt.Location = new System.Drawing.Point(164, 9);
             lblPrompt.Name = "lblPrompt";
-            lblPrompt.Size = new System.Drawing.Size(219, 64);
+            lblPrompt.Size = new System.Drawing.Size(341, 72);
             lblPrompt.TabIndex = 6;
             lblPrompt.Text = "To verify your identity, touch fingerprint reader with any enrolled finger.";
             // 
@@ -50,31 +51,30 @@
             // 
             CloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             CloseButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            CloseButton.Location = new System.Drawing.Point(210, 93);
+            CloseButton.Location = new System.Drawing.Point(446, 157);
             CloseButton.Name = "CloseButton";
             CloseButton.Size = new System.Drawing.Size(75, 23);
             CloseButton.TabIndex = 5;
             CloseButton.Text = "Close";
             CloseButton.UseVisualStyleBackColor = true;
-            CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
-            // VerificationControl
+            // pbFinger
             // 
-            this.VerificationControl.Active = true;
-            this.VerificationControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.VerificationControl.Location = new System.Drawing.Point(12, 26);
-            this.VerificationControl.Name = "VerificationControl";
-            this.VerificationControl.ReaderSerialNumber = "00000000-0000-0000-0000-000000000000";
-            this.VerificationControl.Size = new System.Drawing.Size(48, 47);
-            this.VerificationControl.TabIndex = 7;
-            this.VerificationControl.OnComplete += new DPFP.Gui.Verification.VerificationControl._OnComplete(this.OnComplete);
+            this.pbFinger.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.pbFinger.BackColor = System.Drawing.SystemColors.Window;
+            this.pbFinger.Location = new System.Drawing.Point(12, 12);
+            this.pbFinger.Name = "pbFinger";
+            this.pbFinger.Size = new System.Drawing.Size(146, 168);
+            this.pbFinger.TabIndex = 9;
+            this.pbFinger.TabStop = false;
             // 
             // frmVerification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 128);
-            this.Controls.Add(this.VerificationControl);
+            this.ClientSize = new System.Drawing.Size(533, 207);
+            this.Controls.Add(this.pbFinger);
             this.Controls.Add(lblPrompt);
             this.Controls.Add(CloseButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -84,13 +84,14 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Verify Your Identity";
-            this.Load += new System.EventHandler(this.frmVerification_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private DPFP.Gui.Verification.VerificationControl VerificationControl;
+        private System.Windows.Forms.PictureBox pbFinger;
+
     }
 }

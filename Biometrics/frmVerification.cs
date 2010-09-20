@@ -7,58 +7,50 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+
+using zsi.PhotoFingCapture;
+using zsi.PhotoFingCapture.Models;
+using System.Web.Script.Serialization;
 namespace zsi.Biometrics
 {
-    public partial class frmVerification : Form 
+    public partial class frmVerification:FingersMasterScanner
     {
-        public FingersData Data { get; set; }
-        public frmVerification()
+        private frmMain ParentForm { get; set; }
+        public frmVerification(frmMain MainForm)
         {
             InitializeComponent();
-
+            this.ParentForm = MainForm;
+            this.SetControls(pbFinger);
         }
 
-        public void OnComplete(object Control, DPFP.FeatureSet FeatureSet, ref DPFP.Gui.EventHandlerStatus Status)
+ 
+        public override void Process(DPFP.Sample Sample)
         {
-            if (Data == null) {
-                Status = DPFP.Gui.EventHandlerStatus.Failure;
-                return;
-            }
-
-
-            DPFP.Verification.Verification ver = new DPFP.Verification.Verification();
-            DPFP.Verification.Verification.Result res = new DPFP.Verification.Verification.Result();
-
-            // Compare feature set with all stored templates.
-            foreach (DPFP.Template template in Data.Templates)
+            try
             {
-                // Get template from storage.
-                if (template != null)
+                base.Process(Sample);
+                frmMain _frm = this.ParentForm;
+               // _frm.UpdateProfileNo();
+                System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
+                Sample.Serialize(_MemoryStream);
+                byte[] _byte = zsi.PhotoFingCapture.Util.StreamToByte(_MemoryStream);
+                string data=  _frm.WebFileMgr.VerifyBiometricsData(_frm.UserId, _byte);
+
+
+                Profile _profile = (Profile)new JavaScriptSerializer().Deserialize<Profile>(data);
+
+                if (_profile.ProfileId > 0)
                 {
-                    // Compare feature set with particular template.
-                    ver.Verify(FeatureSet, template, ref res);
-                   // Data.IsFeatureSetMatched = res.Verified;
-                   // Data.FalseAcceptRate = res.FARAchieved;
-                    if (res.Verified)
-                        break; // success
+                    MessageBox.Show("verified");
+                }
+                else {
+                    MessageBox.Show("not verified");                    
                 }
             }
-
-            if (!res.Verified)
-                Status = DPFP.Gui.EventHandlerStatus.Failure;
-
-            //Data.Update();
-        }
-
-        private void CloseButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void frmVerification_Load(object sender, EventArgs e)
-        {
-                //using (FileStream fs = File.OpenRead(open.FileName)
-				//	DPFP.Template template = new DPFP.Template(fs);
-        }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }     
     }
 }
