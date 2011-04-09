@@ -13,6 +13,7 @@ using zsi.Biometrics;
 using zsi.PhotoFingCapture;
 using zsi.WebCamServices;
 using zsi.PhotoFingCapture.WebFileService;
+
 namespace zsi.PhotoFingCapture
 {
 
@@ -22,10 +23,8 @@ namespace zsi.PhotoFingCapture
         public string ProfileNo{get;set;}
         public FingersData FingersData { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
-        private WebCamera WebCam { get; set; }
-        private WebFileManager _WebFileMgr; 
-
-
+        private WebFileManager _WebFileMgr;
+        private WebCamManager _WebCam;
         public WebFileManager WebFileMgr
         {
             get { 
@@ -44,7 +43,6 @@ namespace zsi.PhotoFingCapture
             try
             {
                 this.InitializeComponent();
-                this.WebCam = new WebCamera(this.picture);
                 InitFingerPrintSettings();
                   
 
@@ -68,7 +66,16 @@ namespace zsi.PhotoFingCapture
         private void btnCapture_Click(object sender, EventArgs e)
         {
             
-            pbResult.Image = picture.Image;
+           // pbResult.Image = picture.;
+            if (_WebCam.FrameSource  == null)
+                return;
+            //pbResult.Image = (Image)_WebCam.LatestFrame.Clone();
+
+
+            pbResult.Image = Util.CropImage((Bitmap)_WebCam.LatestFrame.Clone(), 310, 233);
+
+
+
         }
         private string GetImageFileNameByPosition()
         {
@@ -188,19 +195,39 @@ namespace zsi.PhotoFingCapture
         private void frmMain_Load(object sender, EventArgs e)
         {
             cbImagePosition.SelectedIndex = 0;
-            this.Show();
+            //this.Show();
          
-            WebCam.Show();
+            //WebCam.Show();
+
+            if (!DesignMode)
+            {
+              /*  // Refresh the list of available cameras
+                comboBoxCameras.Items.Clear();
+                foreach (Camera cam in CameraService.AvailableCameras)
+                    comboBoxCameras.Items.Add(cam);
+
+                if (comboBoxCameras.Items.Count > 0)
+                    comboBoxCameras.SelectedIndex = 0;
+               */
+
+                _WebCam = new WebCamManager(picture, comboBoxCameras);
+
+            }
+
+
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            WebCam.Close();
+            //thrashOldCamera();
+            //WebCam.Close();
+            _WebCam.Stop();
         }
 
          private void btnUploadPhoto_Click(object sender, EventArgs e)
         {
             try
             {
+                _WebCam.Stop();
                 btnUploadPhoto.Text = "Uploading...";
                 btnUploadPhoto.Enabled = false;
                 UpdateProfileNo();
@@ -216,12 +243,13 @@ namespace zsi.PhotoFingCapture
                 }
                 
                 string fileName = GetImageFileNameByPosition();
+
                 pbResult.Image.Save(fileName, ImageFormat.Jpeg);
                 System.IO.FileInfo oFileInfo = new System.IO.FileInfo(fileName);
                 byte[] _byteImage = Util.StreamToByte(Util.BmpToStream(pbResult.Image));
                 WebFileMgr.UploadFile(UserId, oFileInfo.Name, _byteImage);
                 MessageBox.Show("Photo has been uploaded to the server.");
-
+                _WebCam.Start();
             }
             catch (Exception ex)
             {
@@ -336,11 +364,7 @@ namespace zsi.PhotoFingCapture
 
         private void btnClearSig_Click(object sender, EventArgs e)
         {
-            signature1.Clear();
-
-
-           
-            
+            signature1.Clear();            
         }
 
         private void signature1_MouseMove(object sender, MouseEventArgs e)
@@ -380,8 +404,25 @@ namespace zsi.PhotoFingCapture
             }
         }
 
- 
+        private void btnStart_Click(object sender, EventArgs e)
+        {
 
+            _WebCam.Start();
+        }
+ 
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            _WebCam.Stop();
+        }
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            // snap camera
+            if ( _WebCam.FrameSource != null)
+                _WebCam.FrameSource.Camera.ShowPropertiesDialog();
+        }
+
+   
     }
 
 }
