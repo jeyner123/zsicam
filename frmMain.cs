@@ -165,8 +165,13 @@ namespace zsi.PhotoFingCapture
                 {
                     if(this.FingersData.Templates[i]!=null){
                         System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
-                        this.FingersData.Templates[i].Serialize(_MemoryStream);
-                        byte[] _byte = Util.StreamToByte(_MemoryStream);
+                        //this.FingersData.Templates[i].Serialize(_MemoryStream);
+                        //byte[] _byte = Util.StreamToByte(_MemoryStream);
+                        
+                        byte[] _byte = null;
+                        this.FingersData.Templates[i].Serialize(ref _byte);
+
+
                         WebFileMgr.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".fpt", _byte);
 
  
