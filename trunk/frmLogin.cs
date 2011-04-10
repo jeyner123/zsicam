@@ -19,28 +19,34 @@ namespace zsi.PhotoFingCapture
             InitializeComponent();
         }
 
+        private void login() {
+
+            if (txtUserName.Text.Trim() == "")
+            {
+                MessageBox.Show("Enter UserName and Password.", "Try Again.", MessageBoxButtons.OK);
+                return;
+            }
+            btnLogin.Text = "Wait...";
+            btnLogin.Enabled = false;
+            zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+            this.ParentForm.UserId = fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString();
+            if (int.Parse(this.ParentForm.UserId) < 1)
+            {
+                MessageBox.Show("Invalid User, Please Login.");
+                btnLogin.Text = "Login";
+                return;
+            }
+            EnableControls(true);
+            this.Close();
+        
+        }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
             {
-
-                if (txtUserName.Text.Trim() == "")
-                {
-                    MessageBox.Show("Enter UserName and Password.", "Try Again.", MessageBoxButtons.OK);
-                    return;
-                }
-                btnLogin.Text = "Wait...";
-                btnLogin.Enabled = false;
-                zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-                this.ParentForm.UserId = fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString();
-                if (int.Parse(this.ParentForm.UserId) < 1)
-                {
-                    MessageBox.Show("Invalid User, Please Login.");
-                    btnLogin.Text = "Login";
-                    return;
-                }
-                EnableControls(true);
-                this.Close();
+                login();
+                
             }
             catch (Exception ex)
             {
@@ -66,6 +72,14 @@ namespace zsi.PhotoFingCapture
         {
             zsi.PhotoFingCapture.frmSettings frmSettings = new zsi.PhotoFingCapture.frmSettings();
             frmSettings.ShowDialog();
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue  == 13)
+            {
+                login();
+            }
         }
 
     }

@@ -28,28 +28,72 @@ namespace zsi.Biometrics
         {
             try
             {
-                base.Process(Sample);
-                frmMain _frm = this.ParentForm;
-                System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
-                Sample.Serialize(_MemoryStream);
-                byte[] _byte = zsi.PhotoFingCapture.Util.StreamToByte(_MemoryStream);
-                string data=  _frm.WebFileMgr.VerifyBiometricsData(_frm.UserId, _byte);
+ 
+                    base.Process(Sample);
+                    frmMain _frm = this.ParentForm;
+                    byte[] _byte = null;
+                    Sample.Serialize(ref _byte);
+
+                    //Wait Start
+
+                    this.Invoke(new Function(delegate()
+                    {
+                        this.pbWait.Visible = true;                        
+                    }));
 
 
-                Profile _profile = (Profile)new JavaScriptSerializer().Deserialize<Profile>(data);
+                    string data = _frm.WebFileMgr.VerifyBiometricsData(Convert.ToInt32(_frm.UserId), GetFingNo(), _byte);
+                   
 
-                if (_profile.ProfileId > 0)
-                {
-                    MessageBox.Show("verified");
-                }
-                else {
-                    MessageBox.Show("not verified");                    
-                }
+                    //WaitStop
+                    this.Invoke(new Function(delegate()
+                    {
+                        this.pbWait.Visible = false;
+                    }));
+
+
+                    Profile _profile = (Profile)new JavaScriptSerializer().Deserialize<Profile>(data);
+
+                    if (_profile.ProfileId > 0)
+                    {
+                        MessageBox.Show("Finger identified: (" + _profile.ProfileId + ") - " + _profile.FullName);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Finger not identified");
+                    }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-        }     
+        }
+
+ 
+
+        private int GetFingNo() {
+            int _result = -1;
+            if (rdLS.Checked == true)
+                _result = 9;
+            else if (rdLR.Checked == true)
+                _result = 8;
+            else if (rdLM.Checked == true)
+                _result = 7;
+            else if (rdLI.Checked == true)
+                _result = 6;
+            else if (rdLT.Checked == true)
+                _result = 5;
+            else if (rdRS.Checked == true)
+                _result = 4;
+            else if (rdRR.Checked == true)
+                _result = 3;
+            else if (rdRM.Checked == true)
+                _result = 2;
+            else if (rdRI.Checked == true)
+                _result = 1;
+            else if (rdRT.Checked == true)
+                _result = 0;
+            return _result; 
+        }
     }
 }
