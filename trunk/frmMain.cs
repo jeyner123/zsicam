@@ -200,22 +200,11 @@ namespace zsi.PhotoFingCapture
         private void frmMain_Load(object sender, EventArgs e)
         {
             cbImagePosition.SelectedIndex = 0;
-            //this.Show();
-         
-            //WebCam.Show();
 
             if (!DesignMode)
             {
-              /*  // Refresh the list of available cameras
-                comboBoxCameras.Items.Clear();
-                foreach (Camera cam in CameraService.AvailableCameras)
-                    comboBoxCameras.Items.Add(cam);
-
-                if (comboBoxCameras.Items.Count > 0)
-                    comboBoxCameras.SelectedIndex = 0;
-               */
-
                 _WebCam = new WebCamManager(picture, comboBoxCameras);
+                
 
             }
 
@@ -223,8 +212,6 @@ namespace zsi.PhotoFingCapture
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //thrashOldCamera();
-            //WebCam.Close();
             _WebCam.Stop();
         }
 
@@ -374,9 +361,8 @@ namespace zsi.PhotoFingCapture
 
         private void signature1_MouseMove(object sender, MouseEventArgs e)
         {
-           
-        }
 
+        }
 
 
         private void btnUploadSig_Click(object sender, EventArgs e)

@@ -38,7 +38,7 @@ namespace zsi.Biometrics
 
                     this.Invoke(new Function(delegate()
                     {
-                        this.pbWait.Visible = true;                        
+                        this.lblPlsWait.Visible = true;                     
                     }));
 
 
@@ -48,7 +48,7 @@ namespace zsi.Biometrics
                     //WaitStop
                     this.Invoke(new Function(delegate()
                     {
-                        this.pbWait.Visible = false;
+                        this.lblPlsWait.Visible = false; 
                     }));
 
 
