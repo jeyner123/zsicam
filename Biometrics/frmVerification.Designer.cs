@@ -42,11 +42,10 @@
             this.rdRR = new System.Windows.Forms.RadioButton();
             this.rdRS = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.pbWait = new System.Windows.Forms.PictureBox();
             this.pbFinger = new System.Windows.Forms.PictureBox();
+            this.lblPlsWait = new System.Windows.Forms.Label();
             lblPrompt = new System.Windows.Forms.Label();
             CloseButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pbWait)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).BeginInit();
             this.SuspendLayout();
             // 
@@ -197,34 +196,32 @@
             this.label2.TabIndex = 21;
             this.label2.Text = "Right Fingers:";
             // 
-            // pbWait
-            // 
-            this.pbWait.BackColor = System.Drawing.Color.Silver;
-            this.pbWait.Image = global::zsi.PhotoFingCapture.Properties.Resources.plswait;
-            this.pbWait.Location = new System.Drawing.Point(23, 46);
-            this.pbWait.Name = "pbWait";
-            this.pbWait.Size = new System.Drawing.Size(125, 202);
-            this.pbWait.TabIndex = 22;
-            this.pbWait.TabStop = false;
-            this.pbWait.Visible = false;
-            // 
             // pbFinger
             // 
             this.pbFinger.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.pbFinger.BackColor = System.Drawing.SystemColors.Window;
-            this.pbFinger.Location = new System.Drawing.Point(12, 27);
+            this.pbFinger.Location = new System.Drawing.Point(12, 26);
             this.pbFinger.Name = "pbFinger";
-            this.pbFinger.Size = new System.Drawing.Size(146, 236);
+            this.pbFinger.Size = new System.Drawing.Size(146, 237);
             this.pbFinger.TabIndex = 9;
             this.pbFinger.TabStop = false;
+            // 
+            // lblPlsWait
+            // 
+            this.lblPlsWait.AutoSize = true;
+            this.lblPlsWait.Location = new System.Drawing.Point(31, 119);
+            this.lblPlsWait.Name = "lblPlsWait";
+            this.lblPlsWait.Size = new System.Drawing.Size(101, 13);
+            this.lblPlsWait.TabIndex = 22;
+            this.lblPlsWait.Text = "Verifying... Pls. wait.";
             // 
             // frmVerification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(578, 284);
-            this.Controls.Add(this.pbWait);
+            this.Controls.Add(this.lblPlsWait);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.rdRT);
             this.Controls.Add(this.rdRI);
@@ -248,7 +245,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Verify Your Identity";
-            ((System.ComponentModel.ISupportInitialize)(this.pbWait)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -270,7 +266,7 @@
         private System.Windows.Forms.RadioButton rdRR;
         private System.Windows.Forms.RadioButton rdRS;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pbWait;
+        private System.Windows.Forms.Label lblPlsWait;
 
     }
 }

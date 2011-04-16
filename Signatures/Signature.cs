@@ -11,7 +11,7 @@ namespace zsi.Controls
 
         public Signature() { }
         public string Background { get; set; }
-        public Bitmap bmp{get;set;}
+        public Bitmap bmp { get; set; }
         Graphics graphics;
         Pen pen = new Pen(Color.Black);
         // list of line segments
@@ -76,7 +76,7 @@ namespace zsi.Controls
                 pVector.Add(lastPoint.X + " " + lastPoint.Y + " " + e.X + " " + e.Y);
                 // update the current position 
                 lastPoint.X = e.X;
-                lastPoint.Y = e.Y;      
+                lastPoint.Y = e.Y;
                 // display the updated bitmap
                 Invalidate();
             }

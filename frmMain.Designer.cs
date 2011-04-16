@@ -32,6 +32,10 @@ namespace zsi.PhotoFingCapture
             this.btnVerifyFP = new System.Windows.Forms.Button();
             this.tab = new System.Windows.Forms.TabControl();
             this.tabPhoto = new System.Windows.Forms.TabPage();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.comboBoxCameras = new System.Windows.Forms.ComboBox();
             this.btnConfig = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
@@ -43,7 +47,9 @@ namespace zsi.PhotoFingCapture
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnCapture = new System.Windows.Forms.Button();
+            this.pbResult = new System.Windows.Forms.PictureBox();
             this.btnUploadPhoto = new System.Windows.Forms.Button();
+            this.picture = new System.Windows.Forms.PictureBox();
             this.tabFingers = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkAutoClose = new System.Windows.Forms.CheckBox();
@@ -61,34 +67,29 @@ namespace zsi.PhotoFingCapture
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
             this.tabSign = new System.Windows.Forms.TabPage();
+            this.signature1 = new zsi.Controls.Signature();
             this.btnUploadSig = new System.Windows.Forms.Button();
             this.btnClearSig = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.signature1 = new zsi.Controls.Signature();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pbResult = new System.Windows.Forms.PictureBox();
-            this.picture = new System.Windows.Forms.PictureBox();
+            this.webFileManager1 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+            this.webFileManager2 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
-            this.gbImageType.SuspendLayout();
-            this.tabFingers.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tabSign.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.gbImageType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
+            this.tabFingers.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabSign.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnVerifyFP
             // 
-            this.btnVerifyFP.Enabled = false;
             this.btnVerifyFP.Location = new System.Drawing.Point(20, 253);
             this.btnVerifyFP.Name = "btnVerifyFP";
             this.btnVerifyFP.Size = new System.Drawing.Size(139, 53);
@@ -132,6 +133,42 @@ namespace zsi.PhotoFingCapture
             this.tabPhoto.TabIndex = 0;
             this.tabPhoto.Text = "Photo Capture";
             this.tabPhoto.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Maroon;
+            this.pictureBox4.Location = new System.Drawing.Point(313, 121);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(1, 216);
+            this.pictureBox4.TabIndex = 36;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.Color.Maroon;
+            this.pictureBox3.Location = new System.Drawing.Point(24, 121);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(1, 216);
+            this.pictureBox3.TabIndex = 35;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Maroon;
+            this.pictureBox2.Location = new System.Drawing.Point(24, 336);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(290, 1);
+            this.pictureBox2.TabIndex = 34;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Maroon;
+            this.pictureBox1.Location = new System.Drawing.Point(24, 121);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(290, 1);
+            this.pictureBox1.TabIndex = 33;
+            this.pictureBox1.TabStop = false;
             // 
             // comboBoxCameras
             // 
@@ -252,6 +289,17 @@ namespace zsi.PhotoFingCapture
             this.btnCapture.UseVisualStyleBackColor = true;
             this.btnCapture.Click += new System.EventHandler(this.btnCapture_Click);
             // 
+            // pbResult
+            // 
+            this.pbResult.BackColor = System.Drawing.Color.White;
+            this.pbResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbResult.Location = new System.Drawing.Point(376, 107);
+            this.pbResult.Name = "pbResult";
+            this.pbResult.Size = new System.Drawing.Size(281, 240);
+            this.pbResult.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbResult.TabIndex = 24;
+            this.pbResult.TabStop = false;
+            // 
             // btnUploadPhoto
             // 
             this.btnUploadPhoto.Enabled = false;
@@ -262,6 +310,17 @@ namespace zsi.PhotoFingCapture
             this.btnUploadPhoto.Text = "Upload";
             this.btnUploadPhoto.UseVisualStyleBackColor = true;
             this.btnUploadPhoto.Click += new System.EventHandler(this.btnUploadPhoto_Click);
+            // 
+            // picture
+            // 
+            this.picture.BackColor = System.Drawing.Color.White;
+            this.picture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picture.Location = new System.Drawing.Point(8, 107);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(321, 240);
+            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picture.TabIndex = 23;
+            this.picture.TabStop = false;
             // 
             // tabFingers
             // 
@@ -449,15 +508,26 @@ namespace zsi.PhotoFingCapture
             // 
             // tabSign
             // 
+            this.tabSign.Controls.Add(this.signature1);
             this.tabSign.Controls.Add(this.btnUploadSig);
             this.tabSign.Controls.Add(this.btnClearSig);
-            this.tabSign.Controls.Add(this.signature1);
             this.tabSign.Location = new System.Drawing.Point(4, 22);
             this.tabSign.Name = "tabSign";
             this.tabSign.Size = new System.Drawing.Size(706, 365);
             this.tabSign.TabIndex = 2;
             this.tabSign.Text = "Signature";
             this.tabSign.UseVisualStyleBackColor = true;
+            // 
+            // signature1
+            // 
+            this.signature1.Background = null;
+            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
+            this.signature1.Location = new System.Drawing.Point(145, 110);
+            this.signature1.Name = "signature1";
+            this.signature1.Size = new System.Drawing.Size(307, 116);
+            this.signature1.TabIndex = 3;
+            this.signature1.Text = "signature1";
+            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
             // 
             // btnUploadSig
             // 
@@ -501,74 +571,17 @@ namespace zsi.PhotoFingCapture
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // signature1
+            // webFileManager1
             // 
-            this.signature1.Background = null;
-            this.signature1.bmp = null;
-            this.signature1.Location = new System.Drawing.Point(135, 110);
-            this.signature1.Name = "signature1";
-            this.signature1.Size = new System.Drawing.Size(307, 116);
-            this.signature1.TabIndex = 0;
-            this.signature1.Text = "signature1";
-            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
+            this.webFileManager1.Credentials = null;
+            this.webFileManager1.Url = "http://www.zetta-solutions.net/phgovdemo/webfileservices.asmx";
+            this.webFileManager1.UseDefaultCredentials = false;
             // 
-            // pictureBox4
+            // webFileManager2
             // 
-            this.pictureBox4.BackColor = System.Drawing.Color.Maroon;
-            this.pictureBox4.Location = new System.Drawing.Point(313, 121);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(1, 216);
-            this.pictureBox4.TabIndex = 36;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackColor = System.Drawing.Color.Maroon;
-            this.pictureBox3.Location = new System.Drawing.Point(24, 121);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(1, 216);
-            this.pictureBox3.TabIndex = 35;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Maroon;
-            this.pictureBox2.Location = new System.Drawing.Point(24, 336);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(290, 1);
-            this.pictureBox2.TabIndex = 34;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Maroon;
-            this.pictureBox1.Location = new System.Drawing.Point(24, 121);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(290, 1);
-            this.pictureBox1.TabIndex = 33;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pbResult
-            // 
-            this.pbResult.BackColor = System.Drawing.Color.White;
-            this.pbResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbResult.Location = new System.Drawing.Point(376, 107);
-            this.pbResult.Name = "pbResult";
-            this.pbResult.Size = new System.Drawing.Size(281, 240);
-            this.pbResult.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbResult.TabIndex = 24;
-            this.pbResult.TabStop = false;
-            // 
-            // picture
-            // 
-            this.picture.BackColor = System.Drawing.Color.White;
-            this.picture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picture.Location = new System.Drawing.Point(8, 107);
-            this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(321, 240);
-            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picture.TabIndex = 23;
-            this.picture.TabStop = false;
+            this.webFileManager2.Credentials = null;
+            this.webFileManager2.Url = "http://www.zetta-solutions.net/phgovdemo/webfileservices.asmx";
+            this.webFileManager2.UseDefaultCredentials = false;
             // 
             // frmMain
             // 
@@ -589,18 +602,18 @@ namespace zsi.PhotoFingCapture
             this.tab.ResumeLayout(false);
             this.tabPhoto.ResumeLayout(false);
             this.tabPhoto.PerformLayout();
-            this.gbImageType.ResumeLayout(false);
-            this.gbImageType.PerformLayout();
-            this.tabFingers.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.tabSign.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.gbImageType.ResumeLayout(false);
+            this.gbImageType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
+            this.tabFingers.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabSign.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -641,7 +654,6 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.TabPage tabSign;
         private System.Windows.Forms.Button btnUploadSig;
         private System.Windows.Forms.Button btnClearSig;
-        private zsi.Controls.Signature signature1;
         private System.Windows.Forms.ComboBox comboBoxCameras;
         private System.Windows.Forms.Button btnConfig;
         private System.Windows.Forms.Button btnStop;
@@ -650,6 +662,9 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private zsi.PhotoFingCapture.WebFileService.WebFileManager webFileManager1;
+        private zsi.PhotoFingCapture.WebFileService.WebFileManager webFileManager2;
+        private zsi.Controls.Signature signature1;
     }
 }
 
