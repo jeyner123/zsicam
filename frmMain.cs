@@ -361,7 +361,7 @@ namespace zsi.PhotoFingCapture
 
         private void signature1_MouseMove(object sender, MouseEventArgs e)
         {
-
+       
         }
 
 
