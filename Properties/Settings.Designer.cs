@@ -35,10 +35,23 @@ namespace zsi.PhotoFingCapture.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\templates.accdb")]
-        public string templatesConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=sqlserver8.loosefoot.com,1433;Initial Catalog=zpolice40demo;User ID={" +
+            "u}UEIwVUv7BKszC7uozCVFE1glf06dGha+lxTRqiH11Xc={u};Password={p}guP3+y74kh5HQdFdbN" +
+            "oImrYoag4i/4ItAH7N4P0YMq4={p};")]
+        public string LiveSQLServerConnection {
             get {
-                return ((string)(this["templatesConnectionString"]));
+                return ((string)(this["LiveSQLServerConnection"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=templates.accdb;Jet OLEDB:Database " +
+            "Password={p}+Q0pGxwnOcU2kj+9NbJukY7o8PYNyRw6K5gdIKOwEkI={p};")]
+        public string AccessDBConnection {
+            get {
+                return ((string)(this["AccessDBConnection"]));
             }
         }
     }

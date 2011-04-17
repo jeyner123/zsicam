@@ -101,6 +101,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\WebCamLib.dll</HintPath>
     </Reference>
+    <Reference Include="zsi.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\zsi.Framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Biometrics\FingersData.cs" />
@@ -137,6 +141,8 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataControllers\dcFingersTemplate.cs" />
+    <Compile Include="Models\FingersTemplate.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

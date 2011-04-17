@@ -13,6 +13,7 @@ using zsi.Biometrics;
 using zsi.PhotoFingCapture;
 using zsi.WebCamServices;
 using zsi.PhotoFingCapture.WebFileService;
+using zsi.PhotoFingCapture.Models.DataControllers;
 
 namespace zsi.PhotoFingCapture
 {
@@ -204,8 +205,10 @@ namespace zsi.PhotoFingCapture
             if (!DesignMode)
             {
                 _WebCam = new WebCamManager(picture, comboBoxCameras);
-                
 
+                dcFingersTemplate _dc = new dcFingersTemplate();
+                _dc.FingerTemplatesUpdate();
+                
             }
 
 

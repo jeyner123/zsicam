@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using System.Drawing;
 namespace zsi.Biometrics
 {
+    using System.Drawing;
     public class Util
     {
 
@@ -30,6 +30,9 @@ namespace zsi.Biometrics
             else
                 return null;
         }
+ 
 
     }
 }
+
+ 
