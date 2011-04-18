@@ -11,7 +11,7 @@ using System.IO;
 using System.Drawing.Imaging;
 using zsi.Biometrics;
 using zsi.PhotoFingCapture;
-using zsi.WebCamServices;
+using zsi.PhotoFingCapture.WebCam;
 using zsi.PhotoFingCapture.WebFileService;
 using zsi.PhotoFingCapture.Models.DataControllers;
 
@@ -25,7 +25,7 @@ namespace zsi.PhotoFingCapture
         public FingersData FingersData { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
         private WebFileManager _WebFileMgr;
-        private WebCamManager _WebCam;
+        private WebCamService _WebCam;
         public WebFileManager WebFileMgr
         {
             get { 
@@ -66,17 +66,8 @@ namespace zsi.PhotoFingCapture
         }
         private void btnCapture_Click(object sender, EventArgs e)
         {
-            
-           // pbResult.Image = picture.;
-            if (_WebCam.FrameSource  == null)
-                return;
-            //pbResult.Image = (Image)_WebCam.LatestFrame.Clone();
-
-
-            pbResult.Image = Util.CropImage((Bitmap)_WebCam.LatestFrame.Clone(), 310, 233);
-
-
-
+            if (this._WebCam.CurrentCamera==null) return;
+            pbResult.Image = Util.CropImage(this._WebCam.CurrentCamera.GetCurrentImage(),310,233);
         }
         private string GetImageFileNameByPosition()
         {
@@ -204,7 +195,7 @@ namespace zsi.PhotoFingCapture
 
             if (!DesignMode)
             {
-                _WebCam = new WebCamManager(picture, comboBoxCameras);
+                _WebCam = new WebCamService(picture, comboBoxCameras);
 
                 dcFingersTemplate _dc = new dcFingersTemplate();
                 _dc.FingerTemplatesUpdate();
@@ -411,9 +402,9 @@ namespace zsi.PhotoFingCapture
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
-            // snap camera
-            if ( _WebCam.FrameSource != null)
-                _WebCam.FrameSource.Camera.ShowPropertiesDialog();
+
+            if (this._WebCam.CurrentCamera != null) this._WebCam.CurrentCamera.ShowPropertiesDialog(this.Handle);
+
         }
 
    

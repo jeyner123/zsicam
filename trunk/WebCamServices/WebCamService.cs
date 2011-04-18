@@ -1,120 +1,120 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TouchlessLib;
 
-using Touchless.Vision.Camera;
-
-
-using System.IO; 
+using System.IO;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.Windows.Forms;
- 
-namespace zsi.WebCamServices
+
+namespace zsi.PhotoFingCapture.WebCam
 {
-    public class WebCamManager
+    public class WebCamService
     {
-        public CameraFrameSource FrameSource { get; set; }
-        public Bitmap LatestFrame {get;set;}
+
+
+        public Camera CurrentCamera { get; set; }
 
         private ComboBox ComboBoxCameras { get; set; }
         private PictureBox PictureBox { get; set; }
-        public WebCamManager(){
+        private Bitmap LatestFrame { get; set; }
+        private TouchlessMgr TouchLessWebCamMgr { get; set; }
+
+
+        public WebCamService()
+        {
             InitCameras();
         }
 
-        public WebCamManager(PictureBox pictureBox, ComboBox comboBoxCameras){
-        
-            this.ComboBoxCameras =comboBoxCameras;
+        public WebCamService(PictureBox pictureBox, ComboBox comboBoxCameras)
+        {
+
+            this.ComboBoxCameras = comboBoxCameras;
             this.PictureBox = pictureBox;
             InitCameras();
         }
 
-        private void InitCameras(){
-                        // Refresh the list of available cameras
-                ComboBoxCameras.Items.Clear();
-                foreach (Camera cam in CameraService.AvailableCameras)
-                    ComboBoxCameras.Items.Add(cam);
-
-                if (ComboBoxCameras.Items.Count > 0)
-                    ComboBoxCameras.SelectedIndex = 0;
-
-        }
-        private  void startCapturing()
+        private void InitCameras()
         {
-            try
-            {
 
-                Camera c = (Camera)ComboBoxCameras.SelectedItem;
-                setFrameSource(new CameraFrameSource(c));
-                //  _frameSource.Camera.CaptureWidth = 320;
-                //  _frameSource.Camera.CaptureHeight = 240;
-                FrameSource.Camera.Fps = 20;
-                FrameSource.NewFrame += OnImageCaptured;
-
-                PictureBox.Paint += new PaintEventHandler(drawLatestImage);
-                FrameSource.StartFrameCapture();
-            }
-            catch (Exception ex)
+            TouchlessMgr _mgr = new TouchlessMgr();
+            ComboBoxCameras.Items.Clear();
+            foreach (Camera c in _mgr.Cameras)
             {
-                ComboBoxCameras.Text = "Select A Camera";
-                MessageBox.Show(ex.Message);
+                this.ComboBoxCameras.Items.Add(c.ToString());
+
             }
 
-
+            _mgr.Dispose();
+            _mgr = null;
+            PictureBox.Paint += new PaintEventHandler(PictureBox_Paint);
         }
-
-
-        private void drawLatestImage(object sender, PaintEventArgs e)
+        void OnImageCaptured(object sender, CameraEventArgs e)
         {
-            if (LatestFrame != null)
-            {
-                // Draw the latest image from the active camera
-                e.Graphics.DrawImage(LatestFrame, 0, 0, PictureBox.Width, PictureBox.Height);
-            }
-        }
 
-
-        public void OnImageCaptured(Touchless.Vision.Contracts.IFrameSource frameSource, Touchless.Vision.Contracts.Frame frame, double fps)
-        {
-            LatestFrame = frame.Image;
+            LatestFrame = e.Image;
             PictureBox.Invalidate();
+
+
         }
 
-        private void setFrameSource(CameraFrameSource cameraFrameSource)
+
+
+        void PictureBox_Paint(object sender, PaintEventArgs e)
         {
-            if (FrameSource == cameraFrameSource)
-                return;
-
-            FrameSource = cameraFrameSource;
+            lock (this)
+            {
+                if (LatestFrame != null)
+                {
+                    e.Graphics.DrawImageUnscaledAndClipped(LatestFrame, PictureBox.ClientRectangle);
+                }
+            }
         }
 
-        //
 
         private void thrashOldCamera()
         {
-            // Trash the old camera
-            if (FrameSource != null)
+            // Dispose of the TouchlessMgr object
+            if (TouchLessWebCamMgr != null)
             {
-                FrameSource.NewFrame -= OnImageCaptured;
-                FrameSource.Camera.Dispose();
-                setFrameSource(null);
-                PictureBox.Paint -= new PaintEventHandler(drawLatestImage);
+                TouchLessWebCamMgr.Dispose();
+                TouchLessWebCamMgr = null;
+            }
+
+        }
+        public void Start()
+        {
+            if (this.ComboBoxCameras.SelectedItem == null) return;
+
+            thrashOldCamera();
+            this.TouchLessWebCamMgr = new TouchlessMgr();
+            try
+            {
+                foreach (Camera c in TouchLessWebCamMgr.Cameras)
+                {
+                    if (this.ComboBoxCameras.SelectedItem.ToString() == c.ToString())
+                    {
+                        this.CurrentCamera = c;
+                    }
+                }
+
+                if (this.CurrentCamera != null)
+                {
+                    TouchLessWebCamMgr.CurrentCamera = this.CurrentCamera;
+                    this.CurrentCamera.OnImageCaptured += new EventHandler<CameraEventArgs>(OnImageCaptured);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
-        public void Start(){
-            // Early return if we've selected the current camera
-            if (FrameSource != null && FrameSource.Camera == ComboBoxCameras.SelectedItem)
-                return;
-            thrashOldCamera();
-            startCapturing();
-        }
-        public void Stop() {
+        public void Stop()
+        {
 
             thrashOldCamera();
         }
 
     }
 }
-
-
