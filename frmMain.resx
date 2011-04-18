@@ -117,34 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="signature1.bmp" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAATMAAAB0CAYAAADpctU+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANoSURBVHhe7dQBEQAACAIx+5fGHn+zAcPj5ggQIBAQuEAG
-        EQgQIDBj5gkIEEgIGLNEjUIQIGDM/AABAgkBY5aoUQgCBIyZHyBAICFgzBI1CkGAgDHzAwQIJASMWaJG
-        IQgQMGZ+gACBhIAxS9QoBAECxswPECCQEDBmiRqFIEDAmPkBAgQSAsYsUaMQBAgYMz9AgEBCwJglahSC
-        AAFj5gcIEEgIGLNEjUIQIGDM/AABAgkBY5aoUQgCBIyZHyBAICFgzBI1CkGAgDHzAwQIJASMWaJGIQgQ
-        MGZ+gACBhIAxS9QoBAECxswPECCQEDBmiRqFIEDAmPkBAgQSAsYsUaMQBAgYMz9AgEBCwJglahSCAAFj
-        5gcIEEgIGLNEjUIQIGDM/AABAgkBY5aoUQgCBIyZHyBAICFgzBI1CkGAgDHzAwQIJASMWaJGIQgQMGZ+
-        gACBhIAxS9QoBAECxswPECCQEDBmiRqFIEDAmPkBAgQSAsYsUaMQBAgYMz9AgEBCwJglahSCAAFj5gcI
-        EEgIGLNEjUIQIGDM/AABAgkBY5aoUQgCBIyZHyBAICFgzBI1CkGAgDHzAwQIJASMWaJGIQgQMGZ+gACB
-        hIAxS9QoBAECxswPECCQEDBmiRqFIEDAmPkBAgQSAsYsUaMQBAgYMz9AgEBCwJglahSCAAFj5gcIEEgI
-        GLNEjUIQIGDM/AABAgkBY5aoUQgCBIyZHyBAICFgzBI1CkGAgDHzAwQIJASMWaJGIQgQMGZ+gACBhIAx
-        S9QoBAECxswPECCQEDBmiRqFIEDAmPkBAgQSAsYsUaMQBAgYMz9AgEBCwJglahSCAAFj5gcIEEgIGLNE
-        jUIQIGDM/AABAgkBY5aoUQgCBIyZHyBAICFgzBI1CkGAgDHzAwQIJASMWaJGIQgQMGZ+gACBhIAxS9Qo
-        BAECxswPECCQEDBmiRqFIEDAmPkBAgQSAsYsUaMQBAgYMz9AgEBCwJglahSCAAFj5gcIEEgIGLNEjUIQ
-        IGDM/AABAgkBY5aoUQgCBIyZHyBAICFgzBI1CkGAgDHzAwQIJASMWaJGIQgQMGZ+gACBhIAxS9QoBAEC
-        xswPECCQEDBmiRqFIEDAmPkBAgQSAsYsUaMQBAgYMz9AgEBCwJglahSCAAFj5gcIEEgIGLNEjUIQIPCb
-        7WQHMB6Y3QAAAABJRU5ErkJggg==
-</value>
-  </data>
   <metadata name="webFileManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <metadata name="webFileManager2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>155, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAQAEBAAAAEACABoBQAARgAAABAQAAABACAAaAQAAK4FAAAgIAAAAQAIAKgIAAAWCgAAICAAAAEA
