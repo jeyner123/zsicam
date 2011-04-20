@@ -14,7 +14,9 @@ using zsi.PhotoFingCapture;
 using zsi.PhotoFingCapture.WebCam;
 using zsi.PhotoFingCapture.WebFileService;
 using zsi.PhotoFingCapture.Models.DataControllers;
+using zsi.Framework.Common;
 
+using System.Threading;
 namespace zsi.PhotoFingCapture
 {
 
@@ -197,9 +199,10 @@ namespace zsi.PhotoFingCapture
             {
                 _WebCam = new WebCamService(picture, comboBoxCameras);
 
-                dcFingersTemplate _dc = new dcFingersTemplate();
-                _dc.FingerTemplatesUpdate();
-                
+               /* dcFingersTemplate _dc = new dcFingersTemplate();
+                ProcessMaster _pm = new ProcessMaster(_dc.FingerTemplatesUpdate);
+                _pm.Start();
+            */
             }
 
 
@@ -407,7 +410,40 @@ namespace zsi.PhotoFingCapture
 
         }
 
+        private void RunFingerUpdate()
+        {
+
+            ssStatus1.Text = "Updating Fingers Templates...";
+            Application.DoEvents();
+            dcFingersTemplate _dc = new dcFingersTemplate();
+            ProcessMaster _pm = new ProcessMaster(_dc.FingerTemplatesUpdate);
+            _pm.OnProcessStop = delegate()
+            {
+                ssStatus1.Text = "Fingers Templates is now updated.";
+                Application.DoEvents();
+                Thread.Sleep(1000);                 
+                ssStatus1.Text = "";
+                Application.DoEvents();                
+            };
+            _pm.Start();
+ 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            RunFingerUpdate();
+            timer1.Enabled=false;
+        }
+
+        private void btnFingerUpdate_Click(object sender, EventArgs e)
+        {
+            this.timer1.Enabled = false;
+            this.RunFingerUpdate();
+        }
    
     }
+
+    
+
 
 }

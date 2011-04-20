@@ -28,6 +28,7 @@ namespace zsi.PhotoFingCapture
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.btnVerifyFP = new System.Windows.Forms.Button();
             this.tab = new System.Windows.Forms.TabControl();
@@ -67,13 +68,17 @@ namespace zsi.PhotoFingCapture
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
             this.tabSign = new System.Windows.Forms.TabPage();
-            this.signature1 = new zsi.Controls.Signature();
             this.btnUploadSig = new System.Windows.Forms.Button();
             this.btnClearSig = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.ssStatus1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.webFileManager1 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.webFileManager2 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+            this.signature1 = new zsi.Controls.Signature();
+            this.btnFingerUpdate = new System.Windows.Forms.Button();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -86,6 +91,7 @@ namespace zsi.PhotoFingCapture
             this.tabFingers.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabSign.SuspendLayout();
+            this.StatusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnVerifyFP
@@ -111,6 +117,7 @@ namespace zsi.PhotoFingCapture
             // 
             // tabPhoto
             // 
+            this.tabPhoto.Controls.Add(this.btnFingerUpdate);
             this.tabPhoto.Controls.Add(this.pictureBox4);
             this.tabPhoto.Controls.Add(this.pictureBox3);
             this.tabPhoto.Controls.Add(this.pictureBox2);
@@ -185,7 +192,7 @@ namespace zsi.PhotoFingCapture
             this.btnConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConfig.Location = new System.Drawing.Point(605, 8);
             this.btnConfig.Name = "btnConfig";
-            this.btnConfig.Size = new System.Drawing.Size(87, 23);
+            this.btnConfig.Size = new System.Drawing.Size(87, 40);
             this.btnConfig.TabIndex = 30;
             this.btnConfig.Text = "Configuration";
             this.btnConfig.UseVisualStyleBackColor = true;
@@ -281,7 +288,7 @@ namespace zsi.PhotoFingCapture
             // 
             // btnCapture
             // 
-            this.btnCapture.Location = new System.Drawing.Point(531, 75);
+            this.btnCapture.Location = new System.Drawing.Point(447, 85);
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Size = new System.Drawing.Size(68, 23);
             this.btnCapture.TabIndex = 15;
@@ -303,7 +310,7 @@ namespace zsi.PhotoFingCapture
             // btnUploadPhoto
             // 
             this.btnUploadPhoto.Enabled = false;
-            this.btnUploadPhoto.Location = new System.Drawing.Point(605, 75);
+            this.btnUploadPhoto.Location = new System.Drawing.Point(521, 85);
             this.btnUploadPhoto.Name = "btnUploadPhoto";
             this.btnUploadPhoto.Size = new System.Drawing.Size(68, 23);
             this.btnUploadPhoto.TabIndex = 14;
@@ -518,17 +525,6 @@ namespace zsi.PhotoFingCapture
             this.tabSign.Text = "Signature";
             this.tabSign.UseVisualStyleBackColor = true;
             // 
-            // signature1
-            // 
-            this.signature1.Background = null;
-            this.signature1.bmp = null;
-            this.signature1.Location = new System.Drawing.Point(145, 110);
-            this.signature1.Name = "signature1";
-            this.signature1.Size = new System.Drawing.Size(307, 116);
-            this.signature1.TabIndex = 3;
-            this.signature1.Text = "signature1";
-            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
-            // 
             // btnUploadSig
             // 
             this.btnUploadSig.Enabled = false;
@@ -571,6 +567,28 @@ namespace zsi.PhotoFingCapture
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
+            // StatusStrip1
+            // 
+            this.StatusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ssStatus1});
+            this.StatusStrip1.Location = new System.Drawing.Point(0, 440);
+            this.StatusStrip1.Name = "StatusStrip1";
+            this.StatusStrip1.Size = new System.Drawing.Size(756, 22);
+            this.StatusStrip1.TabIndex = 37;
+            this.StatusStrip1.Text = "statusStrip1";
+            // 
+            // ssStatus1
+            // 
+            this.ssStatus1.Name = "ssStatus1";
+            this.ssStatus1.Size = new System.Drawing.Size(19, 17);
+            this.ssStatus1.Text = "    ";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 20000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // webFileManager1
             // 
             this.webFileManager1.Credentials = null;
@@ -583,11 +601,34 @@ namespace zsi.PhotoFingCapture
             this.webFileManager2.Url = "http://www.zetta-solutions.net/phgovdemo/webfileservices.asmx";
             this.webFileManager2.UseDefaultCredentials = false;
             // 
+            // signature1
+            // 
+            this.signature1.Background = null;
+            this.signature1.bmp = null;
+            this.signature1.Location = new System.Drawing.Point(145, 110);
+            this.signature1.Name = "signature1";
+            this.signature1.Size = new System.Drawing.Size(307, 116);
+            this.signature1.TabIndex = 3;
+            this.signature1.Text = "signature1";
+            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
+            // 
+            // btnFingerUpdate
+            // 
+            this.btnFingerUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFingerUpdate.Location = new System.Drawing.Point(605, 54);
+            this.btnFingerUpdate.Name = "btnFingerUpdate";
+            this.btnFingerUpdate.Size = new System.Drawing.Size(87, 39);
+            this.btnFingerUpdate.TabIndex = 37;
+            this.btnFingerUpdate.Text = "Update Fingers Templates";
+            this.btnFingerUpdate.UseVisualStyleBackColor = true;
+            this.btnFingerUpdate.Click += new System.EventHandler(this.btnFingerUpdate_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(756, 448);
+            this.ClientSize = new System.Drawing.Size(756, 462);
+            this.Controls.Add(this.StatusStrip1);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.tab);
@@ -614,7 +655,10 @@ namespace zsi.PhotoFingCapture
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabSign.ResumeLayout(false);
+            this.StatusStrip1.ResumeLayout(false);
+            this.StatusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -665,6 +709,10 @@ namespace zsi.PhotoFingCapture
         private zsi.PhotoFingCapture.WebFileService.WebFileManager webFileManager1;
         private zsi.PhotoFingCapture.WebFileService.WebFileManager webFileManager2;
         private zsi.Controls.Signature signature1;
+        private System.Windows.Forms.StatusStrip StatusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel ssStatus1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnFingerUpdate;
     }
 }
 
