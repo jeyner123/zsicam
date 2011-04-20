@@ -220,16 +220,16 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 // _list = _dc.GetDataSource();
                 switch (FingNo)
                 {
-                    case 0: _Finger = "LeftSF"; break;
-                    case 1: _Finger = "LeftRF"; break;
-                    case 2: _Finger = "LeftMF"; break;
-                    case 3: _Finger = "LeftIF"; break;
-                    case 4: _Finger = "LeftTF"; break;
-                    case 5: _Finger = "RightSF"; break;
-                    case 6: _Finger = "RightRF"; break;
-                    case 7: _Finger = "RightMF"; break;
-                    case 8: _Finger = "RightIF"; break;
-                    case 9: _Finger = "RightTF"; break;
+                    case 9: _Finger = "LeftSF"; break;
+                    case 8: _Finger = "LeftRF"; break;
+                    case 7: _Finger = "LeftMF"; break;
+                    case 6: _Finger = "LeftIF"; break;
+                    case 5: _Finger = "LeftTF"; break;
+                    case 4: _Finger = "RightSF"; break;
+                    case 3: _Finger = "RightRF"; break;
+                    case 2: _Finger = "RightMF"; break;
+                    case 1: _Finger = "RightIF"; break;
+                    case 0: _Finger = "RightTF"; break;
                     default: break;
                 }
                 OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + " from FingersData", _dc.DBConn);
@@ -240,11 +240,17 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 {
                     while (_dr.Read())
                     {
-                        _info.ProfileId = (Int64)_dr[0];
-                        _info.FullName = (string)_dr[1];
-                        _template = ProcessDBTemplate((byte[])_dr[2]);
-                         IsFound = Verify(_sample, _template);
-                         if (IsFound == true) break;
+                        if (_dr[2] != DBNull.Value)
+                        {
+                            _template = ProcessDBTemplate((byte[])_dr[2]);
+                            IsFound = Verify(_sample, _template);
+                        }
+                        if (IsFound == true)
+                        {
+                            _info.ProfileId = Convert.ToInt64(_dr[0]);
+                            _info.FullName = Convert.ToString(_dr[1]);
+                            break;
+                        }
                     }
                 }
                 else
@@ -294,15 +300,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         private static DPFP.Template ProcessDBTemplate(byte[] _data)
         {
             DPFP.Template _template = null;
-
-            if (_data != null)
-            {
-                Stream _ms = new MemoryStream(_data);
-                _template = new DPFP.Template();
-
-                //deserialize
-                _template.DeSerialize(_ms);
-            }
+            Stream _ms = new MemoryStream(_data);
+            _template = new DPFP.Template();
+            //deserialize
+            _template.DeSerialize(_ms);
             return _template;
         }
   
