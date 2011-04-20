@@ -9,12 +9,21 @@ using zsi.Framework.Data;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.OleDb;
+using System.Windows.Forms;
+using zsi.PhotoFingCapture.Models;
+using System.IO;
 namespace zsi.PhotoFingCapture.Models.DataControllers
 {
     public class dcFingersTemplate : SQLServer.MasterDataController<FingerTemplate>
     {
         private dcFingersTemplate2 dcFTemplate{get;set;}
         private OleDbTransaction Trans { get; set; }
+        public  _CallBackFunction CallBackFunction {get;set;}
+        public delegate void _CallBackFunction();
+       
+        public void RunTest(){
+            CallBackFunction();
+        }
         public override void InitDataController()
         {
             string _ConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.LiveSQLServerConnection;
@@ -46,6 +55,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         {
             try
             {
+               
                 DateTime _lastUpdatedDate;
                 dcFTemplate = new dcFingersTemplate2();
                 dcFTemplate.DBConn.Open();
@@ -192,5 +202,110 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             }
 
         }
+
+
+        public static Profile VerifyBiometricsData(int FingNo, byte[] data)
+        {
+            try
+            {
+                string _result = string.Empty;
+                string _Finger = string.Empty;
+                Profile _info = new Profile();
+                dcFingersTemplate2 _dc = new dcFingersTemplate2();
+                DPFP.Template _template = null;
+                Stream _msSample = new MemoryStream(data);
+                DPFP.Sample _sample = new DPFP.Sample();
+                //deserialize
+                _sample.DeSerialize(_msSample);
+                // _list = _dc.GetDataSource();
+                switch (FingNo)
+                {
+                    case 0: _Finger = "LeftSF"; break;
+                    case 1: _Finger = "LeftRF"; break;
+                    case 2: _Finger = "LeftMF"; break;
+                    case 3: _Finger = "LeftIF"; break;
+                    case 4: _Finger = "LeftTF"; break;
+                    case 5: _Finger = "RightSF"; break;
+                    case 6: _Finger = "RightRF"; break;
+                    case 7: _Finger = "RightMF"; break;
+                    case 8: _Finger = "RightIF"; break;
+                    case 9: _Finger = "RightTF"; break;
+                    default: break;
+                }
+                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + " from FingersData", _dc.DBConn);
+                _dc.DBConn.Open();
+                OleDbDataReader _dr = _cmd.ExecuteReader();
+                bool IsFound =false;
+                if (_dr.HasRows)
+                {
+                    while (_dr.Read())
+                    {
+                        _info.ProfileId = (Int64)_dr[0];
+                        _info.FullName = (string)_dr[1];
+                        _template = ProcessDBTemplate((byte[])_dr[2]);
+                         IsFound = Verify(_sample, _template);
+                         if (IsFound == true) break;
+                    }
+                }
+                else
+                {
+                    _info.ProfileId = 0;
+                    _info.FullName = "";
+                }
+                return _info;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        private static bool Verify(DPFP.Sample _sample, DPFP.Template _template)
+        {
+            try
+            {
+                bool _result = false;
+                DPFP.Verification.Verification Verificator = new DPFP.Verification.Verification();
+                DPFP.FeatureSet features = zsi.Biometrics.Util.ExtractFeatures(_sample, DPFP.Processing.DataPurpose.Verification);
+
+                // Check quality of the sample and start verification if it's good
+                // TODO: move to a separate task
+                if (features != null)
+                {
+                    // Compare the feature set with our template
+                    DPFP.Verification.Verification.Result result = new DPFP.Verification.Verification.Result();
+                    Verificator.Verify(features, _template, ref result);
+
+                    if (result.Verified)
+                        _result = true;
+                    else
+                        _result = false;
+
+                }
+                return _result;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        private static DPFP.Template ProcessDBTemplate(byte[] _data)
+        {
+            DPFP.Template _template = null;
+
+            if (_data != null)
+            {
+                Stream _ms = new MemoryStream(_data);
+                _template = new DPFP.Template();
+
+                //deserialize
+                _template.DeSerialize(_ms);
+            }
+            return _template;
+        }
+  
+
     }
 }

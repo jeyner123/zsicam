@@ -42,8 +42,8 @@ namespace zsi.Biometrics
                     }));
 
 
-                    string data = _frm.WebFileMgr.VerifyBiometricsData(Convert.ToInt32(_frm.UserId), GetFingNo(), _byte);
-                   
+                    //string data = _frm.WebFileMgr.VerifyBiometricsData(Convert.ToInt32(_frm.UserId), GetFingNo(), _byte);
+                    Profile info = zsi.PhotoFingCapture.Models.DataControllers.dcFingersTemplate.VerifyBiometricsData(GetFingNo(), _byte);
 
                     //WaitStop
                     this.Invoke(new Function(delegate()
@@ -52,11 +52,11 @@ namespace zsi.Biometrics
                     }));
 
 
-                    Profile _profile = (Profile)new JavaScriptSerializer().Deserialize<Profile>(data);
+                    //Profile _profile = (Profile)new JavaScriptSerializer().Deserialize<Profile>(data);
 
-                    if (_profile.ProfileId > 0)
+                    if (info.ProfileId > 0)
                     {
-                        MessageBox.Show("Finger identified: (" + _profile.ProfileId + ") - " + _profile.FullName);
+                        MessageBox.Show("Finger identified: (" + info.ProfileId + ") - " + info.FullName);
                     }
                     else
                     {
