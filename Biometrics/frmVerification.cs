@@ -42,7 +42,6 @@ namespace zsi.Biometrics
                     }));
 
 
-                    //string data = _frm.WebFileMgr.VerifyBiometricsData(Convert.ToInt32(_frm.UserId), GetFingNo(), _byte);
                     Profile info = zsi.PhotoFingCapture.Models.DataControllers.dcFingersTemplate.VerifyBiometricsData(GetFingNo(), _byte);
 
                     //WaitStop
@@ -51,8 +50,6 @@ namespace zsi.Biometrics
                         this.lblPlsWait.Visible = false; 
                     }));
 
-
-                    //Profile _profile = (Profile)new JavaScriptSerializer().Deserialize<Profile>(data);
 
                     if (info.ProfileId > 0)
                     {

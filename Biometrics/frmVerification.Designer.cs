@@ -215,6 +215,7 @@
             this.lblPlsWait.Size = new System.Drawing.Size(101, 13);
             this.lblPlsWait.TabIndex = 22;
             this.lblPlsWait.Text = "Verifying... Pls. wait.";
+            this.lblPlsWait.Visible = false;
             // 
             // frmVerification
             // 
