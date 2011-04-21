@@ -440,6 +440,10 @@ namespace zsi.PhotoFingCapture
             this.timer1.Enabled = false;
             this.RunFingerUpdate();
         }
+
+ 
+
+ 
    
     }
 
