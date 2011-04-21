@@ -69,6 +69,7 @@ namespace zsi.PhotoFingCapture
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
             this.tabSign = new System.Windows.Forms.TabPage();
+            this.signature1 = new zsi.Controls.Signature();
             this.btnUploadSig = new System.Windows.Forms.Button();
             this.btnClearSig = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
@@ -78,7 +79,7 @@ namespace zsi.PhotoFingCapture
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.webFileManager1 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.webFileManager2 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-            this.signature1 = new zsi.Controls.Signature();
+            this.btnOpenWebsite = new System.Windows.Forms.Button();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -535,6 +536,17 @@ namespace zsi.PhotoFingCapture
             this.tabSign.Text = "Signature";
             this.tabSign.UseVisualStyleBackColor = true;
             // 
+            // signature1
+            // 
+            this.signature1.Background = null;
+            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
+            this.signature1.Location = new System.Drawing.Point(145, 110);
+            this.signature1.Name = "signature1";
+            this.signature1.Size = new System.Drawing.Size(307, 116);
+            this.signature1.TabIndex = 3;
+            this.signature1.Text = "signature1";
+            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
+            // 
             // btnUploadSig
             // 
             this.btnUploadSig.Enabled = false;
@@ -611,22 +623,22 @@ namespace zsi.PhotoFingCapture
             this.webFileManager2.Url = "http://www.zetta-solutions.net/phgovdemo/webfileservices.asmx";
             this.webFileManager2.UseDefaultCredentials = false;
             // 
-            // signature1
+            // btnOpenWebsite
             // 
-            this.signature1.Background = null;
-            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
-            this.signature1.Location = new System.Drawing.Point(145, 110);
-            this.signature1.Name = "signature1";
-            this.signature1.Size = new System.Drawing.Size(307, 116);
-            this.signature1.TabIndex = 3;
-            this.signature1.Text = "signature1";
-            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
+            this.btnOpenWebsite.Location = new System.Drawing.Point(457, 13);
+            this.btnOpenWebsite.Name = "btnOpenWebsite";
+            this.btnOpenWebsite.Size = new System.Drawing.Size(88, 23);
+            this.btnOpenWebsite.TabIndex = 38;
+            this.btnOpenWebsite.Text = "Open Website";
+            this.btnOpenWebsite.UseVisualStyleBackColor = true;
+            this.btnOpenWebsite.Click += new System.EventHandler(this.btnOpenWebsite_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(756, 462);
+            this.Controls.Add(this.btnOpenWebsite);
             this.Controls.Add(this.StatusStrip1);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnLogin);
@@ -713,6 +725,7 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.ToolStripStatusLabel ssStatus1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnFingerUpdate;
+        private System.Windows.Forms.Button btnOpenWebsite;
     }
 }
 

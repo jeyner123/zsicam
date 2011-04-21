@@ -15,7 +15,7 @@ using zsi.PhotoFingCapture.WebCam;
 using zsi.PhotoFingCapture.WebFileService;
 using zsi.PhotoFingCapture.Models.DataControllers;
 using zsi.Framework.Common;
-
+using zsi.PhotoFingCapture.Properties;
 using System.Threading;
 namespace zsi.PhotoFingCapture
 {
@@ -440,6 +440,15 @@ namespace zsi.PhotoFingCapture
             this.timer1.Enabled = false;
             this.RunFingerUpdate();
         }
+
+        private void btnOpenWebsite_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?RedirectCode=dsaf2r&ClientAction=renew&UserId=1&ProfileId=123456";
+            p.Start();
+        }
+
+   
 
  
 
