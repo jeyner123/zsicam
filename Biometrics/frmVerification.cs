@@ -92,5 +92,10 @@ namespace zsi.Biometrics
                 _result = 0;
             return _result; 
         }
+
+        private void frmVerification_Load(object sender, EventArgs e)
+        {
+            cbVerificationPurpose.SelectedIndex = 0;
+        }
     }
 }
