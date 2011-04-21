@@ -54,5 +54,14 @@ namespace zsi.PhotoFingCapture.Properties {
                 return ((string)(this["AccessDBConnection"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.zetta-solutions.net/phgovdemo/")]
+        public string DefaultWebsite {
+            get {
+                return ((string)(this["DefaultWebsite"]));
+            }
+        }
     }
 }

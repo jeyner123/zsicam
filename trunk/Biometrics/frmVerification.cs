@@ -54,6 +54,10 @@ namespace zsi.Biometrics
                     if (info.ProfileId > 0)
                     {
                         MessageBox.Show("Finger identified: (" + info.ProfileId + ") - " + info.FullName);
+                        //System.Diagnostics.Process p = new System.Diagnostics.Process();
+                        //p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?RedirectCode=dsaf2r&ClientAction=renew&UserId=1&ProfileId=123456";
+                        //p.Start();
+
                     }
                     else
                     {
