@@ -52,6 +52,7 @@ namespace zsi.PhotoFingCapture
             this.btnUploadPhoto = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.PictureBox();
             this.tabFingers = new System.Windows.Forms.TabPage();
+            this.btnFingerUpdate = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkAutoClose = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -77,7 +78,6 @@ namespace zsi.PhotoFingCapture
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.webFileManager1 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.webFileManager2 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-            this.btnFingerUpdate = new System.Windows.Forms.Button();
             this.signature1 = new zsi.Controls.Signature();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
@@ -340,6 +340,17 @@ namespace zsi.PhotoFingCapture
             this.tabFingers.Text = "Fingers Capture";
             this.tabFingers.UseVisualStyleBackColor = true;
             // 
+            // btnFingerUpdate
+            // 
+            this.btnFingerUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFingerUpdate.Location = new System.Drawing.Point(20, 227);
+            this.btnFingerUpdate.Name = "btnFingerUpdate";
+            this.btnFingerUpdate.Size = new System.Drawing.Size(146, 35);
+            this.btnFingerUpdate.TabIndex = 45;
+            this.btnFingerUpdate.Text = "Update Fingers Templates";
+            this.btnFingerUpdate.UseVisualStyleBackColor = true;
+            this.btnFingerUpdate.Click += new System.EventHandler(this.btnFingerUpdate_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.chkAutoClose);
@@ -356,7 +367,7 @@ namespace zsi.PhotoFingCapture
             this.groupBox1.Controls.Add(this.btnRRF);
             this.groupBox1.Controls.Add(this.btnRMF);
             this.groupBox1.Controls.Add(this.btnLSF);
-            this.groupBox1.Location = new System.Drawing.Point(20, 47);
+            this.groupBox1.Location = new System.Drawing.Point(20, 36);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(667, 166);
             this.groupBox1.TabIndex = 44;
@@ -600,20 +611,10 @@ namespace zsi.PhotoFingCapture
             this.webFileManager2.Url = "http://www.zetta-solutions.net/phgovdemo/webfileservices.asmx";
             this.webFileManager2.UseDefaultCredentials = false;
             // 
-            // btnFingerUpdate
-            // 
-            this.btnFingerUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFingerUpdate.Location = new System.Drawing.Point(541, 6);
-            this.btnFingerUpdate.Name = "btnFingerUpdate";
-            this.btnFingerUpdate.Size = new System.Drawing.Size(146, 24);
-            this.btnFingerUpdate.TabIndex = 45;
-            this.btnFingerUpdate.Text = "Update Fingers Templates";
-            this.btnFingerUpdate.UseVisualStyleBackColor = true;
-            // 
             // signature1
             // 
             this.signature1.Background = null;
-            this.signature1.bmp = null;
+            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
             this.signature1.Location = new System.Drawing.Point(145, 110);
             this.signature1.Name = "signature1";
             this.signature1.Size = new System.Drawing.Size(307, 116);
