@@ -33,7 +33,6 @@ namespace zsi.PhotoFingCapture
             this.btnVerifyFP = new System.Windows.Forms.Button();
             this.tab = new System.Windows.Forms.TabControl();
             this.tabPhoto = new System.Windows.Forms.TabPage();
-            this.btnFingerUpdate = new System.Windows.Forms.Button();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -69,7 +68,6 @@ namespace zsi.PhotoFingCapture
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
             this.tabSign = new System.Windows.Forms.TabPage();
-            this.signature1 = new zsi.Controls.Signature();
             this.btnUploadSig = new System.Windows.Forms.Button();
             this.btnClearSig = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
@@ -79,6 +77,8 @@ namespace zsi.PhotoFingCapture
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.webFileManager1 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.webFileManager2 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+            this.btnFingerUpdate = new System.Windows.Forms.Button();
+            this.signature1 = new zsi.Controls.Signature();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -96,11 +96,11 @@ namespace zsi.PhotoFingCapture
             // 
             // btnVerifyFP
             // 
-            this.btnVerifyFP.Location = new System.Drawing.Point(20, 253);
+            this.btnVerifyFP.Location = new System.Drawing.Point(545, 13);
             this.btnVerifyFP.Name = "btnVerifyFP";
-            this.btnVerifyFP.Size = new System.Drawing.Size(139, 53);
+            this.btnVerifyFP.Size = new System.Drawing.Size(70, 23);
             this.btnVerifyFP.TabIndex = 28;
-            this.btnVerifyFP.Text = "Verify Finger Prints";
+            this.btnVerifyFP.Text = "Biometrics";
             this.btnVerifyFP.UseVisualStyleBackColor = true;
             this.btnVerifyFP.Click += new System.EventHandler(this.btnVerifyFP_Click);
             // 
@@ -117,7 +117,6 @@ namespace zsi.PhotoFingCapture
             // 
             // tabPhoto
             // 
-            this.tabPhoto.Controls.Add(this.btnFingerUpdate);
             this.tabPhoto.Controls.Add(this.pictureBox4);
             this.tabPhoto.Controls.Add(this.pictureBox3);
             this.tabPhoto.Controls.Add(this.pictureBox2);
@@ -140,17 +139,6 @@ namespace zsi.PhotoFingCapture
             this.tabPhoto.TabIndex = 0;
             this.tabPhoto.Text = "Photo Capture";
             this.tabPhoto.UseVisualStyleBackColor = true;
-            // 
-            // btnFingerUpdate
-            // 
-            this.btnFingerUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFingerUpdate.Location = new System.Drawing.Point(605, 54);
-            this.btnFingerUpdate.Name = "btnFingerUpdate";
-            this.btnFingerUpdate.Size = new System.Drawing.Size(87, 39);
-            this.btnFingerUpdate.TabIndex = 37;
-            this.btnFingerUpdate.Text = "Update Fingers Templates";
-            this.btnFingerUpdate.UseVisualStyleBackColor = true;
-            this.btnFingerUpdate.Click += new System.EventHandler(this.btnFingerUpdate_Click);
             // 
             // pictureBox4
             // 
@@ -193,7 +181,7 @@ namespace zsi.PhotoFingCapture
             this.comboBoxCameras.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxCameras.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCameras.FormattingEnabled = true;
-            this.comboBoxCameras.Location = new System.Drawing.Point(260, 10);
+            this.comboBoxCameras.Location = new System.Drawing.Point(260, 21);
             this.comboBoxCameras.Name = "comboBoxCameras";
             this.comboBoxCameras.Size = new System.Drawing.Size(156, 21);
             this.comboBoxCameras.TabIndex = 31;
@@ -201,18 +189,18 @@ namespace zsi.PhotoFingCapture
             // btnConfig
             // 
             this.btnConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConfig.Location = new System.Drawing.Point(605, 8);
+            this.btnConfig.Location = new System.Drawing.Point(611, 8);
             this.btnConfig.Name = "btnConfig";
-            this.btnConfig.Size = new System.Drawing.Size(87, 40);
+            this.btnConfig.Size = new System.Drawing.Size(81, 44);
             this.btnConfig.TabIndex = 30;
-            this.btnConfig.Text = "Configuration";
+            this.btnConfig.Text = "Camera Settings";
             this.btnConfig.UseVisualStyleBackColor = true;
             this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
             // 
             // btnStop
             // 
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStop.Location = new System.Drawing.Point(341, 37);
+            this.btnStop.Location = new System.Drawing.Point(341, 48);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 29;
@@ -223,7 +211,7 @@ namespace zsi.PhotoFingCapture
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStart.Location = new System.Drawing.Point(260, 37);
+            this.btnStart.Location = new System.Drawing.Point(260, 48);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 28;
@@ -342,8 +330,8 @@ namespace zsi.PhotoFingCapture
             // 
             // tabFingers
             // 
+            this.tabFingers.Controls.Add(this.btnFingerUpdate);
             this.tabFingers.Controls.Add(this.groupBox1);
-            this.tabFingers.Controls.Add(this.btnVerifyFP);
             this.tabFingers.Location = new System.Drawing.Point(4, 22);
             this.tabFingers.Name = "tabFingers";
             this.tabFingers.Padding = new System.Windows.Forms.Padding(3);
@@ -370,7 +358,7 @@ namespace zsi.PhotoFingCapture
             this.groupBox1.Controls.Add(this.btnLSF);
             this.groupBox1.Location = new System.Drawing.Point(20, 47);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(667, 140);
+            this.groupBox1.Size = new System.Drawing.Size(667, 166);
             this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Register Fingers";
@@ -536,17 +524,6 @@ namespace zsi.PhotoFingCapture
             this.tabSign.Text = "Signature";
             this.tabSign.UseVisualStyleBackColor = true;
             // 
-            // signature1
-            // 
-            this.signature1.Background = null;
-            this.signature1.bmp = null;
-            this.signature1.Location = new System.Drawing.Point(145, 110);
-            this.signature1.Name = "signature1";
-            this.signature1.Size = new System.Drawing.Size(307, 116);
-            this.signature1.TabIndex = 3;
-            this.signature1.Text = "signature1";
-            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
-            // 
             // btnUploadSig
             // 
             this.btnUploadSig.Enabled = false;
@@ -623,6 +600,27 @@ namespace zsi.PhotoFingCapture
             this.webFileManager2.Url = "http://www.zetta-solutions.net/phgovdemo/webfileservices.asmx";
             this.webFileManager2.UseDefaultCredentials = false;
             // 
+            // btnFingerUpdate
+            // 
+            this.btnFingerUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFingerUpdate.Location = new System.Drawing.Point(541, 6);
+            this.btnFingerUpdate.Name = "btnFingerUpdate";
+            this.btnFingerUpdate.Size = new System.Drawing.Size(146, 24);
+            this.btnFingerUpdate.TabIndex = 45;
+            this.btnFingerUpdate.Text = "Update Fingers Templates";
+            this.btnFingerUpdate.UseVisualStyleBackColor = true;
+            // 
+            // signature1
+            // 
+            this.signature1.Background = null;
+            this.signature1.bmp = null;
+            this.signature1.Location = new System.Drawing.Point(145, 110);
+            this.signature1.Name = "signature1";
+            this.signature1.Size = new System.Drawing.Size(307, 116);
+            this.signature1.TabIndex = 3;
+            this.signature1.Text = "signature1";
+            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -632,6 +630,7 @@ namespace zsi.PhotoFingCapture
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.tab);
+            this.Controls.Add(this.btnVerifyFP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
