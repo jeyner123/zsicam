@@ -182,5 +182,28 @@ namespace zsi.PhotoFingCapture
             Input = Input.Replace(_DecryptedVal, _cryp.Decrypt(_DecryptedVal.Replace(Tag, "")));
             return Input;
         }
+
+
+        public static void LogError(string ErrorMessage) {
+            StreamWriter log;
+            string FileName = "logfile.txt";
+            if (!File.Exists("logfile.txt"))
+            {
+                log = new StreamWriter(FileName);
+            }
+            else
+            {
+                log = File.AppendText(FileName);
+            }
+
+            // Write to the file:
+            log.WriteLine("---[ " + DateTime.Now.ToUniversalTime().AddHours(8).ToString() + "]----");
+            log.WriteLine(ErrorMessage);
+            log.WriteLine();
+
+            // Close the stream:
+            log.Close();
+            
+        }
     }
 }

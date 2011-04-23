@@ -419,7 +419,7 @@ namespace zsi.PhotoFingCapture
             ProcessMaster _pm = new ProcessMaster(_dc.FingerTemplatesUpdate);
             _pm.OnProcessStop = delegate()
             {
-                ssStatus1.Text = "Fingers Templates is now updated.";
+                ssStatus1.Text = "Fingers Templates processing is done.";
                 Application.DoEvents();
                 Thread.Sleep(1000);                 
                 ssStatus1.Text = "";
@@ -446,6 +446,17 @@ namespace zsi.PhotoFingCapture
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?RedirectCode=dsaf2r&ClientAction=renew&UserId=1&ProfileId=123456";
             p.Start();
+        }
+
+        private void btnDisplayConsolList_Click(object sender, EventArgs e)
+        {
+             txtConsoleList.Text= zsi.Framework.Common.ConsoleApp.ToString(Application.ProductName);
+        }
+
+        private void btnClearConsoleList_Click(object sender, EventArgs e)
+        {
+            zsi.Framework.Common.ConsoleApp.ClearAll();
+            txtConsoleList.Text = "";
         }
 
    
