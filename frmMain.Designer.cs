@@ -80,6 +80,10 @@ namespace zsi.PhotoFingCapture
             this.webFileManager1 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.webFileManager2 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.btnOpenWebsite = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtConsoleList = new System.Windows.Forms.TextBox();
+            this.btnDisplayConsolList = new System.Windows.Forms.Button();
+            this.btnClearConsoleList = new System.Windows.Forms.Button();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -93,6 +97,7 @@ namespace zsi.PhotoFingCapture
             this.groupBox1.SuspendLayout();
             this.tabSign.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnVerifyFP
@@ -110,6 +115,7 @@ namespace zsi.PhotoFingCapture
             this.tab.Controls.Add(this.tabPhoto);
             this.tab.Controls.Add(this.tabFingers);
             this.tab.Controls.Add(this.tabSign);
+            this.tab.Controls.Add(this.tabPage1);
             this.tab.Location = new System.Drawing.Point(21, 42);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
@@ -633,6 +639,48 @@ namespace zsi.PhotoFingCapture
             this.btnOpenWebsite.UseVisualStyleBackColor = true;
             this.btnOpenWebsite.Click += new System.EventHandler(this.btnOpenWebsite_Click);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.btnClearConsoleList);
+            this.tabPage1.Controls.Add(this.btnDisplayConsolList);
+            this.tabPage1.Controls.Add(this.txtConsoleList);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(706, 365);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Console Service";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtConsoleList
+            // 
+            this.txtConsoleList.Location = new System.Drawing.Point(6, 38);
+            this.txtConsoleList.Multiline = true;
+            this.txtConsoleList.Name = "txtConsoleList";
+            this.txtConsoleList.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtConsoleList.Size = new System.Drawing.Size(694, 321);
+            this.txtConsoleList.TabIndex = 0;
+            // 
+            // btnDisplayConsolList
+            // 
+            this.btnDisplayConsolList.Location = new System.Drawing.Point(16, 9);
+            this.btnDisplayConsolList.Name = "btnDisplayConsolList";
+            this.btnDisplayConsolList.Size = new System.Drawing.Size(161, 23);
+            this.btnDisplayConsolList.TabIndex = 1;
+            this.btnDisplayConsolList.Text = "Display Console List";
+            this.btnDisplayConsolList.UseVisualStyleBackColor = true;
+            this.btnDisplayConsolList.Click += new System.EventHandler(this.btnDisplayConsolList_Click);
+            // 
+            // btnClearConsoleList
+            // 
+            this.btnClearConsoleList.Location = new System.Drawing.Point(183, 9);
+            this.btnClearConsoleList.Name = "btnClearConsoleList";
+            this.btnClearConsoleList.Size = new System.Drawing.Size(100, 23);
+            this.btnClearConsoleList.TabIndex = 2;
+            this.btnClearConsoleList.Text = "Clear Console List";
+            this.btnClearConsoleList.UseVisualStyleBackColor = true;
+            this.btnClearConsoleList.Click += new System.EventHandler(this.btnClearConsoleList_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -669,6 +717,8 @@ namespace zsi.PhotoFingCapture
             this.tabSign.ResumeLayout(false);
             this.StatusStrip1.ResumeLayout(false);
             this.StatusStrip1.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -726,6 +776,10 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnFingerUpdate;
         private System.Windows.Forms.Button btnOpenWebsite;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button btnClearConsoleList;
+        private System.Windows.Forms.Button btnDisplayConsolList;
+        private System.Windows.Forms.TextBox txtConsoleList;
     }
 }
 

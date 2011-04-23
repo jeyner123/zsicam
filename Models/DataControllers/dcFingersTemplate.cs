@@ -12,6 +12,8 @@ using System.Data.OleDb;
 using System.Windows.Forms;
 using zsi.PhotoFingCapture.Models;
 using System.IO;
+using zsi.Framework.Common;
+using System.Collections.ObjectModel;
 namespace zsi.PhotoFingCapture.Models.DataControllers
 {
     public class dcFingersTemplate : SQLServer.MasterDataController<FingerTemplate>
@@ -23,6 +25,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
        
         public void RunTest(){
             CallBackFunction();
+
         }
         public override void InitDataController()
         {
@@ -55,7 +58,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         {
             try
             {
-               
+
+
+                ConsoleApp.WriteLine(Application.ProductName, "Starting migrating finger templates.");
+
                 DateTime _lastUpdatedDate;
                 dcFTemplate = new dcFingersTemplate2();
                 dcFTemplate.DBConn.Open();
@@ -65,13 +71,19 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 Trans = dcFTemplate.DBConn.BeginTransaction();
                 if (_dr2.HasRows == false)
                 {
-                   this.MigrateNewData(this.GetDataSource());
+                    this.GetDataSource();
+
+                    ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
+                    this.MigrateNewData(this.List);
                    UpdateLastUpdate(); 
+
+                    
                 }
                 else {
                     _dr2.Read();
                     _lastUpdatedDate = Convert.ToDateTime(_dr2[1]);
 
+                    ConsoleApp.WriteLine(Application.ProductName, "Get newest created and updated records from the live server");
                     List<FingerTemplate> _NewList = this.GetNewFingerData(_lastUpdatedDate);
                     List<FingerTemplate> _UpdatedList = this.GetUpdatedFingerData(_lastUpdatedDate);
 
@@ -86,6 +98,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 }
                 Trans.Commit();
                 dcFTemplate.DBConn.Close();
+                ConsoleApp.WriteLine(Application.ProductName, "Migrating finger templates has been done.");
 
             }
             catch (Exception ex)
@@ -95,7 +108,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     Trans.Rollback();
                 }
                 catch{}
-                 throw ex;
+                ConsoleApp.WriteLine(Application.ProductName, "[Error],"  + ex.ToString());
+                zsi.PhotoFingCapture.Util.LogError(ex.ToString());
             }
         }
 
@@ -179,13 +193,13 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             {
                 _cmd = new OleDbCommand(
                 "Insert Into UpdateLog(LastUpdatedDate) values(?)", dcFTemplate.DBConn, Trans);
-                _cmd.Parameters.AddWithValue("?", DateTime.Now.ToString());
+                _cmd.Parameters.AddWithValue("?", DateTime.Now.ToUniversalTime().AddHours(8).ToString());
                 _cmd.ExecuteNonQuery();
             }
             else {
                 _cmd = new OleDbCommand(
                 "Update UpdateLog set LastUpdatedDate=?", dcFTemplate.DBConn, Trans);
-                _cmd.Parameters.AddWithValue("?", DateTime.Now.ToString());
+                _cmd.Parameters.AddWithValue("?", DateTime.Now.ToUniversalTime().AddHours(8).ToString());
                 _cmd.ExecuteNonQuery();            
             }
             _dc.DBConn.Close();   
