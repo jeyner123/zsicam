@@ -29,8 +29,10 @@ namespace zsi.PhotoFingCapture
             btnLogin.Text = "Wait...";
             btnLogin.Enabled = false;
             zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-            this.ParentForm.UserId = fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString();
-            if (int.Parse(this.ParentForm.UserId) < 1)
+
+            ClientInfo.UserInfo = new zsi.PhotoFingCapture.Models.User();
+            ClientInfo.UserInfo.UserId=Convert.ToInt32( fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString());
+            if (ClientInfo.UserInfo.UserId< 1)
             {
                 MessageBox.Show("Invalid User, Please Login.");
                 btnLogin.Text = "Login";

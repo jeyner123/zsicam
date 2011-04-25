@@ -22,8 +22,6 @@ namespace zsi.PhotoFingCapture
 
     public partial class frmMain : Form
     {
-        public string UserId { get; set; }
-        public string ProfileNo{get;set;}
         public FingersData FingersData { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
         private WebFileManager _WebFileMgr;
@@ -57,8 +55,8 @@ namespace zsi.PhotoFingCapture
         }
         private void UpdateProfileNo()
         {
-           
-            this.ProfileNo = WebFileMgr.GetUserTempProfileId(Convert.ToInt32(this.UserId));
+            ClientInfo.ProfileInfo = new zsi.PhotoFingCapture.Models.Profile();
+            ClientInfo.ProfileInfo.ProfileId = Convert.ToInt64( WebFileMgr.GetUserTempProfileId(ClientInfo.UserInfo.UserId));
         }
         private void InitFingerPrintSettings(){
             this.FingersData = new FingersData();	
@@ -84,7 +82,7 @@ namespace zsi.PhotoFingCapture
                 default: break;
             }
 
-            _fileName = this.ProfileNo + _fileName;
+            _fileName = ClientInfo.ProfileInfo.ProfileId + _fileName;
             if (rdbITProfile.Checked != true) _fileName = "case-" + _fileName;
             return _fileName;
         }
@@ -129,7 +127,7 @@ namespace zsi.PhotoFingCapture
         {
             EnableControls(false);
             btnUploadPhoto.Enabled = false;
-            this.UserId = "";
+            ClientInfo.ProfileInfo = new zsi.PhotoFingCapture.Models.Profile();
 
         }
         private void btnSettings_Click(object sender, EventArgs e)
@@ -166,11 +164,11 @@ namespace zsi.PhotoFingCapture
                         this.FingersData.Templates[i].Serialize(ref _byte);
 
 
-                        WebFileMgr.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".fpt", _byte);
+                        WebFileMgr.UploadBiometricsData(ClientInfo.UserInfo.UserId.ToString(), ClientInfo.ProfileInfo.ProfileId + "-" + i.ToString() + ".fpt", _byte);
 
  
                         byte[] _byteImage = Util.StreamToByte(Util.BmpToStream((Bitmap)this.FingersData.Images[i]));
-                        WebFileMgr.UploadBiometricsData(this.UserId, this.ProfileNo + "-" + i.ToString() + ".jpg", _byteImage);
+                        WebFileMgr.UploadBiometricsData(ClientInfo.UserInfo.UserId.ToString(), ClientInfo.ProfileInfo.ProfileId + "-" + i.ToString() + ".jpg", _byteImage);
                     }
                 }
                 MessageBox.Show("Finger prints has been uploaded to the server.");
@@ -225,7 +223,7 @@ namespace zsi.PhotoFingCapture
                     MessageBox.Show("Sorry, No photo has been captured.");
                     return;
                 }
-                if (Convert.ToInt64(this.ProfileNo)==0)
+                if (ClientInfo.ProfileInfo.ProfileId == 0)
                 {
                     MessageBox.Show("Sorry, You cannot upload this picture, please go to [Edit Profile] view in order to upload this picture.","No Profile Selected!");
                     return;
@@ -236,7 +234,7 @@ namespace zsi.PhotoFingCapture
                 pbResult.Image.Save(fileName, ImageFormat.Jpeg);
                 System.IO.FileInfo oFileInfo = new System.IO.FileInfo(fileName);
                 byte[] _byteImage = Util.StreamToByte(Util.BmpToStream(pbResult.Image));
-                WebFileMgr.UploadFile(UserId, oFileInfo.Name, _byteImage);
+                WebFileMgr.UploadFile(ClientInfo.UserInfo.UserId.ToString(), oFileInfo.Name, _byteImage);
                 MessageBox.Show("Photo has been uploaded to the server.");
                 _WebCam.Start();
             }
@@ -250,7 +248,8 @@ namespace zsi.PhotoFingCapture
             }
         }
         private void ShowScanForm(object sender, int FingerPosition) {
-            if (Convert.ToInt32(this.UserId) == 0) {
+            if (ClientInfo.UserInfo.UserId == 0)
+            {
                 MessageBox.Show("Please login first.", "Sorry!");
                 return;
             }
@@ -376,7 +375,7 @@ namespace zsi.PhotoFingCapture
                 System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
                 this.signature1.bmp.Save(_MemoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
                 byte[] _byte = Util.StreamToByte(_MemoryStream);
-                WebFileMgr.UploadBiometricsData(this.UserId, this.ProfileNo + "-sig.jpg", _byte);
+                WebFileMgr.UploadBiometricsData(ClientInfo.UserInfo.UserId.ToString(), ClientInfo.ProfileInfo.ProfileId + "-sig.jpg", _byte);
 
                 MessageBox.Show("Signature has been uploaded to the server.");
                 signature1.Clear();

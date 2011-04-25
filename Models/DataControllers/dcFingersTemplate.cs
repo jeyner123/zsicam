@@ -183,6 +183,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             }
 
         }
+
         private void UpdateLastUpdate(){
 
             dcFingersTemplate2 _dc = new dcFingersTemplate2();
