@@ -242,10 +242,7 @@
             this.cbVerificationPurpose.FormattingEnabled = true;
             this.cbVerificationPurpose.Items.AddRange(new object[] {
             "User Login",
-            "Renew Barangay Clearance",
-            "Renew Police Clearance",
-            "Renew Business Permit",
-            "Renew Mayor\'s Permit",
+            "Profile Info",
             "Verify Finger"});
             this.cbVerificationPurpose.Location = new System.Drawing.Point(15, 259);
             this.cbVerificationPurpose.Name = "cbVerificationPurpose";

@@ -10,6 +10,7 @@ using zsi.Framework.Security;
 using System.Text.RegularExpressions;
 namespace zsi.PhotoFingCapture
 {
+
     public class Util
     {
         public static void SaveBmpToFile(Bitmap bmp, string filename)
