@@ -115,12 +115,10 @@ namespace zsi.PhotoFingCapture
         public void EnableControls(Boolean IsEnable)
         {
             btnCapture.Enabled = IsEnable;
-            btnVerifyFP.Enabled = IsEnable;
             btnLogin.Enabled = (IsEnable==true?false:true);
             btnLogOut.Enabled = IsEnable;
             btnUploadPhoto.Enabled = IsEnable;
             btnUploadSig.Enabled = IsEnable;
-            btnVerifyFP.Enabled = IsEnable;
 
         }
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -425,6 +423,7 @@ namespace zsi.PhotoFingCapture
                 Application.DoEvents();                
             };
             _pm.Start();
+           
  
         }
 
@@ -442,9 +441,18 @@ namespace zsi.PhotoFingCapture
 
         private void btnOpenWebsite_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process p = new System.Diagnostics.Process();
-            p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?RedirectCode=dsaf2r&ClientAction=renew&UserId=1&ProfileId=123456";
-            p.Start();
+            if (ClientInfo.UserInfo ==null) goto NotLogged;
+            if (ClientInfo.UserInfo.UserId == 0) goto NotLogged;
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                string _guID = Guid.NewGuid().ToString();
+                dcUser _dc = new dcUser();
+                _dc.UpdateRequestCode(ClientInfo.UserInfo.UserId, _guID);
+                p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=User Login&p_ClientRequestCode=" + _guID;
+                p.Start();
+                return;
+            
+            NotLogged:
+            MessageBox.Show("Please login first to open a website.");
         }
 
         private void btnDisplayConsolList_Click(object sender, EventArgs e)
@@ -456,17 +464,7 @@ namespace zsi.PhotoFingCapture
         {
             zsi.Framework.Common.ConsoleApp.ClearAll();
             txtConsoleList.Text = "";
-        }
-
-   
-
- 
-
- 
-   
+        }   
     }
-
-    
-
 
 }

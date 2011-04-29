@@ -545,7 +545,7 @@ namespace zsi.PhotoFingCapture
             // signature1
             // 
             this.signature1.Background = null;
-            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
+            this.signature1.bmp = null;
             this.signature1.Location = new System.Drawing.Point(145, 110);
             this.signature1.Name = "signature1";
             this.signature1.Size = new System.Drawing.Size(307, 116);
