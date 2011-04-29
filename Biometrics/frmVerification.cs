@@ -56,12 +56,7 @@ namespace zsi.Biometrics
 
                     if (info.ProfileId > 0)
                     {
-                        OpenWebsite(info);
-                       // MessageBox.Show("Finger identified: (" + info.ProfileId + ") - " + info.FullName);
-                        //System.Diagnostics.Process p = new System.Diagnostics.Process();
-                        //p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?RedirectCode=dsaf2r&ClientAction=renew&UserId=1&ProfileId=123456";
-                        //p.Start();
-
+                        ProcessProfile(info);
                     }
                     else
                     {
@@ -75,7 +70,7 @@ namespace zsi.Biometrics
         }
 
 
-        private void OpenWebsite(Profile info)
+        private void ProcessProfile(Profile info)
         {
 
             string _ClientRequestCode = string.Empty;
@@ -87,7 +82,6 @@ namespace zsi.Biometrics
             {
                 this.ClientAction = this.cbVerificationPurpose.SelectedItem.ToString().ToLower();
 
-
                 switch (this.ClientAction)
                 {
 
@@ -96,11 +90,7 @@ namespace zsi.Biometrics
                         if (ClientInfo.UserInfo.UserId != 0)
                         {
                             this.ParentForm.EnableControls(true);
-                            string _guID = Guid.NewGuid().ToString();
-                            _dc.UpdateRequestCode(ClientInfo.UserInfo.UserId, _guID);
-                            //p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=User Login&p_ClientRequestCode=" + System.Web.HttpUtility.UrlEncode(_guID);
-                            p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=User Login&p_ClientRequestCode=" + _guID;
-                            p.Start();
+                            this.Close();
                         }
                         else
                         {
@@ -112,9 +102,9 @@ namespace zsi.Biometrics
                         {
                             string _guID = Guid.NewGuid().ToString();         
                             _dc.UpdateRequestCode(ClientInfo.UserInfo.UserId, _guID);
-                            //p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=Profile Info&p_ClientRequestCode=" + System.Web.HttpUtility.UrlEncode(_guID) + "&p_ProfileId=" + info.ProfileId;
                             p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=Profile Info&p_ClientRequestCode=" + _guID + "&p_ProfileId=" + info.ProfileId;
                             p.Start();
+                            this.Close();
                         }
                         else
                         {
