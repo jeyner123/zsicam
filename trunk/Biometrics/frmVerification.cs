@@ -72,53 +72,67 @@ namespace zsi.Biometrics
 
         private void ProcessProfile(Profile info)
         {
-
-            string _ClientRequestCode = string.Empty;
-            System.Diagnostics.Process p = new System.Diagnostics.Process(); 
-            dcUser _dc = new dcUser();
-            zsi.Framework.Security.Cryptography _crypt = new zsi.Framework.Security.Cryptography();
-
-            this.Invoke(new Function(delegate()
+            try
             {
-                this.ClientAction = this.cbVerificationPurpose.SelectedItem.ToString().ToLower();
+                string _ClientRequestCode = string.Empty;
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                dcUser _dc = new dcUser();
+                zsi.Framework.Security.Cryptography _crypt = new zsi.Framework.Security.Cryptography();
 
-                switch (this.ClientAction)
+                this.Invoke(new Function(delegate()
                 {
+                    this.ClientAction = this.cbVerificationPurpose.SelectedItem.ToString().ToLower();
+                }));
+                    switch (this.ClientAction)
+                    {
 
-                    case "user login":
-                        ClientInfo.UserInfo = _dc.GetUserInfo(info.ProfileId);
-                        if (ClientInfo.UserInfo.UserId != 0)
-                        {
-                            this.ParentForm.EnableControls(true);
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("User not login.");
-                        }
-                        break;
-                    case "profile info":
-                        if (ClientInfo.UserInfo.UserId != 0)
-                        {
-                            string _guID = Guid.NewGuid().ToString();         
-                            _dc.UpdateRequestCode(ClientInfo.UserInfo.UserId, _guID);
-                            p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=Profile Info&p_ClientRequestCode=" + _guID + "&p_ProfileId=" + info.ProfileId;
-                            p.Start();
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("User not login.");
-                        }
-                        break;
-                    default:
-                        MessageBox.Show("Finger identified: (" + info.ProfileId + ") - " + info.FullName);
+                        case "user login":
+                            ClientInfo.UserInfo = _dc.GetUserInfo(info.ProfileId);
+                            if (ClientInfo.UserInfo.UserId != 0)
+                            {
+                                this.Invoke(new Function(delegate(){
+                                        this.ParentForm.EnableControls(true);
+                                        this.Close();
+                                }));
+                            }
+                            else
+                            {
+                                MessageBox.Show("User not login.");
+                            }
+                            break;
+                        case "profile info":
+                            if (ClientInfo.UserInfo == null) goto NotYetLoggedIn;
+                            if (ClientInfo.UserInfo.UserId == 0) goto NotYetLoggedIn;
+                            if (ClientInfo.UserInfo.UserId != 0)
+                            {
 
-                        break;
+                                string _guID = Guid.NewGuid().ToString();
+                                _dc.UpdateRequestCode(ClientInfo.UserInfo.UserId, _guID);
+                                p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=Profile Info&p_ClientRequestCode=" + _guID + "&p_ProfileId=" + info.ProfileId;
+                                p.Start();
+                                this.Invoke(new Function(delegate(){
+                                    this.Close();
+                                }));
+                            }
+                            else
+                            {
+                                MessageBox.Show("User not login.");
+                            }
+                            break;
+                        default:
+                            MessageBox.Show("Finger identified: (" + info.ProfileId + ") - " + info.FullName);
+
+                            break;
 
 
-                }
-            }));
+                    }
+                    return;
+                NotYetLoggedIn:
+                    MessageBox.Show("Please login first.");
+            }
+            catch (Exception ex) {
+                throw ex;
+            }
         }
  
 
