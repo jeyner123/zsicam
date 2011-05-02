@@ -246,11 +246,9 @@ namespace zsi.PhotoFingCapture
             }
         }
         private void ShowScanForm(object sender, int FingerPosition) {
-            if (ClientInfo.UserInfo.UserId == 0)
-            {
-                MessageBox.Show("Please login first.", "Sorry!");
-                return;
-            }
+            if (ClientInfo.UserInfo==null) goto NotYetLogin;            
+            if (ClientInfo.UserInfo.UserId == 0) goto NotYetLogin;
+
             Color _bcolor =((Control)sender).BackColor;
             DialogResult result=DialogResult.None;
 
@@ -264,6 +262,9 @@ namespace zsi.PhotoFingCapture
             zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, FingerPosition);
             scanf.IsAutoClose = chkAutoClose.Checked;
             scanf.ShowDialog();
+            return;
+            NotYetLogin:
+            MessageBox.Show("Please login first.", "Sorry!");
         }
         private void ResetColor(object sender) 
         {
