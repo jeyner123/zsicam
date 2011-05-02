@@ -25,15 +25,6 @@ namespace zsi.PhotoFingCapture.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.zetta-solutions.net/phgovdemo/webfileservices.asmx")]
-        public string WebFile_URI {
-            get {
-                return ((string)(this["WebFile_URI"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=sqlserver8.loosefoot.com,1433;Initial Catalog=zpolice40demo;User ID={" +
             "u}UEIwVUv7BKszC7uozCVFE1glf06dGha+lxTRqiH11Xc={u};Password={p}guP3+y74kh5HQdFdbN" +
@@ -61,6 +52,16 @@ namespace zsi.PhotoFingCapture.Properties {
         public string DefaultWebsite {
             get {
                 return ((string)(this["DefaultWebsite"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:2593/WebFileServices.asmx")]
+        public string ZSICam_WebFileService_WebFileManager {
+            get {
+                return ((string)(this["ZSICam_WebFileService_WebFileManager"]));
             }
         }
     }

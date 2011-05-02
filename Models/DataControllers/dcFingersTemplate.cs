@@ -54,6 +54,22 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             return _dc.List;
         }
 
+        private DateTime GetDbDate() {
+            try
+            {
+                DateTime _resultDate = DateTime.Now;
+                SqlCommand _cmd = new SqlCommand("dbo.SelectDBDate", this.DBConn);
+                _cmd.CommandType = CommandType.StoredProcedure;
+                this.DBConn.Open();
+                SqlDataReader _dr = _cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                _dr.Read();
+                _resultDate = (DateTime)_dr[0];
+                this.DBConn.Close();
+                return _resultDate;
+            }
+            catch (Exception e) { throw e; }
+        }
+
         public void FingerTemplatesUpdate()
         {
             try
@@ -194,13 +210,13 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             {
                 _cmd = new OleDbCommand(
                 "Insert Into UpdateLog(LastUpdatedDate) values(?)", dcFTemplate.DBConn, Trans);
-                _cmd.Parameters.AddWithValue("?", DateTime.Now.ToUniversalTime().AddHours(8).ToString());
+                _cmd.Parameters.AddWithValue("?", GetDbDate().ToString());
                 _cmd.ExecuteNonQuery();
             }
             else {
                 _cmd = new OleDbCommand(
                 "Update UpdateLog set LastUpdatedDate=?", dcFTemplate.DBConn, Trans);
-                _cmd.Parameters.AddWithValue("?", DateTime.Now.ToUniversalTime().AddHours(8).ToString());
+                _cmd.Parameters.AddWithValue("?", GetDbDate().ToString());
                 _cmd.ExecuteNonQuery();            
             }
             _dc.DBConn.Close();   

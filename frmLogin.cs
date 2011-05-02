@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Collections;
 namespace zsi.PhotoFingCapture
 {
     public partial class frmLogin : Form
@@ -48,7 +48,11 @@ namespace zsi.PhotoFingCapture
             try
             {
                 login();
-                
+
+            }
+            catch (InvalidOperationException ex) {
+
+                MessageBox.Show(ex.Message);
             }
             catch (Exception ex)
             {

@@ -72,6 +72,10 @@ namespace zsi.PhotoFingCapture
             this.signature1 = new zsi.Controls.Signature();
             this.btnUploadSig = new System.Windows.Forms.Button();
             this.btnClearSig = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnClearConsoleList = new System.Windows.Forms.Button();
+            this.btnDisplayConsolList = new System.Windows.Forms.Button();
+            this.txtConsoleList = new System.Windows.Forms.TextBox();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -80,10 +84,6 @@ namespace zsi.PhotoFingCapture
             this.webFileManager1 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.webFileManager2 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.btnOpenWebsite = new System.Windows.Forms.Button();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.txtConsoleList = new System.Windows.Forms.TextBox();
-            this.btnDisplayConsolList = new System.Windows.Forms.Button();
-            this.btnClearConsoleList = new System.Windows.Forms.Button();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -96,17 +96,17 @@ namespace zsi.PhotoFingCapture
             this.tabFingers.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabSign.SuspendLayout();
-            this.StatusStrip1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.StatusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnVerifyFP
             // 
-            this.btnVerifyFP.Location = new System.Drawing.Point(545, 13);
+            this.btnVerifyFP.Location = new System.Drawing.Point(528, 13);
             this.btnVerifyFP.Name = "btnVerifyFP";
-            this.btnVerifyFP.Size = new System.Drawing.Size(70, 23);
+            this.btnVerifyFP.Size = new System.Drawing.Size(87, 23);
             this.btnVerifyFP.TabIndex = 28;
-            this.btnVerifyFP.Text = "Biometrics";
+            this.btnVerifyFP.Text = "Scan Finger(s)";
             this.btnVerifyFP.UseVisualStyleBackColor = true;
             this.btnVerifyFP.Click += new System.EventHandler(this.btnVerifyFP_Click);
             // 
@@ -344,7 +344,7 @@ namespace zsi.PhotoFingCapture
             this.tabFingers.Padding = new System.Windows.Forms.Padding(3);
             this.tabFingers.Size = new System.Drawing.Size(706, 365);
             this.tabFingers.TabIndex = 1;
-            this.tabFingers.Text = "Fingers Capture";
+            this.tabFingers.Text = "Register Finger(s)";
             this.tabFingers.UseVisualStyleBackColor = true;
             // 
             // btnFingerUpdate
@@ -574,6 +574,48 @@ namespace zsi.PhotoFingCapture
             this.btnClearSig.UseVisualStyleBackColor = true;
             this.btnClearSig.Click += new System.EventHandler(this.btnClearSig_Click);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.btnClearConsoleList);
+            this.tabPage1.Controls.Add(this.btnDisplayConsolList);
+            this.tabPage1.Controls.Add(this.txtConsoleList);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(706, 365);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Console Service";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnClearConsoleList
+            // 
+            this.btnClearConsoleList.Location = new System.Drawing.Point(183, 9);
+            this.btnClearConsoleList.Name = "btnClearConsoleList";
+            this.btnClearConsoleList.Size = new System.Drawing.Size(100, 23);
+            this.btnClearConsoleList.TabIndex = 2;
+            this.btnClearConsoleList.Text = "Clear Console List";
+            this.btnClearConsoleList.UseVisualStyleBackColor = true;
+            this.btnClearConsoleList.Click += new System.EventHandler(this.btnClearConsoleList_Click);
+            // 
+            // btnDisplayConsolList
+            // 
+            this.btnDisplayConsolList.Location = new System.Drawing.Point(16, 9);
+            this.btnDisplayConsolList.Name = "btnDisplayConsolList";
+            this.btnDisplayConsolList.Size = new System.Drawing.Size(161, 23);
+            this.btnDisplayConsolList.TabIndex = 1;
+            this.btnDisplayConsolList.Text = "Display Console List";
+            this.btnDisplayConsolList.UseVisualStyleBackColor = true;
+            this.btnDisplayConsolList.Click += new System.EventHandler(this.btnDisplayConsolList_Click);
+            // 
+            // txtConsoleList
+            // 
+            this.txtConsoleList.Location = new System.Drawing.Point(6, 38);
+            this.txtConsoleList.Multiline = true;
+            this.txtConsoleList.Name = "txtConsoleList";
+            this.txtConsoleList.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtConsoleList.Size = new System.Drawing.Size(694, 321);
+            this.txtConsoleList.TabIndex = 0;
+            // 
             // btnLogOut
             // 
             this.btnLogOut.Enabled = false;
@@ -631,55 +673,13 @@ namespace zsi.PhotoFingCapture
             // 
             // btnOpenWebsite
             // 
-            this.btnOpenWebsite.Location = new System.Drawing.Point(457, 13);
+            this.btnOpenWebsite.Location = new System.Drawing.Point(441, 13);
             this.btnOpenWebsite.Name = "btnOpenWebsite";
             this.btnOpenWebsite.Size = new System.Drawing.Size(88, 23);
             this.btnOpenWebsite.TabIndex = 38;
             this.btnOpenWebsite.Text = "Open Website";
             this.btnOpenWebsite.UseVisualStyleBackColor = true;
             this.btnOpenWebsite.Click += new System.EventHandler(this.btnOpenWebsite_Click);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.btnClearConsoleList);
-            this.tabPage1.Controls.Add(this.btnDisplayConsolList);
-            this.tabPage1.Controls.Add(this.txtConsoleList);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(706, 365);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "Console Service";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // txtConsoleList
-            // 
-            this.txtConsoleList.Location = new System.Drawing.Point(6, 38);
-            this.txtConsoleList.Multiline = true;
-            this.txtConsoleList.Name = "txtConsoleList";
-            this.txtConsoleList.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtConsoleList.Size = new System.Drawing.Size(694, 321);
-            this.txtConsoleList.TabIndex = 0;
-            // 
-            // btnDisplayConsolList
-            // 
-            this.btnDisplayConsolList.Location = new System.Drawing.Point(16, 9);
-            this.btnDisplayConsolList.Name = "btnDisplayConsolList";
-            this.btnDisplayConsolList.Size = new System.Drawing.Size(161, 23);
-            this.btnDisplayConsolList.TabIndex = 1;
-            this.btnDisplayConsolList.Text = "Display Console List";
-            this.btnDisplayConsolList.UseVisualStyleBackColor = true;
-            this.btnDisplayConsolList.Click += new System.EventHandler(this.btnDisplayConsolList_Click);
-            // 
-            // btnClearConsoleList
-            // 
-            this.btnClearConsoleList.Location = new System.Drawing.Point(183, 9);
-            this.btnClearConsoleList.Name = "btnClearConsoleList";
-            this.btnClearConsoleList.Size = new System.Drawing.Size(100, 23);
-            this.btnClearConsoleList.TabIndex = 2;
-            this.btnClearConsoleList.Text = "Clear Console List";
-            this.btnClearConsoleList.UseVisualStyleBackColor = true;
-            this.btnClearConsoleList.Click += new System.EventHandler(this.btnClearConsoleList_Click);
             // 
             // frmMain
             // 
@@ -697,7 +697,7 @@ namespace zsi.PhotoFingCapture
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PhotoFingCapture 1.1.4.0 - Zetta Solutions, Inc.";
+            this.Text = "PhotoFingCapture 1.1.5.0 - Zetta Solutions, Inc.";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.tab.ResumeLayout(false);
@@ -715,10 +715,10 @@ namespace zsi.PhotoFingCapture
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabSign.ResumeLayout(false);
-            this.StatusStrip1.ResumeLayout(false);
-            this.StatusStrip1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.StatusStrip1.ResumeLayout(false);
+            this.StatusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
