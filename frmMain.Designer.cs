@@ -69,7 +69,6 @@ namespace zsi.PhotoFingCapture
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
             this.tabSign = new System.Windows.Forms.TabPage();
-            this.signature1 = new zsi.Controls.Signature();
             this.btnUploadSig = new System.Windows.Forms.Button();
             this.btnClearSig = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -84,6 +83,14 @@ namespace zsi.PhotoFingCapture
             this.webFileManager1 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.webFileManager2 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.btnOpenWebsite = new System.Windows.Forms.Button();
+            this.gbClientReg = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtRegCode = new System.Windows.Forms.TextBox();
+            this.btnCodeSubmit = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lUser = new System.Windows.Forms.Label();
+            this.signature1 = new zsi.Controls.Signature();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -98,6 +105,7 @@ namespace zsi.PhotoFingCapture
             this.tabSign.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
+            this.gbClientReg.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnVerifyFP
@@ -121,6 +129,7 @@ namespace zsi.PhotoFingCapture
             this.tab.SelectedIndex = 0;
             this.tab.Size = new System.Drawing.Size(714, 391);
             this.tab.TabIndex = 31;
+            this.tab.Visible = false;
             // 
             // tabPhoto
             // 
@@ -542,17 +551,6 @@ namespace zsi.PhotoFingCapture
             this.tabSign.Text = "Signature";
             this.tabSign.UseVisualStyleBackColor = true;
             // 
-            // signature1
-            // 
-            this.signature1.Background = null;
-            this.signature1.bmp = null;
-            this.signature1.Location = new System.Drawing.Point(145, 110);
-            this.signature1.Name = "signature1";
-            this.signature1.Size = new System.Drawing.Size(307, 116);
-            this.signature1.TabIndex = 3;
-            this.signature1.Text = "signature1";
-            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
-            // 
             // btnUploadSig
             // 
             this.btnUploadSig.Enabled = false;
@@ -673,6 +671,7 @@ namespace zsi.PhotoFingCapture
             // 
             // btnOpenWebsite
             // 
+            this.btnOpenWebsite.Enabled = false;
             this.btnOpenWebsite.Location = new System.Drawing.Point(441, 13);
             this.btnOpenWebsite.Name = "btnOpenWebsite";
             this.btnOpenWebsite.Size = new System.Drawing.Size(88, 23);
@@ -681,23 +680,109 @@ namespace zsi.PhotoFingCapture
             this.btnOpenWebsite.UseVisualStyleBackColor = true;
             this.btnOpenWebsite.Click += new System.EventHandler(this.btnOpenWebsite_Click);
             // 
+            // gbClientReg
+            // 
+            this.gbClientReg.Controls.Add(this.label7);
+            this.gbClientReg.Controls.Add(this.label6);
+            this.gbClientReg.Controls.Add(this.txtRegCode);
+            this.gbClientReg.Controls.Add(this.btnCodeSubmit);
+            this.gbClientReg.Controls.Add(this.label5);
+            this.gbClientReg.Location = new System.Drawing.Point(21, 64);
+            this.gbClientReg.Name = "gbClientReg";
+            this.gbClientReg.Size = new System.Drawing.Size(714, 369);
+            this.gbClientReg.TabIndex = 39;
+            this.gbClientReg.TabStop = false;
+            this.gbClientReg.Text = "Client Registration";
+            this.gbClientReg.Visible = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(172, 73);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(234, 17);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Please enter your registration code.";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(172, 55);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(283, 17);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "This workstation is currently not registered. ";
+            // 
+            // txtRegCode
+            // 
+            this.txtRegCode.Location = new System.Drawing.Point(273, 113);
+            this.txtRegCode.Name = "txtRegCode";
+            this.txtRegCode.Size = new System.Drawing.Size(163, 20);
+            this.txtRegCode.TabIndex = 2;
+            // 
+            // btnCodeSubmit
+            // 
+            this.btnCodeSubmit.Location = new System.Drawing.Point(273, 139);
+            this.btnCodeSubmit.Name = "btnCodeSubmit";
+            this.btnCodeSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnCodeSubmit.TabIndex = 1;
+            this.btnCodeSubmit.Text = "Submit";
+            this.btnCodeSubmit.UseVisualStyleBackColor = true;
+            this.btnCodeSubmit.Click += new System.EventHandler(this.btnCodeSubmit_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(172, 116);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(94, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Registration Code:";
+            // 
+            // lUser
+            // 
+            this.lUser.AutoSize = true;
+            this.lUser.BackColor = System.Drawing.Color.Transparent;
+            this.lUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lUser.ForeColor = System.Drawing.Color.Gray;
+            this.lUser.Location = new System.Drawing.Point(24, 13);
+            this.lUser.Name = "lUser";
+            this.lUser.Size = new System.Drawing.Size(0, 17);
+            this.lUser.TabIndex = 40;
+            // 
+            // signature1
+            // 
+            this.signature1.Background = null;
+            this.signature1.bmp = null;
+            this.signature1.Location = new System.Drawing.Point(145, 110);
+            this.signature1.Name = "signature1";
+            this.signature1.Size = new System.Drawing.Size(307, 116);
+            this.signature1.TabIndex = 3;
+            this.signature1.Text = "signature1";
+            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::zsi.PhotoFingCapture.Properties.Resources.photofingcapture_main;
             this.ClientSize = new System.Drawing.Size(756, 462);
+            this.Controls.Add(this.lUser);
+            this.Controls.Add(this.tab);
+            this.Controls.Add(this.gbClientReg);
             this.Controls.Add(this.btnOpenWebsite);
             this.Controls.Add(this.StatusStrip1);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnLogin);
-            this.Controls.Add(this.tab);
             this.Controls.Add(this.btnVerifyFP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PhotoFingCapture 1.1.5.0 - Zetta Solutions, Inc.";
+            this.Text = "PhotoFingCapture 1.2.0.0 - Zetta Solutions, Inc.";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.tab.ResumeLayout(false);
@@ -719,6 +804,8 @@ namespace zsi.PhotoFingCapture
             this.tabPage1.PerformLayout();
             this.StatusStrip1.ResumeLayout(false);
             this.StatusStrip1.PerformLayout();
+            this.gbClientReg.ResumeLayout(false);
+            this.gbClientReg.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -780,6 +867,13 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Button btnClearConsoleList;
         private System.Windows.Forms.Button btnDisplayConsolList;
         private System.Windows.Forms.TextBox txtConsoleList;
+        private System.Windows.Forms.GroupBox gbClientReg;
+        private System.Windows.Forms.TextBox txtRegCode;
+        private System.Windows.Forms.Button btnCodeSubmit;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lUser;
     }
 }
 

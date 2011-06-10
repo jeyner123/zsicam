@@ -7,11 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+
+using zsi.PhotoFingCapture.Models;
+using zsi.PhotoFingCapture.Models.DataControllers;
 namespace zsi.PhotoFingCapture
 {
     public partial class frmLogin : Form
     {
         public frmMain ParentForm { get; set; }
+        public Boolean AccessGranted { get; set; }
+
 
         public frmLogin(frmMain ParentForm)
         {
@@ -21,27 +26,36 @@ namespace zsi.PhotoFingCapture
 
         private void login() {
 
-            if (txtUserName.Text.Trim() == "")
+            if (txtUserName.Text.Trim() == "" || txtPassword.Text.Trim()=="")
             {
                 MessageBox.Show("Enter UserName and Password.", "Try Again.", MessageBoxButtons.OK);
                 return;
             }
             btnLogin.Text = "Wait...";
             btnLogin.Enabled = false;
-            zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+            //zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
 
             ClientInfo.UserInfo = new zsi.PhotoFingCapture.Models.User();
-            ClientInfo.UserInfo.UserId=Convert.ToInt32( fm.GetUserId(txtUserName.Text, txtPassword.Text).ToString());
-            if (ClientInfo.UserInfo.UserId< 1)
+            dcUser dc = new dcUser();
+            User info = dc.GetUserLogon(txtUserName.Text);
+            string _decryptedPassword = string.Empty;
+            _decryptedPassword = new zsi.Framework.Security.Cryptography().Decrypt(info.Password);
+
+            if (txtPassword.Text == _decryptedPassword)
             {
+                ClientInfo.UserInfo = info;
+                AccessGranted = true;
+                //EnableControls(true);
+                this.Close();
+            }
+            else {
                 MessageBox.Show("Invalid User, Please Login.");
                 btnLogin.Text = "Login";
-                return;
-            }
-            EnableControls(true);
-            this.Close();
-        
+                btnLogin.Enabled = true;
+            }        
         }
+
+    
 
         private void btnLogin_Click(object sender, EventArgs e)
         {

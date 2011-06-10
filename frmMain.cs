@@ -13,10 +13,12 @@ using zsi.Biometrics;
 using zsi.PhotoFingCapture;
 using zsi.PhotoFingCapture.WebCam;
 using zsi.PhotoFingCapture.WebFileService;
-using zsi.PhotoFingCapture.Models.DataControllers;
 using zsi.Framework.Common;
 using zsi.PhotoFingCapture.Properties;
 using System.Threading;
+using zsi.PhotoFingCapture.Models;
+using zsi.PhotoFingCapture.Models.DataControllers;
+using zsi.Framework.Data.DataProvider.SQLServer;
 namespace zsi.PhotoFingCapture
 {
 
@@ -115,8 +117,8 @@ namespace zsi.PhotoFingCapture
         public void EnableControls(Boolean IsEnable)
         {
             btnCapture.Enabled = IsEnable;
-            btnLogin.Enabled = (IsEnable==true?false:true);
-            btnLogOut.Enabled = IsEnable;
+            //btnLogin.Enabled = (IsEnable==true?false:true);
+           // btnLogOut.Enabled = IsEnable;
             btnUploadPhoto.Enabled = IsEnable;
             btnUploadSig.Enabled = IsEnable;
 
@@ -126,7 +128,12 @@ namespace zsi.PhotoFingCapture
             EnableControls(false);
             btnUploadPhoto.Enabled = false;
             ClientInfo.ProfileInfo = new zsi.PhotoFingCapture.Models.Profile();
-
+            btnLogOut.Enabled = false;
+            btnLogin.Enabled = true;
+            gbClientReg.Visible = false;
+            tab.Visible = false;
+            btnOpenWebsite.Enabled = false;
+            lUser.Text = "";
         }
         private void btnSettings_Click(object sender, EventArgs e)
         {
@@ -186,7 +193,41 @@ namespace zsi.PhotoFingCapture
             frmLogin _frmLogin = new frmLogin(this);
 
             _frmLogin.ShowDialog();
+            this.CheckPermission(_frmLogin.AccessGranted);
+            
         }
+
+        public void CheckPermission(bool IsAccessGranted){
+            if (IsAccessGranted == true)
+            {
+                if (ClientInfo.UserInfo.WSMacAddress == null)
+                {
+                    if (ClientInfo.UserInfo.DesignationId == 30 || ClientInfo.UserInfo.IsWriteManage == true)
+                    {
+                        gbClientReg.Visible = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("This is not a registered workstation.\r\nPlease contact your local administrator.");
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    tab.Visible = true;
+                    EnableControls(true);
+                }
+
+                btnLogOut.Enabled = true;
+                btnOpenWebsite.Enabled = true;
+                btnLogin.Enabled = false;
+                lUser.Text = "LOGON: " + ClientInfo.UserInfo.FullName;
+            }
+        
+        
+        }
+
+
         private void frmMain_Load(object sender, EventArgs e)
         {
             cbImagePosition.SelectedIndex = 0;
@@ -465,7 +506,37 @@ namespace zsi.PhotoFingCapture
         {
             zsi.Framework.Common.ConsoleApp.ClearAll();
             txtConsoleList.Text = "";
-        }   
+        }
+
+        private void btnCodeSubmit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Places _place = new dcPlaces().GetPlaceByRegCode(txtRegCode.Text);
+
+                if (_place.PlaceId == 0)
+                {
+                    MessageBox.Show("Registration code is invalid, Please check your code and try again.");
+                }
+                else {
+                    bool IsSuccessUpdate = new dcPlaceWorkStation().UpdateWorkStation(_place.PlaceId);
+                    if (IsSuccessUpdate == true) {
+                        gbClientReg.Visible = false;
+                        tab.Visible = true;
+                        btnOpenWebsite.Enabled = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        
+
+        
     }
 
 }

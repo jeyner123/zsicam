@@ -33,7 +33,9 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
         public User GetUserInfo(Int64 ProfileId)
         {
+            string _MacAddress = Util.GetMacAddress();
             this.SelectInfoParameters.Add("p_ProfileId", ProfileId);
+            this.SelectInfoParameters.Add("p_WSMacAddress", _MacAddress);
             User _info = this.GetInfo();
             return _info;
         }
@@ -43,7 +45,26 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             this.UpdateParameters.Add("p_UserId", UserId);
             this.UpdateParameters.Add("p_ClientRequestCode", ClientRequestCode);
             this.Update();
-        } 
+        }
+  
+        public User GetUserLogon(string UserName)
+        {
+            try
+            {
+                string _MacAddress = Util.GetMacAddress();
+                SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectLogon");
+                p.Parameters.Add("p_UserName", UserName);
+                p.Parameters.Add("p_WSMacAddress", _MacAddress);
+                return new dcUser().GetInfo(p);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+      
+
 
     }
 }
