@@ -206,5 +206,23 @@ namespace zsi.PhotoFingCapture
             log.Close();
             
         }
+
+
+        public static string GetMacAddress()
+        {
+            string macAddresses = "";
+            foreach (System.Net.NetworkInformation.NetworkInterface nic in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces())
+            {
+
+                //if (nic.NetworkInterfaceType != System.Net.NetworkInformation.NetworkInterfaceType.Ethernet) continue;
+                if (nic.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up)
+                {
+                    macAddresses += nic.GetPhysicalAddress().ToString();
+                    break;
+                }
+            }
+            return macAddresses;
+        }
+
     }
 }

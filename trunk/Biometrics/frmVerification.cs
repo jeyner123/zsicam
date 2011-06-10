@@ -91,8 +91,10 @@ namespace zsi.Biometrics
                             if (ClientInfo.UserInfo.UserId != 0)
                             {
                                 this.Invoke(new Function(delegate(){
-                                        this.ParentForm.EnableControls(true);
-                                        this.Close();
+                                    //    this.ParentForm.EnableControls(true);
+                                    this.ParentForm.CheckPermission(true);  
+                                    this.Close();
+
                                 }));
                             }
                             else

@@ -43,7 +43,9 @@ namespace zsi.PhotoFingCapture.Models
         public bool IsWriteClearance { get; set; }
         public bool IsReleaseClearance { get; set; }
         public bool IsPoliceOnly { get; set; }
+        public bool IsManageUser { get; set; }
         public string ClientRequestCode { get; set; }
+        public string WSMacAddress { get; set; }
 
     }
 }
