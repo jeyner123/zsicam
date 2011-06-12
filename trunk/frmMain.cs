@@ -230,6 +230,13 @@ namespace zsi.PhotoFingCapture
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+
+            this.Text = String.Format("{0} {1} - {2}"
+                , zsi.PhotoFingCapture.About.AssemblyProduct
+                , zsi.PhotoFingCapture.About.AssemblyVersion
+                , zsi.PhotoFingCapture.About.AssemblyCompany
+            );
+
             cbImagePosition.SelectedIndex = 0;
 
             if (!DesignMode)
@@ -512,6 +519,11 @@ namespace zsi.PhotoFingCapture
         {
             try
             {
+                if (string.IsNullOrEmpty(txtRegCode.Text)) {
+                    MessageBox.Show("Please enter registration code.");
+                    return;
+                }
+
                 Places _place = new dcPlaces().GetPlaceByRegCode(txtRegCode.Text);
 
                 if (_place.PlaceId == 0)
@@ -533,6 +545,14 @@ namespace zsi.PhotoFingCapture
                 throw ex;
             }
         }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            frmAbout _frm = new frmAbout();
+            _frm.ShowDialog();            
+        }
+
+   
 
         
 

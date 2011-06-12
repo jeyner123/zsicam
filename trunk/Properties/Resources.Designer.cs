@@ -60,6 +60,13 @@ namespace zsi.PhotoFingCapture.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap aboutphotofingcapture {
+            get {
+                object obj = ResourceManager.GetObject("aboutphotofingcapture", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap photofingcapture_main {
             get {
                 object obj = ResourceManager.GetObject("photofingcapture-main", resourceCulture);
