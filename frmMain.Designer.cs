@@ -90,6 +90,7 @@ namespace zsi.PhotoFingCapture
             this.btnCodeSubmit = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.lUser = new System.Windows.Forms.Label();
+            this.btnAbout = new System.Windows.Forms.Button();
             this.signature1 = new zsi.Controls.Signature();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
@@ -110,7 +111,7 @@ namespace zsi.PhotoFingCapture
             // 
             // btnVerifyFP
             // 
-            this.btnVerifyFP.Location = new System.Drawing.Point(528, 13);
+            this.btnVerifyFP.Location = new System.Drawing.Point(475, 13);
             this.btnVerifyFP.Name = "btnVerifyFP";
             this.btnVerifyFP.Size = new System.Drawing.Size(87, 23);
             this.btnVerifyFP.TabIndex = 28;
@@ -617,7 +618,7 @@ namespace zsi.PhotoFingCapture
             // btnLogOut
             // 
             this.btnLogOut.Enabled = false;
-            this.btnLogOut.Location = new System.Drawing.Point(681, 13);
+            this.btnLogOut.Location = new System.Drawing.Point(628, 13);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Size = new System.Drawing.Size(54, 23);
             this.btnLogOut.TabIndex = 35;
@@ -627,7 +628,7 @@ namespace zsi.PhotoFingCapture
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(614, 13);
+            this.btnLogin.Location = new System.Drawing.Point(561, 13);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(68, 23);
             this.btnLogin.TabIndex = 34;
@@ -672,7 +673,7 @@ namespace zsi.PhotoFingCapture
             // btnOpenWebsite
             // 
             this.btnOpenWebsite.Enabled = false;
-            this.btnOpenWebsite.Location = new System.Drawing.Point(441, 13);
+            this.btnOpenWebsite.Location = new System.Drawing.Point(388, 13);
             this.btnOpenWebsite.Name = "btnOpenWebsite";
             this.btnOpenWebsite.Size = new System.Drawing.Size(88, 23);
             this.btnOpenWebsite.TabIndex = 38;
@@ -752,6 +753,16 @@ namespace zsi.PhotoFingCapture
             this.lUser.Size = new System.Drawing.Size(0, 17);
             this.lUser.TabIndex = 40;
             // 
+            // btnAbout
+            // 
+            this.btnAbout.Location = new System.Drawing.Point(681, 13);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(54, 23);
+            this.btnAbout.TabIndex = 41;
+            this.btnAbout.Text = "About";
+            this.btnAbout.UseVisualStyleBackColor = true;
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
             // signature1
             // 
             this.signature1.Background = null;
@@ -769,6 +780,7 @@ namespace zsi.PhotoFingCapture
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::zsi.PhotoFingCapture.Properties.Resources.photofingcapture_main;
             this.ClientSize = new System.Drawing.Size(756, 462);
+            this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.lUser);
             this.Controls.Add(this.tab);
             this.Controls.Add(this.gbClientReg);
@@ -782,7 +794,7 @@ namespace zsi.PhotoFingCapture
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PhotoFingCapture 1.2.0.0 - Zetta Solutions, Inc.";
+            this.Text = "PhotoFingCapture";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.tab.ResumeLayout(false);
@@ -874,6 +886,7 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lUser;
+        private System.Windows.Forms.Button btnAbout;
     }
 }
 
