@@ -188,24 +188,28 @@ namespace zsi.PhotoFingCapture
 
 
         public static void LogError(string ErrorMessage) {
-            StreamWriter log;
-            string FileName = "logfile.txt";
-            if (!File.Exists("logfile.txt"))
+            try
             {
-                log = new StreamWriter(FileName);
-            }
-            else
-            {
-                log = File.AppendText(FileName);
-            }
+                StreamWriter log;
+                string FileName = "logfile.txt";
+                if (!File.Exists("logfile.txt"))
+                {
+                    log = new StreamWriter(FileName);
+                }
+                else
+                {
+                    log = File.AppendText(FileName);
+                }
 
-            // Write to the file:
-            log.WriteLine("---[ " + DateTime.Now.ToUniversalTime().AddHours(8).ToString() + "]----");
-            log.WriteLine(ErrorMessage);
-            log.WriteLine();
+                // Write to the file:
+                log.WriteLine("---[ " + DateTime.Now.ToUniversalTime().AddHours(8).ToString() + "]----");
+                log.WriteLine(ErrorMessage);
+                log.WriteLine();
 
-            // Close the stream:
-            log.Close();
+                // Close the stream:
+                log.Close();
+            }
+            catch{} 
             
         }
 

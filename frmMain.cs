@@ -214,12 +214,11 @@ namespace zsi.PhotoFingCapture
                 }
                 else
                 {
+                    btnOpenWebsite.Enabled = true;
                     tab.Visible = true;
                     EnableControls(true);
                 }
-
                 btnLogOut.Enabled = true;
-                btnOpenWebsite.Enabled = true;
                 btnLogin.Enabled = false;
                 lUser.Text = "LOGON: " + ClientInfo.UserInfo.FullName;
             }
