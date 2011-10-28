@@ -19,6 +19,9 @@ using System.Threading;
 using zsi.PhotoFingCapture.Models;
 using zsi.PhotoFingCapture.Models.DataControllers;
 using zsi.Framework.Data.DataProvider.SQLServer;
+
+using TouchlessLib;
+
 namespace zsi.PhotoFingCapture
 {
 
