@@ -221,10 +221,10 @@ namespace zsi.PhotoFingCapture
             {
 
                 //if (nic.NetworkInterfaceType != System.Net.NetworkInformation.NetworkInterfaceType.Ethernet) continue;
-                if (nic.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up)
+                 if (nic.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up)
                 {
                     macAddresses += nic.GetPhysicalAddress().ToString();
-                    break;
+                    if (macAddresses != "") break;
                 }
             }
             return macAddresses;
