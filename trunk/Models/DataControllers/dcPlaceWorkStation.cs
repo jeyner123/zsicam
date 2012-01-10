@@ -44,6 +44,27 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             }      
         }
 
+        public string GetRegisteredMacAddress()
+        {
+            try
+            {
+                string _addresses = Util.GetAllMacAddress();
+                string _str = "select isnull((select top 1 wsmacaddress from dbo.PlaceWorkStations where wsmacaddress in ({0})),'') as result";
+                string _sql = string.Format(_str, _addresses);
+
+                SqlCommand _SqlCommand = new SqlCommand(_sql, this.DBConn);
+                this.DBConn.Open();
+	           object _scalarVal = _SqlCommand.ExecuteScalar();
+               this.DBConn.Close();
+               if (_scalarVal == null ) return ""; else return _scalarVal.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return "[]";
+            }
+        }
+
     
 
 

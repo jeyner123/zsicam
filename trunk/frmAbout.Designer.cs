@@ -81,9 +81,11 @@
             this.lbMacAdd.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMacAdd.Location = new System.Drawing.Point(9, 211);
             this.lbMacAdd.Name = "lbMacAdd";
-            this.lbMacAdd.Size = new System.Drawing.Size(80, 15);
+            this.lbMacAdd.Size = new System.Drawing.Size(107, 15);
             this.lbMacAdd.TabIndex = 34;
-            this.lbMacAdd.Text = "Mac Address:";
+            this.lbMacAdd.Tag = "test";
+            this.lbMacAdd.Text = "Physical Address :";
+            this.lbMacAdd.DoubleClick += new System.EventHandler(this.lbMacAdd_DoubleClick);
             // 
             // frmAbout
             // 

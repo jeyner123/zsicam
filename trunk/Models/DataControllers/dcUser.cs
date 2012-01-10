@@ -51,7 +51,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         {
             try
             {
-                string _MacAddress = Util.GetMacAddress();
+                string _MacAddress = new dcPlaceWorkStation().GetRegisteredMacAddress();
                 SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectLogon");
                 p.Parameters.Add("p_UserName", UserName);
                 p.Parameters.Add("p_WSMacAddress", _MacAddress);
