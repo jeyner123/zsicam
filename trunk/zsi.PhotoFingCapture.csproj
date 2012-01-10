@@ -239,7 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PhotoCapture.ico" />
-    <None Include="Resources\photofingcapture-main.jpg" />
+    <None Include="Resources\photofingcapturemain.jpg" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
