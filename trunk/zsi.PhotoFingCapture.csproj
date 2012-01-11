@@ -104,6 +104,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Biometrics\TimeInOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Biometrics\TimeInOut.Designer.cs">
+      <DependentUpon>TimeInOut.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,7 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataControllers\dcProfile.cs" />
     <Compile Include="Models\DataControllers\dcFingersTemplate.cs" />
     <Compile Include="Models\DataControllers\dcFingersTemplate2.cs" />
     <Compile Include="Models\DataControllers\dcPlaces.cs" />
@@ -158,6 +165,9 @@
     <Compile Include="Models\UserStamp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Biometrics\TimeInOut.resx">
+      <DependentUpon>TimeInOut.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
