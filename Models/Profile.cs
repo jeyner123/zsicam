@@ -18,6 +18,7 @@ namespace zsi.PhotoFingCapture.Models
             public int Age { get; set; }
             public string FullName { get; set; }
             public string FullAddress { get; set; }
+            public byte[] FrontImg { get;set;}
         }
 
 }
