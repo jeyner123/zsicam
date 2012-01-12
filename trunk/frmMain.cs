@@ -74,6 +74,22 @@ namespace zsi.PhotoFingCapture
             if (this._WebCam.CurrentCamera==null) return;
             pbResult.Image = Util.CropImage(this._WebCam.CurrentCamera.GetCurrentImage(),310,233);
         }
+
+        private string GetParamenterNameByImagePosition()
+        {
+            string _ImagePosition = cbImagePosition.SelectedItem.ToString().ToLower();
+            string _param = "";
+            switch (_ImagePosition)
+            {
+                case "front": _param = "p_FrontImg"; break;
+                case "left": _param = "p_LeftImg"; break;
+                case "right": _param = "p_RightImg"; break;
+                case "back": _param = "p_BackImg"; break;
+                default: break;
+            }
+            return _param;
+        }
+
         private string GetImageFileNameByPosition()
         {
             string _ImagePosition = cbImagePosition.SelectedItem.ToString().ToLower();
@@ -260,6 +276,46 @@ namespace zsi.PhotoFingCapture
 
          private void btnUploadPhoto_Click(object sender, EventArgs e)
         {
+
+            uploadphoto2();
+        }
+
+         private void uploadphoto2()
+         {
+             try
+             {
+                 _WebCam.Stop();
+                 btnUploadPhoto.Text = "Uploading...";
+                 btnUploadPhoto.Enabled = false;
+                 if (pbResult.Image == null)
+                 {
+                     MessageBox.Show("Sorry, No photo has been captured.");
+                     return;
+                 }
+                 string param = GetParamenterNameByImagePosition();
+                 byte[] _byteImage = Util.ImageToByte(pbResult.Image);
+
+                 
+                 dcUserProfileImages dc = new dcUserProfileImages();
+                 dc.UpdateParameters.Add("p_UserId", ClientInfo.UserInfo.UserId);
+                 dc.UpdateParameters.Add(param, _byteImage, System.Data.SqlDbType.Image);
+                 dc.Update();                 
+                 //WebFileMgr.UploadFile2(ClientInfo.UserInfo.UserId, param, _byteImage);
+                 MessageBox.Show("Photo has been uploaded to the server.");
+                 _WebCam.Start();
+             }
+             catch (Exception ex)
+             {
+                 MessageBox.Show(ex.Message);
+             }
+             finally
+             {
+                 btnUploadPhoto.Text = "Upload";
+                 btnUploadPhoto.Enabled = true;
+             }
+         }
+
+        private void uploadphoto(){
             try
             {
                 _WebCam.Stop();
@@ -552,6 +608,11 @@ namespace zsi.PhotoFingCapture
         {
             frmAbout _frm = new frmAbout();
             _frm.ShowDialog();            
+        }
+
+        private void frmMain_DoubleClick(object sender, EventArgs e)
+        {
+            new zsi.Biometrics.frmTimInOut().Show();
         }
 
    

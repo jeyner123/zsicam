@@ -19,11 +19,18 @@ namespace zsi.Biometrics
     {
         private frmMain ParentForm { get; set; }
         private string ClientAction { get; set; }
+        private string InOut { get; set; }        
+        //p_clientId,p_ClientEmployeeId,p_TimeInOut        
         public frmTimInOut()
         {
             InitializeComponent();
             this.SetControls(pbFinger);
             txtDay.Text = DateTime.Now.ToLongDateString();
+            var clientid = 0;
+            //var url = "http://localhost:5445/ads?p_clientid=" + clientid;
+            var url = "http://zprofile.info/ads?p_clientid=" + clientid;
+
+            webBrowser1.Navigate(new Uri(url));
         }
 
         public frmTimInOut(frmMain MainForm)
@@ -110,6 +117,25 @@ namespace zsi.Biometrics
             txtTime.Text = DateTime.Now.ToLongTimeString();
         }
 
+       // private void btnTimeIn_Click(object sender, EventArgs e)
+       // {
+        //    btnTimeOut.BackColor = Color.FromArgb(33, 53, 107);
+
+
+         //   btnTimeIn.BackColor = Color.Red;
+           // this.InOut=""
+
+     //   } 
+        
+       // private void btnTimeOut_Click(object sender, EventArgs e)
+       // {
+       //     btnTimeIn.BackColor = Color.FromArgb(33, 53, 107);
+       //     btnTimeOut.BackColor = Color.Red;
+
+       // }
+
+      
+      
       
  
 
