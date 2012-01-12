@@ -25,34 +25,41 @@ namespace zsi.PhotoFingCapture
         }
 
         private void login() {
-
-            if (txtUserName.Text.Trim() == "" || txtPassword.Text.Trim()=="")
+            try
             {
-                MessageBox.Show("Enter UserName and Password.", "Try Again.", MessageBoxButtons.OK);
-                return;
-            }
-            btnLogin.Text = "Wait...";
-            btnLogin.Enabled = false;
-            //zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
+                if (txtUserName.Text.Trim() == "" || txtPassword.Text.Trim() == "")
+                {
+                    MessageBox.Show("Enter UserName and Password.", "Try Again.", MessageBoxButtons.OK);
+                    return;
+                }
+                btnLogin.Text = "Wait...";
+                btnLogin.Enabled = false;
+                //zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
 
-            ClientInfo.UserInfo = new zsi.PhotoFingCapture.Models.User();
-            dcUser dc = new dcUser();
-            User info = dc.GetUserLogon(txtUserName.Text);
-            string _decryptedPassword = string.Empty;
-            _decryptedPassword = new zsi.Framework.Security.Cryptography().Decrypt(info.Password);
+                ClientInfo.UserInfo = new zsi.PhotoFingCapture.Models.User();
+                dcUser dc = new dcUser();
+                User info = dc.GetUserLogon(txtUserName.Text);
+                string _decryptedPassword = string.Empty;
+                _decryptedPassword = new zsi.Framework.Security.Cryptography().Decrypt(info.Password);
 
-            if (txtPassword.Text == _decryptedPassword)
-            {
-                ClientInfo.UserInfo = info;
-                AccessGranted = true;
-                //EnableControls(true);
-                this.Close();
+                if (txtPassword.Text == _decryptedPassword)
+                {
+                    ClientInfo.UserInfo = info;
+                    AccessGranted = true;
+                    //EnableControls(true);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid User, Please Login.");
+                    btnLogin.Text = "Login";
+                    btnLogin.Enabled = true;
+                }
             }
-            else {
-                MessageBox.Show("Invalid User, Please Login.");
-                btnLogin.Text = "Login";
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
                 btnLogin.Enabled = true;
-            }        
+            }
         }
 
     

@@ -69,7 +69,6 @@ namespace zsi.PhotoFingCapture
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
             this.tabSign = new System.Windows.Forms.TabPage();
-            this.signature1 = new zsi.Controls.Signature();
             this.btnUploadSig = new System.Windows.Forms.Button();
             this.btnClearSig = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -92,6 +91,7 @@ namespace zsi.PhotoFingCapture
             this.label5 = new System.Windows.Forms.Label();
             this.lUser = new System.Windows.Forms.Label();
             this.btnAbout = new System.Windows.Forms.Button();
+            this.signature1 = new zsi.Controls.Signature();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -552,17 +552,6 @@ namespace zsi.PhotoFingCapture
             this.tabSign.Text = "Signature";
             this.tabSign.UseVisualStyleBackColor = true;
             // 
-            // signature1
-            // 
-            this.signature1.Background = null;
-            this.signature1.bmp = null;
-            this.signature1.Location = new System.Drawing.Point(145, 110);
-            this.signature1.Name = "signature1";
-            this.signature1.Size = new System.Drawing.Size(307, 116);
-            this.signature1.TabIndex = 3;
-            this.signature1.Text = "signature1";
-            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
-            // 
             // btnUploadSig
             // 
             this.btnUploadSig.Enabled = false;
@@ -774,6 +763,17 @@ namespace zsi.PhotoFingCapture
             this.btnAbout.UseVisualStyleBackColor = true;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
+            // signature1
+            // 
+            this.signature1.Background = null;
+            this.signature1.bmp = null;
+            this.signature1.Location = new System.Drawing.Point(145, 110);
+            this.signature1.Name = "signature1";
+            this.signature1.Size = new System.Drawing.Size(307, 116);
+            this.signature1.TabIndex = 3;
+            this.signature1.Text = "signature1";
+            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -796,6 +796,7 @@ namespace zsi.PhotoFingCapture
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PhotoFingCapture";
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.DoubleClick += new System.EventHandler(this.frmMain_DoubleClick);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.tab.ResumeLayout(false);
             this.tabPhoto.ResumeLayout(false);
