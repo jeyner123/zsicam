@@ -23,14 +23,21 @@ namespace zsi.Biometrics
         //p_clientId,p_ClientEmployeeId,p_TimeInOut        
         public frmTimInOut()
         {
+
             InitializeComponent();
             this.SetControls(pbFinger);
             txtDay.Text = DateTime.Now.ToLongDateString();
             var clientid = 0;
             //var url = "http://localhost:5445/ads?p_clientid=" + clientid;
             var url = "http://zprofile.info/ads?p_clientid=" + clientid;
-
             webBrowser1.Navigate(new Uri(url));
+            int sceenwidth = Screen.PrimaryScreen.WorkingArea.Width;
+            int centerx1 = (sceenwidth - (sceenwidth / 2)) ;
+            int centerx2 = (pnlMain.Width - (pnlMain.Width/ 2));
+            pnlMain.Left = (centerx1 - centerx2) ;
+            this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.TopMost = true;
         }
 
         public frmTimInOut(frmMain MainForm)
