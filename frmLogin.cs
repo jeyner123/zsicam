@@ -35,7 +35,6 @@ namespace zsi.PhotoFingCapture
                 btnLogin.Text = "Wait...";
                 btnLogin.Enabled = false;
                 //zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-
                 ClientInfo.UserInfo = new zsi.PhotoFingCapture.Models.User();
                 dcUser dc = new dcUser();
                 User info = dc.GetUserLogon(txtUserName.Text);

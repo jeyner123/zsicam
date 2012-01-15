@@ -71,6 +71,7 @@ namespace zsi.Controls
             if (drawSign)
             {
 
+                if (graphics == null) InitMemoryBitmap();
                 // draw the new segment on the memory bitmap
                 graphics.DrawLine(pen, lastPoint.X, lastPoint.Y, e.X, e.Y);
                 pVector.Add(lastPoint.X + " " + lastPoint.Y + " " + e.X + " " + e.Y);

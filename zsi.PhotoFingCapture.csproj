@@ -151,6 +151,8 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataControllers\dcUserProfileFP.cs" />
+    <Compile Include="Models\UserProfileFP.cs" />
     <Compile Include="Models\DataControllers\dcUserProfileImages.cs" />
     <Compile Include="Models\UserProfileImages.cs" />
     <Compile Include="Models\DataControllers\dcProfile.cs" />
@@ -195,7 +197,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Web References\WebFileService\WebFileServices.wsdl" />
     <Compile Include="Biometrics\Util\BiometricsUtil.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -211,11 +212,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Util\Util.cs" />
-    <Compile Include="Web References\WebFileService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="WebCamServices\WebCamService.cs">
     </Compile>
   </ItemGroup>
@@ -256,24 +252,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\WebFileService\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\WebFileService\WebFileServices.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:5445/WebFileServices.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\WebFileService\</RelPath>
-      <UpdateFromURL>http://localhost:5445/WebFileServices.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>ZSICam_WebFileService_WebFileManager</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
