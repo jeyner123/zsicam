@@ -12,7 +12,6 @@ using System.Drawing.Imaging;
 using zsi.Biometrics;
 using zsi.PhotoFingCapture;
 using zsi.PhotoFingCapture.WebCam;
-using zsi.PhotoFingCapture.WebFileService;
 using zsi.Framework.Common;
 using zsi.PhotoFingCapture.Properties;
 using System.Threading;
@@ -29,21 +28,7 @@ namespace zsi.PhotoFingCapture
     {
         public FingersData FingersData { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
-        private WebFileManager _WebFileMgr;
         private WebCamService _WebCam;
-        public WebFileManager WebFileMgr
-        {
-            get { 
-            
-                if(_WebFileMgr==null) _WebFileMgr = new WebFileManager();
-                return _WebFileMgr;
-            }
-            set {
-                _WebFileMgr =value;             
-            }
-        
-        }
-     
         public frmMain()
         {
             try
@@ -58,11 +43,7 @@ namespace zsi.PhotoFingCapture
                 MessageBox.Show(ex.Message);
             }
         }
-        private void UpdateProfileNo()
-        {
-            ClientInfo.ProfileInfo = new zsi.PhotoFingCapture.Models.Profile();
-            ClientInfo.ProfileInfo.ProfileId = Convert.ToInt64( WebFileMgr.GetUserTempProfileId(ClientInfo.UserInfo.UserId));
-        }
+       
         private void InitFingerPrintSettings(){
             this.FingersData = new FingersData();	
             this.FingersData.DataChanged += new OnChangeHandler(OnFingersDataChange);  
@@ -75,20 +56,7 @@ namespace zsi.PhotoFingCapture
             pbResult.Image = Util.CropImage(this._WebCam.CurrentCamera.GetCurrentImage(),310,233);
         }
 
-        private string GetParamenterNameByImagePosition()
-        {
-            string _ImagePosition = cbImagePosition.SelectedItem.ToString().ToLower();
-            string _param = "";
-            switch (_ImagePosition)
-            {
-                case "front": _param = "p_FrontImg"; break;
-                case "left": _param = "p_LeftImg"; break;
-                case "right": _param = "p_RightImg"; break;
-                case "back": _param = "p_BackImg"; break;
-                default: break;
-            }
-            return _param;
-        }
+    
 
         private string GetImageFileNameByPosition()
         {
@@ -170,29 +138,24 @@ namespace zsi.PhotoFingCapture
         }
         private void btnUploadFG_Click(object sender, EventArgs e)
         {
+            UploadFingerTemplates();
+        }
+        private void UploadFingerTemplates(){
             try
             {
                 btnUploadFG.Text = "Uploading...";
                 btnUploadFG.Enabled = false;
-                UpdateProfileNo();
                 DPFP.Template[] tmps = this.FingersData.Templates;
-
                 for (int i = 0; i < tmps.Length; i++)
                 {
                     if(this.FingersData.Templates[i]!=null){
-                        System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
-                        //this.FingersData.Templates[i].Serialize(_MemoryStream);
-                        //byte[] _byte = Util.StreamToByte(_MemoryStream);
-                        
-                        byte[] _byte = null;
-                        this.FingersData.Templates[i].Serialize(ref _byte);
-
-
-                        WebFileMgr.UploadBiometricsData(ClientInfo.UserInfo.UserId.ToString(), ClientInfo.ProfileInfo.ProfileId + "-" + i.ToString() + ".fpt", _byte);
-
- 
-                        byte[] _byteImage = Util.StreamToByte(Util.BmpToStream((Bitmap)this.FingersData.Images[i]));
-                        WebFileMgr.UploadBiometricsData(ClientInfo.UserInfo.UserId.ToString(), ClientInfo.ProfileInfo.ProfileId + "-" + i.ToString() + ".jpg", _byteImage);
+                        System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();                        
+                        byte[] _template = null;
+                        this.FingersData.Templates[i].Serialize(ref _template); 
+                        byte[] _sample = Util.StreamToByte(Util.BmpToStream((Bitmap)this.FingersData.Images[i]));
+                        string _ColName = GetTemplateColumnName(i);
+                        new dcUserProfileFP().UpdateUserProfileFP(ClientInfo.UserInfo.UserId, _ColName + "F", _template);
+                        new dcUserProfileFP().UpdateUserProfileFP(ClientInfo.UserInfo.UserId, _ColName + "S", _sample);
                     }
                 }
                 MessageBox.Show("Finger prints has been uploaded to the server.");
@@ -206,7 +169,28 @@ namespace zsi.PhotoFingCapture
                 btnUploadFG.Text = "Upload";
                 btnUploadFG.Enabled = true;
             }
+        
         }
+        private string GetTemplateColumnName(int x) {
+            string _result = "";
+            switch(x){
+                //right
+                case 0: _result = "RightT"; break;
+                case 1: _result = "RightI"; break;
+                case 2: _result = "RightM"; break;
+                case 3: _result = "RightR"; break;
+                case 4: _result = "RightS"; break;
+                //left
+                case 5: _result = "leftT"; break;
+                case 6: _result = "leftI"; break;
+                case 7: _result = "leftM"; break;
+                case 8: _result = "leftR"; break;
+                case 9: _result = "leftS"; break;
+                default: break;            
+            }
+            return _result;
+        }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             frmLogin _frmLogin = new frmLogin(this);
@@ -277,10 +261,10 @@ namespace zsi.PhotoFingCapture
          private void btnUploadPhoto_Click(object sender, EventArgs e)
         {
 
-            uploadphoto2();
+            uploadphoto();
         }
 
-         private void uploadphoto2()
+         private void uploadphoto()
          {
              try
              {
@@ -292,15 +276,12 @@ namespace zsi.PhotoFingCapture
                      MessageBox.Show("Sorry, No photo has been captured.");
                      return;
                  }
-                 string param = GetParamenterNameByImagePosition();
+                 string _ColumnName =  cbImagePosition.SelectedItem.ToString() + "Img";
                  byte[] _byteImage = Util.ImageToByte(pbResult.Image);
 
                  
                  dcUserProfileImages dc = new dcUserProfileImages();
-                 dc.UpdateParameters.Add("p_UserId", ClientInfo.UserInfo.UserId);
-                 dc.UpdateParameters.Add(param, _byteImage, System.Data.SqlDbType.Image);
-                 dc.Update();                 
-                 //WebFileMgr.UploadFile2(ClientInfo.UserInfo.UserId, param, _byteImage);
+                 dc.UpdateUserProfileImages(ClientInfo.UserInfo.UserId, _ColumnName, _byteImage);
                  MessageBox.Show("Photo has been uploaded to the server.");
                  _WebCam.Start();
              }
@@ -315,42 +296,7 @@ namespace zsi.PhotoFingCapture
              }
          }
 
-        private void uploadphoto(){
-            try
-            {
-                _WebCam.Stop();
-                btnUploadPhoto.Text = "Uploading...";
-                btnUploadPhoto.Enabled = false;
-                UpdateProfileNo();
-
-                if (pbResult.Image == null) {
-                    MessageBox.Show("Sorry, No photo has been captured.");
-                    return;
-                }
-                if (ClientInfo.ProfileInfo.ProfileId == 0)
-                {
-                    MessageBox.Show("Sorry, You cannot upload this picture, please go to [Edit Profile] view in order to upload this picture.","No Profile Selected!");
-                    return;
-                }
-                
-                string fileName = GetImageFileNameByPosition();
-
-                pbResult.Image.Save(fileName, ImageFormat.Jpeg);
-                System.IO.FileInfo oFileInfo = new System.IO.FileInfo(fileName);
-                byte[] _byteImage = Util.StreamToByte(Util.BmpToStream(pbResult.Image));
-                WebFileMgr.UploadFile(ClientInfo.UserInfo.UserId.ToString(), oFileInfo.Name, _byteImage);
-                MessageBox.Show("Photo has been uploaded to the server.");
-                _WebCam.Start();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally{
-                btnUploadPhoto.Text = "Upload";
-                btnUploadPhoto.Enabled = true;
-            }
-        }
+       
         private void ShowScanForm(object sender, int FingerPosition) {
             if (ClientInfo.UserInfo==null) goto NotYetLogin;            
             if (ClientInfo.UserInfo.UserId == 0) goto NotYetLogin;
@@ -462,6 +408,7 @@ namespace zsi.PhotoFingCapture
 
         private void signature1_MouseMove(object sender, MouseEventArgs e)
         {
+          
        
         }
 
@@ -472,16 +419,12 @@ namespace zsi.PhotoFingCapture
             {   
                 btnUploadSig.Text = "Uploading...";
                 btnUploadSig.Enabled = false;                
-                UpdateProfileNo();
-                
-
-                DPFP.Template[] tmps = this.FingersData.Templates;
-
+                //UpdateProfileNo();                
                 System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
                 this.signature1.bmp.Save(_MemoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
                 byte[] _byte = Util.StreamToByte(_MemoryStream);
-                WebFileMgr.UploadBiometricsData(ClientInfo.UserInfo.UserId.ToString(), ClientInfo.ProfileInfo.ProfileId + "-sig.jpg", _byte);
-
+                dcUserProfileImages dc = new dcUserProfileImages();
+                dc.UpdateUserProfileImages(ClientInfo.UserInfo.UserId, "SigImg", _byte);
                 MessageBox.Show("Signature has been uploaded to the server.");
                 signature1.Clear();
             }

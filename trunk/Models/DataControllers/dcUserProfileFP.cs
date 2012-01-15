@@ -16,7 +16,7 @@ using zsi.Framework.Common;
 using System.Collections.ObjectModel;
 namespace zsi.PhotoFingCapture.Models.DataControllers
 {
-    public class dcUserProfileImages : SQLServer.MasterDataController<UserProfileImages>
+    public class dcUserProfileFP : SQLServer.MasterDataController<UserProfileFP>
     {
          
         
@@ -27,16 +27,17 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{p}.*.{p}", "{p}");
             
             this.DBConn = new SqlConnection(_ConnectionString);
-            this.Procedures.Add(new SQLServer.Procedure("dbo.UpdateUserProfileImage", SQLCommandType.Update));
+            this.Procedures.Add(new SQLServer.Procedure("dbo.UpdateUserProfileFP", SQLCommandType.Update));
         }
 
-        public void UpdateUserProfileImages(Int64 p_UserId, string p_ColumnName, byte[] p_img)
-        {
+        public void UpdateUserProfileFP(Int64 p_UserId, string p_ColumnName, byte[] p_FTmp) {
             this.UpdateParameters.Add("p_UserId", ClientInfo.UserInfo.UserId);
             this.UpdateParameters.Add("p_ColumnName", p_ColumnName);
-            this.UpdateParameters.Add("p_img", p_img, System.Data.SqlDbType.Image);
-            this.Update();
+            this.UpdateParameters.Add("p_FTmp", p_FTmp, System.Data.SqlDbType.Image);
+            this.Update();              
         }
+        
+ 
 
     }
 }

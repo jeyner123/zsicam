@@ -80,8 +80,6 @@ namespace zsi.PhotoFingCapture
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ssStatus1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.webFileManager1 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-            this.webFileManager2 = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
             this.btnOpenWebsite = new System.Windows.Forms.Button();
             this.gbClientReg = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -135,6 +133,7 @@ namespace zsi.PhotoFingCapture
             // tabPhoto
             // 
             this.tabPhoto.Controls.Add(this.pictureBox4);
+            this.tabPhoto.Controls.Add(this.cbImagePosition);
             this.tabPhoto.Controls.Add(this.pictureBox3);
             this.tabPhoto.Controls.Add(this.pictureBox2);
             this.tabPhoto.Controls.Add(this.pictureBox1);
@@ -198,7 +197,7 @@ namespace zsi.PhotoFingCapture
             this.comboBoxCameras.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxCameras.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCameras.FormattingEnabled = true;
-            this.comboBoxCameras.Location = new System.Drawing.Point(260, 21);
+            this.comboBoxCameras.Location = new System.Drawing.Point(168, 17);
             this.comboBoxCameras.Name = "comboBoxCameras";
             this.comboBoxCameras.Size = new System.Drawing.Size(156, 21);
             this.comboBoxCameras.TabIndex = 31;
@@ -217,7 +216,7 @@ namespace zsi.PhotoFingCapture
             // btnStop
             // 
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStop.Location = new System.Drawing.Point(341, 48);
+            this.btnStop.Location = new System.Drawing.Point(249, 44);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 29;
@@ -228,7 +227,7 @@ namespace zsi.PhotoFingCapture
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStart.Location = new System.Drawing.Point(260, 48);
+            this.btnStart.Location = new System.Drawing.Point(168, 44);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 28;
@@ -239,11 +238,10 @@ namespace zsi.PhotoFingCapture
             // gbImageType
             // 
             this.gbImageType.Controls.Add(this.rdbITProfile);
-            this.gbImageType.Controls.Add(this.cbImagePosition);
             this.gbImageType.Controls.Add(this.rdbITCase);
             this.gbImageType.Location = new System.Drawing.Point(14, 10);
             this.gbImageType.Name = "gbImageType";
-            this.gbImageType.Size = new System.Drawing.Size(229, 62);
+            this.gbImageType.Size = new System.Drawing.Size(148, 62);
             this.gbImageType.TabIndex = 27;
             this.gbImageType.TabStop = false;
             this.gbImageType.Text = "Image Type";
@@ -269,9 +267,9 @@ namespace zsi.PhotoFingCapture
             "Left",
             "Right",
             "Back"});
-            this.cbImagePosition.Location = new System.Drawing.Point(145, 23);
+            this.cbImagePosition.Location = new System.Drawing.Point(446, 69);
             this.cbImagePosition.Name = "cbImagePosition";
-            this.cbImagePosition.Size = new System.Drawing.Size(59, 21);
+            this.cbImagePosition.Size = new System.Drawing.Size(63, 21);
             this.cbImagePosition.TabIndex = 17;
             // 
             // rdbITCase
@@ -304,7 +302,7 @@ namespace zsi.PhotoFingCapture
             // 
             // btnCapture
             // 
-            this.btnCapture.Location = new System.Drawing.Point(447, 85);
+            this.btnCapture.Location = new System.Drawing.Point(515, 67);
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Size = new System.Drawing.Size(68, 23);
             this.btnCapture.TabIndex = 15;
@@ -326,7 +324,7 @@ namespace zsi.PhotoFingCapture
             // btnUploadPhoto
             // 
             this.btnUploadPhoto.Enabled = false;
-            this.btnUploadPhoto.Location = new System.Drawing.Point(521, 85);
+            this.btnUploadPhoto.Location = new System.Drawing.Point(589, 67);
             this.btnUploadPhoto.Name = "btnUploadPhoto";
             this.btnUploadPhoto.Size = new System.Drawing.Size(68, 23);
             this.btnUploadPhoto.TabIndex = 14;
@@ -658,18 +656,6 @@ namespace zsi.PhotoFingCapture
             this.timer1.Interval = 20000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // webFileManager1
-            // 
-            this.webFileManager1.Credentials = null;
-            this.webFileManager1.Url = "http://www.zetta-solutions.net/phgovdemo/webfileservices.asmx";
-            this.webFileManager1.UseDefaultCredentials = false;
-            // 
-            // webFileManager2
-            // 
-            this.webFileManager2.Credentials = null;
-            this.webFileManager2.Url = "http://www.zetta-solutions.net/phgovdemo/webfileservices.asmx";
-            this.webFileManager2.UseDefaultCredentials = false;
-            // 
             // btnOpenWebsite
             // 
             this.btnOpenWebsite.Enabled = false;
@@ -766,7 +752,7 @@ namespace zsi.PhotoFingCapture
             // signature1
             // 
             this.signature1.Background = null;
-            this.signature1.bmp = null;
+            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
             this.signature1.Location = new System.Drawing.Point(145, 110);
             this.signature1.Name = "signature1";
             this.signature1.Size = new System.Drawing.Size(307, 116);
@@ -868,8 +854,6 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private zsi.PhotoFingCapture.WebFileService.WebFileManager webFileManager1;
-        private zsi.PhotoFingCapture.WebFileService.WebFileManager webFileManager2;
         private zsi.Controls.Signature signature1;
         private System.Windows.Forms.StatusStrip StatusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel ssStatus1;

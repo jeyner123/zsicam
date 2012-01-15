@@ -48,20 +48,10 @@ namespace zsi.PhotoFingCapture.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.zprofile.info/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:5445/")]
         public string DefaultWebsite {
             get {
                 return ((string)(this["DefaultWebsite"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:5445/WebFileServices.asmx")]
-        public string ZSICam_WebFileService_WebFileManager {
-            get {
-                return ((string)(this["ZSICam_WebFileService_WebFileManager"]));
             }
         }
     }
