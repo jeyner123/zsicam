@@ -32,9 +32,9 @@ namespace zsi.Biometrics
             var url = "http://zprofile.info/ads?p_clientid=" + clientid;
             webBrowser1.Navigate(new Uri(url));
             int sceenwidth = Screen.PrimaryScreen.WorkingArea.Width;
-            int centerx1 = (sceenwidth - (sceenwidth / 2)) ;
-            int centerx2 = (pnlMain.Width - (pnlMain.Width/ 2));
-            pnlMain.Left = (centerx1 - centerx2) ;
+            int sceenheight = Screen.PrimaryScreen.WorkingArea.Height;
+            pnlMain.Left= (sceenwidth - (sceenwidth / 2)) - (pnlMain.Width - (pnlMain.Width/ 2)); 
+            pnlMain.Top= (sceenheight - (sceenheight/ 2)) - (pnlMain.Height- (pnlMain.Height/ 2));
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
             this.TopMost = true;
