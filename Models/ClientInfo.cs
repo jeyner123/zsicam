@@ -6,10 +6,11 @@ using zsi.PhotoFingCapture.Models;
 
 namespace zsi.PhotoFingCapture
 {
-    public static class ClientInfo
+    public static class ClientSettings
     {
         public static Profile ProfileInfo { get; set; }
         public static User UserInfo { get; set; }
+        public static Client ClientInfo { get; set; }
     }
 
 }
