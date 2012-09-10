@@ -102,15 +102,14 @@ namespace zsi.Biometrics
                // System.Diagnostics.Process p = new System.Diagnostics.Process();
                 dcUser _dc = new dcUser();
                 zsi.Framework.Security.Cryptography _crypt = new zsi.Framework.Security.Cryptography();
-
-
-                byte[] img = new dcProfile().GetFrontImageByProfileId(info.ProfileId);
-
-                pbProfileImage.Image = zsi.PhotoFingCapture.Util.ByteArrayToImage(img);
+                pbProfileImage.Image = zsi.PhotoFingCapture.Util.ByteArrayToImage(info.FrontImg);
                 this.Invoke(new Function(delegate()
                 {
                     txtName.Text = "(" + info.ProfileId + ") - " + info.FullName;
                 }));
+
+                dcTimeInOutLog dc = new dcTimeInOutLog();
+                dc.TimeInOut(info, DateTime.Now);
 
                 
             }
@@ -124,27 +123,10 @@ namespace zsi.Biometrics
             txtTime.Text = DateTime.Now.ToLongTimeString();
         }
 
-       // private void btnTimeIn_Click(object sender, EventArgs e)
-       // {
-        //    btnTimeOut.BackColor = Color.FromArgb(33, 53, 107);
-
-
-         //   btnTimeIn.BackColor = Color.Red;
-           // this.InOut=""
-
-     //   } 
-        
-       // private void btnTimeOut_Click(object sender, EventArgs e)
-       // {
-       //     btnTimeIn.BackColor = Color.FromArgb(33, 53, 107);
-       //     btnTimeOut.BackColor = Color.Red;
-
-       // }
-
-      
-      
-      
- 
+        private void frmTimInOut_DoubleClick(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
      
 

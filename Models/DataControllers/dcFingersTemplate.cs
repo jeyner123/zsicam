@@ -136,8 +136,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (FingerTemplate item in list)
                 {
                         OleDbCommand _cmd2 = new OleDbCommand(
-                        "Insert into FingersData(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate) "
-                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                        "Insert into FingersData(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg) "
+                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
                         , dcFTemplate.DBConn, Trans);
 
                         var _params =_cmd2.Parameters;
@@ -155,6 +155,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                         SetParameterValue(_params, item.RightSF,OleDbType.VarBinary);
                         SetParameterValue(_params, item.CreatedDate,OleDbType.Date);
                         SetParameterValue(_params, item.UpdatedDate,OleDbType.Date);
+                        SetParameterValue(_params, item.ProfileImg, OleDbType.VarBinary);
 
                         _cmd2.ExecuteNonQuery();
               }           
@@ -173,7 +174,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (FingerTemplate item in list)
                 {
                     OleDbCommand _cmd2 = new OleDbCommand(
-                    "Update FingersData set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?"
+                    "Update FingersData set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?"
                    + " where profileId='" + item.ProfileId + "'"
                     , dcFTemplate.DBConn,Trans);
                     var _params = _cmd2.Parameters;
@@ -190,6 +191,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     SetParameterValue(_params, item.RightRF, OleDbType.VarBinary);
                     SetParameterValue(_params, item.RightSF, OleDbType.VarBinary);
                     SetParameterValue(_params, item.UpdatedDate,OleDbType.Date);
+                    SetParameterValue(_params, item.ProfileImg, OleDbType.VarBinary);
                     _cmd2.ExecuteNonQuery();
                 }
             }
@@ -263,7 +265,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     case 0: _Finger = "RightTF"; break;
                     default: break;
                 }
-                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + " from FingersData", _dc.DBConn);
+                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + ",ProfileImg from FingersData", _dc.DBConn);
                 _dc.DBConn.Open();
                 OleDbDataReader _dr = _cmd.ExecuteReader();
                 bool IsFound =false;
@@ -280,6 +282,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                         {
                             _info.ProfileId = Convert.ToInt64(_dr[0]);
                             _info.FullName = Convert.ToString(_dr[1]);
+                            _info.FrontImg = (byte[])_dr[3];
                             break;
                         }
                     }

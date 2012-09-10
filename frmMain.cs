@@ -103,12 +103,10 @@ namespace zsi.PhotoFingCapture
 
         public void EnableControls(Boolean IsEnable)
         {
-            btnCapture.Enabled = IsEnable;
-            //btnLogin.Enabled = (IsEnable==true?false:true);
-           // btnLogOut.Enabled = IsEnable;
+            btnCapture.Enabled = IsEnable;           
             btnUploadPhoto.Enabled = IsEnable;
             btnUploadSig.Enabled = IsEnable;
-
+            btnUpdateClient.Enabled = IsEnable;
         }
         private void btnLogOut_Click(object sender, EventArgs e)
         {
@@ -121,6 +119,7 @@ namespace zsi.PhotoFingCapture
             tab.Visible = false;
             btnOpenWebsite.Enabled = false;
             lUser.Text = "";
+            btnUpdateClient.Visible = false;
         }
         private void btnSettings_Click(object sender, EventArgs e)
         {
@@ -220,6 +219,8 @@ namespace zsi.PhotoFingCapture
                     btnOpenWebsite.Enabled = true;
                     tab.Visible = true;
                     EnableControls(true);
+                    btnUpdateClient.Visible = true;
+
                 }
                 btnLogOut.Enabled = true;
                 btnLogin.Enabled = false;

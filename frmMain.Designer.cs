@@ -34,6 +34,7 @@ namespace zsi.PhotoFingCapture
             this.tab = new System.Windows.Forms.TabControl();
             this.tabPhoto = new System.Windows.Forms.TabPage();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.cbImagePosition = new System.Windows.Forms.ComboBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -43,7 +44,6 @@ namespace zsi.PhotoFingCapture
             this.btnStart = new System.Windows.Forms.Button();
             this.gbImageType = new System.Windows.Forms.GroupBox();
             this.rdbITProfile = new System.Windows.Forms.RadioButton();
-            this.cbImagePosition = new System.Windows.Forms.ComboBox();
             this.rdbITCase = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -89,6 +89,7 @@ namespace zsi.PhotoFingCapture
             this.label5 = new System.Windows.Forms.Label();
             this.lUser = new System.Windows.Forms.Label();
             this.btnAbout = new System.Windows.Forms.Button();
+            this.btnUpdateClient = new System.Windows.Forms.Button();
             this.signature1 = new zsi.Controls.Signature();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
@@ -109,7 +110,7 @@ namespace zsi.PhotoFingCapture
             // 
             // btnVerifyFP
             // 
-            this.btnVerifyFP.Location = new System.Drawing.Point(475, 13);
+            this.btnVerifyFP.Location = new System.Drawing.Point(592, 13);
             this.btnVerifyFP.Name = "btnVerifyFP";
             this.btnVerifyFP.Size = new System.Drawing.Size(87, 23);
             this.btnVerifyFP.TabIndex = 28;
@@ -126,7 +127,7 @@ namespace zsi.PhotoFingCapture
             this.tab.Location = new System.Drawing.Point(21, 42);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
-            this.tab.Size = new System.Drawing.Size(714, 391);
+            this.tab.Size = new System.Drawing.Size(835, 391);
             this.tab.TabIndex = 31;
             this.tab.Visible = false;
             // 
@@ -151,7 +152,7 @@ namespace zsi.PhotoFingCapture
             this.tabPhoto.Location = new System.Drawing.Point(4, 22);
             this.tabPhoto.Name = "tabPhoto";
             this.tabPhoto.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPhoto.Size = new System.Drawing.Size(706, 365);
+            this.tabPhoto.Size = new System.Drawing.Size(827, 365);
             this.tabPhoto.TabIndex = 0;
             this.tabPhoto.Text = "Photo Capture";
             this.tabPhoto.UseVisualStyleBackColor = true;
@@ -164,6 +165,20 @@ namespace zsi.PhotoFingCapture
             this.pictureBox4.Size = new System.Drawing.Size(1, 216);
             this.pictureBox4.TabIndex = 36;
             this.pictureBox4.TabStop = false;
+            // 
+            // cbImagePosition
+            // 
+            this.cbImagePosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbImagePosition.FormattingEnabled = true;
+            this.cbImagePosition.Items.AddRange(new object[] {
+            "Front",
+            "Left",
+            "Right",
+            "Back"});
+            this.cbImagePosition.Location = new System.Drawing.Point(446, 69);
+            this.cbImagePosition.Name = "cbImagePosition";
+            this.cbImagePosition.Size = new System.Drawing.Size(63, 21);
+            this.cbImagePosition.TabIndex = 17;
             // 
             // pictureBox3
             // 
@@ -205,7 +220,7 @@ namespace zsi.PhotoFingCapture
             // btnConfig
             // 
             this.btnConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConfig.Location = new System.Drawing.Point(611, 8);
+            this.btnConfig.Location = new System.Drawing.Point(732, 8);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(81, 44);
             this.btnConfig.TabIndex = 30;
@@ -257,20 +272,6 @@ namespace zsi.PhotoFingCapture
             this.rdbITProfile.TabStop = true;
             this.rdbITProfile.Text = "Profile";
             this.rdbITProfile.UseVisualStyleBackColor = true;
-            // 
-            // cbImagePosition
-            // 
-            this.cbImagePosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbImagePosition.FormattingEnabled = true;
-            this.cbImagePosition.Items.AddRange(new object[] {
-            "Front",
-            "Left",
-            "Right",
-            "Back"});
-            this.cbImagePosition.Location = new System.Drawing.Point(446, 69);
-            this.cbImagePosition.Name = "cbImagePosition";
-            this.cbImagePosition.Size = new System.Drawing.Size(63, 21);
-            this.cbImagePosition.TabIndex = 17;
             // 
             // rdbITCase
             // 
@@ -350,7 +351,7 @@ namespace zsi.PhotoFingCapture
             this.tabFingers.Location = new System.Drawing.Point(4, 22);
             this.tabFingers.Name = "tabFingers";
             this.tabFingers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFingers.Size = new System.Drawing.Size(706, 365);
+            this.tabFingers.Size = new System.Drawing.Size(827, 365);
             this.tabFingers.TabIndex = 1;
             this.tabFingers.Text = "Register Finger(s)";
             this.tabFingers.UseVisualStyleBackColor = true;
@@ -358,7 +359,7 @@ namespace zsi.PhotoFingCapture
             // btnFingerUpdate
             // 
             this.btnFingerUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFingerUpdate.Location = new System.Drawing.Point(20, 227);
+            this.btnFingerUpdate.Location = new System.Drawing.Point(141, 227);
             this.btnFingerUpdate.Name = "btnFingerUpdate";
             this.btnFingerUpdate.Size = new System.Drawing.Size(146, 35);
             this.btnFingerUpdate.TabIndex = 45;
@@ -545,7 +546,7 @@ namespace zsi.PhotoFingCapture
             this.tabSign.Controls.Add(this.btnClearSig);
             this.tabSign.Location = new System.Drawing.Point(4, 22);
             this.tabSign.Name = "tabSign";
-            this.tabSign.Size = new System.Drawing.Size(706, 365);
+            this.tabSign.Size = new System.Drawing.Size(827, 365);
             this.tabSign.TabIndex = 2;
             this.tabSign.Text = "Signature";
             this.tabSign.UseVisualStyleBackColor = true;
@@ -579,7 +580,7 @@ namespace zsi.PhotoFingCapture
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(706, 365);
+            this.tabPage1.Size = new System.Drawing.Size(827, 365);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Console Service";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -616,7 +617,7 @@ namespace zsi.PhotoFingCapture
             // btnLogOut
             // 
             this.btnLogOut.Enabled = false;
-            this.btnLogOut.Location = new System.Drawing.Point(628, 13);
+            this.btnLogOut.Location = new System.Drawing.Point(745, 13);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Size = new System.Drawing.Size(54, 23);
             this.btnLogOut.TabIndex = 35;
@@ -626,7 +627,7 @@ namespace zsi.PhotoFingCapture
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(561, 13);
+            this.btnLogin.Location = new System.Drawing.Point(678, 13);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(68, 23);
             this.btnLogin.TabIndex = 34;
@@ -638,9 +639,9 @@ namespace zsi.PhotoFingCapture
             // 
             this.StatusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ssStatus1});
-            this.StatusStrip1.Location = new System.Drawing.Point(0, 440);
+            this.StatusStrip1.Location = new System.Drawing.Point(0, 449);
             this.StatusStrip1.Name = "StatusStrip1";
-            this.StatusStrip1.Size = new System.Drawing.Size(756, 22);
+            this.StatusStrip1.Size = new System.Drawing.Size(868, 22);
             this.StatusStrip1.TabIndex = 37;
             this.StatusStrip1.Text = "statusStrip1";
             // 
@@ -652,14 +653,13 @@ namespace zsi.PhotoFingCapture
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Interval = 20000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // btnOpenWebsite
             // 
             this.btnOpenWebsite.Enabled = false;
-            this.btnOpenWebsite.Location = new System.Drawing.Point(388, 13);
+            this.btnOpenWebsite.Location = new System.Drawing.Point(505, 13);
             this.btnOpenWebsite.Name = "btnOpenWebsite";
             this.btnOpenWebsite.Size = new System.Drawing.Size(88, 23);
             this.btnOpenWebsite.TabIndex = 38;
@@ -741,13 +741,24 @@ namespace zsi.PhotoFingCapture
             // 
             // btnAbout
             // 
-            this.btnAbout.Location = new System.Drawing.Point(681, 13);
+            this.btnAbout.Location = new System.Drawing.Point(798, 13);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(54, 23);
             this.btnAbout.TabIndex = 41;
             this.btnAbout.Text = "About";
             this.btnAbout.UseVisualStyleBackColor = true;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
+            // btnUpdateClient
+            // 
+            this.btnUpdateClient.Enabled = false;
+            this.btnUpdateClient.Location = new System.Drawing.Point(417, 13);
+            this.btnUpdateClient.Name = "btnUpdateClient";
+            this.btnUpdateClient.Size = new System.Drawing.Size(88, 23);
+            this.btnUpdateClient.TabIndex = 42;
+            this.btnUpdateClient.Text = "Update Client";
+            this.btnUpdateClient.UseVisualStyleBackColor = true;
+            this.btnUpdateClient.Visible = false;
             // 
             // signature1
             // 
@@ -765,7 +776,8 @@ namespace zsi.PhotoFingCapture
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::zsi.PhotoFingCapture.Properties.Resources.photofingcapturemain;
-            this.ClientSize = new System.Drawing.Size(756, 462);
+            this.ClientSize = new System.Drawing.Size(868, 471);
+            this.Controls.Add(this.btnUpdateClient);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.lUser);
             this.Controls.Add(this.tab);
@@ -872,6 +884,7 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lUser;
         private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.Button btnUpdateClient;
     }
 }
 
