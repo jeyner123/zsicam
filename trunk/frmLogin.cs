@@ -43,8 +43,21 @@ namespace zsi.PhotoFingCapture
 
                 if (txtPassword.Text == _decryptedPassword)
                 {
+                    
+
+                    //store static user info
                     ClientSettings.UserInfo = info;
                     AccessGranted = true;
+
+
+                    if (info.ClientId > 0)
+                    {
+                        //store static client info
+                        ClientSettings.ClientInfo = new dcClient().GetClientInfo(info.ClientId);
+
+                        //update client info
+                        new dcClient().UpdateLocalClientInfo(info.ClientId);
+                    }
                     //EnableControls(true);
                     this.Close();
                 }
