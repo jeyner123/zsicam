@@ -10,6 +10,8 @@ namespace zsi.PhotoFingCapture.Models
         #region "Constructor"
         public Client() { }
         #endregion
+
+        public int WorkStationId { get; set; }
         public int	ClientId {get;set;}
         public int ClientTypeId { get; set; }
         public String ClientName { get; set; }

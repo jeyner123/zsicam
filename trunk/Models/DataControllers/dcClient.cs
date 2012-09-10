@@ -87,21 +87,23 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 int count =  Convert.ToInt32( cmd.ExecuteScalar());
                 cmd.Dispose();
 
+                Client info = this.GetClientInfo(ClientId);
+
+
                 //insert new
                 if (count == 0) {
-                    cmd = new OleDbCommand("Insert into ClientInfo(ClientId) Values(?)", OleDbconn);
+                    cmd = new OleDbCommand("Insert into ClientInfo(WorkStationId) Values(?)", OleDbconn);
                     _params = cmd.Parameters;
-                    SetParameterValue(_params, ClientId, OleDbType.Integer);                   
+                    SetParameterValue(_params, info.WorkStationId, OleDbType.Integer);                   
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
 
                 //update info
-                Client info = this.GetClientInfo(ClientId);
                 cmd = new OleDbCommand("update ClientInfo set "
                             + " ClientId=?,ClientName=?,CompanyCode=?,ClientTypeId=?,CompanyName=?,CompanyTelNo=?,CompanyTIN=?,CompanyLogo=?"
                             + ",RegionId=?,ProvinceId=?,CityMunicipalityId=?,BarangayId=?,Address=?,IsAutoId=?,ClientMainId=?,ClientGroupId=?"
-                            + ",LastEmployeeNo=?,ApplicationId=?"
+                            + ",LastEmployeeNo=?,ApplicationId=? where WorkStationId=" + info.WorkStationId
                            , OleDbconn);                
                  _params = cmd.Parameters;
                 SetParameterValue(_params, info.ClientId, OleDbType.Integer);

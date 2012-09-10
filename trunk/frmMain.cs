@@ -231,10 +231,13 @@ namespace zsi.PhotoFingCapture
                     EnableControls(true);
                     btnUpdateClient.Visible = true;
 
+                    if (ClientSettings.ClientInfo != null)
+                    {
+                        if (ClientSettings.ClientInfo.ApplicationId == 1)
+                        {
 
-                    if (ClientSettings.ClientInfo.ApplicationId == 1) {
-
-                        new zsi.Biometrics.frmTimInOut().Show();                    
+                            new zsi.Biometrics.frmTimInOut().Show();
+                        }
                     }
 
                 }
