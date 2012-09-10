@@ -11,15 +11,9 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 {
     public class dcTimeInOutLog : MasterDataController<TimeInOutLog>
     {
-        private dcFingersTemplate2 dcFTemplate{get;set;}
+        private dcFingersTemplate2 dcFTemplate {get;set;}
         private OleDbTransaction Trans { get; set; }
-        public  _CallBackFunction CallBackFunction {get;set;}
-        public delegate void _CallBackFunction();
-       
-        public void RunTest(){
-            CallBackFunction();
-
-        }
+ 
         public override void InitDataController()
         {
             string _ConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.AccessDBConnection;
@@ -32,22 +26,45 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             try
             {
 
-                OleDbCommand _cmd2 = new OleDbCommand(
-                "Insert into TimeInOutLog(ProfileId,TimeValue)"
-                + "Values(?,?)"
-                , this.DBConn);
-                this.OpenDB();
-                var _params = _cmd2.Parameters;
-                SetParameterValue(_params, info.ProfileId, OleDbType.VarChar);
-                SetParameterValue(_params, TimeValue, OleDbType.Date);
-                _cmd2.ExecuteNonQuery();
-                this.CloseDB();
+              string sql = "Select top 1 * from TimeInOutLog where ProfileId=" + info.ProfileId + " DTRDate=" + DateTime.Now.ToShortDateString();  
+              List<TimeInOutLog> list =    this.GetDataSource(sql);
+              if (list[0].TimeIn == null ||  list[0].TimeOut!=null )
+              {
+                    //INSERT
+                  this.OpenDB();
+                  OleDbCommand _cmd = new OleDbCommand(
+                     "Insert into TimeInOutLog(ProfileId,TimeIn)"
+                     + "Values(?,?)"
+                     , dcFTemplate.DBConn);
+
+                  var _params = _cmd.Parameters;
+                  SetParameterValue(_params, info.ProfileId, OleDbType.VarChar);
+                  SetParameterValue(_params, TimeValue, OleDbType.Date);
+                  _cmd.ExecuteNonQuery();
+                  this.CloseDB();
+
+              }
+              else { 
+                    //update
+                  this.OpenDB();
+                  OleDbCommand _cmd = new OleDbCommand("update TimeInOutLog set TimeOut=? where ProfileId=?", dcFTemplate.DBConn);
+                  var _params = _cmd.Parameters;
+                  SetParameterValue(_params, TimeValue, OleDbType.Date);
+                  SetParameterValue(_params, info.ProfileId, OleDbType.VarChar);
+                  _cmd.ExecuteNonQuery();
+                  this.CloseDB();
+              }
+
 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
+
+
+
 
         }
         private void OpenDB()

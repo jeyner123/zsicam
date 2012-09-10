@@ -15,7 +15,7 @@ using zsi.Framework.Common;
 using System.Collections.ObjectModel;
 namespace zsi.PhotoFingCapture.Models.DataControllers
 {
-    public class dcPlaceWorkStation : SQLServer.MasterDataController<PlaceWorkStation>
+    public class dcClientWorkStation : SQLServer.MasterDataController<ClientWorkStation>
     {
 
         public override void InitDataController()
@@ -28,13 +28,13 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             this.Procedures.Add(new SQLServer.Procedure("dbo.SelectPlaces", SQLCommandType.Select));
             this.Procedures.Add(new SQLServer.Procedure("dbo.GetPlaceName", SQLCommandType.GetSingleInfo));
         }
-        public bool UpdateWorkStation(int PlaceId){
+        public bool UpdateWorkStation(int ClientId){
             try
             {
-                dcPlaceWorkStation _dcUpdate = new dcPlaceWorkStation();
-                SQLServer.Procedure _procUpdate = new SQLServer.Procedure("dbo.UpdatePlaceWorkStation");
+                dcClientWorkStation _dcUpdate = new dcClientWorkStation();
+                SQLServer.Procedure _procUpdate = new SQLServer.Procedure("dbo.UpdateClientWorkStation");
                 _procUpdate.Parameters.Add("p_WSMacAddress", Util.GetMacAddress());
-                _procUpdate.Parameters.Add("p_PlaceId", PlaceId);
+                _procUpdate.Parameters.Add("p_ClientId", ClientId);
                 _procUpdate.Parameters.Add("p_CreatedUpdatedBy", ClientInfo.UserInfo.UserId);
                 return _dcUpdate.Update(_procUpdate);
             } 
@@ -49,7 +49,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             try
             {
                 string _addresses = Util.GetAllMacAddress();
-                string _str = "select isnull((select top 1 wsmacaddress from dbo.PlaceWorkStations where wsmacaddress in ({0})),'') as result";
+                string _str = "select isnull((select top 1 wsmacaddress from dbo.ClientWorkStations where wsmacaddress in ({0})),'') as result";
                 string _sql = string.Format(_str, _addresses);
 
                 SqlCommand _SqlCommand = new SqlCommand(_sql, this.DBConn);

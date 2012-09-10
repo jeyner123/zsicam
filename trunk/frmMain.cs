@@ -204,7 +204,7 @@ namespace zsi.PhotoFingCapture
             {
                 if (ClientInfo.UserInfo.WSMacAddress == null)
                 {
-                    if (ClientInfo.UserInfo.DesignationId == 30 || ClientInfo.UserInfo.IsWriteManage == true)
+                    if (ClientInfo.UserInfo.IsZSIAdmin == true || ClientInfo.UserInfo.IsWriteManage == true)
                     {
                         gbClientReg.Visible = true;
                     }
@@ -526,14 +526,14 @@ namespace zsi.PhotoFingCapture
                     return;
                 }
 
-                Places _place = new dcPlaces().GetPlaceByRegCode(txtRegCode.Text);
+                Client _Client = new dcClient().GetClientByRegCode(txtRegCode.Text);
 
-                if (_place.PlaceId == 0)
+                if (_Client.ClientId == 0)
                 {
                     MessageBox.Show("Registration code is invalid, Please check your code and try again.");
                 }
                 else {
-                    bool IsSuccessUpdate = new dcPlaceWorkStation().UpdateWorkStation(_place.PlaceId);
+                    bool IsSuccessUpdate = new dcClientWorkStation().UpdateWorkStation(_Client.ClientId);
                     if (IsSuccessUpdate == true) {
                         gbClientReg.Visible = false;
                         tab.Visible = true;

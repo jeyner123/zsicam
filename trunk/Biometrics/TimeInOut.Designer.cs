@@ -266,6 +266,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Time (In/Out)";
+            this.Load += new System.EventHandler(this.frmTimInOut_Load);
             this.DoubleClick += new System.EventHandler(this.frmTimInOut_DoubleClick);
             ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

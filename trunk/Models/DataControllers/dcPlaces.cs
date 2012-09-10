@@ -29,12 +29,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             this.Procedures.Add(new SQLServer.Procedure("dbo.GetPlaceName", SQLCommandType.GetSingleInfo));
         }
 
-        public Places GetPlaceByRegCode(string RegCode) {
-            dcPlaces _dc = new dcPlaces();
-            SQLServer.Procedure _proc = new SQLServer.Procedure("dbo.SelectPlaces");
-            _proc.Parameters.Add("p_RegCode", RegCode);
-            return _dc.GetInfo(_proc);        
-        }
+     
 
         public List<Places> GetPlaces(int PlaceId, int ParentPlaceId)
         {
