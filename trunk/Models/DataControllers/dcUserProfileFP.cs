@@ -31,7 +31,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         }
 
         public void UpdateUserProfileFP(Int64 p_UserId, string p_ColumnName, byte[] p_FTmp) {
-            this.UpdateParameters.Add("p_UserId", ClientInfo.UserInfo.UserId);
+            this.UpdateParameters.Add("p_UserId", ClientSettings.UserInfo.UserId);
             this.UpdateParameters.Add("p_ColumnName", p_ColumnName);
             this.UpdateParameters.Add("p_FTmp", p_FTmp, System.Data.SqlDbType.Image);
             this.Update();              

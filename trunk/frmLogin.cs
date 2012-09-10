@@ -35,7 +35,7 @@ namespace zsi.PhotoFingCapture
                 btnLogin.Text = "Wait...";
                 btnLogin.Enabled = false;
                 //zsi.PhotoFingCapture.WebFileService.WebFileManager fm = new zsi.PhotoFingCapture.WebFileService.WebFileManager();
-                ClientInfo.UserInfo = new zsi.PhotoFingCapture.Models.User();
+                ClientSettings.UserInfo = new zsi.PhotoFingCapture.Models.User();
                 dcUser dc = new dcUser();
                 User info = dc.GetUserLogon(txtUserName.Text);
                 string _decryptedPassword = string.Empty;
@@ -43,7 +43,7 @@ namespace zsi.PhotoFingCapture
 
                 if (txtPassword.Text == _decryptedPassword)
                 {
-                    ClientInfo.UserInfo = info;
+                    ClientSettings.UserInfo = info;
                     AccessGranted = true;
                     //EnableControls(true);
                     this.Close();

@@ -132,7 +132,7 @@
     <Compile Include="Biometrics\FingersMasterScanner.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClientInfo.cs" />
+    <Compile Include="Models\ClientInfo.cs" />
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,10 +151,8 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\ClientSettings.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\DataControllers\dcClient.cs" />
-    <Compile Include="Models\DataControllers\dcClientSettings.cs" />
     <Compile Include="Models\DataControllers\dcTimeInOutLog.cs" />
     <Compile Include="Models\TimeInOutLog.cs" />
     <Compile Include="Models\DataControllers\dcUserProfileFP.cs" />

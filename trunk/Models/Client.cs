@@ -34,7 +34,7 @@ namespace zsi.PhotoFingCapture.Models
         public DateTime CreatedDate { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public string DefaultPassword { get; set; }
+        public int ApplicationId { get; set; }
     }
 
 }

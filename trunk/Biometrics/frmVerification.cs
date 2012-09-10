@@ -87,8 +87,8 @@ namespace zsi.Biometrics
                     {
 
                         case "user login":
-                            ClientInfo.UserInfo = _dc.GetUserInfo(info.ProfileId);
-                            if (ClientInfo.UserInfo.UserId != 0)
+                            ClientSettings.UserInfo = _dc.GetUserInfo(info.ProfileId);
+                            if (ClientSettings.UserInfo.UserId != 0)
                             {
                                 this.Invoke(new Function(delegate(){
                                     //    this.ParentForm.EnableControls(true);
@@ -103,13 +103,13 @@ namespace zsi.Biometrics
                             }
                             break;
                         case "profile info":
-                            if (ClientInfo.UserInfo == null) goto NotYetLoggedIn;
-                            if (ClientInfo.UserInfo.UserId == 0) goto NotYetLoggedIn;
-                            if (ClientInfo.UserInfo.UserId != 0)
+                            if (ClientSettings.UserInfo == null) goto NotYetLoggedIn;
+                            if (ClientSettings.UserInfo.UserId == 0) goto NotYetLoggedIn;
+                            if (ClientSettings.UserInfo.UserId != 0)
                             {
 
                                 string _guID = Guid.NewGuid().ToString();
-                                _dc.UpdateRequestCode(ClientInfo.UserInfo.UserId, _guID);
+                                _dc.UpdateRequestCode(ClientSettings.UserInfo.UserId, _guID);
                                 p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=Profile Info&p_ClientRequestCode=" + _guID + "&p_ProfileId=" + info.ProfileId;
                                 p.Start();
                                 this.Invoke(new Function(delegate(){

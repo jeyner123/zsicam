@@ -71,7 +71,7 @@ namespace zsi.PhotoFingCapture
                 default: break;
             }
 
-            _fileName = ClientInfo.ProfileInfo.ProfileId + _fileName;
+            _fileName = ClientSettings.ProfileInfo.ProfileId + _fileName;
             if (rdbITProfile.Checked != true) _fileName = "case-" + _fileName;
             return _fileName;
         }
@@ -112,7 +112,7 @@ namespace zsi.PhotoFingCapture
         {
             EnableControls(false);
             btnUploadPhoto.Enabled = false;
-            ClientInfo.ProfileInfo = new zsi.PhotoFingCapture.Models.Profile();
+            ClientSettings.ProfileInfo = new zsi.PhotoFingCapture.Models.Profile();
             btnLogOut.Enabled = false;
             btnLogin.Enabled = true;
             gbClientReg.Visible = false;
@@ -153,8 +153,8 @@ namespace zsi.PhotoFingCapture
                         this.FingersData.Templates[i].Serialize(ref _template); 
                         byte[] _sample = Util.StreamToByte(Util.BmpToStream((Bitmap)this.FingersData.Images[i]));
                         string _ColName = GetTemplateColumnName(i);
-                        new dcUserProfileFP().UpdateUserProfileFP(ClientInfo.UserInfo.UserId, _ColName + "F", _template);
-                        new dcUserProfileFP().UpdateUserProfileFP(ClientInfo.UserInfo.UserId, _ColName + "S", _sample);
+                        new dcUserProfileFP().UpdateUserProfileFP(ClientSettings.UserInfo.UserId, _ColName + "F", _template);
+                        new dcUserProfileFP().UpdateUserProfileFP(ClientSettings.UserInfo.UserId, _ColName + "S", _sample);
                     }
                 }
                 MessageBox.Show("Finger prints has been uploaded to the server.");
@@ -202,9 +202,9 @@ namespace zsi.PhotoFingCapture
         public void CheckPermission(bool IsAccessGranted){
             if (IsAccessGranted == true)
             {
-                if (ClientInfo.UserInfo.WSMacAddress == null)
+                if (ClientSettings.UserInfo.WSMacAddress == null)
                 {
-                    if (ClientInfo.UserInfo.IsZSIAdmin == true || ClientInfo.UserInfo.IsWriteManage == true)
+                    if (ClientSettings.UserInfo.IsZSIAdmin == true || ClientSettings.UserInfo.IsWriteManage == true)
                     {
                         gbClientReg.Visible = true;
                     }
@@ -224,7 +224,7 @@ namespace zsi.PhotoFingCapture
                 }
                 btnLogOut.Enabled = true;
                 btnLogin.Enabled = false;
-                lUser.Text = "LOGON: " + ClientInfo.UserInfo.FullName;
+                lUser.Text = "LOGON: " + ClientSettings.UserInfo.FullName;
             }
         
         
@@ -282,7 +282,7 @@ namespace zsi.PhotoFingCapture
 
                  
                  dcUserProfileImages dc = new dcUserProfileImages();
-                 dc.UpdateUserProfileImages(ClientInfo.UserInfo.UserId, _ColumnName, _byteImage);
+                 dc.UpdateUserProfileImages(ClientSettings.UserInfo.UserId, _ColumnName, _byteImage);
                  MessageBox.Show("Photo has been uploaded to the server.");
                  _WebCam.Start();
              }
@@ -299,8 +299,8 @@ namespace zsi.PhotoFingCapture
 
        
         private void ShowScanForm(object sender, int FingerPosition) {
-            if (ClientInfo.UserInfo==null) goto NotYetLogin;            
-            if (ClientInfo.UserInfo.UserId == 0) goto NotYetLogin;
+            if (ClientSettings.UserInfo == null) goto NotYetLogin;
+            if (ClientSettings.UserInfo.UserId == 0) goto NotYetLogin;
 
             Color _bcolor =((Control)sender).BackColor;
             DialogResult result=DialogResult.None;
@@ -425,7 +425,7 @@ namespace zsi.PhotoFingCapture
                 this.signature1.bmp.Save(_MemoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
                 byte[] _byte = Util.StreamToByte(_MemoryStream);
                 dcUserProfileImages dc = new dcUserProfileImages();
-                dc.UpdateUserProfileImages(ClientInfo.UserInfo.UserId, "SigImg", _byte);
+                dc.UpdateUserProfileImages(ClientSettings.UserInfo.UserId, "SigImg", _byte);
                 MessageBox.Show("Signature has been uploaded to the server.");
                 signature1.Clear();
             }
@@ -492,12 +492,12 @@ namespace zsi.PhotoFingCapture
 
         private void btnOpenWebsite_Click(object sender, EventArgs e)
         {
-            if (ClientInfo.UserInfo ==null) goto NotLogged;
-            if (ClientInfo.UserInfo.UserId == 0) goto NotLogged;
+            if (ClientSettings.UserInfo == null) goto NotLogged;
+            if (ClientSettings.UserInfo.UserId == 0) goto NotLogged;
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
                 string _guID = Guid.NewGuid().ToString();
                 dcUser _dc = new dcUser();
-                _dc.UpdateRequestCode(ClientInfo.UserInfo.UserId, _guID);
+                _dc.UpdateRequestCode(ClientSettings.UserInfo.UserId, _guID);
                 p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=User Login&p_ClientRequestCode=" + _guID;
                 p.Start();
                 return;
@@ -538,6 +538,9 @@ namespace zsi.PhotoFingCapture
                         gbClientReg.Visible = false;
                         tab.Visible = true;
                         btnOpenWebsite.Enabled = true;
+                        btnUpdateClient.Visible = true;
+                        btnUpdateClient.Enabled = true;
+                        new dcClient().UpdateLocalClientInfo(_Client.ClientId);
                     }
                 }
 

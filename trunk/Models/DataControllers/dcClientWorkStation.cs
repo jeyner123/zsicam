@@ -35,7 +35,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 SQLServer.Procedure _procUpdate = new SQLServer.Procedure("dbo.UpdateClientWorkStation");
                 _procUpdate.Parameters.Add("p_WSMacAddress", Util.GetMacAddress());
                 _procUpdate.Parameters.Add("p_ClientId", ClientId);
-                _procUpdate.Parameters.Add("p_CreatedUpdatedBy", ClientInfo.UserInfo.UserId);
+                _procUpdate.Parameters.Add("p_CreatedUpdatedBy", ClientSettings.UserInfo.UserId);
                 return _dcUpdate.Update(_procUpdate);
             } 
             catch (Exception ex)
