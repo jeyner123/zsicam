@@ -59,49 +59,23 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             }
         }
 
-    
-        public void InsertNewLocalClientInfo(int ClientId)
+        public Client GetLocalClientInfo()
         {
             try
             {
-
-                this.OpenDB();
-                Client info = this.GetClientInfo(ClientId);
-                OleDbCommand cmd = new OleDbCommand("Insert into ClientInfo("
-                            + "ClientId,ClientName,CompanyCode,ClientTypeId,CompanyName,CompanyTelNo,CompanyTIN,CompanyLogo,RegionId,ProvinceId,CityMunicipalityId"
-                            + ",BarangayId,Address,IsAutoId,ClientMainId,ClientGroupId,LastEmployeeNo,ApplicationId) "
-                           + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-                           , OleDbconn);
-
-                var _params = cmd.Parameters;
-                SetParameterValue(_params, info.ClientId, OleDbType.Integer);
-                SetParameterValue(_params, info.ClientName, OleDbType.VarChar);
-                SetParameterValue(_params, info.CompanyCode, OleDbType.VarChar);
-                SetParameterValue(_params, info.ClientTypeId, OleDbType.Integer);
-                SetParameterValue(_params, info.CompanyName, OleDbType.VarChar);
-                SetParameterValue(_params, info.CompanyTelNo, OleDbType.VarChar);
-                SetParameterValue(_params, info.CompanyTIN, OleDbType.VarChar);
-                SetParameterValue(_params, info.CompanyLogo, OleDbType.Binary);
-                SetParameterValue(_params, info.RegionId, OleDbType.Integer);
-                SetParameterValue(_params, info.ProvinceId, OleDbType.Integer);
-                SetParameterValue(_params, info.CityMunicipalityId, OleDbType.Integer);
-                SetParameterValue(_params, info.BarangayId, OleDbType.Integer);
-                SetParameterValue(_params, info.Address, OleDbType.VarChar);
-                SetParameterValue(_params, info.IsAutoId, OleDbType.Boolean);
-                SetParameterValue(_params, info.ClientMainId, OleDbType.Integer);
-                SetParameterValue(_params, info.ClientGroupId, OleDbType.Integer);
-                SetParameterValue(_params, info.LastEmployeeNo, OleDbType.VarChar);
-                SetParameterValue(_params, info.ApplicationId, OleDbType.Integer);
-                cmd.ExecuteNonQuery();
-                this.CloseDB();
+                dcClient2 dc = new dcClient2();                
+                return dc.GetDataSource("Select * from ClientInfo")[0];                
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
 
+
+
+    
+        
         public void UpdateLocalClientInfo(int ClientId)
         {
             try
@@ -189,5 +163,18 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         }
 
 
+    }
+
+
+    public class dcClient2 : OleDb.MasterDataController<Client>
+    {
+        private OleDbTransaction Trans { get; set; }
+        public override void InitDataController()
+        {
+            string _ConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.AccessDBConnection;
+            _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{p}.*.{p}", "{p}");
+            this.DBConn = new OleDbConnection(_ConnectionString);
+          
+        }
     }
 }

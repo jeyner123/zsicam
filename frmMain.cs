@@ -35,12 +35,22 @@ namespace zsi.PhotoFingCapture
             {
                 this.InitializeComponent();
                 InitFingerPrintSettings();
-                  
+
+
+                StartUpApplication();
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void StartUpApplication() {
+
+            Client info = new dcClient().GetLocalClientInfo();
+            if (info.ApplicationId == 1) {
+                new zsi.Biometrics.frmTimInOut().Show();            
             }
         }
        
@@ -220,6 +230,12 @@ namespace zsi.PhotoFingCapture
                     tab.Visible = true;
                     EnableControls(true);
                     btnUpdateClient.Visible = true;
+
+
+                    if (ClientSettings.ClientInfo.ApplicationId == 1) {
+
+                        new zsi.Biometrics.frmTimInOut().Show();                    
+                    }
 
                 }
                 btnLogOut.Enabled = true;
@@ -541,6 +557,7 @@ namespace zsi.PhotoFingCapture
                         btnUpdateClient.Visible = true;
                         btnUpdateClient.Enabled = true;
                         new dcClient().UpdateLocalClientInfo(_Client.ClientId);
+                        
                     }
                 }
 
