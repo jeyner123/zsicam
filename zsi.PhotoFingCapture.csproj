@@ -151,6 +151,10 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClientSettings.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\DataControllers\dcClient.cs" />
+    <Compile Include="Models\DataControllers\dcClientSettings.cs" />
     <Compile Include="Models\DataControllers\dcTimeInOutLog.cs" />
     <Compile Include="Models\TimeInOutLog.cs" />
     <Compile Include="Models\DataControllers\dcUserProfileFP.cs" />
@@ -161,11 +165,11 @@
     <Compile Include="Models\DataControllers\dcFingersTemplate.cs" />
     <Compile Include="Models\DataControllers\dcFingersTemplate2.cs" />
     <Compile Include="Models\DataControllers\dcPlaces.cs" />
-    <Compile Include="Models\DataControllers\dcPlaceWorkStation.cs" />
+    <Compile Include="Models\DataControllers\dcClientWorkStation.cs" />
     <Compile Include="Models\DataControllers\dcUser.cs" />
     <Compile Include="Models\FingersTemplate.cs" />
     <Compile Include="Models\Places.cs" />
-    <Compile Include="Models\PlaceWorkStation.cs" />
+    <Compile Include="Models\ClientWorkStation.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\UserStamp.cs" />

@@ -128,6 +128,11 @@ namespace zsi.Biometrics
             this.Close();
         }
 
+        private void frmTimInOut_Load(object sender, EventArgs e)
+        {
+
+        }
+
      
 
     }

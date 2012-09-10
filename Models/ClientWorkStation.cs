@@ -5,13 +5,13 @@ using System.Text;
 
 namespace zsi.PhotoFingCapture.Models
 {
-    public class PlaceWorkStation:UserStamp
+    public class ClientWorkStation:UserStamp
     {
         #region "Constructor"
-        public PlaceWorkStation() { }
+        public ClientWorkStation() { }
         #endregion
         public int WorkStationId { get; set; }
-        public int PlaceId { get; set; }
+        public int ClientId { get; set; }
         public string WSMacAddress { get; set; }
         public bool IsActive { get; set; }
     }

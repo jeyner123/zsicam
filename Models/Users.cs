@@ -46,6 +46,11 @@ namespace zsi.PhotoFingCapture.Models
         public bool IsManageUser { get; set; }
         public string ClientRequestCode { get; set; }
         public string WSMacAddress { get; set; }
+        public int ClientId {get;set;}
+        public bool IsZSIAdmin {get;set;}
+        public int PositionId {get;set;}
+        public int RankId {get;set;} 
+
 
     }
 }

@@ -35,7 +35,7 @@ namespace zsi.PhotoFingCapture
             string _val = lbMacAdd.Text;
             lbMacAdd.Text = "Please wait...";
             Application.DoEvents();
-           string RegAdd = String.Format("Registered Physical Address: {0}", new dcPlaceWorkStation().GetRegisteredMacAddress());
+           string RegAdd = String.Format("Registered Physical Address: {0}", new dcClientWorkStation().GetRegisteredMacAddress());
             lbMacAdd.Text = _val;
            MessageBox.Show(RegAdd);
           
