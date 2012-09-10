@@ -87,7 +87,6 @@
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
@@ -267,6 +266,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Time (In/Out)";
+            this.DoubleClick += new System.EventHandler(this.frmTimInOut_DoubleClick);
             ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).EndInit();

@@ -151,6 +151,8 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataControllers\dcTimeInOutLog.cs" />
+    <Compile Include="Models\TimeInOutLog.cs" />
     <Compile Include="Models\DataControllers\dcUserProfileFP.cs" />
     <Compile Include="Models\UserProfileFP.cs" />
     <Compile Include="Models\DataControllers\dcUserProfileImages.cs" />

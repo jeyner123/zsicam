@@ -22,8 +22,10 @@ namespace zsi.PhotoFingCapture.Models
         public byte[] RightMF { get; set; }
         public byte[] RightRF { get; set; }
         public byte[] RightSF { get; set; }
+        public byte[] ProfileImg { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        
 
     }
 
