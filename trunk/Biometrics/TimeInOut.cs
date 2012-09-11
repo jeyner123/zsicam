@@ -106,11 +106,25 @@ namespace zsi.Biometrics
                 this.Invoke(new Function(delegate()
                 {
                     txtName.Text = "(" + info.ProfileId + ") - " + info.FullName;
+
+
+                    dcTimeInOutLog dc = new dcTimeInOutLog();
+                    bool IsTimeIn;
+                    dc.TimeInOut(info, DateTime.Now, out IsTimeIn);
+                    if (IsTimeIn == true)
+                    {
+                        lblActualTimeIn.Text = DateTime.Now.ToShortTimeString();
+                        lblActualTimeOut.Text = "00:00:00";
+                    }
+                    else
+                    {
+                        lblActualTimeOut.Text = DateTime.Now.ToShortTimeString();
+                        lblActualTimeIn.Text = "00:00:00";
+                    }
+
                 }));
 
-                dcTimeInOutLog dc = new dcTimeInOutLog();
-                dc.TimeInOut(info, DateTime.Now);
-
+               
                 
             }
             catch (Exception ex) {

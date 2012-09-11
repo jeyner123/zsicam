@@ -200,6 +200,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="test.resx">
+      <DependentUpon>test.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <Compile Include="Biometrics\Util\BiometricsUtil.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -214,6 +217,12 @@
     </Compile>
     <Compile Include="Signatures\Signature.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="test.Designer.cs">
+      <DependentUpon>test.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\Util.cs" />
     <Compile Include="WebCamServices\WebCamService.cs">
