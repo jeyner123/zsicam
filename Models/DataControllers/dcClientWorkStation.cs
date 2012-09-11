@@ -28,15 +28,23 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             this.Procedures.Add(new SQLServer.Procedure("dbo.SelectPlaces", SQLCommandType.Select));
             this.Procedures.Add(new SQLServer.Procedure("dbo.GetPlaceName", SQLCommandType.GetSingleInfo));
         }
-        public bool UpdateWorkStation(int ClientId){
+        public int UpdateWorkStation(int ClientId){
             try
             {
+
+
                 dcClientWorkStation _dcUpdate = new dcClientWorkStation();
                 SQLServer.Procedure _procUpdate = new SQLServer.Procedure("dbo.UpdateClientWorkStation");
                 _procUpdate.Parameters.Add("p_WSMacAddress", Util.GetMacAddress());
                 _procUpdate.Parameters.Add("p_ClientId", ClientId);
                 _procUpdate.Parameters.Add("p_CreatedUpdatedBy", ClientSettings.UserInfo.UserId);
-                return _dcUpdate.Update(_procUpdate);
+
+                _procUpdate.Parameters.Add("p_WorkStationId",null, System.Data.SqlDbType.BigInt, System.Data.ParameterDirection.InputOutput);
+                _dcUpdate.Update(_procUpdate);
+
+                int _WorkStationId = Convert.ToInt32(_procUpdate.Parameters.GetItem("p_WorkStationId").Value);
+
+                return _WorkStationId;
             } 
             catch (Exception ex)
             {

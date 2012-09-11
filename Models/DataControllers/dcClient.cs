@@ -36,10 +36,20 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         }
         public Client GetClientByRegCode(string RegCode)
         {
-            dcClient _dc = new dcClient();
-            SQLServer.Procedure _proc = new SQLServer.Procedure("dbo.SelectClients");
-            _proc.Parameters.Add("p_RegCode", RegCode);
-            return _dc.GetInfo(_proc);
+            try
+            {
+                dcClient _dc = new dcClient();
+                SQLServer.Procedure _proc = new SQLServer.Procedure("dbo.SelectClients");
+                _proc.Parameters.Add("p_RegCode", RegCode);
+                return _dc.GetInfo(_proc);
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 11001)
+                    return new Client();
+                else
+                    throw ex;
+            }
         }
 
 
@@ -53,10 +63,34 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 p.Parameters.Add("p_ClientId", ClientId);
                 return _dc.GetInfo(p);
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                throw ex;
+                if (ex.Number == 11001)
+                    return new Client();
+                else
+                    throw ex;
             }
+        }
+        public Client GetClientInfo(int ClientId,int WorkStationId)
+        {
+            try
+            {
+
+                dcClient _dc = new dcClient();
+                SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectClients");
+                p.Parameters.Add("p_ClientId", ClientId);
+                p.Parameters.Add("p_WorkStationId", WorkStationId);
+                return _dc.GetInfo(p);
+            }
+
+            catch (SqlException ex)
+            {
+                if (ex.Number == 11001)
+                    return new Client();
+                else
+                    throw ex;
+            }
+
         }
 
         public Client GetLocalClientInfo()
@@ -64,7 +98,9 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             try
             {
                 dcClient2 dc = new dcClient2();                
-                return dc.GetDataSource("Select * from ClientInfo")[0];                
+                List<Client> list =  dc.GetDataSource("Select * from ClientInfo");
+                if (list.Count==0) return new Client(); 
+                return list[0]; 
             }
             catch (Exception ex)
             {
@@ -72,40 +108,56 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             }
         }
 
+ 
 
-
-    
-        
-        public void UpdateLocalClientInfo(int ClientId)
+        public void UpdateLocalClientInfo(Client info)
         {
             try
             {
+                if (info.WorkStationId > 0)
+                {
 
-                this.OpenDB();
-                OleDbCommand cmd = new OleDbCommand("select count(*) from ClientInfo",OleDbconn);
-                var _params = cmd.Parameters;
-                int count =  Convert.ToInt32( cmd.ExecuteScalar());
-                cmd.Dispose();
-
-                Client info = this.GetClientInfo(ClientId);
-
-
-                //insert new
-                if (count == 0) {
-                    cmd = new OleDbCommand("Insert into ClientInfo(WorkStationId) Values(?)", OleDbconn);
-                    _params = cmd.Parameters;
-                    SetParameterValue(_params, info.WorkStationId, OleDbType.Integer);                   
-                    cmd.ExecuteNonQuery();
+                    this.OpenDB();
+                    OleDbCommand cmd = new OleDbCommand("select count(*) from ClientInfo", OleDbconn);
+                    var _params = cmd.Parameters;
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
+
+                    //insert new
+                    if (count == 0)
+                    {
+                        cmd = new OleDbCommand("Insert into ClientInfo(WorkStationId) Values(?)", OleDbconn);
+                        _params = cmd.Parameters;
+                        SetParameterValue(_params, info.WorkStationId, OleDbType.Integer);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+
+                    UpdateParams(info);
                 }
+            }
+    
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        private void UpdateParams(Client info)
+        {
+            try
+            {
+                this.OpenDB();
 
                 //update info
-                cmd = new OleDbCommand("update ClientInfo set "
-                            + " ClientId=?,ClientName=?,CompanyCode=?,ClientTypeId=?,CompanyName=?,CompanyTelNo=?,CompanyTIN=?,CompanyLogo=?"
-                            + ",RegionId=?,ProvinceId=?,CityMunicipalityId=?,BarangayId=?,Address=?,IsAutoId=?,ClientMainId=?,ClientGroupId=?"
-                            + ",LastEmployeeNo=?,ApplicationId=? where WorkStationId=" + info.WorkStationId
-                           , OleDbconn);                
-                 _params = cmd.Parameters;
+                OleDbCommand cmd = new OleDbCommand("update ClientInfo set "
+                           + " ClientId=?,ClientName=?,CompanyCode=?,ClientTypeId=?,CompanyName=?,CompanyTelNo=?,CompanyTIN=?,CompanyLogo=?"
+                           + ",RegionId=?,ProvinceId=?,CityMunicipalityId=?,BarangayId=?,Address=?,IsAutoId=?,ClientMainId=?,ClientGroupId=?"
+                           + ",LastEmployeeNo=?,ApplicationId=? where WorkStationId=" + info.WorkStationId
+                          , OleDbconn);
+                var _params = cmd.Parameters;
                 SetParameterValue(_params, info.ClientId, OleDbType.Integer);
                 SetParameterValue(_params, info.ClientName, OleDbType.VarChar);
                 SetParameterValue(_params, info.CompanyCode, OleDbType.VarChar);
@@ -126,13 +178,11 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 SetParameterValue(_params, info.ApplicationId, OleDbType.Integer);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
-                this.CloseDB();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
 
  

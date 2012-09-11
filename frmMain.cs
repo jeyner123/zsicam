@@ -47,15 +47,27 @@ namespace zsi.PhotoFingCapture
         }
 
         private void StartUpApplication() {
-
+            
             Client info = new dcClient().GetLocalClientInfo();
+            ClientSettings.ClientInfo = info;
+            Client _info = new dcClient().GetClientInfo(info.ClientId, info.WorkStationId);
+            if (_info.WorkStationId > 0 && _info.ClientId > 0)
+            {
+                new dcClient().UpdateLocalClientInfo(_info);
+                //replace new value
+                info = _info;
+                ClientSettings.ClientInfo = info;
+            }
+ 
+            
+
             if (info.ApplicationId == 1) {
                 new zsi.Biometrics.frmTimInOut().Show();            
             }
         }
        
         private void InitFingerPrintSettings(){
-            this.FingersData = new FingersData();	
+            this.FingersData = new FingersData(); 
             this.FingersData.DataChanged += new OnChangeHandler(OnFingersDataChange);  
             
 
@@ -552,15 +564,16 @@ namespace zsi.PhotoFingCapture
                     MessageBox.Show("Registration code is invalid, Please check your code and try again.");
                 }
                 else {
-                    bool IsSuccessUpdate = new dcClientWorkStation().UpdateWorkStation(_Client.ClientId);
-                    if (IsSuccessUpdate == true) {
+                    int WorkStationId= new dcClientWorkStation().UpdateWorkStation(_Client.ClientId);
+                    if (WorkStationId > 0)
+                    {
                         gbClientReg.Visible = false;
                         tab.Visible = true;
                         btnOpenWebsite.Enabled = true;
                         btnUpdateClient.Visible = true;
                         btnUpdateClient.Enabled = true;
-                        new dcClient().UpdateLocalClientInfo(_Client.ClientId);
-                        
+                        _Client.WorkStationId = WorkStationId;
+                        new dcClient().UpdateLocalClientInfo(_Client);
                     }
                 }
 
@@ -580,11 +593,7 @@ namespace zsi.PhotoFingCapture
         private void frmMain_DoubleClick(object sender, EventArgs e)
         {
             new zsi.Biometrics.frmTimInOut().Show();
-        }
-
-   
-
-        
+        }      
 
         
     }

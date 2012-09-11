@@ -9,10 +9,9 @@ using System.Data;
 using System.Data.OleDb;
 namespace zsi.PhotoFingCapture.Models.DataControllers
 {
+     
     public class dcTimeInOutLog : MasterDataController<TimeInOutLog>
     {
-        private dcFingersTemplate2 dcFTemplate {get;set;}
-        private OleDbTransaction Trans { get; set; }
  
         public override void InitDataController()
         {
@@ -21,52 +20,66 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             this.DBConn = new OleDbConnection(_ConnectionString);
         }
 
-        public void TimeInOut(Profile info, DateTime TimeValue)
+
+    
+        public void TimeInOut(Profile info, DateTime TimeValue,out bool IsTimeIn )
         {
             try
             {
+                string dtrDate = DateTime.Now.ToShortDateString();
+                string sql = "Select top 1 * from TimeInOutLog where ProfileId='" + info.ProfileId + "' and DTRDate=#" + dtrDate + "# ORDER BY LogInOutId desc";               
+                List<TimeInOutLog> list =    this.GetDataSource(sql);
 
-              string sql = "Select top 1 * from TimeInOutLog where ProfileId=" + info.ProfileId + " DTRDate=" + DateTime.Now.ToShortDateString();  
-              List<TimeInOutLog> list =    this.GetDataSource(sql);
-              if (list[0].TimeIn == null ||  list[0].TimeOut!=null )
-              {
-                    //INSERT
-                  this.OpenDB();
-                  OleDbCommand _cmd = new OleDbCommand(
-                     "Insert into TimeInOutLog(ProfileId,TimeIn)"
-                     + "Values(?,?)"
-                     , dcFTemplate.DBConn);
+                if (list.Count==0)
+                {
+                    InsertTimeIn(info, TimeValue, dtrDate);
+                    IsTimeIn = true;
+                    goto Finish;
+                } 
+                if (list[0].TimeOut != new DateTime(1, 1, 1))
+                {
+                    InsertTimeIn(info,TimeValue,dtrDate);
+                    IsTimeIn = true;
 
-                  var _params = _cmd.Parameters;
-                  SetParameterValue(_params, info.ProfileId, OleDbType.VarChar);
-                  SetParameterValue(_params, TimeValue, OleDbType.Date);
-                  _cmd.ExecuteNonQuery();
-                  this.CloseDB();
-
-              }
-              else { 
+                }
+                else
+                {
                     //update
-                  this.OpenDB();
-                  OleDbCommand _cmd = new OleDbCommand("update TimeInOutLog set TimeOut=? where ProfileId=?", dcFTemplate.DBConn);
-                  var _params = _cmd.Parameters;
-                  SetParameterValue(_params, TimeValue, OleDbType.Date);
-                  SetParameterValue(_params, info.ProfileId, OleDbType.VarChar);
-                  _cmd.ExecuteNonQuery();
-                  this.CloseDB();
-              }
-
-
-            }
+                    int LogInOutId = list[0].LogInOutId;
+                    this.OpenDB();
+                    OleDbCommand _cmd = new OleDbCommand("update TimeInOutLog set TimeOut=? where ProfileId='" + info.ProfileId + "' and DTRDate=#" + dtrDate + "# and LogInOutId=" + LogInOutId , this.DBConn);
+                    var _params = _cmd.Parameters;
+                    SetParameterValue(_params, TimeValue, OleDbType.Date);
+                    _cmd.ExecuteNonQuery();
+                    _cmd.Dispose();
+                    this.CloseDB();
+                    IsTimeIn = false;
+                    
+                }
+            }           
             catch (Exception ex)
             {
                 throw ex;
             }
-
-
-
-
-
+        Finish:;            
         }
+        private void InsertTimeIn(Profile info,DateTime TimeValue, string DtrDate)
+        {
+
+            //INSERT
+            this.OpenDB();
+            //System.Windows.Forms.MessageBox.Show("insert");
+            OleDbCommand _cmd = new OleDbCommand("Insert into TimeInOutLog(ProfileId,ClientId,TimeIn,DTRDate) Values(?,?,?,?)", this.DBConn);
+            var _params = _cmd.Parameters;
+            SetParameterValue(_params, info.ProfileId, OleDbType.VarChar);
+            SetParameterValue(_params, ClientSettings.ClientInfo.ClientId, OleDbType.VarChar);
+            SetParameterValue(_params, TimeValue, OleDbType.Date);
+            SetParameterValue(_params, DtrDate, OleDbType.Date);
+            _cmd.ExecuteNonQuery();
+            _cmd.Dispose();
+            this.CloseDB();
+        }
+
         private void OpenDB()
         {
             if (this.DBConn.State!=ConnectionState.Open){
