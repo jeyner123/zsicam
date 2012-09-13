@@ -54,10 +54,10 @@ namespace zsi.PhotoFingCapture
                     {
                         //store static client info
                       //  ClientSettings.ClientInfo = new dcClient().GetClientInfo(info.ClientId);
-                        ClientSettings.ClientInfo = new dcClient().GetLocalClientInfo();
+                        ClientSettings.ClientWorkStationInfo = new dcClientWorkStation().GetLocalClientInfo();
 
                         //update client info
-                        new dcClient().UpdateLocalClientInfo(ClientSettings.ClientInfo);
+                        new dcClientWorkStation().UpdateLocalClientInfo(ClientSettings.ClientWorkStationInfo);
                     }
                     //EnableControls(true);
                     this.Close();

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace zsi.PhotoFingCapture.Models
 {
-    public class Client
+    public class Client:UserStamp
     {
         #region "Constructor"
         public Client() { }
@@ -31,11 +31,7 @@ namespace zsi.PhotoFingCapture.Models
         public int ClientGroupId { get; set; }
         public int LastEmployeeNo { get; set; }
         public String RegCode { get; set; }
-        public String EmailAdd { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public int UpdatedBy { get; set; }
-        public DateTime UpdatedDate { get; set; }
+        public String EmailAdd { get; set; }       
         public int ApplicationId { get; set; }
     }
 
