@@ -10,7 +10,7 @@ namespace zsi.PhotoFingCapture
     {
         public static Profile ProfileInfo { get; set; }
         public static User UserInfo { get; set; }
-        public static Client ClientInfo { get; set; }
+        public static ClientWorkStation ClientWorkStationInfo { get; set; }
     }
 
 }

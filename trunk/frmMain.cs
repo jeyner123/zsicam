@@ -48,15 +48,15 @@ namespace zsi.PhotoFingCapture
 
         private void StartUpApplication() {
             
-            Client info = new dcClient().GetLocalClientInfo();
-            ClientSettings.ClientInfo = info;
-            Client _info = new dcClient().GetClientInfo(info.ClientId, info.WorkStationId);
+            ClientWorkStation info = new dcClientWorkStation().GetLocalClientInfo();
+            ClientSettings.ClientWorkStationInfo = info;
+            ClientWorkStation _info = new dcClientWorkStation().GetClientInfo(info.ClientId, info.WorkStationId);
             if (_info.WorkStationId > 0 && _info.ClientId > 0)
             {
-                new dcClient().UpdateLocalClientInfo(_info);
+                new dcClientWorkStation().UpdateLocalClientInfo(_info);
                 //replace new value
                 info = _info;
-                ClientSettings.ClientInfo = info;
+                ClientSettings.ClientWorkStationInfo = info;
             }
  
             
@@ -243,9 +243,9 @@ namespace zsi.PhotoFingCapture
                     EnableControls(true);
                     btnUpdateClient.Visible = true;
 
-                    if (ClientSettings.ClientInfo != null)
+                    if (ClientSettings.ClientWorkStationInfo != null)
                     {
-                        if (ClientSettings.ClientInfo.ApplicationId == 1)
+                        if (ClientSettings.ClientWorkStationInfo.ApplicationId == 1)
                         {
 
                             new zsi.Biometrics.frmTimInOut().Show();
@@ -573,7 +573,8 @@ namespace zsi.PhotoFingCapture
                         btnUpdateClient.Visible = true;
                         btnUpdateClient.Enabled = true;
                         _Client.WorkStationId = WorkStationId;
-                        new dcClient().UpdateLocalClientInfo(_Client);
+                        ClientWorkStation info = new dcClientWorkStation().GetClientInfo(_Client.ClientId,_Client.WorkStationId);
+                        new dcClientWorkStation().UpdateLocalClientInfo(info);
                     }
                 }
 

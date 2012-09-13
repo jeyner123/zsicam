@@ -109,19 +109,16 @@ namespace zsi.Biometrics
 
 
                     dcTimeInOutLog dc = new dcTimeInOutLog();
-                    bool IsTimeIn;
-                    dc.TimeInOut(info, DateTime.Now, out IsTimeIn);
-                    if (IsTimeIn == true)
-                    {
-                        lblActualTimeIn.Text = DateTime.Now.ToShortTimeString();
-                        lblActualTimeOut.Text = "00:00:00";
-                    }
-                    else
-                    {
-                        lblActualTimeOut.Text = DateTime.Now.ToShortTimeString();
-                        lblActualTimeIn.Text = "00:00:00";
-                    }
+                   DateTime TimeIn; DateTime TimeOut;
+                    dc.TimeInOut(info, DateTime.Now,out TimeIn,out TimeOut);
+  
+                        lblActualTimeIn.Text = TimeIn.ToShortTimeString();
 
+                        if (TimeOut == new DateTime(1, 1, 1))
+                            lblActualTimeOut.Text = "00:00";
+                        else
+                            lblActualTimeOut.Text = TimeOut.ToShortTimeString();
+  
                 }));
 
                
