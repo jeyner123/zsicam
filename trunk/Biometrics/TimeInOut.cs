@@ -141,7 +141,7 @@ namespace zsi.Biometrics
 
         private void frmTimInOut_Load(object sender, EventArgs e)
         {
-
+            pbCompanyLogo.Image = zsi.PhotoFingCapture.Util.ByteArrayToImage(ClientSettings.ClientWorkStationInfo.CompanyLogo);
         }
 
      

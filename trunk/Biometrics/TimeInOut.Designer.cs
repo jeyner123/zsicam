@@ -35,7 +35,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pbFinger = new System.Windows.Forms.PictureBox();
             this.lblPlsWait = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbCompanyLogo = new System.Windows.Forms.PictureBox();
             this.pbProfileImage = new System.Windows.Forms.PictureBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtTime = new System.Windows.Forms.TextBox();
@@ -49,7 +49,7 @@
             this.shapeContainer2 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             lblPrompt = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCompanyLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -60,10 +60,10 @@
             // 
             lblPrompt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(235)))), ((int)(((byte)(226)))));
             lblPrompt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            lblPrompt.Location = new System.Drawing.Point(387, 129);
+            lblPrompt.Location = new System.Drawing.Point(397, 129);
             lblPrompt.Name = "lblPrompt";
             lblPrompt.Padding = new System.Windows.Forms.Padding(5);
-            lblPrompt.Size = new System.Drawing.Size(297, 63);
+            lblPrompt.Size = new System.Drawing.Size(291, 63);
             lblPrompt.TabIndex = 6;
             lblPrompt.Text = "To verify your identity, touch fingerprint reader with any enrolled finger.";
             // 
@@ -81,9 +81,9 @@
             this.rectangleShape1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque;
             this.rectangleShape1.FillColor = System.Drawing.Color.Maroon;
             this.rectangleShape1.FillGradientColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.rectangleShape1.Location = new System.Drawing.Point(386, 6);
+            this.rectangleShape1.Location = new System.Drawing.Point(398, 6);
             this.rectangleShape1.Name = "rectangleShape1";
-            this.rectangleShape1.Size = new System.Drawing.Size(296, 116);
+            this.rectangleShape1.Size = new System.Drawing.Size(289, 116);
             // 
             // timer1
             // 
@@ -110,14 +110,14 @@
             this.lblPlsWait.Text = "Verifying... Pls. wait.";
             this.lblPlsWait.Visible = false;
             // 
-            // pictureBox1
+            // pbCompanyLogo
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Location = new System.Drawing.Point(698, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(198, 187);
-            this.pictureBox1.TabIndex = 34;
-            this.pictureBox1.TabStop = false;
+            this.pbCompanyLogo.BackColor = System.Drawing.SystemColors.Window;
+            this.pbCompanyLogo.Location = new System.Drawing.Point(698, 5);
+            this.pbCompanyLogo.Name = "pbCompanyLogo";
+            this.pbCompanyLogo.Size = new System.Drawing.Size(198, 187);
+            this.pbCompanyLogo.TabIndex = 34;
+            this.pbCompanyLogo.TabStop = false;
             // 
             // pbProfileImage
             // 
@@ -147,9 +147,9 @@
             this.txtTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTime.ForeColor = System.Drawing.Color.White;
-            this.txtTime.Location = new System.Drawing.Point(387, 25);
+            this.txtTime.Location = new System.Drawing.Point(399, 26);
             this.txtTime.Name = "txtTime";
-            this.txtTime.Size = new System.Drawing.Size(296, 53);
+            this.txtTime.Size = new System.Drawing.Size(287, 53);
             this.txtTime.TabIndex = 46;
             this.txtTime.Text = "8:30:01 AM";
             this.txtTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -160,9 +160,9 @@
             this.txtDay.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDay.ForeColor = System.Drawing.Color.White;
-            this.txtDay.Location = new System.Drawing.Point(386, 85);
+            this.txtDay.Location = new System.Drawing.Point(400, 85);
             this.txtDay.Name = "txtDay";
-            this.txtDay.Size = new System.Drawing.Size(296, 19);
+            this.txtDay.Size = new System.Drawing.Size(284, 19);
             this.txtDay.TabIndex = 47;
             this.txtDay.Text = "January Wednesday, 01/11/2012";
             this.txtDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -232,7 +232,7 @@
             this.pnlMain.Controls.Add(this.pbProfileImage);
             this.pnlMain.Controls.Add(this.pbFinger);
             this.pnlMain.Controls.Add(this.lblPlsWait);
-            this.pnlMain.Controls.Add(this.pictureBox1);
+            this.pnlMain.Controls.Add(this.pbCompanyLogo);
             this.pnlMain.Controls.Add(this.shapeContainer2);
             this.pnlMain.Location = new System.Drawing.Point(12, 12);
             this.pnlMain.Name = "pnlMain";
@@ -270,7 +270,7 @@
             this.Load += new System.EventHandler(this.frmTimInOut_Load);
             this.DoubleClick += new System.EventHandler(this.frmTimInOut_DoubleClick);
             ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCompanyLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -289,7 +289,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pbFinger;
         private System.Windows.Forms.Label lblPlsWait;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbCompanyLogo;
         private System.Windows.Forms.PictureBox pbProfileImage;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtTime;
