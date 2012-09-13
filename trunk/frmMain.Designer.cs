@@ -770,6 +770,7 @@ namespace zsi.PhotoFingCapture
             this.btnUpdateClient.Text = "Update Client";
             this.btnUpdateClient.UseVisualStyleBackColor = true;
             this.btnUpdateClient.Visible = false;
+            this.btnUpdateClient.Click += new System.EventHandler(this.btnUpdateClient_Click);
             // 
             // frmMain
             // 
