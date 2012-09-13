@@ -75,11 +75,11 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         {
             try
             {
-
                 dcClient _dc = new dcClient();
-                SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectClients");
-                p.Parameters.Add("p_ClientId", ClientId);
-                p.Parameters.Add("p_WorkStationId", WorkStationId);
+                SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectClientWorkStations");
+                if (ClientId > 0) p.Parameters.Add("p_ClientId", ClientId);
+                if (WorkStationId > 0)  p.Parameters.Add("p_WorkStationId", WorkStationId);
+                if (WorkStationId == 0) p.Parameters.Add("p_WSMacAddress", Util.GetMacAddress());
                 return _dc.GetInfo(p);
             }
 

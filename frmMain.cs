@@ -593,6 +593,11 @@ namespace zsi.PhotoFingCapture
         private void frmMain_DoubleClick(object sender, EventArgs e)
         {
             new zsi.Biometrics.frmTimInOut().Show();
+        }
+
+        private void btnUpdateClient_Click(object sender, EventArgs e)
+        {
+
         }      
 
         
