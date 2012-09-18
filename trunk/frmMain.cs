@@ -276,11 +276,6 @@ namespace zsi.PhotoFingCapture
             if (!DesignMode)
             {
                 _WebCam = new WebCamService(picture, comboBoxCameras);
-
-               /* dcFingersTemplate _dc = new dcFingersTemplate();
-                ProcessMaster _pm = new ProcessMaster(_dc.FingerTemplatesUpdate);
-                _pm.Start();
-            */
             }
 
 
@@ -505,9 +500,8 @@ namespace zsi.PhotoFingCapture
                 Application.DoEvents();                
             };
             _pm.Start();
-           
- 
         }
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {

@@ -34,10 +34,11 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{p}.*.{p}", "{p}");
             
             this.DBConn = new SqlConnection(_ConnectionString);
-            this.Procedures.Add(new SQLServer.Procedure("dbo.SelectProfileFPT",SQLCommandType.Select));
+  
         }
 
-        private List<FingerTemplate> GetNewFingerData(DateTime CreatedDate) {
+        private List<FingerTemplate> GetNewDataFromServer(DateTime CreatedDate)
+        {
             dcFingersTemplate _dc = new dcFingersTemplate();
             SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectProfileFPT");
             p.Parameters.Add("p_CreatedDate", CreatedDate);
@@ -45,7 +46,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             return _dc.List;
         }
 
-        private List<FingerTemplate> GetUpdatedFingerData(DateTime UpdatedDate)
+        private List<FingerTemplate> GetUpdatedDataFromServer(DateTime UpdatedDate)
         {
             dcFingersTemplate _dc = new dcFingersTemplate();
             SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectProfileFPT");
@@ -76,9 +77,9 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             {
 
 
-                ConsoleApp.WriteLine(Application.ProductName, "Starting migrating finger templates.");
+                ConsoleApp.WriteLine(Application.ProductName, "Start uploading data to server.");
 
-                DateTime _lastUpdatedDate;
+                DateTime _ProfileLastUpdate;
                 dcFTemplate = new dcFingersTemplate2();
                 dcFTemplate.DBConn.Open();
                 OleDbCommand _cmd2 = new OleDbCommand("select * from updatelog", dcFTemplate.DBConn);
@@ -90,21 +91,21 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     this.GetDataSource();
 
                     ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
-                    this.MigrateNewData(this.List);
+                    this.DownloadNewData(this.List);
                    UpdateLastUpdate(); 
 
                     
                 }
                 else {
                     _dr2.Read();
-                    _lastUpdatedDate = Convert.ToDateTime(_dr2[1]);
+                    _ProfileLastUpdate = Convert.ToDateTime(_dr2["ProfileLastUpdate"]);
 
                     ConsoleApp.WriteLine(Application.ProductName, "Get newest created and updated records from the live server");
-                    List<FingerTemplate> _NewList = this.GetNewFingerData(_lastUpdatedDate);
-                    List<FingerTemplate> _UpdatedList = this.GetUpdatedFingerData(_lastUpdatedDate);
+                    List<FingerTemplate> _NewList = this.GetNewDataFromServer(_ProfileLastUpdate);
+                    List<FingerTemplate> _UpdatedList = this.GetUpdatedDataFromServer(_ProfileLastUpdate);
 
-                    this.MigrateNewData(_NewList);
-                    this.MigrateUpdatedData(_UpdatedList);
+                    this.DownloadNewData(_NewList);
+                    this.DownloadUpdatedData(_UpdatedList);
 
                     if (_NewList.Count > 0 || _UpdatedList.Count > 0)
                     {
@@ -129,7 +130,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             }
         }
 
-        private void MigrateNewData(List<FingerTemplate> list) {
+        private void DownloadNewData(List<FingerTemplate> list) {
             try
             {
 
@@ -167,7 +168,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
         }
 
-        private void MigrateUpdatedData(List<FingerTemplate> list)
+        private void DownloadUpdatedData(List<FingerTemplate> list)
         {
             try
             {
@@ -211,13 +212,13 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             if (!_dr.HasRows)
             {
                 _cmd = new OleDbCommand(
-                "Insert Into UpdateLog(LastUpdatedDate) values(?)", dcFTemplate.DBConn, Trans);
+                "Insert Into UpdateLog(ProfileLastUpdate) values(?)", dcFTemplate.DBConn, Trans);
                 _cmd.Parameters.AddWithValue("?", GetDbDate().ToString());
                 _cmd.ExecuteNonQuery();
             }
             else {
                 _cmd = new OleDbCommand(
-                "Update UpdateLog set LastUpdatedDate=?", dcFTemplate.DBConn, Trans);
+                "Update UpdateLog set ProfileLastUpdate=?", dcFTemplate.DBConn, Trans);
                 _cmd.Parameters.AddWithValue("?", GetDbDate().ToString());
                 _cmd.ExecuteNonQuery();            
             }
