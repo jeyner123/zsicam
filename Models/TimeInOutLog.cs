@@ -23,6 +23,7 @@ namespace zsi.PhotoFingCapture.Models
         public DateTime DTRDate { get; set; }
         public int LogTypeId{ get; set; }
         public string LogRemarks{ get; set; }
+        public int WorkStationId { get; set; }
         public DateTime UpdatedDate { get; set; }
         public int UpdatedBy { get; set; }
 
