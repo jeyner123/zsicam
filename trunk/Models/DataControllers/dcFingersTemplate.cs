@@ -34,13 +34,15 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{p}.*.{p}", "{p}");
             
             this.DBConn = new SqlConnection(_ConnectionString);
-  
+            this.Procedures.Add(new SQLServer.Procedure("dbo.SelectProfileFPT", SQLCommandType.Select));
         }
 
         private List<FingerTemplate> GetNewDataFromServer(DateTime CreatedDate)
         {
             dcFingersTemplate _dc = new dcFingersTemplate();
             SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectProfileFPT");
+            p.Parameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+            p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
             p.Parameters.Add("p_CreatedDate", CreatedDate);
             _dc.GetDataSource(p);
             return _dc.List;
@@ -50,6 +52,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         {
             dcFingersTemplate _dc = new dcFingersTemplate();
             SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectProfileFPT");
+            p.Parameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+            p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
             p.Parameters.Add("p_UpdatedDate",UpdatedDate);
             _dc.GetDataSource(p);
             return _dc.List;
@@ -88,8 +92,9 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 Trans = dcFTemplate.DBConn.BeginTransaction();
                 if (_dr2.HasRows == false)
                 {
+                    this.SelectParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+                    this.SelectParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
                     this.GetDataSource();
-
                     ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
                     this.DownloadNewData(this.List);
                    UpdateLastUpdate(); 
@@ -137,8 +142,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (FingerTemplate item in list)
                 {
                         OleDbCommand _cmd2 = new OleDbCommand(
-                        "Insert into FingersData(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg) "
-                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                        "Insert into FingersData(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,ClientEmployeeNo,ShiftId) "
+                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
                         , dcFTemplate.DBConn, Trans);
 
                         var _params =_cmd2.Parameters;
@@ -156,8 +161,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                         SetParameterValue(_params, item.RightSF,OleDbType.VarBinary);
                         SetParameterValue(_params, item.CreatedDate,OleDbType.Date);
                         SetParameterValue(_params, item.UpdatedDate,OleDbType.Date);
-                        SetParameterValue(_params, item.ProfileImg, OleDbType.VarBinary);
-
+                        SetParameterValue(_params, item.ProfileImg, OleDbType.VarBinary);                        
+                        SetParameterValue(_params, item.ClientEmployeeId, OleDbType.Integer);
+                        SetParameterValue(_params, item.ClientEmployeeNo, OleDbType.VarChar);
+                        SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
                         _cmd2.ExecuteNonQuery();
               }           
             }
@@ -175,7 +182,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (FingerTemplate item in list)
                 {
                     OleDbCommand _cmd2 = new OleDbCommand(
-                    "Update FingersData set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?"
+                    "Update FingersData set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?,ClientEmployeeId=?,ClientEmployeeNo=?,ShiftId=?"
                    + " where profileId='" + item.ProfileId + "'"
                     , dcFTemplate.DBConn,Trans);
                     var _params = _cmd2.Parameters;
@@ -193,6 +200,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     SetParameterValue(_params, item.RightSF, OleDbType.VarBinary);
                     SetParameterValue(_params, item.UpdatedDate,OleDbType.Date);
                     SetParameterValue(_params, item.ProfileImg, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.ClientEmployeeId, OleDbType.Integer);
+                    SetParameterValue(_params, item.ClientEmployeeNo, OleDbType.VarChar);
+                    SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
+
                     _cmd2.ExecuteNonQuery();
                 }
             }
@@ -266,7 +277,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     case 0: _Finger = "RightTF"; break;
                     default: break;
                 }
-                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + ",ProfileImg from FingersData", _dc.DBConn);
+                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + ",ProfileImg,ClientEmployeeId,ClientEmployeeNo,ShiftId from FingersData", _dc.DBConn);
                 _dc.DBConn.Open();
                 OleDbDataReader _dr = _cmd.ExecuteReader();
                 bool IsFound =false;
@@ -284,6 +295,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                             _info.ProfileId = Convert.ToInt64(_dr[0]);
                             _info.FullName = Convert.ToString(_dr[1]);
                             _info.FrontImg = (byte[])_dr[3];
+                            _info.ClientEmployeeId = Convert.ToInt32(_dr[4]);
+                            _info.ClientEmployeeNo = Convert.ToString(_dr[5]);
+                            _info.ShiftId = Convert.ToInt32(_dr[6]);
+
                             break;
                         }
                     }

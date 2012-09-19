@@ -14,6 +14,7 @@ namespace zsi.PhotoFingCapture.Models
             this.DataReader = reader;
         }
         #endregion
+        public int WorkStationId { get; set; }
         public int LogInOutId { get; set; }
         public string ProfileId { get; set; }
         public int ClientId { get; set; }
@@ -23,8 +24,8 @@ namespace zsi.PhotoFingCapture.Models
         public DateTime DTRDate { get; set; }
         public int LogTypeId{ get; set; }
         public string LogRemarks{ get; set; }
-        public int WorkStationId { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public DateTime UploadedDate { get; set; }
         public int UpdatedBy { get; set; }
 
         public OleDbDataReader DataReader

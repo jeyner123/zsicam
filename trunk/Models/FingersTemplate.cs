@@ -25,9 +25,9 @@ namespace zsi.PhotoFingCapture.Models
         public byte[] ProfileImg { get; set; }
         public int ClientEmployeeId { get; set; }
         public string ClientEmployeeNo { get; set; }
+        public int ShiftId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        
 
     }
 

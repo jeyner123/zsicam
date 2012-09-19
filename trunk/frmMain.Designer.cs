@@ -69,7 +69,6 @@ namespace zsi.PhotoFingCapture
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
             this.tabSign = new System.Windows.Forms.TabPage();
-            this.signature1 = new zsi.Controls.Signature();
             this.btnUploadSig = new System.Windows.Forms.Button();
             this.btnClearSig = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -91,6 +90,7 @@ namespace zsi.PhotoFingCapture
             this.lUser = new System.Windows.Forms.Label();
             this.btnAbout = new System.Windows.Forms.Button();
             this.btnUpdateClient = new System.Windows.Forms.Button();
+            this.signature1 = new zsi.Controls.Signature();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -551,17 +551,6 @@ namespace zsi.PhotoFingCapture
             this.tabSign.Text = "Signature";
             this.tabSign.UseVisualStyleBackColor = true;
             // 
-            // signature1
-            // 
-            this.signature1.Background = null;
-            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
-            this.signature1.Location = new System.Drawing.Point(145, 110);
-            this.signature1.Name = "signature1";
-            this.signature1.Size = new System.Drawing.Size(307, 116);
-            this.signature1.TabIndex = 3;
-            this.signature1.Text = "signature1";
-            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
-            // 
             // btnUploadSig
             // 
             this.btnUploadSig.Enabled = false;
@@ -664,6 +653,7 @@ namespace zsi.PhotoFingCapture
             // 
             // timer1
             // 
+            this.timer1.Enabled = true;
             this.timer1.Interval = 20000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
@@ -771,6 +761,17 @@ namespace zsi.PhotoFingCapture
             this.btnUpdateClient.UseVisualStyleBackColor = true;
             this.btnUpdateClient.Visible = false;
             this.btnUpdateClient.Click += new System.EventHandler(this.btnUpdateClient_Click);
+            // 
+            // signature1
+            // 
+            this.signature1.Background = null;
+            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
+            this.signature1.Location = new System.Drawing.Point(145, 110);
+            this.signature1.Name = "signature1";
+            this.signature1.Size = new System.Drawing.Size(307, 116);
+            this.signature1.TabIndex = 3;
+            this.signature1.Text = "signature1";
+            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
             // 
             // frmMain
             // 
