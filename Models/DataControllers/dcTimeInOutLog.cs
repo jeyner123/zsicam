@@ -90,10 +90,14 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             //INSERT
             this.OpenDB();
             //System.Windows.Forms.MessageBox.Show("insert");
-            OleDbCommand _cmd = new OleDbCommand("Insert into TimeInOutLog(ProfileId,ClientId,TimeIn,DTRDate) Values(?,?,?,?)", this.DBConn);
+            OleDbCommand _cmd = new OleDbCommand("Insert into TimeInOutLog(ProfileId,ClientId,WorkStationId,ClientEmployeeId,ShiftId,TimeIn,DTRDate) Values(?,?,?,?,?,?,?)", this.DBConn);
             var _params = _cmd.Parameters;
             SetParameterValue(_params, info.ProfileId, OleDbType.VarChar);
             SetParameterValue(_params, ClientSettings.ClientWorkStationInfo.ClientId, OleDbType.VarChar);
+            SetParameterValue(_params, ClientSettings.ClientWorkStationInfo.WorkStationId, OleDbType.VarChar);
+            SetParameterValue(_params, info.ClientEmployeeId, OleDbType.Integer);
+            SetParameterValue(_params, info.ClientEmployeeNo, OleDbType.VarChar);
+            SetParameterValue(_params, info.ShiftId, OleDbType.Integer);
             SetParameterValue(_params, TimeValue, OleDbType.Date);
             SetParameterValue(_params, DtrDate, OleDbType.Date);
             _cmd.ExecuteNonQuery();
@@ -107,13 +111,15 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         private List<TimeInOutLog> GetNewDataFromServer(DateTime CreatedDate)
         {
             Procedure p = new Procedure("dbo.SelectTimeInOutLogs");
-            p.Parameters.Add("p_CreatedDate", CreatedDate); 
+            p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+            p.Parameters.Add("p_UploadedDate", CreatedDate); 
             return this.GetDataSource(p);
         }
 
         private List<TimeInOutLog> GetUpdatedDataFromServer(DateTime UpdatedDate)
         {
             Procedure p = new Procedure("dbo.SelectTimeInOutLogs");
+            p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
             p.Parameters.Add("p_UpdatedDate", UpdatedDate);      
             return this.GetDataSource(p);
         }

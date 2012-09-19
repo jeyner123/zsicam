@@ -123,10 +123,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 string _str = "select isnull((select top 1 wsmacaddress from dbo.ClientWorkStations where wsmacaddress in ({0})),'') as result";
                 string _sql = string.Format(_str, _addresses);
 
-                SqlCommand _SqlCommand = new SqlCommand(_sql, this.SQLDBConn);
-                this.DBConn.Open();
-	           object _scalarVal = _SqlCommand.ExecuteScalar();
-               this.DBConn.Close();
+                SqlCommand _cmd = new SqlCommand(_sql, this.SQLDBConn);
+                this.SQLDBConn.Open();
+                object _scalarVal = _cmd.ExecuteScalar();
+               this.SQLDBConn.Close();
                if (_scalarVal == null ) return ""; else return _scalarVal.ToString();
             }
             catch (Exception ex)

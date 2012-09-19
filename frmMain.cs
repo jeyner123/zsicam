@@ -58,8 +58,7 @@ namespace zsi.PhotoFingCapture
                 info = _info;
                 ClientSettings.ClientWorkStationInfo = info;
             }
- 
-            
+
 
             if (info.ApplicationId == 1) {
                 new zsi.Biometrics.frmTimInOut().Show();            
@@ -242,16 +241,6 @@ namespace zsi.PhotoFingCapture
                     tab.Visible = true;
                     EnableControls(true);
                     btnUpdateClient.Visible = true;
-
-                    if (ClientSettings.ClientWorkStationInfo != null)
-                    {
-                        if (ClientSettings.ClientWorkStationInfo.ApplicationId == 1)
-                        {
-
-                            new zsi.Biometrics.frmTimInOut().Show();
-                        }
-                    }
-
                 }
                 btnLogOut.Enabled = true;
                 btnLogin.Enabled = false;
