@@ -13,7 +13,7 @@ namespace zsi.Biometrics
     {
         private Control Control { get; set; }
  
-        public frmScanFinger(Object sender,FingersData Data,int FingerPosition)
+        public frmScanFinger(Object sender,FingersBiometrics Data,int FingerPosition)
         {
 
             InitializeComponent();

@@ -6,7 +6,7 @@ namespace zsi.Biometrics
 {
 	public delegate void OnChangeHandler();	
 
-	public class FingersData
+	public class FingersBiometrics
     {
         public event OnChangeHandler DataChanged; 		
         public const int MaxFingers = 10;

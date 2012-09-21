@@ -116,7 +116,7 @@
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Biometrics\FingersData.cs" />
+    <Compile Include="Biometrics\FingerBiometrics.cs" />
     <Compile Include="Biometrics\frmScanFinger.cs">
       <SubType>Form</SubType>
     </Compile>

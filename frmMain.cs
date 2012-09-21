@@ -26,7 +26,7 @@ namespace zsi.PhotoFingCapture
 
     public partial class frmMain : Form
     {
-        public FingersData FingersData { get; set; }
+        public FingersBiometrics FingerBiometrics { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
         private WebCamService _WebCam;
         public frmMain()
@@ -66,8 +66,8 @@ namespace zsi.PhotoFingCapture
         }
        
         private void InitFingerPrintSettings(){
-            this.FingersData = new FingersData(); 
-            this.FingersData.DataChanged += new OnChangeHandler(OnFingersDataChange);  
+            this.FingerBiometrics = new FingersBiometrics();
+            this.FingerBiometrics.DataChanged += new OnChangeHandler(OnFingerBiometricsChange);  
             
 
         }
@@ -96,8 +96,9 @@ namespace zsi.PhotoFingCapture
             if (rdbITProfile.Checked != true) _fileName = "case-" + _fileName;
             return _fileName;
         }
-        private void OnFingersDataChange() {
-            int _registeredFingers = CountRegisteredFingers(this.FingersData);
+        private void OnFingerBiometricsChange()
+        {
+            int _registeredFingers = CountRegisteredFingers(this.FingerBiometrics);
             if (_registeredFingers > 0 ) 
             {
              this.Invoke(new Function(delegate{   
@@ -113,9 +114,10 @@ namespace zsi.PhotoFingCapture
             }
         }
 
-        private int CountRegisteredFingers(FingersData data) {
+        private int CountRegisteredFingers(FingersBiometrics fb)
+        {
             int _result=0;
-            foreach(DPFP.Template item in data.Templates)
+            foreach (DPFP.Template item in fb.Templates)
             {
                 if (item != null) _result += 1;
             }
@@ -165,21 +167,22 @@ namespace zsi.PhotoFingCapture
             {
                 btnUploadFG.Text = "Uploading...";
                 btnUploadFG.Enabled = false;
-                DPFP.Template[] tmps = this.FingersData.Templates;
+                DPFP.Template[] tmps = this.FingerBiometrics.Templates;
                 for (int i = 0; i < tmps.Length; i++)
                 {
-                    if(this.FingersData.Templates[i]!=null){
+                    if (this.FingerBiometrics.Templates[i] != null)
+                    {
                         System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();                        
                         byte[] _template = null;
-                        this.FingersData.Templates[i].Serialize(ref _template); 
-                        byte[] _sample = Util.StreamToByte(Util.BmpToStream((Bitmap)this.FingersData.Images[i]));
+                        this.FingerBiometrics.Templates[i].Serialize(ref _template); 
+                        byte[] _sample = Util.StreamToByte(Util.BmpToStream((Bitmap)this.FingerBiometrics.Images[i]));
                         string _ColName = GetTemplateColumnName(i);
                         new dcUserProfileFP().UpdateUserProfileFP(ClientSettings.UserInfo.UserId, _ColName + "F", _template);
                         new dcUserProfileFP().UpdateUserProfileFP(ClientSettings.UserInfo.UserId, _ColName + "S", _sample);
                     }
                 }
                 MessageBox.Show("Finger prints has been uploaded to the server.");
-                ClearFingersData();
+                ClearFingerBiometrics();
             }            
             catch (Exception ex)
             {
@@ -327,7 +330,7 @@ namespace zsi.PhotoFingCapture
             }
             if (result == DialogResult.Cancel) return;
 
-            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingersData, FingerPosition);
+            zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingerBiometrics, FingerPosition);
             scanf.IsAutoClose = chkAutoClose.Checked;
             scanf.ShowDialog();
             return;
@@ -341,7 +344,7 @@ namespace zsi.PhotoFingCapture
             Ctrl.ForeColor =Color.Black;
         }
 
-        private void ClearFingersData(){        
+        private void ClearFingerBiometrics(){        
             ResetColor(btnLSF);
             ResetColor(btnLRF);
             ResetColor(btnLMF);
@@ -352,9 +355,9 @@ namespace zsi.PhotoFingCapture
             ResetColor(btnRMF);
             ResetColor(btnRIF);
             ResetColor(btnRTF);
-            FingersData.Templates = new DPFP.Template[10];
-            FingersData.Samples = new DPFP.Sample[10];
-            FingersData.Images= new Image[10];
+            FingerBiometrics.Templates = new DPFP.Template[10];
+            FingerBiometrics.Samples = new DPFP.Sample[10];
+            FingerBiometrics.Images = new Image[10];
 
         }
 
