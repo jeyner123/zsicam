@@ -142,7 +142,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (FingerTemplate item in list)
                 {
                         OleDbCommand _cmd2 = new OleDbCommand(
-                        "Insert into FingersData(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,ClientEmployeeNo,ShiftId) "
+                        "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,ClientEmployeeNo,ShiftId) "
                         + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
                         , dcFTemplate.DBConn, Trans);
 
@@ -182,7 +182,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (FingerTemplate item in list)
                 {
                     OleDbCommand _cmd2 = new OleDbCommand(
-                    "Update FingersData set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?,ClientEmployeeId=?,ClientEmployeeNo=?,ShiftId=?"
+                    "Update Profiles set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?,ClientEmployeeId=?,ClientEmployeeNo=?,ShiftId=?"
                    + " where profileId='" + item.ProfileId + "'"
                     , dcFTemplate.DBConn,Trans);
                     var _params = _cmd2.Parameters;
@@ -277,7 +277,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     case 0: _Finger = "RightTF"; break;
                     default: break;
                 }
-                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + ",ProfileImg,ClientEmployeeId,ClientEmployeeNo,ShiftId from FingersData", _dc.DBConn);
+                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + ",ProfileImg,ClientEmployeeId,ClientEmployeeNo,ShiftId from Profiles", _dc.DBConn);
                 _dc.DBConn.Open();
                 OleDbDataReader _dr = _cmd.ExecuteReader();
                 bool IsFound =false;

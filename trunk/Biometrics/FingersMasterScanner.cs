@@ -39,7 +39,7 @@ namespace zsi.Biometrics
         public DPFP.Sample Sample{get;set;}
         public bool IsAutoClose { get; set; }
         public int FingerPosition { get; set; }
-        public FingersData Data { get; set; }
+        public FingersBiometrics Data { get; set; }
         public bool IsComplete { get; set; } 
         public string ReaderSerialNumber{get;set;}
 
