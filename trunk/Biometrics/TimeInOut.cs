@@ -29,7 +29,7 @@ namespace zsi.Biometrics
             txtDay.Text = DateTime.Now.ToLongDateString();
             var clientid = 0;
             //var url = "http://localhost:5445/ads?p_clientid=" + clientid;
-            var url = "http://zprofile.info/ads?p_clientid=" + clientid;
+            var url = "http://zprofile.info/ads?p_clientid=" + ClientSettings.ClientWorkStationInfo.ClientId;
             webBrowser1.Navigate(new Uri(url));
             int sceenwidth = Screen.PrimaryScreen.WorkingArea.Width;
             int sceenheight = Screen.PrimaryScreen.WorkingArea.Height;
@@ -64,7 +64,7 @@ namespace zsi.Biometrics
                     }));
 
 
-                    Profile info = zsi.PhotoFingCapture.Models.DataControllers.dcFingersTemplate.VerifyBiometricsData(0, _byte);
+                    Profile info = zsi.PhotoFingCapture.Models.DataControllers.dcProfile_SQL.VerifyBiometricsData(0, _byte);
 
                     //WaitStop
                     this.Invoke(new Function(delegate()
@@ -108,7 +108,7 @@ namespace zsi.Biometrics
                     txtName.Text = "(" + info.ProfileId + ") - " + info.FullName;
 
 
-                    dcTimeInOutLog dc = new dcTimeInOutLog();
+                   dcTimeInOutLog_SQL dc = new dcTimeInOutLog_SQL();
                    DateTime TimeIn; DateTime TimeOut;
                     dc.TimeInOut(info, DateTime.Now,out TimeIn,out TimeOut);
   

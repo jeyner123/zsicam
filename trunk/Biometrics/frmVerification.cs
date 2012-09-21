@@ -45,7 +45,7 @@ namespace zsi.Biometrics
                     }));
 
 
-                    Profile info = zsi.PhotoFingCapture.Models.DataControllers.dcFingersTemplate.VerifyBiometricsData(GetFingNo(), _byte);
+                    Profile info = zsi.PhotoFingCapture.Models.DataControllers.dcProfile_SQL.VerifyBiometricsData(GetFingNo(), _byte);
 
                     //WaitStop
                     this.Invoke(new Function(delegate()

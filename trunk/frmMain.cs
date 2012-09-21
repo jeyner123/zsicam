@@ -50,13 +50,16 @@ namespace zsi.PhotoFingCapture
             
             ClientWorkStation info = new dcClientWorkStation().GetLocalClientInfo();
             ClientSettings.ClientWorkStationInfo = info;
-            ClientWorkStation _info = new dcClientWorkStation().GetClientInfo(info.ClientId, info.WorkStationId);
-            if (_info.WorkStationId > 0 && _info.ClientId > 0)
+            if (Util.IsOnline)//get online data
             {
-                new dcClientWorkStation().UpdateLocalClientInfo(_info);
-                //replace new value
-                info = _info;
-                ClientSettings.ClientWorkStationInfo = info;
+                ClientWorkStation _info = new dcClientWorkStation().GetClientInfo(info.ClientId, info.WorkStationId);
+                if (_info.WorkStationId > 0 && _info.ClientId > 0)
+                {
+                    new dcClientWorkStation().UpdateLocalClientInfo(_info);
+                    //replace new value
+                    info = _info;
+                    ClientSettings.ClientWorkStationInfo = info;
+                }
             }
 
 
@@ -481,7 +484,7 @@ namespace zsi.PhotoFingCapture
 
             ssStatus1.Text = "Updating Fingers Templates...";
             Application.DoEvents();
-            dcFingersTemplate _dc = new dcFingersTemplate();
+            dcProfile_SQL _dc = new dcProfile_SQL();
             ProcessMaster _pm = new ProcessMaster(_dc.FingerTemplatesUpdate);
             _pm.OnProcessStop = delegate()
             {

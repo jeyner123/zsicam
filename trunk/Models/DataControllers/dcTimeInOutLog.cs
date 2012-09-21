@@ -13,7 +13,7 @@ using zsi.Framework.Common;
 namespace zsi.PhotoFingCapture.Models.DataControllers
 {
 
-    public class dcTimeInOutLog2 : zsi.Framework.Data.DataProvider.OleDb.MasterDataController<TimeInOutLog>
+    public class dcTimeInOutLog_OleDb : zsi.Framework.Data.DataProvider.OleDb.MasterDataController<TimeInOutLog>
     {
         public SqlConnection SQLDBConn { get; set; }
         public override void InitDataController()
@@ -28,9 +28,9 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         }
 
 
-    } 
+    }
 
-    public class dcTimeInOutLog : MasterDataController<TimeInOutLog>
+    public class dcTimeInOutLog_SQL : MasterDataController<TimeInOutLog>
     {
         private OleDbTransaction Trans { get; set; }
         public override void InitDataController()
@@ -129,7 +129,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
             foreach (TimeInOutLog info in list)
             {
-                dcTimeInOutLog2 dc = new dcTimeInOutLog2();
+                dcTimeInOutLog_OleDb dc = new dcTimeInOutLog_OleDb();
                 dc.UpdateParameters.Add("p_ClientId", info.ClientId);
                 dc.UpdateParameters.Add("p_LogInOutId", info.LogInOutId);
                 dc.UpdateParameters.Add("p_ClientId", info.ClientId);
@@ -153,7 +153,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             try
             {
 
-
+                if (Util.IsOnline == false) return;
                 ConsoleApp.WriteLine(Application.ProductName, "Start uploading data to server.");
 
                 DateTime _LastUpdate;
@@ -165,7 +165,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 if (_dr2.HasRows == false)
                 {
                     ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
-                    dcTimeInOutLog2 dc = new dcTimeInOutLog2();
+                    dcTimeInOutLog_OleDb dc = new dcTimeInOutLog_OleDb();
                      List<TimeInOutLog> list = dc.GetDataSource();
                      this.DownloadNewData(list);
                     UpdateLastUpdate();
