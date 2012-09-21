@@ -5,10 +5,10 @@ using System.Text;
 
 namespace zsi.PhotoFingCapture.Models
 {
-    public class FingerTemplate
+    public class FingerTemplatex
     {
         #region "Constructor"
-        public FingerTemplate() { }
+        public FingerTemplatex() { }
         #endregion
         public Int64 ProfileId { get; set; }
         public String FullName { get; set; }
@@ -22,7 +22,7 @@ namespace zsi.PhotoFingCapture.Models
         public byte[] RightMF { get; set; }
         public byte[] RightRF { get; set; }
         public byte[] RightSF { get; set; }
-        public byte[] ProfileImg { get; set; }
+        public byte[] FrontImg { get; set; }
         public int ClientEmployeeId { get; set; }
         public string ClientEmployeeNo { get; set; }
         public int ShiftId { get; set; }

@@ -248,6 +248,24 @@ namespace zsi.PhotoFingCapture
         }
 
 
+        public static Boolean IsOnline
+        {
+            get
+            {
+                try
+                {
+                    var ping = new System.Net.NetworkInformation.Ping();
+                    var result = ping.Send("www.google.com");
+                    if (result.Status == System.Net.NetworkInformation.IPStatus.Success)
+                        return true;
+                    else
+                        return false;
+                }
+                catch { return false; }
+            }
+        }
+
+
     }
 
     public class About {
@@ -330,7 +348,8 @@ namespace zsi.PhotoFingCapture
             }
         }
         #endregion
-       
+
+      
     }
 
 }

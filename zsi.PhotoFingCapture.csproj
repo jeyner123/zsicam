@@ -160,8 +160,6 @@
     <Compile Include="Models\DataControllers\dcUserProfileImages.cs" />
     <Compile Include="Models\UserProfileImages.cs" />
     <Compile Include="Models\DataControllers\dcProfile.cs" />
-    <Compile Include="Models\DataControllers\dcFingersTemplate.cs" />
-    <Compile Include="Models\DataControllers\dcFingersTemplate2.cs" />
     <Compile Include="Models\DataControllers\dcPlaces.cs" />
     <Compile Include="Models\DataControllers\dcClientWorkStation.cs" />
     <Compile Include="Models\DataControllers\dcUser.cs" />

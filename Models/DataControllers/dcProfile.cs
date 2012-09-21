@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using OleDb = zsi.Framework.Data.DataProvider.OleDb;
+using OleDb =zsi.Framework.Data.DataProvider.OleDb;
 using SQLServer = zsi.Framework.Data.DataProvider.SQLServer;
 using zsi.Framework.Data;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.OleDb;
 using System.Windows.Forms;
 using zsi.PhotoFingCapture.Models;
 using System.IO;
@@ -15,31 +16,371 @@ using zsi.Framework.Common;
 using System.Collections.ObjectModel;
 namespace zsi.PhotoFingCapture.Models.DataControllers
 {
-    public class dcProfile : SQLServer.MasterDataController<Profile>
-    {
 
+
+    public class dcProfile_OleDb : OleDb.MasterDataController<Profile>
+    {
+        public override void InitDataController()
+        {
+            string _ConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.AccessDBConnection;
+            _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{p}.*.{p}", "{p}");
+            this.DBConn = new OleDbConnection(_ConnectionString);
+        }
+
+    }
+
+    public class dcProfile_SQL : SQLServer.MasterDataController<Profile>
+    {
+        private dcProfile_OleDb _dcProfile_OleDb { get; set; }
+        private OleDbTransaction Trans { get; set; }
+        public  _CallBackFunction CallBackFunction {get;set;}
+        public delegate void _CallBackFunction();
+       
+        public void RunTest(){
+            CallBackFunction();
+
+        }
         public override void InitDataController()
         {
             string _ConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.LiveSQLServerConnection;
             _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{u}.*.{u}", "{u}");
             _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{p}.*.{p}", "{p}");
-
+            
             this.DBConn = new SqlConnection(_ConnectionString);
-            //this.Procedures.Add(new SQLServer.Procedure("dbo.SelectProfiles", SQLCommandType.Select));
-            this.Procedures.Add(new SQLServer.Procedure("dbo.SelectProfileInfo", SQLCommandType.GetSingleInfo));
+            this.Procedures.Add(new SQLServer.Procedure("dbo.SelectProfileFPT", SQLCommandType.Select));
         }
 
-        public byte[] GetFrontImageByProfileId(Int64 p_ProfileId) {
+
+        private List<Profile> GetNewDataFromServer(DateTime CreatedDate)
+        {
+            dcProfile_SQL _dc = new dcProfile_SQL();
+            SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectProfileFPT");
+            p.Parameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+            p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+            p.Parameters.Add("p_CreatedDate", CreatedDate);
+            _dc.GetDataSource(p);
+            return _dc.List;
+        }
+
+        private List<Profile> GetUpdatedDataFromServer(DateTime UpdatedDate)
+        {
+            dcProfile_SQL _dc = new dcProfile_SQL();
+            SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectProfileFPT");
+            p.Parameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+            p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+            p.Parameters.Add("p_UpdatedDate",UpdatedDate);
+            _dc.GetDataSource(p);
+            return _dc.List;
+        }
+
+        private DateTime GetDbDate() {
+            try
+            {
+                DateTime _resultDate = DateTime.Now;
+                SqlCommand _cmd = new SqlCommand("dbo.SelectDBDate", this.DBConn);
+                _cmd.CommandType = CommandType.StoredProcedure;
+                this.DBConn.Open();
+                SqlDataReader _dr = _cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                _dr.Read();
+                _resultDate = (DateTime)_dr[0];
+                this.DBConn.Close();
+                return _resultDate;
+            }
+            catch (Exception e) { throw e; }
+        }
+
+        public void FingerTemplatesUpdate()
+        {
+            try
+            {
+                if (Util.IsOnline==false )return;
+                ConsoleApp.WriteLine(Application.ProductName, "Start uploading data to server.");
+
+                DateTime _ProfileLastUpdate;
+                _dcProfile_OleDb = new dcProfile_OleDb();
+                _dcProfile_OleDb.DBConn.Open();
+                OleDbCommand _cmd2 = new OleDbCommand("select * from updatelog", _dcProfile_OleDb.DBConn);
+                OleDbDataReader _dr2 = _cmd2.ExecuteReader(CommandBehavior.CloseConnection);
+
+                Trans = _dcProfile_OleDb.DBConn.BeginTransaction();
+                if (_dr2.HasRows == false)
+                {
+                    this.SelectParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+                    this.SelectParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+                    this.GetDataSource();
+                    ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
+                    this.DownloadNewData(this.List);
+                   UpdateLastUpdate(); 
+
+                    
+                }
+                else {
+                    _dr2.Read();
+                    _ProfileLastUpdate = Convert.ToDateTime(_dr2["ProfileLastUpdate"]);
+
+                    ConsoleApp.WriteLine(Application.ProductName, "Get newest created and updated records from the live server");
+                    List<Profile> _NewList = this.GetNewDataFromServer(_ProfileLastUpdate);
+                    List<Profile> _UpdatedList = this.GetUpdatedDataFromServer(_ProfileLastUpdate);
+
+                    this.DownloadNewData(_NewList);
+                    this.DownloadUpdatedData(_UpdatedList);
+
+                    if (_NewList.Count > 0 || _UpdatedList.Count > 0)
+                    {
+                        UpdateLastUpdate();
+                    }
+
+                }
+                Trans.Commit();
+                _dcProfile_OleDb.DBConn.Close();
+                ConsoleApp.WriteLine(Application.ProductName, "Migrating finger templates has been done.");
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    Trans.Rollback();
+                }
+                catch{}
+                ConsoleApp.WriteLine(Application.ProductName, "[Error],"  + ex.ToString());
+                zsi.PhotoFingCapture.Util.LogError(ex.ToString());
+            }
+        }
+
+        private void DownloadNewData(List<Profile> list)
+        {
+            try
+            {
+
+                foreach (Profile item in list)
+                {
+                        OleDbCommand _cmd2 = new OleDbCommand(
+                        "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,ClientEmployeeNo,ShiftId) "
+                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                        , _dcProfile_OleDb.DBConn, Trans);
+
+                        var _params =_cmd2.Parameters;
+                        SetParameterValue(_params, item.ProfileId,OleDbType.VarChar);
+                        SetParameterValue(_params, item.FullName,OleDbType.VarChar);
+                        SetParameterValue(_params, item.LeftTF,OleDbType.VarBinary);
+                        SetParameterValue(_params, item.LeftIF,OleDbType.VarBinary);
+                        SetParameterValue(_params, item.LeftMF,OleDbType.VarBinary);
+                        SetParameterValue(_params, item.LeftRF,OleDbType.VarBinary);
+                        SetParameterValue(_params, item.LeftSF,OleDbType.VarBinary);
+                        SetParameterValue(_params, item.RightTF,OleDbType.VarBinary);
+                        SetParameterValue(_params, item.RightIF,OleDbType.VarBinary);
+                        SetParameterValue(_params, item.RightMF,OleDbType.VarBinary);
+                        SetParameterValue(_params, item.RightRF,OleDbType.VarBinary);
+                        SetParameterValue(_params, item.RightSF,OleDbType.VarBinary);
+                        SetParameterValue(_params, item.CreatedDate,OleDbType.Date);
+                        SetParameterValue(_params, item.UpdatedDate,OleDbType.Date);
+                        SetParameterValue(_params, item.FrontImg, OleDbType.VarBinary);                        
+                        SetParameterValue(_params, item.ClientEmployeeId, OleDbType.Integer);
+                        SetParameterValue(_params, item.ClientEmployeeNo, OleDbType.VarChar);
+                        SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
+                        _cmd2.ExecuteNonQuery();
+              }           
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        private void DownloadUpdatedData(List<Profile> list)
+        {
+            try
+            {
+                foreach (Profile item in list)
+                {
+                    OleDbCommand _cmd2 = new OleDbCommand(
+                    "Update Profiles set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?,ClientEmployeeId=?,ClientEmployeeNo=?,ShiftId=?"
+                   + " where profileId='" + item.ProfileId + "'"
+                    , _dcProfile_OleDb.DBConn, Trans);
+                    var _params = _cmd2.Parameters;
+
+
+                    SetParameterValue(_params, item.LeftTF, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.LeftIF, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.LeftMF, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.LeftRF, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.LeftSF, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.RightTF, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.RightIF, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.RightMF, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.RightRF, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.RightSF, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.UpdatedDate,OleDbType.Date);
+                    SetParameterValue(_params, item.FrontImg, OleDbType.VarBinary);
+                    SetParameterValue(_params, item.ClientEmployeeId, OleDbType.Integer);
+                    SetParameterValue(_params, item.ClientEmployeeNo, OleDbType.VarChar);
+                    SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
+
+                    _cmd2.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        private void UpdateLastUpdate(){
+
+            dcProfile_OleDb _dc = new dcProfile_OleDb();
+            OleDbCommand _cmd = new OleDbCommand("select * from updatelog", _dc.DBConn);
+            _dc.DBConn.Open();
+            OleDbDataReader _dr = _cmd.ExecuteReader();
+            if (!_dr.HasRows)
+            {
+                _cmd = new OleDbCommand(
+                "Insert Into UpdateLog(ProfileLastUpdate) values(?)", _dcProfile_OleDb.DBConn, Trans);
+                _cmd.Parameters.AddWithValue("?", GetDbDate().ToString());
+                _cmd.ExecuteNonQuery();
+            }
+            else {
+                _cmd = new OleDbCommand(
+                "Update UpdateLog set ProfileLastUpdate=?", _dcProfile_OleDb.DBConn, Trans);
+                _cmd.Parameters.AddWithValue("?", GetDbDate().ToString());
+                _cmd.ExecuteNonQuery();            
+            }
+            _dc.DBConn.Close();   
+        }
+ 
+        void SetParameterValue(OleDbParameterCollection Params, object value,OleDbType type)
+        {
+            if (value != null)
+            {
+                Params.Add("?", type).Value=value;
+            }
+            else {
+                Params.AddWithValue("?",DBNull.Value);            
+            }
+
+        }
+
+
+        public static Profile VerifyBiometricsData(int FingNo, byte[] data)
+        {
+            try
+            {
+                string _result = string.Empty;
+                string _Finger = string.Empty;
+                Profile _info = new Profile();
+                dcProfile_OleDb _dc = new dcProfile_OleDb();
+                DPFP.Template _template = null;
+                Stream _msSample = new MemoryStream(data);
+                DPFP.Sample _sample = new DPFP.Sample();
+                //deserialize
+                _sample.DeSerialize(_msSample);
+                // _list = _dc.GetDataSource();
+                switch (FingNo)
+                {
+                    case 9: _Finger = "LeftSF"; break;
+                    case 8: _Finger = "LeftRF"; break;
+                    case 7: _Finger = "LeftMF"; break;
+                    case 6: _Finger = "LeftIF"; break;
+                    case 5: _Finger = "LeftTF"; break;
+                    case 4: _Finger = "RightSF"; break;
+                    case 3: _Finger = "RightRF"; break;
+                    case 2: _Finger = "RightMF"; break;
+                    case 1: _Finger = "RightIF"; break;
+                    case 0: _Finger = "RightTF"; break;
+                    default: break;
+                }
+                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + ",ProfileImg,ClientEmployeeId,ClientEmployeeNo,ShiftId from Profiles", _dc.DBConn);
+                _dc.DBConn.Open();
+                OleDbDataReader _dr = _cmd.ExecuteReader();
+                bool IsFound =false;
+                if (_dr.HasRows)
+                {
+                    while (_dr.Read())
+                    {
+                        if (_dr[2] != DBNull.Value)
+                        {
+                            _template = ProcessDBTemplate((byte[])_dr[2]);
+                            IsFound = Verify(_sample, _template);
+                        }
+                        if (IsFound == true)
+                        {
+                            _info.ProfileId = Convert.ToInt64(_dr[0]);
+                            _info.FullName = Convert.ToString(_dr[1]);
+                            _info.FrontImg = (byte[])_dr[3];
+                            _info.ClientEmployeeId = Convert.ToInt32(_dr[4]);
+                            _info.ClientEmployeeNo = Convert.ToString(_dr[5]);
+                            _info.ShiftId = Convert.ToInt32(_dr[6]);
+
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    _info.ProfileId = 0;
+                    _info.FullName = "";
+                }
+                return _info;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        private static bool Verify(DPFP.Sample _sample, DPFP.Template _template)
+        {
+            try
+            {
+                bool _result = false;
+                DPFP.Verification.Verification Verificator = new DPFP.Verification.Verification();
+                DPFP.FeatureSet features = zsi.Biometrics.Util.ExtractFeatures(_sample, DPFP.Processing.DataPurpose.Verification);
+
+                // Check quality of the sample and start verification if it's good
+                // TODO: move to a separate task
+                if (features != null)
+                {
+                    // Compare the feature set with our template
+                    DPFP.Verification.Verification.Result result = new DPFP.Verification.Verification.Result();
+                    Verificator.Verify(features, _template, ref result);
+
+                    if (result.Verified)
+                        _result = true;
+                    else
+                        _result = false;
+
+                }
+                return _result;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        private static DPFP.Template ProcessDBTemplate(byte[] _data)
+        {
+            DPFP.Template _template = null;
+            Stream _ms = new MemoryStream(_data);
+            _template = new DPFP.Template();
+            //deserialize
+            _template.DeSerialize(_ms);
+            return _template;
+        }
+
+        /*
+        public byte[] GetFrontImageByProfileId(Int64 p_ProfileId)
+        {
             Profile p = new Profile();
-            dcProfile _dc = new dcProfile();
             SQLServer.Procedure _proc = new SQLServer.Procedure("dbo.SelectProfileImage");
-            _proc.Parameters.Add("p_ProfileId", p_ProfileId);
-            p = _dc.GetInfo(_proc);
+            this.SelectInfoParameters.Add("p_ProfileId", p_ProfileId);
+            p = this.GetInfo(_proc);
             return p.FrontImg;
         }
-
-       
-
+        */
 
     }
 }
