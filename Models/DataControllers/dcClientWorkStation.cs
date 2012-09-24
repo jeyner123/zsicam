@@ -70,13 +70,18 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         {
             try
             {
+                List<ClientWorkStation> result = new List<ClientWorkStation>();
                 dcClientWorkStation2 dc = new dcClientWorkStation2();
                 zsi.Framework.Data.DataProvider.SQLServer.Procedure proc = new zsi.Framework.Data.DataProvider.SQLServer.Procedure("dbo.SelectClientWorkStations");
                 var p = proc.Parameters;                
                 if (ClientId > 0) p.Add("p_ClientId", ClientId);
                 if (WorkStationId > 0) p.Add("p_WorkStationId", WorkStationId);
                 if (WorkStationId == 0) p.Add("p_WSMacAddress", Util.GetMacAddress());
-                return dc.GetDataSource(proc)[0];
+                    result = dc.GetDataSource(proc);
+                    if (result.Count > 1)
+                        return dc.GetDataSource(proc)[0];
+                    else
+                        return new ClientWorkStation();
             }
 
             catch (SqlException ex)
@@ -93,7 +98,6 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         public int UpdateWorkStation(int ClientId){
             try
             {
-
                 dcClientWorkStation2 dc = new dcClientWorkStation2();
                 zsi.Framework.Data.DataProvider.SQLServer.Procedure proc = new zsi.Framework.Data.DataProvider.SQLServer.Procedure("dbo.UpdateClientWorkStation");
                 var p = proc.Parameters;  
@@ -102,9 +106,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 p.Add("p_ClientId", ClientId);
                 p.Add("p_CreatedUpdatedBy", ClientSettings.UserInfo.UserId);
                 p.Add("p_WorkStationId",null,SqlDbType.Int,ParameterDirection.InputOutput);
-
-                dc.Update();
-
+                dc.Update(proc);
                 int _WorkStationId = Convert.ToInt32( p.GetItem("p_WorkStationId").Value);
 
                 return _WorkStationId;
