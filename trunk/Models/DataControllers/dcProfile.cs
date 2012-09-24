@@ -263,6 +263,59 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         }
 
 
+        public static Profile VerifyBiometricsData(byte[] data)
+        {
+            try
+            {
+                string _result = string.Empty;
+                string _Finger = string.Empty;
+                Profile _info = new Profile();
+                dcProfile_OleDb _dc = new dcProfile_OleDb();
+                DPFP.Template _template = null;
+                Stream _msSample = new MemoryStream(data);
+                DPFP.Sample _sample = new DPFP.Sample();
+                //deserialize
+                _sample.DeSerialize(_msSample);
+                OleDbCommand _cmd = new OleDbCommand("select * from Profiles", _dc.DBConn);
+                _dc.DBConn.Open();
+                OleDbDataReader _dr = _cmd.ExecuteReader();
+                bool IsFound = false;
+                if (_dr.HasRows)
+                {
+                    while (_dr.Read())
+                    {
+                        if (_dr[2] != DBNull.Value)
+                        {
+                            IsFound = Verify(_dr, _sample);
+                        }
+                        if (IsFound == true)
+                        {
+                            _info.ProfileId = Convert.ToInt64(_dr["ProfileId"]);
+                            _info.FullName = Convert.ToString(_dr["FullName"]);
+                            _info.FrontImg = (byte[])_dr["ProfileImg"];
+                            _info.ClientEmployeeId = Convert.ToInt32(_dr["ClientEmployeeId"]);
+                            _info.ClientEmployeeNo = Convert.ToString(_dr["ClientEmployeeNo"]);
+                            _info.ShiftId = Convert.ToInt32(_dr["ShiftId"]);
+
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    _info.ProfileId = 0;
+                    _info.FullName = "";
+                }
+                return _info;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
         public static Profile VerifyBiometricsData(int FingNo, byte[] data)
         {
             try
@@ -330,6 +383,83 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 throw ex;
             }
         }
+
+
+        private static bool Verify(OleDbDataReader dr, DPFP.Sample sample)
+        {
+            try
+            {
+                DPFP.Template _template=null;
+
+                //right fingers
+                if (dr["RightTF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["RightTF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["RightIF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["RightIF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["RightMF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["RightMF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+
+                if (dr["RightRF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["RightRF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["RightSF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["RightSF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+
+                
+                //left fingers
+                if (dr["LeftTF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["LeftTF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["LeftIF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["LeftIF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["LeftMF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["LeftMF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["LeftRF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["LeftRF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["LeftSF"] != DBNull.Value) 
+                {
+                    _template = ProcessDBTemplate((byte[])dr["LeftSF"]);
+                    if(Verify(sample, _template)) goto Found;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+        Found: 
+            return true;
+
+        }
+
 
         private static bool Verify(DPFP.Sample _sample, DPFP.Template _template)
         {
