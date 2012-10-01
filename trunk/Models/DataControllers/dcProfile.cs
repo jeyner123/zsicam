@@ -156,7 +156,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (Profile item in list)
                 {
                         OleDbCommand _cmd2 = new OleDbCommand(
-                        "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,ClientEmployeeNo,ShiftId) "
+                        "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,EmployeeNo,ShiftId) "
                         + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
                         , _dcProfile_OleDb.DBConn, Trans);
 
@@ -177,7 +177,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                         SetParameterValue(_params, item.UpdatedDate,OleDbType.Date);
                         SetParameterValue(_params, item.FrontImg, OleDbType.VarBinary);                        
                         SetParameterValue(_params, item.ClientEmployeeId, OleDbType.Integer);
-                        SetParameterValue(_params, item.ClientEmployeeNo, OleDbType.VarChar);
+                        SetParameterValue(_params, item.EmployeeNo, OleDbType.VarChar);
                         SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
                         _cmd2.ExecuteNonQuery();
               }           
@@ -196,7 +196,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (Profile item in list)
                 {
                     OleDbCommand _cmd2 = new OleDbCommand(
-                    "Update Profiles set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?,ClientEmployeeId=?,ClientEmployeeNo=?,ShiftId=?"
+                    "Update Profiles set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?,ClientEmployeeId=?,EmployeeNo=?,ShiftId=?"
                    + " where profileId='" + item.ProfileId + "'"
                     , _dcProfile_OleDb.DBConn, Trans);
                     var _params = _cmd2.Parameters;
@@ -215,7 +215,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     SetParameterValue(_params, item.UpdatedDate,OleDbType.Date);
                     SetParameterValue(_params, item.FrontImg, OleDbType.VarBinary);
                     SetParameterValue(_params, item.ClientEmployeeId, OleDbType.Integer);
-                    SetParameterValue(_params, item.ClientEmployeeNo, OleDbType.VarChar);
+                    SetParameterValue(_params, item.EmployeeNo, OleDbType.VarChar);
                     SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
 
                     _cmd2.ExecuteNonQuery();
@@ -294,7 +294,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                             _info.FullName = Convert.ToString(_dr["FullName"]);
                             _info.FrontImg = (byte[])_dr["ProfileImg"];
                              _info.ClientEmployeeId = Convert.ToInt32(_dr["ClientEmployeeId"]);
-                              if(_dr["ClientEmployeeNo"]!=DBNull.Value) _info.ClientEmployeeNo = _dr["ClientEmployeeNo"].ToString();
+                              if(_dr["EmployeeNo"]!=DBNull.Value) _info.EmployeeNo = _dr["EmployeeNo"].ToString();
                               _info.ShiftId = Convert.ToInt32(_dr["ShiftId"]);
                             break;
                         }
@@ -343,7 +343,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     case 0: _Finger = "RightTF"; break;
                     default: break;
                 }
-                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + ",ProfileImg,ClientEmployeeId,ClientEmployeeNo,ShiftId from Profiles", _dc.DBConn);
+                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + ",ProfileImg,ClientEmployeeId,EmployeeNo,ShiftId from Profiles", _dc.DBConn);
                 _dc.DBConn.Open();
                 OleDbDataReader _dr = _cmd.ExecuteReader();
                 bool IsFound =false;
@@ -362,7 +362,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                             _info.FullName = Convert.ToString(_dr[1]);
                             _info.FrontImg = (byte[])_dr[3];
                             _info.ClientEmployeeId = Convert.ToInt32(_dr[4]);
-                            _info.ClientEmployeeNo = Convert.ToString(_dr[5]);
+                            _info.EmployeeNo = Convert.ToString(_dr[5]);
                             _info.ShiftId = Convert.ToInt32(_dr[6]);
 
                             break;

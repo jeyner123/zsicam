@@ -19,7 +19,7 @@ namespace zsi.PhotoFingCapture.Models
             public string FullName { get; set; }
             public string FullAddress { get; set; }
             public int ClientEmployeeId { get; set; }
-            public string ClientEmployeeNo { get; set; }
+            public string EmployeeNo { get; set; }
             public int ShiftId { get; set; }
 
 
