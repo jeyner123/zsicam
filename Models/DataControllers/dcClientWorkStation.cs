@@ -78,7 +78,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 if (WorkStationId > 0) p.Add("p_WorkStationId", WorkStationId);
                 if (WorkStationId == 0) p.Add("p_WSMacAddress", Util.GetMacAddress());
                     result = dc.GetDataSource(proc);
-                    if (result.Count > 1)
+                    if (result.Count > 0)
                         return dc.GetDataSource(proc)[0];
                     else
                         return new ClientWorkStation();
