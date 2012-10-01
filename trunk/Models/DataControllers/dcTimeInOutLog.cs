@@ -13,7 +13,7 @@ using zsi.Framework.Common;
 namespace zsi.PhotoFingCapture.Models.DataControllers
 {
 
-    public class dcTimeInOutLog_OleDb : zsi.Framework.Data.DataProvider.OleDb.MasterDataController<TimeInOutLog>
+    public class dcTimeInOutLog_SQL : zsi.Framework.Data.DataProvider.OleDb.MasterDataController<TimeInOutLog>
     {
         public SqlConnection SQLDBConn { get; set; }
         public override void InitDataController()
@@ -30,7 +30,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
     }
 
-    public class dcTimeInOutLog_SQL : MasterDataController<TimeInOutLog>
+    public class dcTimeInOutLog_OleDb : MasterDataController<TimeInOutLog>
     {
         private OleDbTransaction Trans { get; set; }
         public override void InitDataController()
@@ -96,7 +96,6 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             SetParameterValue(_params, ClientSettings.ClientWorkStationInfo.ClientId, OleDbType.VarChar);
             SetParameterValue(_params, ClientSettings.ClientWorkStationInfo.WorkStationId, OleDbType.VarChar);
             SetParameterValue(_params, info.ClientEmployeeId, OleDbType.Integer);
-            SetParameterValue(_params, info.ClientEmployeeNo, OleDbType.VarChar);
             SetParameterValue(_params, info.ShiftId, OleDbType.Integer);
             SetParameterValue(_params, TimeValue, OleDbType.Date);
             SetParameterValue(_params, DtrDate, OleDbType.Date);
@@ -124,26 +123,30 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             return this.GetDataSource(p);
         }
 
-        private void UploadDataToServer(List<TimeInOutLog> list)
+        private void UploadDataToServer()
         {
+            List<TimeInOutLog> list = new List<TimeInOutLog>();
+            dcTimeInOutLog_OleDb _dcOLEDb = new dcTimeInOutLog_OleDb();
+
+            list = _dcOLEDb.GetDataSource("Select * from profiles");
 
             foreach (TimeInOutLog info in list)
             {
-                dcTimeInOutLog_OleDb dc = new dcTimeInOutLog_OleDb();
-                dc.UpdateParameters.Add("p_ClientId", info.ClientId);
-                dc.UpdateParameters.Add("p_LogInOutId", info.LogInOutId);
-                dc.UpdateParameters.Add("p_ClientId", info.ClientId);
-                dc.UpdateParameters.Add("p_ProfileId", info.ProfileId);
-                dc.UpdateParameters.Add("p_ClientEmployeeId", info.ClientEmployeeId);
-                dc.UpdateParameters.Add("p_DTRDate", info.DTRDate);
-                dc.UpdateParameters.Add("p_TimeIn", info.TimeIn);
-                dc.UpdateParameters.Add("p_TimeOut", info.TimeOut);
-                dc.UpdateParameters.Add("p_LogTypeId", info.LogTypeId);
-                dc.UpdateParameters.Add("p_LogRemarks", info.LogRemarks);
-                dc.UpdateParameters.Add("p_UpdatedBy", info.UpdatedBy);
-                dc.UpdateParameters.Add("p_UpdatedDate", info.UpdatedDate);
-                dc.Update();
-                dc = null;
+                dcTimeInOutLog_SQL _dcSQL = new dcTimeInOutLog_SQL();
+                _dcSQL.UpdateParameters.Add("p_ClientId", info.ClientId);
+                _dcSQL.UpdateParameters.Add("p_LogInOutId", info.LogInOutId);
+                _dcSQL.UpdateParameters.Add("p_ClientId", info.ClientId);
+                _dcSQL.UpdateParameters.Add("p_ProfileId", info.ProfileId);
+                _dcSQL.UpdateParameters.Add("p_ClientEmployeeId", info.ClientEmployeeId);
+                _dcSQL.UpdateParameters.Add("p_DTRDate", info.DTRDate);
+                _dcSQL.UpdateParameters.Add("p_TimeIn", info.TimeIn);
+                _dcSQL.UpdateParameters.Add("p_TimeOut", info.TimeOut);
+                _dcSQL.UpdateParameters.Add("p_LogTypeId", info.LogTypeId);
+                _dcSQL.UpdateParameters.Add("p_LogRemarks", info.LogRemarks);
+                _dcSQL.UpdateParameters.Add("p_UpdatedBy", info.UpdatedBy);
+                _dcSQL.UpdateParameters.Add("p_UpdatedDate", info.UpdatedDate);
+                _dcSQL.Update();
+                _dcSQL = null;
             }
 
         }
@@ -156,6 +159,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 if (Util.IsOnline == false) return;
                 ConsoleApp.WriteLine(Application.ProductName, "Start uploading data to server.");
 
+
                 DateTime _LastUpdate;
                 this.DBConn.Open();
                 OleDbCommand _cmd2 = new OleDbCommand("select * from updatelog", this.DBConn);
@@ -165,7 +169,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 if (_dr2.HasRows == false)
                 {
                     ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
-                    dcTimeInOutLog_OleDb dc = new dcTimeInOutLog_OleDb();
+                    dcTimeInOutLog_SQL dc = new dcTimeInOutLog_SQL();
                      List<TimeInOutLog> list = dc.GetDataSource();
                      this.DownloadNewData(list);
                     UpdateLastUpdate();

@@ -271,7 +271,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 string _Finger = string.Empty;
                 Profile _info = new Profile();
                 dcProfile_OleDb _dc = new dcProfile_OleDb();
-                DPFP.Template _template = null;
+                //DPFP.Template _template = null;
                 Stream _msSample = new MemoryStream(data);
                 DPFP.Sample _sample = new DPFP.Sample();
                 //deserialize
@@ -293,10 +293,9 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                             _info.ProfileId = Convert.ToInt64(_dr["ProfileId"]);
                             _info.FullName = Convert.ToString(_dr["FullName"]);
                             _info.FrontImg = (byte[])_dr["ProfileImg"];
-                            _info.ClientEmployeeId = Convert.ToInt32(_dr["ClientEmployeeId"]);
-                            _info.ClientEmployeeNo = Convert.ToString(_dr["ClientEmployeeNo"]);
-                            _info.ShiftId = Convert.ToInt32(_dr["ShiftId"]);
-
+                             _info.ClientEmployeeId = Convert.ToInt32(_dr["ClientEmployeeId"]);
+                              if(_dr["ClientEmployeeNo"]!=DBNull.Value) _info.ClientEmployeeNo = _dr["ClientEmployeeNo"].ToString();
+                              _info.ShiftId = Convert.ToInt32(_dr["ShiftId"]);
                             break;
                         }
                     }

@@ -64,7 +64,9 @@ namespace zsi.Biometrics
                     }));
 
 
-                    Profile info = zsi.PhotoFingCapture.Models.DataControllers.dcProfile_SQL.VerifyBiometricsData(0, _byte);
+                    //Profile info = zsi.PhotoFingCapture.Models.DataControllers.dcProfile_SQL.VerifyBiometricsData(0, _byte);
+                    Profile info = zsi.PhotoFingCapture.Models.DataControllers.dcProfile_SQL.VerifyBiometricsData(_byte);
+
 
                     //WaitStop
                     this.Invoke(new Function(delegate()
@@ -108,7 +110,7 @@ namespace zsi.Biometrics
                     txtName.Text = "(" + info.ProfileId + ") - " + info.FullName;
 
 
-                   dcTimeInOutLog_SQL dc = new dcTimeInOutLog_SQL();
+                   dcTimeInOutLog_OleDb dc = new dcTimeInOutLog_OleDb();
                    DateTime TimeIn; DateTime TimeOut;
                     dc.TimeInOut(info, DateTime.Now,out TimeIn,out TimeOut);
   
