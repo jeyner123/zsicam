@@ -133,9 +133,9 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             foreach (TimeInOutLog info in list)
             {
                 dcTimeInOutLog_SQL _dcSQL = new dcTimeInOutLog_SQL();
+                _dcSQL.UpdateParameters.Add("p_WorkStationId", info.WorkStationId);
                 _dcSQL.UpdateParameters.Add("p_ClientId", info.ClientId);
                 _dcSQL.UpdateParameters.Add("p_LogInOutId", info.LogInOutId);
-                _dcSQL.UpdateParameters.Add("p_ClientId", info.ClientId);
                 _dcSQL.UpdateParameters.Add("p_ProfileId", info.ProfileId);
                 _dcSQL.UpdateParameters.Add("p_ClientEmployeeId", info.ClientEmployeeId);
                 _dcSQL.UpdateParameters.Add("p_DTRDate", info.DTRDate);
