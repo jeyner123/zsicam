@@ -69,9 +69,12 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     TimeOut = TimeValue;
                     int LogInOutId = list[0].LogInOutId;
                     this.OpenDB();
-                    OleDbCommand _cmd = new OleDbCommand("update TimeInOutLog set TimeOut=? where ProfileId='" + info.ProfileId + "' and DTRDate=#" + dtrDate + "# and LogInOutId=" + LogInOutId , this.DBConn);
+               
+
+                    OleDbCommand _cmd = new OleDbCommand("update TimeInOutLog set TimeOut=?,TimeOutWSId=? where ProfileId='" + info.ProfileId + "' and DTRDate=#" + dtrDate + "# and LogInOutId=" + LogInOutId, this.DBConn);
                     var _params = _cmd.Parameters;
                     SetParameterValue(_params, TimeValue, OleDbType.Date);
+                    SetParameterValue(_params, ClientSettings.ClientWorkStationInfo.WorkStationId, OleDbType.Integer);
                     _cmd.ExecuteNonQuery();
                     _cmd.Dispose();
                     this.CloseDB();
@@ -90,7 +93,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             //INSERT
             this.OpenDB();
             //System.Windows.Forms.MessageBox.Show("insert");
-            OleDbCommand _cmd = new OleDbCommand("Insert into TimeInOutLog(ProfileId,ClientId,WorkStationId,ClientEmployeeId,ShiftId,TimeIn,DTRDate) Values(?,?,?,?,?,?,?)", this.DBConn);
+            OleDbCommand _cmd = new OleDbCommand("Insert into TimeInOutLog(ProfileId,ClientId,WorkStationId,ClientEmployeeId,ShiftId,TimeIn,DTRDate,TimeInWSId) Values(?,?,?,?,?,?,?,?)", this.DBConn);
             var _params = _cmd.Parameters;
             SetParameterValue(_params, info.ProfileId, OleDbType.VarChar);
             SetParameterValue(_params, ClientSettings.ClientWorkStationInfo.ClientId, OleDbType.VarChar);
@@ -99,6 +102,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             SetParameterValue(_params, info.ShiftId, OleDbType.Integer);
             SetParameterValue(_params, TimeValue, OleDbType.Date);
             SetParameterValue(_params, DtrDate, OleDbType.Date);
+            SetParameterValue(_params, ClientSettings.ClientWorkStationInfo.WorkStationId, OleDbType.Integer);
             _cmd.ExecuteNonQuery();
             _cmd.Dispose();
             this.CloseDB();
