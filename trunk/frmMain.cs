@@ -50,8 +50,8 @@ namespace zsi.PhotoFingCapture
             
             ClientWorkStation info = new dcClientWorkStation().GetLocalClientInfo();
             ClientSettings.ClientWorkStationInfo = info;
-            if (Util.IsOnline)//get online data
-            {
+          //  if (Util.IsOnline)//get online data
+          //  {
                 ClientWorkStation _info = new dcClientWorkStation().GetClientInfo(info.ClientId, info.WorkStationId);
                 if (_info.WorkStationId > 0 && _info.ClientId > 0)
                 {
@@ -60,7 +60,7 @@ namespace zsi.PhotoFingCapture
                     info = _info;
                     ClientSettings.ClientWorkStationInfo = info;
                 }
-            }
+          //  }
 
 
             if (info.ApplicationId == 1) {

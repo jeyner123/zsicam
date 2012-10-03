@@ -93,7 +93,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         {
             try
             {
-                if (Util.IsOnline==false )return;
+               //if (Util.IsOnline==false )return;
                 ConsoleApp.WriteLine(Application.ProductName, "Start uploading data to server.");
 
                 DateTime _ProfileLastUpdate;
@@ -156,8 +156,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (Profile item in list)
                 {
                         OleDbCommand _cmd2 = new OleDbCommand(
-                        "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,EmployeeNo,ShiftId) "
-                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                        "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,EmployeeNo,ShiftId,UserId) "
+                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
                         , _dcProfile_OleDb.DBConn, Trans);
 
                         var _params =_cmd2.Parameters;
@@ -179,6 +179,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                         SetParameterValue(_params, item.ClientEmployeeId, OleDbType.Integer);
                         SetParameterValue(_params, item.EmployeeNo, OleDbType.VarChar);
                         SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
+                        SetParameterValue(_params, item.UserId, OleDbType.Integer);
                         _cmd2.ExecuteNonQuery();
               }           
             }
@@ -343,7 +344,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     case 0: _Finger = "RightTF"; break;
                     default: break;
                 }
-                OleDbCommand _cmd = new OleDbCommand("select ProfileId,FullName," + _Finger + ",ProfileImg,ClientEmployeeId,EmployeeNo,ShiftId from Profiles", _dc.DBConn);
+                OleDbCommand _cmd = new OleDbCommand("select * from Profiles", _dc.DBConn);
                 _dc.DBConn.Open();
                 OleDbDataReader _dr = _cmd.ExecuteReader();
                 bool IsFound =false;
@@ -353,17 +354,18 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     {
                         if (_dr[2] != DBNull.Value)
                         {
-                            _template = ProcessDBTemplate((byte[])_dr[2]);
+                            _template = ProcessDBTemplate((byte[])_dr[_Finger]);
                             IsFound = Verify(_sample, _template);
                         }
                         if (IsFound == true)
                         {
-                            _info.ProfileId = Convert.ToInt64(_dr[0]);
-                            _info.FullName = Convert.ToString(_dr[1]);
-                            _info.FrontImg = (byte[])_dr[3];
-                            _info.ClientEmployeeId = Convert.ToInt32(_dr[4]);
-                            _info.EmployeeNo = Convert.ToString(_dr[5]);
-                            _info.ShiftId = Convert.ToInt32(_dr[6]);
+                            _info.ProfileId = Convert.ToInt64(_dr["ProfileId"]);
+                            _info.FullName = Convert.ToString(_dr["FullName"]);
+                            _info.FrontImg = (byte[])_dr["ProfileImg"];
+                            _info.ClientEmployeeId = Convert.ToInt32(_dr["ClientEmployeeId"]);
+                            _info.EmployeeNo = Convert.ToString(_dr["EmployeeNo"]);
+                            _info.ShiftId = Convert.ToInt32(_dr["ShiftId"]);
+                            _info.UserId = (_dr["UserId"] == DBNull.Value ? 0 : Convert.ToInt32(_dr["UserId"]));
 
                             break;
                         }
@@ -382,8 +384,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 throw ex;
             }
         }
-
-
+        
+ 
         private static bool Verify(OleDbDataReader dr, DPFP.Sample sample)
         {
             try

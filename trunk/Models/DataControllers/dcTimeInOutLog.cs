@@ -160,7 +160,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             try
             {
 
-                if (Util.IsOnline == false) return;
+             //   if (Util.IsOnline == false) return;
                 ConsoleApp.WriteLine(Application.ProductName, "Start uploading data to server.");
 
 
