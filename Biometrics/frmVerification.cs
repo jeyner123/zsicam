@@ -87,7 +87,10 @@ namespace zsi.Biometrics
                     {
 
                         case "user login":
-                            ClientSettings.UserInfo = _dc.GetUserInfo(info.ProfileId);
+                             //ClientSettings.UserInfo = _dc.GetUserInfo(info.ProfileId);
+                            ClientSettings.UserInfo = new User();
+                            ClientSettings.UserInfo.UserId = info.UserId;
+                            ClientSettings.UserInfo.WSMacAddress = "add";
                             if (ClientSettings.UserInfo.UserId != 0)
                             {
                                 this.Invoke(new Function(delegate(){
