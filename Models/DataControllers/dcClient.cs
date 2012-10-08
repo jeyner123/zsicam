@@ -26,24 +26,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
             this.DBConn = new SqlConnection(_ConnectionString);
 
-        }
-        public Client GetClientByRegCode(string RegCode)
-        {
-            try
-            {
-                dcClient _dc = new dcClient();
-                SQLServer.Procedure _proc = new SQLServer.Procedure("dbo.SelectClients");
-                _proc.Parameters.Add("p_RegCode", RegCode);
-                return _dc.GetInfo(_proc);
-            }
-            catch (SqlException ex)
-            {
-                if (ex.Number == 11001)
-                    return new Client();
-                else
-                    throw ex;
-            }
-        }
+        }       
 
     }
 }

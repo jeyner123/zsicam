@@ -21,7 +21,7 @@ namespace zsi.PhotoFingCapture.Models
             public int ClientEmployeeId { get; set; }
             public string EmployeeNo { get; set; }
             public int ShiftId { get; set; }
-
+            public bool IsZSIAdmin { get; set; }
 
             public byte[] LeftTF { get; set; }
             public byte[] LeftIF { get; set; }

@@ -27,6 +27,24 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             this.DBConn = new SqlConnection(_SQLConnectionString);
 
         }
+
+        public ClientWorkStation GetClientByRegCode(string RegCode)
+        {
+            try
+            {
+               
+                SQLServer.Procedure _proc = new SQLServer.Procedure("dbo.SelectClients");
+                _proc.Parameters.Add("p_RegCode", RegCode);
+                return this.GetInfo(_proc);
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 11001)
+                    return new ClientWorkStation();
+                else
+                    throw ex;
+            }
+        }
     }
 
     public class dcClientWorkStation : OleDb.MasterDataController<ClientWorkStation>
@@ -50,12 +68,13 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
      
         }
 
-        public ClientWorkStation GetLocalClientInfo()
+
+        public ClientWorkStation GetLocalClientWorkStation()
         {
             try
             {
                 
-                List<ClientWorkStation> list = this.GetDataSource("Select * from ClientInfo");
+                List<ClientWorkStation> list = this.GetDataSource("Select * from ClientWorkStations");
                 if (list.Count == 0) return new ClientWorkStation();
                 return list[0];
             }
@@ -66,7 +85,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         }
 
        
-        public ClientWorkStation GetClientInfo(int ClientId, int WorkStationId)
+        public ClientWorkStation GetClientWorkStation(int ClientId, int WorkStationId)
         {
             try
             {
@@ -139,7 +158,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         }
 
 
-        public void UpdateLocalClientInfo(ClientWorkStation info)
+        public void UpdateLocalClientWorkStation(ClientWorkStation info)
         {
             try
             {
@@ -147,7 +166,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 {
 
                     this.OpenDB();
-                    OleDbCommand cmd = new OleDbCommand("select count(*) from ClientInfo", this.DBConn);
+                    OleDbCommand cmd = new OleDbCommand("select count(*) from ClientWorkStations", this.DBConn);
                     var _params = cmd.Parameters;
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
@@ -155,7 +174,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     //insert new
                     if (count == 0)
                     {
-                        cmd = new OleDbCommand("Insert into ClientInfo(WorkStationId) Values(?)", this.DBConn);
+                        cmd = new OleDbCommand("Insert into ClientWorkStations(WorkStationId) Values(?)", this.DBConn);
                         _params = cmd.Parameters;
                         SetParameterValue(_params, info.WorkStationId, OleDbType.Integer);
                         cmd.ExecuteNonQuery();
@@ -174,17 +193,17 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
         }
 
-        private void UpdateParams(Client info)
+        private void UpdateParams(ClientWorkStation info)
         {
             try
             {
                 this.OpenDB();
 
                 //update info
-                OleDbCommand cmd = new OleDbCommand("update ClientInfo set "
+                OleDbCommand cmd = new OleDbCommand("update ClientWorkStations set "
                            + " ClientId=?,ClientName=?,CompanyCode=?,ClientTypeId=?,CompanyName=?,CompanyTelNo=?,CompanyTIN=?,CompanyLogo=?"
                            + ",RegionId=?,ProvinceId=?,CityMunicipalityId=?,BarangayId=?,Address=?,IsAutoId=?,ClientMainId=?,ClientGroupId=?"
-                           + ",LastEmployeeNo=?,ApplicationId=? where WorkStationId=" + info.WorkStationId
+                           + ",LastEmployeeNo=?,ApplicationId=?,IsServer=? where WorkStationId=" + info.WorkStationId
                           , this.DBConn);
                 var _params = cmd.Parameters;
                 SetParameterValue(_params, info.ClientId, OleDbType.Integer);
@@ -205,6 +224,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 SetParameterValue(_params, info.ClientGroupId, OleDbType.Integer);
                 SetParameterValue(_params, info.LastEmployeeNo, OleDbType.VarChar);
                 SetParameterValue(_params, info.ApplicationId, OleDbType.Integer);
+                SetParameterValue(_params, info.IsServer, OleDbType.Integer);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
             }
