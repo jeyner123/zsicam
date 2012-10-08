@@ -105,6 +105,7 @@ namespace zsi.Biometrics
                 dcUser _dc = new dcUser();
                 zsi.Framework.Security.Cryptography _crypt = new zsi.Framework.Security.Cryptography();
                 pbProfileImage.Image = zsi.PhotoFingCapture.Util.ByteArrayToImage(info.FrontImg);
+               
                 this.Invoke(new Function(delegate()
                 {
                     txtName.Text = "(" + info.ProfileId + ") - " + info.FullName;
@@ -144,6 +145,7 @@ namespace zsi.Biometrics
         private void frmTimInOut_Load(object sender, EventArgs e)
         {
             pbCompanyLogo.Image = zsi.PhotoFingCapture.Util.ByteArrayToImage(ClientSettings.ClientWorkStationInfo.CompanyLogo);
+            pbCompanyLogo.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
      
