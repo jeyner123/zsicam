@@ -17,8 +17,11 @@ namespace zsi.PhotoFingCapture.Models
         public ClientWorkStation() { }
 
         #endregion
+        public int WorkStationId { get; set; }
         public string WSMacAddress { get; set; }
-       
+        public int ApplicationId { get; set; }
+        public bool IsServer { get; set; }
+
     }
 
 }

@@ -11,7 +11,7 @@ namespace zsi.PhotoFingCapture.Models
         public Client() { }
         #endregion
 
-        public int WorkStationId { get; set; }
+//        public int WorkStationId { get; set; }
         public int	ClientId {get;set;}
         public int ClientTypeId { get; set; }
         public String ClientName { get; set; }
@@ -31,8 +31,10 @@ namespace zsi.PhotoFingCapture.Models
         public int ClientGroupId { get; set; }
         public int LastEmployeeNo { get; set; }
         public String RegCode { get; set; }
-        public String EmailAdd { get; set; }       
-        public int ApplicationId { get; set; }
+        public String EmailAdd { get; set; }
+
+//        public int ApplicationId { get; set; }
+
     }
 
 }

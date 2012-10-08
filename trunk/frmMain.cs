@@ -48,14 +48,14 @@ namespace zsi.PhotoFingCapture
 
         private void StartUpApplication() {
             
-            ClientWorkStation info = new dcClientWorkStation().GetLocalClientInfo();
+            ClientWorkStation info = new dcClientWorkStation().GetLocalClientWorkStation();
             ClientSettings.ClientWorkStationInfo = info;
           //  if (Util.IsOnline)//get online data
           //  {
-                ClientWorkStation _info = new dcClientWorkStation().GetClientInfo(info.ClientId, info.WorkStationId);
+                ClientWorkStation _info = new dcClientWorkStation().GetClientWorkStation(info.ClientId, info.WorkStationId);
                 if (_info.WorkStationId > 0 && _info.ClientId > 0)
                 {
-                    new dcClientWorkStation().UpdateLocalClientInfo(_info);
+                    new dcClientWorkStation().UpdateLocalClientWorkStation(_info);
                     //replace new value
                     info = _info;
                     ClientSettings.ClientWorkStationInfo = info;
@@ -546,7 +546,7 @@ namespace zsi.PhotoFingCapture
                     return;
                 }
 
-                Client _Client = new dcClient().GetClientByRegCode(txtRegCode.Text);
+                ClientWorkStation _Client = new dcClientWorkStation2().GetClientByRegCode(txtRegCode.Text);
 
                 if (_Client.ClientId == 0)
                 {
@@ -562,8 +562,8 @@ namespace zsi.PhotoFingCapture
                         btnUpdateClient.Visible = true;
                         btnUpdateClient.Enabled = true;
                         _Client.WorkStationId = WorkStationId;
-                        ClientWorkStation info = new dcClientWorkStation().GetClientInfo(_Client.ClientId,_Client.WorkStationId);
-                        new dcClientWorkStation().UpdateLocalClientInfo(info);
+                        ClientWorkStation info = new dcClientWorkStation().GetClientWorkStation(_Client.ClientId,_Client.WorkStationId);
+                        new dcClientWorkStation().UpdateLocalClientWorkStation(info);
                     }
                 }
 

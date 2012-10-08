@@ -145,6 +145,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 catch{}
                 ConsoleApp.WriteLine(Application.ProductName, "[Error],"  + ex.ToString());
                 zsi.PhotoFingCapture.Util.LogError(ex.ToString());
+                
             }
         }
 
@@ -156,8 +157,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (Profile item in list)
                 {
                         OleDbCommand _cmd2 = new OleDbCommand(
-                        "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,EmployeeNo,ShiftId,UserId) "
-                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                        "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,EmployeeNo,ShiftId,UserId,IsZSIAdmin) "
+                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
                         , _dcProfile_OleDb.DBConn, Trans);
 
                         var _params =_cmd2.Parameters;
@@ -180,6 +181,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                         SetParameterValue(_params, item.EmployeeNo, OleDbType.VarChar);
                         SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
                         SetParameterValue(_params, item.UserId, OleDbType.Integer);
+                        SetParameterValue(_params, item.IsZSIAdmin, OleDbType.Boolean);
                         _cmd2.ExecuteNonQuery();
               }           
             }
@@ -197,7 +199,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (Profile item in list)
                 {
                     OleDbCommand _cmd2 = new OleDbCommand(
-                    "Update Profiles set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?,ClientEmployeeId=?,EmployeeNo=?,ShiftId=?"
+                    "Update Profiles set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?,ClientEmployeeId=?,EmployeeNo=?,ShiftId=?,UserId=?,IsZSIAdmin=?"
                    + " where profileId='" + item.ProfileId + "'"
                     , _dcProfile_OleDb.DBConn, Trans);
                     var _params = _cmd2.Parameters;
@@ -218,7 +220,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     SetParameterValue(_params, item.ClientEmployeeId, OleDbType.Integer);
                     SetParameterValue(_params, item.EmployeeNo, OleDbType.VarChar);
                     SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
-
+                    SetParameterValue(_params, item.UserId, OleDbType.Integer);
+                    SetParameterValue(_params, item.IsZSIAdmin, OleDbType.Boolean);
                     _cmd2.ExecuteNonQuery();
                 }
             }
