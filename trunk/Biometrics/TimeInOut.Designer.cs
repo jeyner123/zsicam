@@ -236,7 +236,7 @@
             this.pnlMain.Controls.Add(this.shapeContainer2);
             this.pnlMain.Location = new System.Drawing.Point(12, 12);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(929, 540);
+            this.pnlMain.Size = new System.Drawing.Size(910, 540);
             this.pnlMain.TabIndex = 53;
             // 
             // shapeContainer2
@@ -247,7 +247,7 @@
             this.shapeContainer2.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.rectangleShape2,
             this.rectangleShape1});
-            this.shapeContainer2.Size = new System.Drawing.Size(929, 540);
+            this.shapeContainer2.Size = new System.Drawing.Size(910, 540);
             this.shapeContainer2.TabIndex = 37;
             this.shapeContainer2.TabStop = false;
             // 

@@ -38,6 +38,7 @@ namespace zsi.Biometrics
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
             this.TopMost = true;
+            pbProfileImage.Image = zsi.PhotoFingCapture.Util.GetNoPhoto(); 
         }
 
         public frmTimInOut(frmMain MainForm)
@@ -84,7 +85,7 @@ namespace zsi.Biometrics
                         this.Invoke(new Function(delegate()
                         {
                             txtName.Text = "Finger not identified";
-                            pbProfileImage.Image = null; 
+                            pbProfileImage.Image = zsi.PhotoFingCapture.Util.GetNoPhoto(); 
                         }));
                          
                     }
@@ -108,19 +109,19 @@ namespace zsi.Biometrics
                
                 this.Invoke(new Function(delegate()
                 {
-                    txtName.Text = "(" + info.ProfileId + ") - " + info.FullName;
+                    txtName.Text = "(" + info.EmployeeNo + ") - " + info.FullName;
 
 
                    dcTimeInOutLog_OleDb dc = new dcTimeInOutLog_OleDb();
                    DateTime TimeIn; DateTime TimeOut;
                     dc.TimeInOut(info, DateTime.Now,out TimeIn,out TimeOut);
-  
-                        lblActualTimeIn.Text = TimeIn.ToShortTimeString();
+
+                    lblActualTimeIn.Text = TimeIn.ToLongTimeString();
 
                         if (TimeOut == new DateTime(1, 1, 1))
-                            lblActualTimeOut.Text = "00:00";
+                            lblActualTimeOut.Text = "00:00:00";
                         else
-                            lblActualTimeOut.Text = TimeOut.ToShortTimeString();
+                            lblActualTimeOut.Text = TimeOut.ToLongTimeString();
   
                 }));
 
