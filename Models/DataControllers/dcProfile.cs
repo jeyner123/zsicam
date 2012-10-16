@@ -297,6 +297,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                             _info.ProfileId = Convert.ToInt64(_dr["ProfileId"]);
                             _info.FullName = Convert.ToString(_dr["FullName"]);
                             _info.FrontImg = (byte[])_dr["ProfileImg"];
+                            if (_info.FrontImg == null) _info.FrontImg = Util.ImageToByte(zsi.PhotoFingCapture.Util.GetNoPhoto()); 
                              _info.ClientEmployeeId = Convert.ToInt32(_dr["ClientEmployeeId"]);
                               if(_dr["EmployeeNo"]!=DBNull.Value) _info.EmployeeNo = _dr["EmployeeNo"].ToString();
                               _info.ShiftId = Convert.ToInt32(_dr["ShiftId"]);

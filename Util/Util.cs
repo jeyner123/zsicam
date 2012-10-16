@@ -265,7 +265,26 @@ namespace zsi.PhotoFingCapture
             }
         }
 
+        public static Image GetNoPhoto()
+        {
+            try
+            {
+                Image img;
+                string FileName = "nophoto.jpg";
+                if (File.Exists(FileName))
+                {
+                    img = Image.FromFile(FileName);
+                }
+                else
+                {
+                    img = null;
+                }
+                return img;
 
+            }
+            catch (Exception ex) { throw ex; }
+
+        }
     }
 
     public class About {
@@ -348,6 +367,8 @@ namespace zsi.PhotoFingCapture
             }
         }
         #endregion
+
+ 
 
       
     }

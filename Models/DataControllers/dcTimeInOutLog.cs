@@ -67,10 +67,16 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     //update
                     TimeIn = list[0].TimeIn;
                     TimeOut = TimeValue;
-                    int LogInOutId = list[0].LogInOutId;
-                    this.OpenDB();
-               
+                    TimeSpan ts = TimeOut - TimeIn;
+                    //MessageBox.Show(ts.Minutes + ":" + TimeIn.ToString() + "==" + TimeOut.ToString());
+                    if (ts.Minutes < 1)
+                    {
+                        TimeOut = new DateTime(1, 1, 1);
+                        return;
+                    }
 
+                    int LogInOutId = list[0].LogInOutId;
+                    this.OpenDB();               
                     OleDbCommand _cmd = new OleDbCommand("update TimeInOutLog set TimeOut=?,TimeOutWSId=? where ProfileId='" + info.ProfileId + "' and DTRDate=#" + dtrDate + "# and LogInOutId=" + LogInOutId, this.DBConn);
                     var _params = _cmd.Parameters;
                     SetParameterValue(_params, TimeValue, OleDbType.Date);
