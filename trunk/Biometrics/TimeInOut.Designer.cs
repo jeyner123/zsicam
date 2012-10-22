@@ -29,12 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTimInOut));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pbFinger = new System.Windows.Forms.PictureBox();
             this.lblPlsWait = new System.Windows.Forms.Label();
-            this.pbCompanyLogo = new System.Windows.Forms.PictureBox();
-            this.pbProfileImage = new System.Windows.Forms.PictureBox();
-            this.txtName = new System.Windows.Forms.TextBox();
             this.txtTime = new System.Windows.Forms.TextBox();
             this.txtDay = new System.Windows.Forms.TextBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
@@ -43,12 +40,19 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblActualTimeOut = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCompanyLogo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbCompanyLogo = new System.Windows.Forms.PictureBox();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.pbProfileImage = new System.Windows.Forms.PictureBox();
+            this.pbFinger = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.pnlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCompanyLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -56,15 +60,6 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // pbFinger
-            // 
-            this.pbFinger.BackColor = System.Drawing.SystemColors.Window;
-            this.pbFinger.Location = new System.Drawing.Point(257, 3);
-            this.pbFinger.Name = "pbFinger";
-            this.pbFinger.Size = new System.Drawing.Size(146, 186);
-            this.pbFinger.TabIndex = 9;
-            this.pbFinger.TabStop = false;
             // 
             // lblPlsWait
             // 
@@ -75,40 +70,6 @@
             this.lblPlsWait.TabIndex = 22;
             this.lblPlsWait.Text = "Verifying... Pls. wait.";
             this.lblPlsWait.Visible = false;
-            // 
-            // pbCompanyLogo
-            // 
-            this.pbCompanyLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbCompanyLogo.BackColor = System.Drawing.SystemColors.Window;
-            this.pbCompanyLogo.Location = new System.Drawing.Point(1017, 3);
-            this.pbCompanyLogo.Name = "pbCompanyLogo";
-            this.pbCompanyLogo.Size = new System.Drawing.Size(230, 187);
-            this.pbCompanyLogo.TabIndex = 34;
-            this.pbCompanyLogo.TabStop = false;
-            // 
-            // pbProfileImage
-            // 
-            this.pbProfileImage.BackColor = System.Drawing.SystemColors.Window;
-            this.pbProfileImage.Location = new System.Drawing.Point(15, 3);
-            this.pbProfileImage.Name = "pbProfileImage";
-            this.pbProfileImage.Size = new System.Drawing.Size(236, 188);
-            this.pbProfileImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbProfileImage.TabIndex = 36;
-            this.pbProfileImage.TabStop = false;
-            // 
-            // txtName
-            // 
-            this.txtName.BackColor = System.Drawing.Color.DarkBlue;
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.ForeColor = System.Drawing.Color.White;
-            this.txtName.Location = new System.Drawing.Point(15, 197);
-            this.txtName.Margin = new System.Windows.Forms.Padding(0);
-            this.txtName.Name = "txtName";
-            this.txtName.ReadOnly = true;
-            this.txtName.Size = new System.Drawing.Size(1231, 53);
-            this.txtName.TabIndex = 41;
-            this.txtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtTime
             // 
@@ -123,6 +84,7 @@
             this.txtTime.Name = "txtTime";
             this.txtTime.Size = new System.Drawing.Size(601, 91);
             this.txtTime.TabIndex = 46;
+            this.txtTime.TabStop = false;
             this.txtTime.Text = "8:30:01 AM";
             this.txtTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -139,6 +101,7 @@
             this.txtDay.Name = "txtDay";
             this.txtDay.Size = new System.Drawing.Size(601, 31);
             this.txtDay.TabIndex = 47;
+            this.txtDay.TabStop = false;
             this.txtDay.Text = "January Wednesday, 01/11/2012";
             this.txtDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -159,7 +122,7 @@
             // 
             this.lblActualTimeIn.AutoSize = true;
             this.lblActualTimeIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActualTimeIn.Location = new System.Drawing.Point(30, 70);
+            this.lblActualTimeIn.Location = new System.Drawing.Point(29, 55);
             this.lblActualTimeIn.Name = "lblActualTimeIn";
             this.lblActualTimeIn.Size = new System.Drawing.Size(158, 39);
             this.lblActualTimeIn.TabIndex = 50;
@@ -172,7 +135,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(1015, 268);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(231, 165);
+            this.groupBox1.Size = new System.Drawing.Size(231, 143);
             this.groupBox1.TabIndex = 51;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Actual Time In";
@@ -182,9 +145,9 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.lblActualTimeOut);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(1017, 503);
+            this.groupBox2.Location = new System.Drawing.Point(1015, 437);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(231, 191);
+            this.groupBox2.Size = new System.Drawing.Size(231, 143);
             this.groupBox2.TabIndex = 52;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Actual Time Out";
@@ -202,6 +165,8 @@
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.Silver;
+            this.pnlMain.Controls.Add(this.label1);
+            this.pnlMain.Controls.Add(this.pictureBox1);
             this.pnlMain.Controls.Add(this.webBrowser1);
             this.pnlMain.Controls.Add(this.pbCompanyLogo);
             this.pnlMain.Controls.Add(this.groupBox2);
@@ -216,6 +181,71 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1254, 703);
             this.pnlMain.TabIndex = 53;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(1016, 608);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(229, 67);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 53;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pbCompanyLogo
+            // 
+            this.pbCompanyLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbCompanyLogo.BackColor = System.Drawing.SystemColors.Window;
+            this.pbCompanyLogo.Location = new System.Drawing.Point(1017, 3);
+            this.pbCompanyLogo.Name = "pbCompanyLogo";
+            this.pbCompanyLogo.Size = new System.Drawing.Size(230, 187);
+            this.pbCompanyLogo.TabIndex = 34;
+            this.pbCompanyLogo.TabStop = false;
+            // 
+            // txtName
+            // 
+            this.txtName.BackColor = System.Drawing.Color.DarkBlue;
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtName.ForeColor = System.Drawing.Color.White;
+            this.txtName.Location = new System.Drawing.Point(15, 197);
+            this.txtName.Margin = new System.Windows.Forms.Padding(0);
+            this.txtName.Name = "txtName";
+            this.txtName.ReadOnly = true;
+            this.txtName.Size = new System.Drawing.Size(1231, 53);
+            this.txtName.TabIndex = 41;
+            this.txtName.TabStop = false;
+            this.txtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // pbProfileImage
+            // 
+            this.pbProfileImage.BackColor = System.Drawing.SystemColors.Window;
+            this.pbProfileImage.Location = new System.Drawing.Point(15, 3);
+            this.pbProfileImage.Name = "pbProfileImage";
+            this.pbProfileImage.Size = new System.Drawing.Size(236, 188);
+            this.pbProfileImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbProfileImage.TabIndex = 36;
+            this.pbProfileImage.TabStop = false;
+            // 
+            // pbFinger
+            // 
+            this.pbFinger.BackColor = System.Drawing.SystemColors.Window;
+            this.pbFinger.Location = new System.Drawing.Point(257, 3);
+            this.pbFinger.Name = "pbFinger";
+            this.pbFinger.Size = new System.Drawing.Size(146, 186);
+            this.pbFinger.TabIndex = 9;
+            this.pbFinger.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(1016, 678);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(227, 13);
+            this.label1.TabIndex = 54;
+            this.label1.Text = "                 www.zetta-solutions.net                   ";
             // 
             // frmTimInOut
             // 
@@ -235,15 +265,16 @@
             this.Text = "Time (In/Out)";
             this.Load += new System.EventHandler(this.frmTimInOut_Load);
             this.DoubleClick += new System.EventHandler(this.frmTimInOut_DoubleClick);
-            ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCompanyLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCompanyLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbProfileImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFinger)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -255,7 +286,6 @@
         private System.Windows.Forms.Label lblPlsWait;
         private System.Windows.Forms.PictureBox pbCompanyLogo;
         private System.Windows.Forms.PictureBox pbProfileImage;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtTime;
         private System.Windows.Forms.TextBox txtDay;
         private System.Windows.Forms.WebBrowser webBrowser1;
@@ -264,6 +294,9 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lblActualTimeOut;
         private System.Windows.Forms.Panel pnlMain;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label1;
 
     }
 }
