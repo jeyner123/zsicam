@@ -27,14 +27,13 @@ namespace zsi.Biometrics
             InitializeComponent();
             this.SetControls(pbFinger);
             txtDay.Text = DateTime.Now.ToLongDateString();
-            var clientid = 0;
             //var url = "http://localhost:5445/ads?p_clientid=" + clientid;
             var url = "http://zprofile.info/ads?p_clientid=" + ClientSettings.ClientWorkStationInfo.ClientId;
             webBrowser1.Navigate(new Uri(url));
             int sceenwidth = Screen.PrimaryScreen.WorkingArea.Width;
             int sceenheight = Screen.PrimaryScreen.WorkingArea.Height;
-           // pnlMain.Left= (sceenwidth - (sceenwidth / 2)) - (pnlMain.Width - (pnlMain.Width/ 2)); 
-          //  pnlMain.Top= (sceenheight - (sceenheight/ 2)) - (pnlMain.Height- (pnlMain.Height/ 2));
+            pnlMain.Left= (sceenwidth - (sceenwidth / 2)) - (pnlMain.Width - (pnlMain.Width/ 2)); 
+           // pnlMain.Top= (sceenheight - (sceenheight/ 2)) - (pnlMain.Height- (pnlMain.Height/ 2));
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
             this.TopMost = true;
