@@ -33,8 +33,8 @@ namespace zsi.Biometrics
             webBrowser1.Navigate(new Uri(url));
             int sceenwidth = Screen.PrimaryScreen.WorkingArea.Width;
             int sceenheight = Screen.PrimaryScreen.WorkingArea.Height;
-            pnlMain.Left= (sceenwidth - (sceenwidth / 2)) - (pnlMain.Width - (pnlMain.Width/ 2)); 
-            pnlMain.Top= (sceenheight - (sceenheight/ 2)) - (pnlMain.Height- (pnlMain.Height/ 2));
+           // pnlMain.Left= (sceenwidth - (sceenwidth / 2)) - (pnlMain.Width - (pnlMain.Width/ 2)); 
+          //  pnlMain.Top= (sceenheight - (sceenheight/ 2)) - (pnlMain.Height- (pnlMain.Height/ 2));
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
             this.TopMost = true;
