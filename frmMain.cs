@@ -517,8 +517,8 @@ namespace zsi.PhotoFingCapture
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            RunFingerUpdate();
-            RunTimeInOutSync();
+           // RunFingerUpdate();
+           // RunTimeInOutSync();
             timer1.Enabled=false;
         }
 
