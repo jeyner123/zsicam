@@ -158,7 +158,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     _dcSQL.UpdateParameters.Add("p_LogInOutId", info.LogInOutId);
                     _dcSQL.Update();
                     _dcSQL = null;
-                    //_dcSQL.UpdateParameters.GetItem("p_ServerLogInOutId").Value
+
+                   
                 }
             }
             catch (Exception ex) {

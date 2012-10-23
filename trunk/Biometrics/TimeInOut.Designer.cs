@@ -40,12 +40,12 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblActualTimeOut = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pbCompanyLogo = new System.Windows.Forms.PictureBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.pbProfileImage = new System.Windows.Forms.PictureBox();
             this.pbFinger = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -122,7 +122,7 @@
             // 
             this.lblActualTimeIn.AutoSize = true;
             this.lblActualTimeIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActualTimeIn.Location = new System.Drawing.Point(29, 55);
+            this.lblActualTimeIn.Location = new System.Drawing.Point(18, 59);
             this.lblActualTimeIn.Name = "lblActualTimeIn";
             this.lblActualTimeIn.Size = new System.Drawing.Size(158, 39);
             this.lblActualTimeIn.TabIndex = 50;
@@ -156,7 +156,7 @@
             // 
             this.lblActualTimeOut.AutoSize = true;
             this.lblActualTimeOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActualTimeOut.Location = new System.Drawing.Point(28, 73);
+            this.lblActualTimeOut.Location = new System.Drawing.Point(18, 69);
             this.lblActualTimeOut.Name = "lblActualTimeOut";
             this.lblActualTimeOut.Size = new System.Drawing.Size(149, 39);
             this.lblActualTimeOut.TabIndex = 50;
@@ -181,6 +181,16 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1254, 703);
             this.pnlMain.TabIndex = 53;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(1016, 678);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(227, 13);
+            this.label1.TabIndex = 54;
+            this.label1.Text = "                 www.zetta-solutions.net                   ";
             // 
             // pictureBox1
             // 
@@ -236,16 +246,6 @@
             this.pbFinger.Size = new System.Drawing.Size(146, 186);
             this.pbFinger.TabIndex = 9;
             this.pbFinger.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(1016, 678);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(227, 13);
-            this.label1.TabIndex = 54;
-            this.label1.Text = "                 www.zetta-solutions.net                   ";
             // 
             // frmTimInOut
             // 
