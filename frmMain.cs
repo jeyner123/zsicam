@@ -497,10 +497,28 @@ namespace zsi.PhotoFingCapture
             _pm.Start();
         }
 
+        private void RunTimeInOutSync()
+        {
+
+            ssStatus1.Text = "synchronizing  time(in/out) logs";
+            Application.DoEvents();
+            dcTimeInOutLog_OleDb _dc = new dcTimeInOutLog_OleDb();
+            ProcessMaster _pm = new ProcessMaster(_dc.TimeInOutSync);
+            _pm.OnProcessStop = delegate()
+            {
+                ssStatus1.Text = "time(in/out) synchronizing is done.";
+                Application.DoEvents();
+                Thread.Sleep(1000);                 
+                ssStatus1.Text = "";
+                Application.DoEvents();                
+            };
+            _pm.Start();
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             RunFingerUpdate();
+            RunTimeInOutSync();
             timer1.Enabled=false;
         }
 
