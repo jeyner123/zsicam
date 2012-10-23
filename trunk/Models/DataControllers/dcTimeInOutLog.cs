@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-using zsi.Framework.Data.DataProvider.OleDb;
+using OleDb = zsi.Framework.Data.DataProvider.OleDb;
+using SQLServer = zsi.Framework.Data.DataProvider.SQLServer;
 using zsi.Framework.Data;
 using System.Data;
 using System.Data.OleDb;
@@ -13,24 +13,23 @@ using zsi.Framework.Common;
 namespace zsi.PhotoFingCapture.Models.DataControllers
 {
 
-    public class dcTimeInOutLog_SQL : zsi.Framework.Data.DataProvider.OleDb.MasterDataController<TimeInOutLog>
+    public class dcTimeInOutLog_SQL : SQLServer.MasterDataController<TimeInOutLog>
     {
-        public SqlConnection SQLDBConn { get; set; }
         public override void InitDataController()
         {
             string _ConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.LiveSQLServerConnection;
             _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{u}.*.{u}", "{u}");
             _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{p}.*.{p}", "{p}");
 
-            this.SQLDBConn = new SqlConnection(_ConnectionString);
-            this.Procedures.Add(new Procedure("dbo.SelectTimeInOutLogs", SQLCommandType.Select));
-            this.Procedures.Add(new Procedure("dbo.UpdateTimeInOutLog", SQLCommandType.Update));
+            this.DBConn = new SqlConnection(_ConnectionString);
+            this.Procedures.Add(new SQLServer.Procedure("dbo.SelectTimeInOutLogs", SQLCommandType.Select));
+            this.Procedures.Add(new SQLServer.Procedure("dbo.UpdateTimeInOutLog", SQLCommandType.Update));
         }
 
 
     }
 
-    public class dcTimeInOutLog_OleDb : MasterDataController<TimeInOutLog>
+    public class dcTimeInOutLog_OleDb : OleDb.MasterDataController<TimeInOutLog>
     {
         private OleDbTransaction Trans { get; set; }
         public override void InitDataController()
@@ -119,45 +118,53 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         
         private List<TimeInOutLog> GetNewDataFromServer(DateTime CreatedDate)
         {
-            Procedure p = new Procedure("dbo.SelectTimeInOutLogs");
-            p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
-            p.Parameters.Add("p_UploadedDate", CreatedDate); 
-            return this.GetDataSource(p);
+            dcTimeInOutLog_SQL dc = new dcTimeInOutLog_SQL();
+           // SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectTimeInOutLogs");
+              dc.SelectParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+              dc.SelectParameters.Add("p_UploadedDate", CreatedDate);
+            return dc.GetDataSource();
         }
 
         private List<TimeInOutLog> GetUpdatedDataFromServer(DateTime UpdatedDate)
-        {
-            Procedure p = new Procedure("dbo.SelectTimeInOutLogs");
-            p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
-            p.Parameters.Add("p_UpdatedDate", UpdatedDate);      
-            return this.GetDataSource(p);
+        { 
+            dcTimeInOutLog_SQL dc = new dcTimeInOutLog_SQL();
+            dc.SelectParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+            dc.SelectParameters.Add("p_UpdatedDate", UpdatedDate);
+            return dc.GetDataSource();
         }
 
         private void UploadDataToServer()
         {
-            List<TimeInOutLog> list = new List<TimeInOutLog>();
-            dcTimeInOutLog_OleDb _dcOLEDb = new dcTimeInOutLog_OleDb();
-
-            list = _dcOLEDb.GetDataSource("Select * from profiles");
-
-            foreach (TimeInOutLog info in list)
+            try
             {
-                dcTimeInOutLog_SQL _dcSQL = new dcTimeInOutLog_SQL();
-                _dcSQL.UpdateParameters.Add("p_WorkStationId", info.WorkStationId);
-                _dcSQL.UpdateParameters.Add("p_ClientId", info.ClientId);
-                _dcSQL.UpdateParameters.Add("p_LogInOutId", info.LogInOutId);
-                _dcSQL.UpdateParameters.Add("p_ProfileId", info.ProfileId);
-                _dcSQL.UpdateParameters.Add("p_ClientEmployeeId", info.ClientEmployeeId);
-                _dcSQL.UpdateParameters.Add("p_DTRDate", info.DTRDate);
-                _dcSQL.UpdateParameters.Add("p_TimeIn", info.TimeIn);
-                _dcSQL.UpdateParameters.Add("p_TimeOut", info.TimeOut);
-                _dcSQL.UpdateParameters.Add("p_LogTypeId", info.LogTypeId);
-                _dcSQL.UpdateParameters.Add("p_LogRemarks", info.LogRemarks);
-                _dcSQL.UpdateParameters.Add("p_UpdatedBy", info.UpdatedBy);
-                _dcSQL.UpdateParameters.Add("p_UpdatedDate", info.UpdatedDate);
-                _dcSQL.Update();
-                _dcSQL = null;
+                List<TimeInOutLog> list = new List<TimeInOutLog>();
+                dcTimeInOutLog_OleDb _dcOLEDb = new dcTimeInOutLog_OleDb();
+                list = _dcOLEDb.GetDataSource("Select * from TimeInOutLog");
+
+                foreach (TimeInOutLog info in list)
+                {
+  
+                    dcTimeInOutLog_SQL _dcSQL = new dcTimeInOutLog_SQL();
+                    _dcSQL.UpdateParameters.Add("p_ServerLogInOutId", info.ServerLogInOutId,SqlDbType.Int,ParameterDirection.InputOutput);
+                    _dcSQL.UpdateParameters.Add("p_ClientId", info.ClientId);
+                    _dcSQL.UpdateParameters.Add("p_ClientEmployeeId", info.ClientEmployeeId);
+                    _dcSQL.UpdateParameters.Add("p_DTRDate", info.DTRDate);
+                    _dcSQL.UpdateParameters.Add("p_ShiftId", info.ShiftId);
+                    _dcSQL.UpdateParameters.Add("p_TimeIn", info.TimeIn);
+                    if (info.TimeOut!=new DateTime(1, 1, 1))  _dcSQL.UpdateParameters.Add("p_TimeOut", info.TimeOut);
+                    _dcSQL.UpdateParameters.Add("p_WorkStationId", info.WorkStationId);
+                    _dcSQL.UpdateParameters.Add("p_TimeInWSId", info.TimeInWSId);
+                    _dcSQL.UpdateParameters.Add("p_TimeOutWSId", info.TimeOutWSId);
+                    _dcSQL.UpdateParameters.Add("p_LogInOutId", info.LogInOutId);
+                    _dcSQL.Update();
+                    _dcSQL = null;
+                    //_dcSQL.UpdateParameters.GetItem("p_ServerLogInOutId").Value
+                }
             }
+            catch (Exception ex) {
+                throw ex;
+            }
+
 
         }
 
@@ -165,11 +172,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         {
             try
             {
-
+                UploadDataToServer();
+                return;
              //   if (Util.IsOnline == false) return;
                 ConsoleApp.WriteLine(Application.ProductName, "Start uploading data to server.");
-
-
                 DateTime _LastUpdate;
                 this.DBConn.Open();
                 OleDbCommand _cmd2 = new OleDbCommand("select * from updatelog", this.DBConn);

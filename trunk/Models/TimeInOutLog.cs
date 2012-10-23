@@ -15,7 +15,11 @@ namespace zsi.PhotoFingCapture.Models
         }
         #endregion
         public int WorkStationId { get; set; }
+        public int ServerLogInOutId { get; set; }
         public int LogInOutId { get; set; }
+        public int ShiftId { get; set; }
+        public int TimeInWSId { get; set; }
+        public int TimeOutWSId { get; set; }
         public string ProfileId { get; set; }
         public int ClientId { get; set; }
         public Int64 ClientEmployeeId { get; set; }
