@@ -479,53 +479,10 @@ namespace zsi.PhotoFingCapture
 
         }
 
-        private void RunFingerUpdate()
-        {
-
-            ssStatus1.Text = "Updating Fingers Templates...";
-            Application.DoEvents();
-            dcProfile_SQL _dc = new dcProfile_SQL();
-            ProcessMaster _pm = new ProcessMaster(_dc.FingerTemplatesUpdate);
-            _pm.OnProcessStop = delegate()
-            {
-                ssStatus1.Text = "Fingers Templates processing is done.";
-                Application.DoEvents();
-                Thread.Sleep(1000);                 
-                ssStatus1.Text = "";
-                Application.DoEvents();                
-            };
-            _pm.Start();
-        }
-
-        private void RunTimeInOutSync()
-        {
-
-            ssStatus1.Text = "synchronizing  time(in/out) logs";
-            Application.DoEvents();
-            dcTimeInOutLog_OleDb _dc = new dcTimeInOutLog_OleDb();
-            ProcessMaster _pm = new ProcessMaster(_dc.TimeInOutSync);
-            _pm.OnProcessStop = delegate()
-            {
-                ssStatus1.Text = "time(in/out) synchronizing is done.";
-                Application.DoEvents();
-                Thread.Sleep(1000);                 
-                ssStatus1.Text = "";
-                Application.DoEvents();                
-            };
-            _pm.Start();
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-           // RunFingerUpdate();
-           // RunTimeInOutSync();
-            timer1.Enabled=false;
-        }
-
         private void btnFingerUpdate_Click(object sender, EventArgs e)
         {
-            this.timer1.Enabled = false;
-            this.RunFingerUpdate();
+            this.tmrProfileUpdate.Enabled = false;
+            bgwProfiles.RunWorkerAsync();
         }
 
         private void btnOpenWebsite_Click(object sender, EventArgs e)
@@ -606,8 +563,28 @@ namespace zsi.PhotoFingCapture
         private void btnUpdateClient_Click(object sender, EventArgs e)
         {
 
-        }      
+        }
 
+        private void bgwProfiles_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ssStatus1.Text = "Updating Fingers Templates...";
+            dcProfile_SQL _dc = new dcProfile_SQL();
+            _dc.FingerTemplatesUpdate();
+        }
+
+        private void bgwProfiles_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+        
+            ssStatus1.Text = "";
+            tmrProfileUpdate.Enabled = true;
+        }
+
+        private void tmrProfileUpdate_Tick(object sender, EventArgs e)
+        {
+            bgwProfiles.RunWorkerAsync();
+            tmrProfileUpdate.Enabled = false;
+        }
+ 
         
     }
 

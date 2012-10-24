@@ -13,6 +13,8 @@ using zsi.PhotoFingCapture.Models;
 using System.Web.Script.Serialization;
 using zsi.PhotoFingCapture.Properties;
 using zsi.PhotoFingCapture.Models.DataControllers;
+using zsi.Framework.Common;
+using System.Threading;
 namespace zsi.Biometrics
 {
     public partial class frmTimInOut:FingersMasterScanner
@@ -137,6 +139,28 @@ namespace zsi.Biometrics
             txtTime.Text = DateTime.Now.ToLongTimeString();
         }
 
+        private void GetTime()
+        {
+            txtTime.Text = DateTime.Now.ToLongTimeString();
+        }
+        private void RunTimer()
+        {
+
+           // ssStatus1.Text = "Updating Fingers Templates...";
+            Application.DoEvents();
+            dcProfile_SQL _dc = new dcProfile_SQL();
+            ProcessMaster _pm = new ProcessMaster(GetTime);
+            _pm.OnProcessStop = delegate()
+            {
+                //ssStatus1.Text = "Fingers Templates processing is done.";
+                Application.DoEvents();
+                Thread.Sleep(1000);
+               // ssStatus1.Text = "";
+                Application.DoEvents();
+            };
+            _pm.Start();
+        }
+
         private void frmTimInOut_DoubleClick(object sender, EventArgs e)
         {
             this.Close();
@@ -148,7 +172,19 @@ namespace zsi.Biometrics
             pbCompanyLogo.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
-     
+        private void bgwTimeInOut_DoWork(object sender, DoWorkEventArgs e)
+        {
+            lblProcessStatus.Text = "synchronizing time(in/out) logs";
+            dcTimeInOutLog_OleDb _dc = new dcTimeInOutLog_OleDb();
+            _dc.TimeInOutSync();
 
+        }
+
+        private void bgwTimeInOut_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            lblProcessStatus.Text = "";
+        }
     }
+
+ 
 }
