@@ -46,6 +46,8 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.pbProfileImage = new System.Windows.Forms.PictureBox();
             this.pbFinger = new System.Windows.Forms.PictureBox();
+            this.bgwTimeInOut = new System.ComponentModel.BackgroundWorker();
+            this.lblProcessStatus = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -165,6 +167,7 @@
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.Silver;
+            this.pnlMain.Controls.Add(this.lblProcessStatus);
             this.pnlMain.Controls.Add(this.label1);
             this.pnlMain.Controls.Add(this.pictureBox1);
             this.pnlMain.Controls.Add(this.webBrowser1);
@@ -247,6 +250,20 @@
             this.pbFinger.TabIndex = 9;
             this.pbFinger.TabStop = false;
             // 
+            // bgwTimeInOut
+            // 
+            this.bgwTimeInOut.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwTimeInOut_DoWork);
+            this.bgwTimeInOut.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwTimeInOut_RunWorkerCompleted);
+            // 
+            // lblProcessStatus
+            // 
+            this.lblProcessStatus.AutoSize = true;
+            this.lblProcessStatus.Location = new System.Drawing.Point(410, 138);
+            this.lblProcessStatus.Name = "lblProcessStatus";
+            this.lblProcessStatus.Size = new System.Drawing.Size(40, 13);
+            this.lblProcessStatus.TabIndex = 55;
+            this.lblProcessStatus.Text = "           ";
+            // 
             // frmTimInOut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -297,6 +314,8 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
+        private System.ComponentModel.BackgroundWorker bgwTimeInOut;
+        private System.Windows.Forms.Label lblProcessStatus;
 
     }
 }

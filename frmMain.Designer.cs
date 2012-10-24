@@ -69,6 +69,7 @@ namespace zsi.PhotoFingCapture
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
             this.tabSign = new System.Windows.Forms.TabPage();
+            this.signature1 = new zsi.Controls.Signature();
             this.btnUploadSig = new System.Windows.Forms.Button();
             this.btnClearSig = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -79,7 +80,7 @@ namespace zsi.PhotoFingCapture
             this.btnLogin = new System.Windows.Forms.Button();
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ssStatus1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tmrProfileUpdate = new System.Windows.Forms.Timer(this.components);
             this.btnOpenWebsite = new System.Windows.Forms.Button();
             this.gbClientReg = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -90,7 +91,7 @@ namespace zsi.PhotoFingCapture
             this.lUser = new System.Windows.Forms.Label();
             this.btnAbout = new System.Windows.Forms.Button();
             this.btnUpdateClient = new System.Windows.Forms.Button();
-            this.signature1 = new zsi.Controls.Signature();
+            this.bgwProfiles = new System.ComponentModel.BackgroundWorker();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -551,6 +552,17 @@ namespace zsi.PhotoFingCapture
             this.tabSign.Text = "Signature";
             this.tabSign.UseVisualStyleBackColor = true;
             // 
+            // signature1
+            // 
+            this.signature1.Background = null;
+            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
+            this.signature1.Location = new System.Drawing.Point(145, 110);
+            this.signature1.Name = "signature1";
+            this.signature1.Size = new System.Drawing.Size(307, 116);
+            this.signature1.TabIndex = 3;
+            this.signature1.Text = "signature1";
+            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
+            // 
             // btnUploadSig
             // 
             this.btnUploadSig.Enabled = false;
@@ -651,11 +663,11 @@ namespace zsi.PhotoFingCapture
             this.ssStatus1.Size = new System.Drawing.Size(19, 17);
             this.ssStatus1.Text = "    ";
             // 
-            // timer1
+            // tmrProfileUpdate
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 20000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.tmrProfileUpdate.Enabled = true;
+            this.tmrProfileUpdate.Interval = 20000;
+            this.tmrProfileUpdate.Tick += new System.EventHandler(this.tmrProfileUpdate_Tick);
             // 
             // btnOpenWebsite
             // 
@@ -762,16 +774,10 @@ namespace zsi.PhotoFingCapture
             this.btnUpdateClient.Visible = false;
             this.btnUpdateClient.Click += new System.EventHandler(this.btnUpdateClient_Click);
             // 
-            // signature1
+            // bgwProfiles
             // 
-            this.signature1.Background = null;
-            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
-            this.signature1.Location = new System.Drawing.Point(145, 110);
-            this.signature1.Name = "signature1";
-            this.signature1.Size = new System.Drawing.Size(307, 116);
-            this.signature1.TabIndex = 3;
-            this.signature1.Text = "signature1";
-            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
+            this.bgwProfiles.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwProfiles_DoWork);
+            this.bgwProfiles.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwProfiles_RunWorkerCompleted);
             // 
             // frmMain
             // 
@@ -795,9 +801,9 @@ namespace zsi.PhotoFingCapture
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PhotoFingCapture";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.DoubleClick += new System.EventHandler(this.frmMain_DoubleClick);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.tab.ResumeLayout(false);
             this.tabPhoto.ResumeLayout(false);
             this.tabPhoto.PerformLayout();
@@ -871,7 +877,7 @@ namespace zsi.PhotoFingCapture
         private zsi.Controls.Signature signature1;
         private System.Windows.Forms.StatusStrip StatusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel ssStatus1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer tmrProfileUpdate;
         private System.Windows.Forms.Button btnFingerUpdate;
         private System.Windows.Forms.Button btnOpenWebsite;
         private System.Windows.Forms.TabPage tabPage1;
@@ -887,6 +893,7 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Label lUser;
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.Button btnUpdateClient;
+        private System.ComponentModel.BackgroundWorker bgwProfiles;
     }
 }
 
