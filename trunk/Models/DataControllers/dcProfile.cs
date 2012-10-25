@@ -51,24 +51,24 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         }
 
 
-        private List<Profile> GetNewDataFromServer(DateTime CreatedDate)
+        private List<Profile> GetNewDataFromServer(DateTime ProfileLastUpdate)
         {
             dcProfile_SQL _dc = new dcProfile_SQL();
             SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectProfileFPT");
             p.Parameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
             p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
-            p.Parameters.Add("p_CreatedDate", CreatedDate);
+            p.Parameters.Add("p_CreatedDate", ProfileLastUpdate);
             _dc.GetDataSource(p);
             return _dc.List;
         }
 
-        private List<Profile> GetUpdatedDataFromServer(DateTime UpdatedDate)
+        private List<Profile> GetUpdatedDataFromServer(DateTime ProfileLastUpdate)
         {
             dcProfile_SQL _dc = new dcProfile_SQL();
             SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectProfileFPT");
             p.Parameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
             p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
-            p.Parameters.Add("p_UpdatedDate",UpdatedDate);
+            p.Parameters.Add("p_UpdatedDate", ProfileLastUpdate);
             _dc.GetDataSource(p);
             return _dc.List;
         }
@@ -109,7 +109,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     this.SelectParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
                     this.GetDataSource();
                     ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
-                    this.DownloadNewData(this.List);
+                    this.InsertNewDataLocalDB(this.List);
                    UpdateLastUpdate(); 
 
                     
@@ -122,8 +122,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     List<Profile> _NewList = this.GetNewDataFromServer(_ProfileLastUpdate);
                     List<Profile> _UpdatedList = this.GetUpdatedDataFromServer(_ProfileLastUpdate);
 
-                    this.DownloadNewData(_NewList);
-                    this.DownloadUpdatedData(_UpdatedList);
+                    this.InsertNewDataLocalDB(_NewList);
+                    this.UpdateLocalDB(_UpdatedList);
 
                     if (_NewList.Count > 0 || _UpdatedList.Count > 0)
                     {
@@ -149,7 +149,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             }
         }
 
-        private void DownloadNewData(List<Profile> list)
+        private void InsertNewDataLocalDB(List<Profile> list)
         {
             try
             {
@@ -157,8 +157,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 foreach (Profile item in list)
                 {
                         OleDbCommand _cmd2 = new OleDbCommand(
-                        "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,EmployeeNo,ShiftId,UserId,IsZSIAdmin) "
-                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                        "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,EmployeeNo,ShiftId,UserId,IsZSIAdmin,PositionDesc,DepartmentDesc,SectionDesc,RankDesc) "
+                        + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
                         , _dcProfile_OleDb.DBConn, Trans);
 
                         var _params =_cmd2.Parameters;
@@ -182,6 +182,11 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                         SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
                         SetParameterValue(_params, item.UserId, OleDbType.Integer);
                         SetParameterValue(_params, item.IsZSIAdmin, OleDbType.Boolean);
+                        SetParameterValue(_params, item.PositionDesc, OleDbType.VarChar);
+                        SetParameterValue(_params, item.DepartmentDesc, OleDbType.VarChar);
+                        SetParameterValue(_params, item.SectionDesc, OleDbType.VarChar);
+                        SetParameterValue(_params, item.RankDesc, OleDbType.VarChar);
+
                         _cmd2.ExecuteNonQuery();
               }           
             }
@@ -192,14 +197,14 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
         }
 
-        private void DownloadUpdatedData(List<Profile> list)
+        private void UpdateLocalDB(List<Profile> list)
         {
             try
             {
                 foreach (Profile item in list)
                 {
                     OleDbCommand _cmd2 = new OleDbCommand(
-                    "Update Profiles set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?,ClientEmployeeId=?,EmployeeNo=?,ShiftId=?,UserId=?,IsZSIAdmin=?"
+                    "Update Profiles set LeftTF=?,LeftIF=?,LeftMF=?,LeftRF=?,LeftSF=?,RightTF=?,RightIF=?,RightMF=?,RightRF=?,RightSF=?,UpdatedDate=?,ProfileImg=?,ClientEmployeeId=?,EmployeeNo=?,ShiftId=?,UserId=?,IsZSIAdmin=?,PositionDesc=?,DepartmentDesc=?,SectionDesc=?,RankDesc=?"
                    + " where profileId='" + item.ProfileId + "'"
                     , _dcProfile_OleDb.DBConn, Trans);
                     var _params = _cmd2.Parameters;
@@ -222,6 +227,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     SetParameterValue(_params, item.ShiftId, OleDbType.Integer);
                     SetParameterValue(_params, item.UserId, OleDbType.Integer);
                     SetParameterValue(_params, item.IsZSIAdmin, OleDbType.Boolean);
+                    SetParameterValue(_params, item.PositionDesc, OleDbType.VarChar);
+                    SetParameterValue(_params, item.DepartmentDesc, OleDbType.VarChar);
+                    SetParameterValue(_params, item.SectionDesc, OleDbType.VarChar);
+                    SetParameterValue(_params, item.RankDesc, OleDbType.VarChar);                    
                     _cmd2.ExecuteNonQuery();
                 }
             }

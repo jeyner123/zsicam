@@ -75,8 +75,8 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     }
 
                     int LogInOutId = list[0].LogInOutId;
-                    this.OpenDB();               
-                    OleDbCommand _cmd = new OleDbCommand("update TimeInOutLog set TimeOut=?,TimeOutWSId=? where ProfileId='" + info.ProfileId + "' and DTRDate=#" + dtrDate + "# and LogInOutId=" + LogInOutId, this.DBConn);
+                    this.OpenDB();
+                    OleDbCommand _cmd = new OleDbCommand("update TimeInOutLog set TimeOut=?,TimeOutWSId=?,UploadedDate=null where ProfileId='" + info.ProfileId + "' and DTRDate=#" + dtrDate + "# and LogInOutId=" + LogInOutId, this.DBConn);
                     var _params = _cmd.Parameters;
                     SetParameterValue(_params, TimeValue, OleDbType.Date);
                     SetParameterValue(_params, ClientSettings.ClientWorkStationInfo.WorkStationId, OleDbType.Integer);
@@ -139,11 +139,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             {
                 List<TimeInOutLog> list = new List<TimeInOutLog>();
                 dcTimeInOutLog_OleDb _dcOLEDb = new dcTimeInOutLog_OleDb();
-                list = _dcOLEDb.GetDataSource("Select * from TimeInOutLog");
+                list = _dcOLEDb.GetDataSource("Select * from TimeInOutLog where UploadedDate is null");
 
                 foreach (TimeInOutLog info in list)
                 {
-  
                     dcTimeInOutLog_SQL _dcSQL = new dcTimeInOutLog_SQL();
                     _dcSQL.UpdateParameters.Add("p_ServerLogInOutId", info.ServerLogInOutId,SqlDbType.Int,ParameterDirection.InputOutput);
                     _dcSQL.UpdateParameters.Add("p_ClientId", info.ClientId);
@@ -156,10 +155,18 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     _dcSQL.UpdateParameters.Add("p_TimeInWSId", info.TimeInWSId);
                     _dcSQL.UpdateParameters.Add("p_TimeOutWSId", info.TimeOutWSId);
                     _dcSQL.UpdateParameters.Add("p_LogInOutId", info.LogInOutId);
-                    _dcSQL.Update();
+                    _dcSQL.Update();                    
+                    //update local db
+                    this.DBConn.Open();
+                    string sql = "Update TimeInOutLog set UploadedDate=#" + DateTime.Now + "#,ServerLogInOutId=" + _dcSQL.UpdateParameters.GetItem("p_ServerLogInOutId").Value.ToString() 
+                    + "  where UploadedDate is null"
+                    + "  and LogInOutId=" + info.LogInOutId 
+                    + "  and ClientEmployeeId=" + info.ClientEmployeeId 
+                    + "  and WorkStationId=" + info.WorkStationId;
+                    OleDbCommand _cmd = new OleDbCommand(sql, this.DBConn);
+                    _cmd.ExecuteNonQuery();
+                    this.DBConn.Close();                    
                     _dcSQL = null;
-
-                   
                 }
             }
             catch (Exception ex) {
@@ -174,53 +181,9 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             try
             {
                 UploadDataToServer();
-                return;
-             //   if (Util.IsOnline == false) return;
-                ConsoleApp.WriteLine(Application.ProductName, "Start uploading data to server.");
-                DateTime _LastUpdate;
-                this.DBConn.Open();
-                OleDbCommand _cmd2 = new OleDbCommand("select * from updatelog", this.DBConn);
-                OleDbDataReader _dr2 = _cmd2.ExecuteReader(CommandBehavior.CloseConnection);
-
-                Trans = this.DBConn.BeginTransaction();
-                if (_dr2.HasRows == false)
-                {
-                    ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
-                    dcTimeInOutLog_SQL dc = new dcTimeInOutLog_SQL();
-                     List<TimeInOutLog> list = dc.GetDataSource();
-                     this.DownloadNewData(list);
-                    UpdateLastUpdate();
-                }
-                else
-                {
-                    _dr2.Read();
-                    _LastUpdate = Convert.ToDateTime(_dr2["TimeInOutLastUpdate"]);
-
-                    ConsoleApp.WriteLine(Application.ProductName, "Get newest created and updated records from the live server");
-                    List<TimeInOutLog> _NewList = this.GetNewDataFromServer(_LastUpdate);
-                    List<TimeInOutLog> _UpdatedList = this.GetUpdatedDataFromServer(_LastUpdate);
-
-                    this.DownloadNewData(_NewList);
-                    this.DownloadUpdatedData(_UpdatedList);
-
-                    if (_NewList.Count > 0 || _UpdatedList.Count > 0)
-                    {
-                        UpdateLastUpdate();
-                    }
-
-                }
-                Trans.Commit();
-                this.DBConn.Close();
-                ConsoleApp.WriteLine(Application.ProductName, "Migrating DTR records has been done.");
-
             }
             catch (Exception ex)
-            {
-                try
-                {
-                    Trans.Rollback();
-                }
-                catch { }
+            {                 
                 ConsoleApp.WriteLine(Application.ProductName, "[Error]," + ex.ToString());
                 zsi.PhotoFingCapture.Util.LogError(ex.ToString());
             }
