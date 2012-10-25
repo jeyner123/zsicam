@@ -581,8 +581,9 @@ namespace zsi.PhotoFingCapture
 
         private void tmrProfileUpdate_Tick(object sender, EventArgs e)
         {
-            bgwProfiles.RunWorkerAsync();
             tmrProfileUpdate.Enabled = false;
+            bgwProfiles.RunWorkerAsync();
+            
         }
  
         

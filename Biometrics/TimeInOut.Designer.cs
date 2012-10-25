@@ -40,6 +40,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblActualTimeOut = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.lblProcessStatus = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pbCompanyLogo = new System.Windows.Forms.PictureBox();
@@ -47,7 +48,7 @@
             this.pbProfileImage = new System.Windows.Forms.PictureBox();
             this.pbFinger = new System.Windows.Forms.PictureBox();
             this.bgwTimeInOut = new System.ComponentModel.BackgroundWorker();
-            this.lblProcessStatus = new System.Windows.Forms.Label();
+            this.tmrTimeInOut = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -185,6 +186,15 @@
             this.pnlMain.Size = new System.Drawing.Size(1254, 703);
             this.pnlMain.TabIndex = 53;
             // 
+            // lblProcessStatus
+            // 
+            this.lblProcessStatus.AutoSize = true;
+            this.lblProcessStatus.Location = new System.Drawing.Point(410, 138);
+            this.lblProcessStatus.Name = "lblProcessStatus";
+            this.lblProcessStatus.Size = new System.Drawing.Size(40, 13);
+            this.lblProcessStatus.TabIndex = 55;
+            this.lblProcessStatus.Text = "           ";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -255,14 +265,11 @@
             this.bgwTimeInOut.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwTimeInOut_DoWork);
             this.bgwTimeInOut.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwTimeInOut_RunWorkerCompleted);
             // 
-            // lblProcessStatus
+            // tmrTimeInOut
             // 
-            this.lblProcessStatus.AutoSize = true;
-            this.lblProcessStatus.Location = new System.Drawing.Point(410, 138);
-            this.lblProcessStatus.Name = "lblProcessStatus";
-            this.lblProcessStatus.Size = new System.Drawing.Size(40, 13);
-            this.lblProcessStatus.TabIndex = 55;
-            this.lblProcessStatus.Text = "           ";
+            this.tmrTimeInOut.Enabled = true;
+            this.tmrTimeInOut.Interval = 10000;
+            this.tmrTimeInOut.Tick += new System.EventHandler(this.tmrTimeInOut_Tick);
             // 
             // frmTimInOut
             // 
@@ -316,6 +323,7 @@
         private System.Windows.Forms.Label label1;
         private System.ComponentModel.BackgroundWorker bgwTimeInOut;
         private System.Windows.Forms.Label lblProcessStatus;
+        private System.Windows.Forms.Timer tmrTimeInOut;
 
     }
 }

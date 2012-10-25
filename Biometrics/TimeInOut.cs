@@ -172,9 +172,13 @@ namespace zsi.Biometrics
             pbCompanyLogo.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
-        private void bgwTimeInOut_DoWork(object sender, DoWorkEventArgs e)
+        private void bgwTimeInOut_DoWork(object sender, DoWorkEventArgs e)        
         {
-            lblProcessStatus.Text = "synchronizing time(in/out) logs";
+            this.Invoke(new Function(delegate()
+               {
+                   lblProcessStatus.Text = "synchronizing time(in/out) logs";
+               }));
+            
             dcTimeInOutLog_OleDb _dc = new dcTimeInOutLog_OleDb();
             _dc.TimeInOutSync();
 
@@ -183,6 +187,13 @@ namespace zsi.Biometrics
         private void bgwTimeInOut_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             lblProcessStatus.Text = "";
+            tmrTimeInOut.Enabled = true;
+        }
+
+        private void tmrTimeInOut_Tick(object sender, EventArgs e)
+        {
+            tmrTimeInOut.Enabled = false;
+            bgwTimeInOut.RunWorkerAsync();
         }
     }
 
