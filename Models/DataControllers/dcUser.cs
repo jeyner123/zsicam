@@ -26,7 +26,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
             this.DBConn = new SqlConnection(_ConnectionString);
             this.Procedures.Add(new SQLServer.Procedure("dbo.SelectProfileFPT", SQLCommandType.Select));
-            this.Procedures.Add(new SQLServer.Procedure("dbo.SelectUserInfo", SQLCommandType.GetSingleInfo));
+            this.Procedures.Add(new SQLServer.Procedure("dbo.SelectUserInfo", SQLCommandType.SingleRecord));
             this.Procedures.Add(new SQLServer.Procedure("dbo.UpdateRequestCode", SQLCommandType.Update));
 
         }

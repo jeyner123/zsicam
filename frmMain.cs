@@ -29,6 +29,7 @@ namespace zsi.PhotoFingCapture
         public FingersBiometrics FingerBiometrics { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
         private WebCamService _WebCam;
+        private int TotalRecords = 0;
         public frmMain()
         {
             try
@@ -565,18 +566,26 @@ namespace zsi.PhotoFingCapture
 
         }
 
+
         private void bgwProfiles_DoWork(object sender, DoWorkEventArgs e)
         {
             ssStatus1.Text = "Updating Fingers Templates...";
             dcProfile_SQL _dc = new dcProfile_SQL();
-            _dc.FingerTemplatesUpdate();
+            _dc.FingerTemplatesUpdate(OnRecordIndexChanged,ref TotalRecords);
         }
+
+        public void OnRecordIndexChanged(int CurrentIndex)
+        {
+            ssStatus1.Text = string.Format("[{0} / {1}] Updating Fingers Templates...", this.TotalRecords, CurrentIndex); 
+        }
+      
 
         private void bgwProfiles_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
         
             ssStatus1.Text = "";
             tmrProfileUpdate.Enabled = true;
+            this.TotalRecords = 0;
         }
 
         private void tmrProfileUpdate_Tick(object sender, EventArgs e)

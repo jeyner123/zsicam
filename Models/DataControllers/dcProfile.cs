@@ -48,6 +48,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             
             this.DBConn = new SqlConnection(_ConnectionString);
             this.Procedures.Add(new SQLServer.Procedure("dbo.SelectProfileFPT", SQLCommandType.Select));
+            this.Procedures.Add(new SQLServer.Procedure("dbo.SelectProfileFPT", SQLCommandType.Count));
         }
 
 
@@ -89,7 +90,11 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             catch (Exception e) { throw e; }
         }
 
-        public void FingerTemplatesUpdate()
+        public void Test() {
+
+            Console.Write("test");
+        }
+        public void FingerTemplatesUpdate(SQLServer.OnRecordIndexHandler RecordIndexChanged, ref int TotalRecords)
         {
             try
             {
@@ -107,6 +112,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 {
                     this.SelectParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
                     this.SelectParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+                    this.RecordIndexChanged += new SQLServer.OnRecordIndexHandler(RecordIndexChanged);
+                    this.CountParameters.Add("p_RecordCount", SqlDbType.Int, ParameterDirection.Output);
+                    this.CountParameters.Add("p_IsCount", true);
+                    TotalRecords = this.GetRecordCount("p_RecordCount");
                     this.GetDataSource();
                     ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
                     this.InsertNewDataLocalDB(this.List);
