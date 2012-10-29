@@ -18,6 +18,7 @@ using System.Threading;
 using zsi.PhotoFingCapture.Models;
 using zsi.PhotoFingCapture.Models.DataControllers;
 using zsi.Framework.Data.DataProvider.SQLServer;
+using zsi.Framework.Data.DataProvider;
 
 using TouchlessLib;
 
@@ -29,7 +30,6 @@ namespace zsi.PhotoFingCapture
         public FingersBiometrics FingerBiometrics { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
         private WebCamService _WebCam;
-        private int TotalRecords = 0;
         public frmMain()
         {
             try
@@ -571,12 +571,13 @@ namespace zsi.PhotoFingCapture
         {
             ssStatus1.Text = "Updating Fingers Templates...";
             dcProfile_SQL _dc = new dcProfile_SQL();
-            _dc.FingerTemplatesUpdate(OnRecordIndexChanged,ref TotalRecords);
+            _dc.RecordIndexChanged += new RecordIndexChangedHandler(OnRecordIndexChanged);
+            _dc.FingerTemplatesUpdate();
         }
 
-        public void OnRecordIndexChanged(int CurrentIndex)
+        public void OnRecordIndexChanged(zsi.Framework.Data.DataProvider.DataRow row )
         {
-            ssStatus1.Text = string.Format("[{0} / {1}] Updating Fingers Templates...", this.TotalRecords, CurrentIndex); 
+            ssStatus1.Text = string.Format("[{0} / {1}] Updating Fingers Templates...", row.TotalRecords, row.CurrentIndex); 
         }
       
 
@@ -585,7 +586,6 @@ namespace zsi.PhotoFingCapture
         
             ssStatus1.Text = "";
             tmrProfileUpdate.Enabled = true;
-            this.TotalRecords = 0;
         }
 
         private void tmrProfileUpdate_Tick(object sender, EventArgs e)
