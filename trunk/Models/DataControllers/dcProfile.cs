@@ -114,7 +114,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     this.SelectParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
                     this.CountParameters.Add("p_RecordCount", SqlDbType.Int, ParameterDirection.Output);
                     this.CountParameters.Add("p_IsCount", true);
-                    this.DataRow.TotalRecords = this.GetRecordCount("p_RecordCount");                    
+                    this.DataRowPosition.TotalRecords = this.GetRecordCount("p_RecordCount");                    
                     this.GetDataSource();
                     ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
                     this.InsertNewDataLocalDB(this.List);

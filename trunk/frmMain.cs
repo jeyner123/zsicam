@@ -575,7 +575,7 @@ namespace zsi.PhotoFingCapture
             _dc.FingerTemplatesUpdate();
         }
 
-        public void OnRecordIndexChanged(zsi.Framework.Data.DataProvider.DataRow row )
+        public void OnRecordIndexChanged(DataRowPosition row )
         {
             ssStatus1.Text = string.Format("[{0} / {1}] Updating Fingers Templates...", row.TotalRecords, row.CurrentIndex); 
         }
