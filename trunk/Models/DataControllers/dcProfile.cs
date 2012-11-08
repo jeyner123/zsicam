@@ -54,24 +54,39 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
         private List<Profile> GetNewDataFromServer(DateTime ProfileLastUpdate)
         {
-            dcProfile_SQL _dc = new dcProfile_SQL();
-            SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectProfileFPT");
-            p.Parameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
-            p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
-            p.Parameters.Add("p_CreatedDate", ProfileLastUpdate);
-            _dc.GetDataSource(p);
-            return _dc.List;
+            //get total records
+            this.CountParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+            this.CountParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+            this.CountParameters.Add("p_CreatedDate", ProfileLastUpdate);
+            this.CountParameters.Add("p_RecordCount", SqlDbType.Int, ParameterDirection.Output);
+            this.CountParameters.Add("p_IsCount", true);
+            this.DataRowPosition.TotalRecords = this.GetRecordCount("p_RecordCount");         
+            //---------------
+            this.SelectParameters = null;
+            this.SelectParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+            this.SelectParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+            this.SelectParameters.Add("p_CreatedDate", ProfileLastUpdate);
+            this.GetDataSource();
+            return this.List;
         }
 
         private List<Profile> GetUpdatedDataFromServer(DateTime ProfileLastUpdate)
         {
-            dcProfile_SQL _dc = new dcProfile_SQL();
-            SQLServer.Procedure p = new SQLServer.Procedure("dbo.SelectProfileFPT");
-            p.Parameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
-            p.Parameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
-            p.Parameters.Add("p_UpdatedDate", ProfileLastUpdate);
-            _dc.GetDataSource(p);
-            return _dc.List;
+            //get total records
+            this.CountParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+            this.CountParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+            this.CountParameters.Add("p_UpdatedDate", ProfileLastUpdate);
+            this.CountParameters.Add("p_RecordCount", SqlDbType.Int, ParameterDirection.Output);
+            this.CountParameters.Add("p_IsCount", true);
+            this.DataRowPosition.TotalRecords = this.GetRecordCount("p_RecordCount");
+            ////---------------
+
+            this.SelectParameters = null;
+            this.SelectParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+            this.SelectParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+            this.SelectParameters.Add("p_UpdatedDate", ProfileLastUpdate);
+            this.GetDataSource();
+            return this.List;
         }
 
         private DateTime GetDbDate() {
@@ -112,9 +127,13 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                 {
                     this.SelectParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
                     this.SelectParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
+
+                    this.CountParameters.Add("p_ClientId", ClientSettings.ClientWorkStationInfo.ClientId);
+                    this.CountParameters.Add("p_ApplicationId", ClientSettings.ClientWorkStationInfo.ApplicationId);
                     this.CountParameters.Add("p_RecordCount", SqlDbType.Int, ParameterDirection.Output);
                     this.CountParameters.Add("p_IsCount", true);
                     this.DataRowPosition.TotalRecords = this.GetRecordCount("p_RecordCount");                    
+                    
                     this.GetDataSource();
                     ConsoleApp.WriteLine(Application.ProductName, "Get new records from the live server");
                     this.InsertNewDataLocalDB(this.List);

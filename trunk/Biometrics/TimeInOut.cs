@@ -27,8 +27,7 @@ namespace zsi.Biometrics
         {
 
             InitializeComponent();
-            this.SetControls(pbFinger);
-            txtDay.Text = DateTime.Now.ToLongDateString();
+            this.SetControls(pbFinger);            
             //var url = "http://localhost:5445/ads?p_clientid=" + clientid;
             var url = "http://zprofile.info/ads?p_clientid=" + ClientSettings.ClientWorkStationInfo.ClientId;
             webBrowser1.Navigate(new Uri(url));
@@ -137,6 +136,7 @@ namespace zsi.Biometrics
         private void timer1_Tick(object sender, EventArgs e)
         {
             txtTime.Text = DateTime.Now.ToLongTimeString();
+            txtDay.Text = DateTime.Now.ToLongDateString();
         }
 
         private void GetTime()
