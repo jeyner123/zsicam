@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-
+using System.Threading;
 namespace zsi.PhotoFingCapture
 {
     static class Program
@@ -12,10 +12,20 @@ namespace zsi.PhotoFingCapture
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
-            //Application.Run(new zsi.Biometrics.frmTimInOut());
+            bool createdNew;
+            Mutex m = new Mutex(true, "PhotoFingCapture", out createdNew);
+
+            if (!createdNew)
+            {
+                MessageBox.Show("PhotoFingCapture is already running!", "PhotoFingCapture");
+                return;
+            }
+            else {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new frmMain());
+                //Application.Run(new zsi.Biometrics.frmTimInOut());
+            }
 
         }
     }

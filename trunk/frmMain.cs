@@ -30,6 +30,7 @@ namespace zsi.PhotoFingCapture
         public FingersBiometrics FingerBiometrics { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
         private WebCamService _WebCam;
+        public zsi.Biometrics.frmTimInOut TimeInOutWindow { get; set; }
         public frmMain()
         {
             try
@@ -66,9 +67,10 @@ namespace zsi.PhotoFingCapture
 
             if (info.ApplicationId == 1) {
                
-                //this.Location = Screen.AllScreens[1].WorkingArea.Location;
-                
-                new zsi.Biometrics.frmTimInOut().Show();    
+                TimeInOutWindow = new zsi.Biometrics.frmTimInOut();    
+                 TimeInOutWindow.Disposed +=new EventHandler(TimeInOutWindow_Disposed);
+                TimeInOutWindow.Show();                
+
         
             }
         }
@@ -559,10 +561,18 @@ namespace zsi.PhotoFingCapture
             frmAbout _frm = new frmAbout();
             _frm.ShowDialog();            
         }
-
+        public void TimeInOutWindow_Disposed(object sender, EventArgs e)
+        {
+            TimeInOutWindow = null;
+        }
         private void frmMain_DoubleClick(object sender, EventArgs e)
         {
-            new zsi.Biometrics.frmTimInOut().Show();
+            
+            if (TimeInOutWindow == null)
+            {
+                TimeInOutWindow = new frmTimInOut();
+            }
+            TimeInOutWindow.Show();
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
