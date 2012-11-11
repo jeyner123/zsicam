@@ -65,7 +65,11 @@ namespace zsi.PhotoFingCapture
 
 
             if (info.ApplicationId == 1) {
-                new zsi.Biometrics.frmTimInOut().Show();            
+               
+                //this.Location = Screen.AllScreens[1].WorkingArea.Location;
+                
+                new zsi.Biometrics.frmTimInOut().Show();    
+        
             }
         }
        

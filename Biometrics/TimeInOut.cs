@@ -26,19 +26,39 @@ namespace zsi.Biometrics
         public frmTimInOut()
         {
 
+
             InitializeComponent();
             this.SetControls(pbFinger);            
             //var url = "http://localhost:5445/ads?p_clientid=" + clientid;
             var url = "http://zprofile.info/ads?p_clientid=" + ClientSettings.ClientWorkStationInfo.ClientId;
             webBrowser1.Navigate(new Uri(url));
-            int sceenwidth = Screen.PrimaryScreen.WorkingArea.Width;
-            int sceenheight = Screen.PrimaryScreen.WorkingArea.Height;
-            pnlMain.Left= (sceenwidth - (sceenwidth / 2)) - (pnlMain.Width - (pnlMain.Width/ 2)); 
-           // pnlMain.Top= (sceenheight - (sceenheight/ 2)) - (pnlMain.Height- (pnlMain.Height/ 2));
+
+            if (Screen.AllScreens.Count() > 1)
+            {
+                //EXTENDED SCREEN
+                Screen scrn = Screen.AllScreens[1];
+                this.Location = Screen.AllScreens[1].WorkingArea.Location;
+                int sceenwidth = scrn.WorkingArea.Width;
+                int sceenheight = scrn.WorkingArea.Height;
+                pnlMain.Left = (sceenwidth - (sceenwidth / 2)) - (pnlMain.Width - (pnlMain.Width / 2));
+                // pnlMain.Top= (sceenheight - (sceenheight/ 2)) - (pnlMain.Height- (pnlMain.Height/ 2));
+
+            }
+            else {
+
+                int sceenwidth = Screen.PrimaryScreen.WorkingArea.Width;
+                int sceenheight = Screen.PrimaryScreen.WorkingArea.Height;
+                pnlMain.Left = (sceenwidth - (sceenwidth / 2)) - (pnlMain.Width - (pnlMain.Width / 2));
+                // pnlMain.Top= (sceenheight - (sceenheight/ 2)) - (pnlMain.Height- (pnlMain.Height/ 2));
+
+            }
+
+
+
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
             this.TopMost = true;
-            pbProfileImage.Image = zsi.PhotoFingCapture.Util.GetNoPhoto(); 
+            pbProfileImage.Image = zsi.PhotoFingCapture.Util.GetNoPhoto();
         }
 
         public frmTimInOut(frmMain MainForm)
