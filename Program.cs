@@ -17,7 +17,7 @@ namespace zsi.PhotoFingCapture
 
             if (!createdNew)
             {
-                MessageBox.Show("PhotoFingCapture is already running!", "PhotoFingCapture");
+                MessageBox.Show("PhotoFingCapture is already running! \nYou can close this application at system tray area.", "PhotoFingCapture");
                 return;
             }
             else {

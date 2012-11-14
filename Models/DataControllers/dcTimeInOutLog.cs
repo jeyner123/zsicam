@@ -47,19 +47,17 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             {
                 string dtrDate = DateTime.Now.ToShortDateString();
                 TimeOut = new DateTime(1, 1, 1);
-                string sql = "Select top 1 * from TimeInOutLog where ProfileId='" + info.ProfileId + "' and DTRDate=#" + dtrDate + "# ORDER BY LogInOutId desc";               
+                string sql = "Select top 1 * from TimeInOutLog where ClientEmployeeId=" + info.ClientEmployeeId + " and DTRDate=#" + dtrDate + "# ORDER BY LogInOutId desc";               
                 List<TimeInOutLog> list =    this.GetDataSource(sql);
 
                 if (list.Count==0)
                 {
-                    TimeIn = TimeValue;
-                    InsertTimeIn(info, TimeValue, dtrDate);
+                    InsertTimeIn(info, TimeValue, dtrDate, out TimeOut, out TimeIn);
                     goto Finish;
                 } 
                 if (list[0].TimeOut != new DateTime(1, 1, 1))
                 {
-                    TimeIn = TimeValue;
-                    InsertTimeIn(info,TimeValue,dtrDate);                    
+                    InsertTimeIn(info, TimeValue, dtrDate,out TimeOut, out TimeIn);                    
                 }
                 else
                 {
@@ -92,10 +90,25 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             }
         Finish:;            
         }
-        private void InsertTimeIn(Profile info,DateTime TimeValue, string DtrDate)
+        private void InsertTimeIn(Profile info, DateTime TimeValue, string DtrDate, out DateTime TimeOut, out DateTime TimeIn)
         {
 
             //INSERT
+            this.OpenDB();
+            string sql = "Select top 1 * from TimeInOutLog where ClientEmployeeId=" + info.ClientEmployeeId + " and DTRDate=#" + DtrDate + "# ORDER BY LogInOutId desc";
+            List<TimeInOutLog> list = this.GetDataSource(sql);
+            if (list.Count()==1) {
+                TimeSpan ts = TimeValue - list[0].TimeOut;
+                if (ts.Minutes < 1)
+                {
+                    TimeIn = list[0].TimeIn; ;
+                    TimeOut = list[0].TimeOut;
+                    return;
+                }
+            }
+            TimeOut = new DateTime(1, 1, 1);
+            TimeIn = TimeValue;
+
             this.OpenDB();
             //System.Windows.Forms.MessageBox.Show("insert");
             OleDbCommand _cmd = new OleDbCommand("Insert into TimeInOutLog(ProfileId,ClientId,WorkStationId,ClientEmployeeId,ShiftId,TimeIn,DTRDate,TimeInWSId) Values(?,?,?,?,?,?,?,?)", this.DBConn);

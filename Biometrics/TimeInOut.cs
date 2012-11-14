@@ -109,6 +109,7 @@ namespace zsi.Biometrics
                         }));
                          
                     }
+                //base.Dispose();
             }
             catch (Exception ex)
             {
@@ -136,12 +137,17 @@ namespace zsi.Biometrics
                    DateTime TimeIn; DateTime TimeOut;
                     dc.TimeInOut(info, DateTime.Now,out TimeIn,out TimeOut);
 
-                    lblActualTimeIn.Text = TimeIn.ToLongTimeString();
 
-                        if (TimeOut == new DateTime(1, 1, 1))
-                            lblActualTimeOut.Text = "00:00:00";
-                        else
-                            lblActualTimeOut.Text = TimeOut.ToLongTimeString();
+                    if (TimeIn == new DateTime(1, 1, 1))
+                        lblActualTimeIn.Text = "00:00:00";
+                    else
+                        lblActualTimeIn.Text = TimeIn.ToLongTimeString();
+
+
+                    if (TimeOut == new DateTime(1, 1, 1))
+                        lblActualTimeOut.Text = "00:00:00";
+                    else
+                        lblActualTimeOut.Text = TimeOut.ToLongTimeString();
   
                 }));
 
