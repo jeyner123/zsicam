@@ -19,7 +19,6 @@ using zsi.PhotoFingCapture.Models;
 using zsi.PhotoFingCapture.Models.DataControllers;
 using zsi.Framework.Data.DataProvider.SQLServer;
 using zsi.Framework.Data.DataProvider;
-
 using TouchlessLib;
 
 namespace zsi.PhotoFingCapture
@@ -31,16 +30,51 @@ namespace zsi.PhotoFingCapture
         public DPFP.Template[] Templates = new DPFP.Template[10];
         private WebCamService _WebCam;
         public zsi.Biometrics.frmTimInOut TimeInOutWindow { get; set; }
+
+        private NotifyIcon  trayIcon;
+        private ContextMenu trayMenu;
+        private bool IsApplicationExit;
+        
+        private void OnExit(object sender, EventArgs e)
+        {
+            _WebCam.Stop();
+            DialogResult result = MessageBox.Show("Are you sure, you want to close this application?", "PhotofingCapture: Confirm!", MessageBoxButtons.YesNo);
+             if (result == DialogResult.Yes)
+             {
+                 IsApplicationExit = true;
+                 Application.Exit();
+                  
+             }
+             
+        }
+
+       
+        private void SysTray()
+        {
+            // Create a simple tray menu with only one item.
+            trayMenu = new ContextMenu();
+            trayMenu.MenuItems.Add("Exit", OnExit);
+            // Create a tray icon. In this example we use a
+            // standard system icon for simplicity, but you
+            // can of course use your own custom icon too.
+            trayIcon      = new NotifyIcon();
+            trayIcon.Text = "PhotoFingCapture";
+            trayIcon.Icon = new Icon(this.Icon, 40, 40);
+
+            // Add menu to tray icon and show it.
+            trayIcon.ContextMenu = trayMenu;
+            trayIcon.Visible     = true;
+        }
+
+
         public frmMain()
         {
             try
             {
                 this.InitializeComponent();
                 InitFingerPrintSettings();
-
-
-                StartUpApplication();
-
+                StartUpApplication();                
+                SysTray();
             }
             catch (Exception ex)
             {
@@ -66,12 +100,9 @@ namespace zsi.PhotoFingCapture
 
 
             if (info.ApplicationId == 1) {
-               
                 TimeInOutWindow = new zsi.Biometrics.frmTimInOut();    
                  TimeInOutWindow.Disposed +=new EventHandler(TimeInOutWindow_Disposed);
                 TimeInOutWindow.Show();                
-
-        
             }
         }
        
@@ -285,6 +316,8 @@ namespace zsi.PhotoFingCapture
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             _WebCam.Stop();
+            this.WindowState = FormWindowState.Minimized;
+            if(IsApplicationExit==false) e.Cancel = true;
         }
 
          private void btnUploadPhoto_Click(object sender, EventArgs e)
@@ -609,8 +642,6 @@ namespace zsi.PhotoFingCapture
             bgwProfiles.RunWorkerAsync();
             
         }
- 
-        
     }
 
 }
