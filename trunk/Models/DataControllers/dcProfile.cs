@@ -178,11 +178,14 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
         private void InsertNewDataLocalDB(List<Profile> list)
         {
+            string errorProfileInfo = string.Empty;
             try
             {
-
                 foreach (Profile item in list)
                 {
+
+                        errorProfileInfo = "";
+                        errorProfileInfo = "ProfileId:" + item.ProfileId; 
                         OleDbCommand _cmd2 = new OleDbCommand(
                         "Insert into Profiles(ProfileId,FullName,LeftTF,LeftIF,LeftMF,LeftRF,LeftSF,RightTF,RightIF,RightMF,RightRF,RightSF,CreatedDate,UpdatedDate,ProfileImg,ClientEmployeeId,EmployeeNo,ShiftId,UserId,IsZSIAdmin,PositionDesc,DepartmentDesc,SectionDesc,RankDesc) "
                         + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
@@ -219,7 +222,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                string errorMsg = "[Error]," + ex.ToString() + "\n" + errorProfileInfo;
+                ConsoleApp.WriteLine(Application.ProductName, errorMsg);
+                zsi.PhotoFingCapture.Util.LogError(errorMsg);
+                //throw ex;
             }
 
         }
