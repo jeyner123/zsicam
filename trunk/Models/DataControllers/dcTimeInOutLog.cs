@@ -160,10 +160,10 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
                     _dcSQL.UpdateParameters.Add("p_ServerLogInOutId", info.ServerLogInOutId,SqlDbType.Int,ParameterDirection.InputOutput);
                     _dcSQL.UpdateParameters.Add("p_ClientId", info.ClientId);
                     _dcSQL.UpdateParameters.Add("p_ClientEmployeeId", info.ClientEmployeeId);
-                    _dcSQL.UpdateParameters.Add("p_DTRDate", info.DTRDate);
+                    _dcSQL.UpdateParameters.Add("p_DTRDate", info.DTRDate,SqlDbType.Date);
                     _dcSQL.UpdateParameters.Add("p_ShiftId", info.ShiftId);
-                    _dcSQL.UpdateParameters.Add("p_TimeIn", info.TimeIn);
-                    if (info.TimeOut!=new DateTime(1, 1, 1))  _dcSQL.UpdateParameters.Add("p_TimeOut", info.TimeOut);
+                    _dcSQL.UpdateParameters.Add("p_TimeIn", info.TimeIn,SqlDbType.DateTime);
+                    if (info.TimeOut != new DateTime(1, 1, 1)) _dcSQL.UpdateParameters.Add("p_TimeOut", info.TimeOut, SqlDbType.DateTime);
                     _dcSQL.UpdateParameters.Add("p_WorkStationId", info.WorkStationId);
                     _dcSQL.UpdateParameters.Add("p_TimeInWSId", info.TimeInWSId);
                     _dcSQL.UpdateParameters.Add("p_TimeOutWSId", info.TimeOutWSId);
