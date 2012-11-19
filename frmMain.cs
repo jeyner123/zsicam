@@ -624,8 +624,11 @@ namespace zsi.PhotoFingCapture
 
         public void OnRecordIndexChanged(DataRowPosition row )
         {
-            decimal percent = ( Convert.ToDecimal(row.CurrentIndex) / row.TotalRecords) * 100;
-            ssStatus1.Text = string.Format("[{0}%],[{1} of {2}]  Updating Fingers Templates...", percent.ToString("###"),row.CurrentIndex,row.TotalRecords); 
+            if (row.TotalRecords > 0)
+            {
+                decimal percent = (Convert.ToDecimal(row.CurrentIndex) / row.TotalRecords) * 100;
+                ssStatus1.Text = string.Format("[{0}%],[{1} of {2}]  Updating Fingers Templates...", percent.ToString("###"), row.CurrentIndex, row.TotalRecords);
+            } 
         }
       
 
