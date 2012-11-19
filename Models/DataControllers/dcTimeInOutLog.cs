@@ -156,30 +156,42 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
 
                 foreach (TimeInOutLog info in list)
                 {
-                    dcTimeInOutLog_SQL _dcSQL = new dcTimeInOutLog_SQL();
-                    _dcSQL.UpdateParameters.Add("p_ServerLogInOutId", info.ServerLogInOutId,SqlDbType.Int,ParameterDirection.InputOutput);
-                    _dcSQL.UpdateParameters.Add("p_ClientId", info.ClientId);
-                    _dcSQL.UpdateParameters.Add("p_ClientEmployeeId", info.ClientEmployeeId);
-                    _dcSQL.UpdateParameters.Add("p_DTRDate", info.DTRDate,SqlDbType.Date);
-                    _dcSQL.UpdateParameters.Add("p_ShiftId", info.ShiftId);
-                    _dcSQL.UpdateParameters.Add("p_TimeIn", info.TimeIn,SqlDbType.DateTime);
-                    if (info.TimeOut != new DateTime(1, 1, 1)) _dcSQL.UpdateParameters.Add("p_TimeOut", info.TimeOut, SqlDbType.DateTime);
-                    _dcSQL.UpdateParameters.Add("p_WorkStationId", info.WorkStationId);
-                    _dcSQL.UpdateParameters.Add("p_TimeInWSId", info.TimeInWSId);
-                    _dcSQL.UpdateParameters.Add("p_TimeOutWSId", info.TimeOutWSId);
-                    _dcSQL.UpdateParameters.Add("p_LogInOutId", info.LogInOutId);
-                    _dcSQL.Update();                    
-                    //update local db
-                    this.DBConn.Open();
-                    string sql = "Update TimeInOutLog set UploadedDate=#" + DateTime.Now + "#,ServerLogInOutId=" + _dcSQL.UpdateParameters.GetItem("p_ServerLogInOutId").Value.ToString() 
-                    + "  where UploadedDate is null"
-                    + "  and LogInOutId=" + info.LogInOutId 
-                    + "  and ClientEmployeeId=" + info.ClientEmployeeId 
-                    + "  and WorkStationId=" + info.WorkStationId;
-                    OleDbCommand _cmd = new OleDbCommand(sql, this.DBConn);
-                    _cmd.ExecuteNonQuery();
-                    this.DBConn.Close();                    
-                    _dcSQL = null;
+                    string LogInfo = string.Empty;
+                    try
+                    {
+                        LogInfo = "ProfileId:" + info.ProfileId + ";ClientEmployeeId:" + info.ClientEmployeeId;
+                        dcTimeInOutLog_SQL _dcSQL = new dcTimeInOutLog_SQL();
+                        _dcSQL.UpdateParameters.Add("p_ServerLogInOutId", info.ServerLogInOutId, SqlDbType.Int, ParameterDirection.InputOutput);
+                        _dcSQL.UpdateParameters.Add("p_ClientId", info.ClientId);
+                        _dcSQL.UpdateParameters.Add("p_ClientEmployeeId", info.ClientEmployeeId);
+                        _dcSQL.UpdateParameters.Add("p_DTRDate", info.DTRDate, SqlDbType.Date);
+                        _dcSQL.UpdateParameters.Add("p_ShiftId", info.ShiftId);
+                        _dcSQL.UpdateParameters.Add("p_TimeIn", info.TimeIn, SqlDbType.DateTime);
+                        if (info.TimeOut != new DateTime(1, 1, 1)) _dcSQL.UpdateParameters.Add("p_TimeOut", info.TimeOut, SqlDbType.DateTime);
+                        _dcSQL.UpdateParameters.Add("p_WorkStationId", info.WorkStationId);
+                        _dcSQL.UpdateParameters.Add("p_TimeInWSId", info.TimeInWSId);
+                        _dcSQL.UpdateParameters.Add("p_TimeOutWSId", info.TimeOutWSId);
+                        _dcSQL.UpdateParameters.Add("p_LogInOutId", info.LogInOutId);
+                        _dcSQL.Update();
+                        //update local db
+                        this.DBConn.Open();
+                        string sql = "Update TimeInOutLog set UploadedDate=#" + DateTime.Now + "#,ServerLogInOutId=" + _dcSQL.UpdateParameters.GetItem("p_ServerLogInOutId").Value.ToString()
+                        + "  where UploadedDate is null"
+                        + "  and LogInOutId=" + info.LogInOutId
+                        + "  and ClientEmployeeId=" + info.ClientEmployeeId
+                        + "  and WorkStationId=" + info.WorkStationId;
+                        OleDbCommand _cmd = new OleDbCommand(sql, this.DBConn);
+                        _cmd.ExecuteNonQuery();
+                        this.DBConn.Close();
+                        _dcSQL = null;
+                    } 
+                    catch (Exception ex)
+                    {
+                        string ErrorMsg = "(loginfo:" + LogInfo + ")" + ex.ToString();
+                        ConsoleApp.WriteLine(Application.ProductName, "[Error]," + ErrorMsg);
+                        zsi.PhotoFingCapture.Util.LogError(ErrorMsg);
+                    }
+
                 }
             }
             catch (Exception ex) {
