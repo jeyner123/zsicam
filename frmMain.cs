@@ -20,12 +20,32 @@ using zsi.PhotoFingCapture.Models.DataControllers;
 using zsi.Framework.Data.DataProvider.SQLServer;
 using zsi.Framework.Data.DataProvider;
 using TouchlessLib;
-
+using System.Diagnostics;
 namespace zsi.PhotoFingCapture
 {
 
     public partial class frmMain : Form
     {
+        #region "DLL Import"            
+            [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+            private static extern IntPtr GetForegroundWindow();
+
+            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            private static extern int GetWindowThreadProcessId(IntPtr handle, out int processId);
+
+            [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+            public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+            [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            private static extern bool SetCursorPos(int X, int Y);   
+            private const int MOUSEEVENTF_LEFTDOWN = 0x02;
+            private const int MOUSEEVENTF_LEFTUP = 0x04;
+            private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
+            private const int MOUSEEVENTF_RIGHTUP = 0x10;
+
+        #endregion
+
         public FingersBiometrics FingerBiometrics { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
         private WebCamService _WebCam;
@@ -34,7 +54,23 @@ namespace zsi.PhotoFingCapture
         private NotifyIcon  trayIcon;
         private ContextMenu trayMenu;
         private bool IsApplicationExit;
-        
+        private Process CurrentProcess { get; set; }
+
+        private bool ApplicationIsActivated()
+        {
+
+            var activatedHandle = GetForegroundWindow();
+            if (activatedHandle == IntPtr.Zero)
+            {
+                return false;       // No window is currently activated
+            }
+            this.CurrentProcess = Process.GetCurrentProcess();
+            var procId = CurrentProcess.Id;
+            int activeProcId;
+            GetWindowThreadProcessId(activatedHandle, out activeProcId);
+
+            return activeProcId == procId;
+        }
         private void OnExit(object sender, EventArgs e)
         {
             _WebCam.Stop();
@@ -101,7 +137,7 @@ namespace zsi.PhotoFingCapture
 
             if (info.ApplicationId == 1) {
                 TimeInOutWindow = new zsi.Biometrics.frmTimInOut();    
-                 TimeInOutWindow.Disposed +=new EventHandler(TimeInOutWindow_Disposed);
+                 TimeInOutWindow.FormClosed +=new FormClosedEventHandler(TimeInOutWindow_FormClosed);
                 TimeInOutWindow.Show();                
             }
         }
@@ -184,6 +220,7 @@ namespace zsi.PhotoFingCapture
             btnOpenWebsite.Enabled = false;
             lUser.Text = "";
             btnUpdateClient.Visible = false;
+            ClientSettings.UserInfo = null;
         }
         private void btnSettings_Click(object sender, EventArgs e)
         {
@@ -594,14 +631,14 @@ namespace zsi.PhotoFingCapture
             frmAbout _frm = new frmAbout();
             _frm.ShowDialog();            
         }
-        public void TimeInOutWindow_Disposed(object sender, EventArgs e)
+        public void TimeInOutWindow_FormClosed(object sender, EventArgs e)
         {
             TimeInOutWindow = null;
         }
         private void frmMain_DoubleClick(object sender, EventArgs e)
         {
-            
-            if (TimeInOutWindow == null)
+
+            if (TimeInOutWindow == null || TimeInOutWindow.IsDisposed)
             {
                 TimeInOutWindow = new frmTimInOut();
             }
@@ -645,6 +682,26 @@ namespace zsi.PhotoFingCapture
             bgwProfiles.RunWorkerAsync();
             
         }
+
+        private void tmrAppFocusChecker_Tick(object sender, EventArgs e)
+        {
+            if (ClientSettings.UserInfo == null)
+            {
+                bool result = ApplicationIsActivated();
+                if (!result)
+                {
+                    this.Focus();
+                    this.Activate();
+                    if (this.WindowState == FormWindowState.Minimized) this.WindowState = FormWindowState.Normal;
+                    int X = this.Location.X + 50;
+                    int Y = this.Location.Y + 10;
+                    SetCursorPos(X, Y);
+                    mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
+                }
+            }   
+        }
+
+       
     }
 
 }
