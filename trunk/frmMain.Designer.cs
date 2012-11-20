@@ -92,6 +92,7 @@ namespace zsi.PhotoFingCapture
             this.btnAbout = new System.Windows.Forms.Button();
             this.btnUpdateClient = new System.Windows.Forms.Button();
             this.bgwProfiles = new System.ComponentModel.BackgroundWorker();
+            this.tmrAppFocusChecker = new System.Windows.Forms.Timer(this.components);
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -779,6 +780,12 @@ namespace zsi.PhotoFingCapture
             this.bgwProfiles.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwProfiles_DoWork);
             this.bgwProfiles.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwProfiles_RunWorkerCompleted);
             // 
+            // tmrAppFocusChecker
+            // 
+            this.tmrAppFocusChecker.Enabled = true;
+            this.tmrAppFocusChecker.Interval = 2000;
+            this.tmrAppFocusChecker.Tick += new System.EventHandler(this.tmrAppFocusChecker_Tick);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -894,6 +901,7 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.Button btnUpdateClient;
         private System.ComponentModel.BackgroundWorker bgwProfiles;
+        private System.Windows.Forms.Timer tmrAppFocusChecker;
     }
 }
 
