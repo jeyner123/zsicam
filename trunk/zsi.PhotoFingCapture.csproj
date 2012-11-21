@@ -257,6 +257,7 @@
     <Compile Include="test.Designer.cs">
       <DependentUpon>test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\WindowHelper.cs" />
     <Compile Include="Util\Util.cs" />
     <Compile Include="WebCamServices\WebCamService.cs">
     </Compile>
