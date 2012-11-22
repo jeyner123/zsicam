@@ -33,7 +33,6 @@ namespace zsi.PhotoFingCapture
         private NotifyIcon  trayIcon;
         private ContextMenu trayMenu;
         private bool IsApplicationExit;
-        private Process CurrentProcess { get; set; }
         private void OnExit(object sender, EventArgs e)
         {
             _WebCam.Stop();
