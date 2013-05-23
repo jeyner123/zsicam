@@ -17,12 +17,12 @@ namespace zsi.Biometrics
 {
     public partial class frmVerification:FingersMasterScanner
     {
-        private frmMain ParentForm { get; set; }
+        private frmMain _ParentForm { get; set; }
         private string ClientAction { get; set; }
         public frmVerification(frmMain MainForm)
         {
             InitializeComponent();
-            this.ParentForm = MainForm;
+            this._ParentForm = MainForm;
             this.SetControls(pbFinger);
         }
 
@@ -33,7 +33,7 @@ namespace zsi.Biometrics
             {
  
                     base.Process(Sample);
-                    frmMain _frm = this.ParentForm;
+                    frmMain _frm = this._ParentForm;
                     byte[] _byte = null;
                     Sample.Serialize(ref _byte);
 
@@ -95,7 +95,7 @@ namespace zsi.Biometrics
                             {
                                 this.Invoke(new Function(delegate(){
                                     //    this.ParentForm.EnableControls(true);
-                                    this.ParentForm.CheckPermission(true);  
+                                    this._ParentForm.CheckPermission(true);  
                                     this.Close();
 
                                 }));

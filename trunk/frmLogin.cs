@@ -14,13 +14,13 @@ namespace zsi.PhotoFingCapture
 {
     public partial class frmLogin : Form
     {
-        public frmMain ParentForm { get; set; }
+        private frmMain _ParentForm { get; set; }
         public Boolean AccessGranted { get; set; }
 
 
         public frmLogin(frmMain ParentForm)
         {
-            this.ParentForm = ParentForm;
+            this._ParentForm = ParentForm;
             InitializeComponent();
         }
 
@@ -102,7 +102,7 @@ namespace zsi.PhotoFingCapture
         {
             txtUserName.Enabled = IsEnable;
             txtPassword.Enabled = IsEnable;
-            this.ParentForm.EnableControls(IsEnable);
+            this._ParentForm.EnableControls(IsEnable);
         }
 
  
