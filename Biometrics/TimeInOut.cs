@@ -19,7 +19,7 @@ namespace zsi.Biometrics
 {
     public partial class frmTimInOut:FingersMasterScanner
     {
-        private frmMain ParentForm { get; set; }
+        private frmMain _ParentForm { get; set; }
         private string ClientAction { get; set; }
         private string InOut { get; set; }        
         //p_clientId,p_ClientEmployeeId,p_TimeInOut        
@@ -64,7 +64,7 @@ namespace zsi.Biometrics
         public frmTimInOut(frmMain MainForm)
         {
             InitializeComponent();
-            this.ParentForm = MainForm;
+            this._ParentForm = MainForm;
             this.SetControls(pbFinger);
         } 
         public override void Process(DPFP.Sample Sample)
@@ -73,7 +73,7 @@ namespace zsi.Biometrics
             {
  
                     base.Process(Sample);
-                    frmMain _frm = this.ParentForm;
+                    frmMain _frm = this._ParentForm;
                     byte[] _byte = null;
                     Sample.Serialize(ref _byte);
 
