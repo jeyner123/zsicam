@@ -68,10 +68,6 @@ namespace zsi.PhotoFingCapture
             this.btnRRF = new System.Windows.Forms.Button();
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
-            this.tabSign = new System.Windows.Forms.TabPage();
-            this.signature1 = new zsi.Controls.Signature();
-            this.btnUploadSig = new System.Windows.Forms.Button();
-            this.btnClearSig = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnClearConsoleList = new System.Windows.Forms.Button();
             this.btnDisplayConsolList = new System.Windows.Forms.Button();
@@ -104,7 +100,6 @@ namespace zsi.PhotoFingCapture
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.tabFingers.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabSign.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.gbClientReg.SuspendLayout();
@@ -124,7 +119,6 @@ namespace zsi.PhotoFingCapture
             // 
             this.tab.Controls.Add(this.tabPhoto);
             this.tab.Controls.Add(this.tabFingers);
-            this.tab.Controls.Add(this.tabSign);
             this.tab.Controls.Add(this.tabPage1);
             this.tab.Location = new System.Drawing.Point(18, 42);
             this.tab.Name = "tab";
@@ -541,50 +535,6 @@ namespace zsi.PhotoFingCapture
             this.btnLSF.UseVisualStyleBackColor = false;
             this.btnLSF.Click += new System.EventHandler(this.btnLSF_Click);
             // 
-            // tabSign
-            // 
-            this.tabSign.Controls.Add(this.signature1);
-            this.tabSign.Controls.Add(this.btnUploadSig);
-            this.tabSign.Controls.Add(this.btnClearSig);
-            this.tabSign.Location = new System.Drawing.Point(4, 22);
-            this.tabSign.Name = "tabSign";
-            this.tabSign.Size = new System.Drawing.Size(770, 365);
-            this.tabSign.TabIndex = 2;
-            this.tabSign.Text = "Signature";
-            this.tabSign.UseVisualStyleBackColor = true;
-            // 
-            // signature1
-            // 
-            this.signature1.Background = null;
-            this.signature1.bmp = ((System.Drawing.Bitmap)(resources.GetObject("signature1.bmp")));
-            this.signature1.Location = new System.Drawing.Point(145, 110);
-            this.signature1.Name = "signature1";
-            this.signature1.Size = new System.Drawing.Size(307, 116);
-            this.signature1.TabIndex = 3;
-            this.signature1.Text = "signature1";
-            this.signature1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.signature1_MouseMove);
-            // 
-            // btnUploadSig
-            // 
-            this.btnUploadSig.Enabled = false;
-            this.btnUploadSig.Location = new System.Drawing.Point(458, 203);
-            this.btnUploadSig.Name = "btnUploadSig";
-            this.btnUploadSig.Size = new System.Drawing.Size(75, 23);
-            this.btnUploadSig.TabIndex = 2;
-            this.btnUploadSig.Text = "Upload";
-            this.btnUploadSig.UseVisualStyleBackColor = true;
-            this.btnUploadSig.Click += new System.EventHandler(this.btnUploadSig_Click);
-            // 
-            // btnClearSig
-            // 
-            this.btnClearSig.Location = new System.Drawing.Point(458, 110);
-            this.btnClearSig.Name = "btnClearSig";
-            this.btnClearSig.Size = new System.Drawing.Size(75, 23);
-            this.btnClearSig.TabIndex = 1;
-            this.btnClearSig.Text = "Clear";
-            this.btnClearSig.UseVisualStyleBackColor = true;
-            this.btnClearSig.Click += new System.EventHandler(this.btnClearSig_Click);
-            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.btnClearConsoleList);
@@ -823,7 +773,6 @@ namespace zsi.PhotoFingCapture
             this.tabFingers.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabSign.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.StatusStrip1.ResumeLayout(false);
@@ -868,9 +817,6 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Button btnRRF;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox chkAutoClose;
-        private System.Windows.Forms.TabPage tabSign;
-        private System.Windows.Forms.Button btnUploadSig;
-        private System.Windows.Forms.Button btnClearSig;
         private System.Windows.Forms.ComboBox comboBoxCameras;
         private System.Windows.Forms.Button btnConfig;
         private System.Windows.Forms.Button btnStop;
@@ -879,7 +825,6 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private zsi.Controls.Signature signature1;
         private System.Windows.Forms.StatusStrip StatusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel ssStatus1;
         private System.Windows.Forms.Timer tmrProfileUpdate;

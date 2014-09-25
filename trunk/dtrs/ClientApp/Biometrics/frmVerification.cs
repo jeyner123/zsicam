@@ -113,7 +113,7 @@ namespace zsi.Biometrics
 
                                 string _guID = Guid.NewGuid().ToString();
                                 _dc.UpdateRequestCode(ClientSettings.UserInfo.UserId, _guID);
-                                p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=Profile Info&p_ClientRequestCode=" + _guID + "&p_ProfileId=" + info.ProfileId;
+                                //p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=Profile Info&p_ClientRequestCode=" + _guID + "&p_ProfileId=" + info.ProfileId;
                                 p.Start();
                                 this.Invoke(new Function(delegate(){
                                     this.Close();

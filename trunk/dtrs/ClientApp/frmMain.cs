@@ -11,7 +11,7 @@ using System.IO;
 using System.Drawing.Imaging;
 using zsi.Biometrics;
 using zsi.PhotoFingCapture;
-using zsi.PhotoFingCapture.WebCam;
+//using zsi.PhotoFingCapture.WebCam;
 using zsi.Framework.Common;
 using zsi.PhotoFingCapture.Properties;
 using System.Threading;
@@ -19,7 +19,7 @@ using zsi.PhotoFingCapture.Models;
 using zsi.PhotoFingCapture.Models.DataControllers;
 using zsi.Framework.Data.DataProvider.SQLServer;
 using zsi.Framework.Data.DataProvider;
-using TouchlessLib;
+//using TouchlessLib;
 using System.Diagnostics;
 namespace zsi.PhotoFingCapture
 {
@@ -28,14 +28,14 @@ namespace zsi.PhotoFingCapture
     {
         public FingersBiometrics FingerBiometrics { get; set; }
         public DPFP.Template[] Templates = new DPFP.Template[10];
-        private WebCamService _WebCam;
+       // private WebCamService _WebCam;
         public zsi.Biometrics.frmTimInOut TimeInOutWindow { get; set; }
         private NotifyIcon  trayIcon;
         private ContextMenu trayMenu;
         private bool IsApplicationExit;
         private void OnExit(object sender, EventArgs e)
         {
-            _WebCam.Stop();
+        //    _WebCam.Stop();
             DialogResult result = MessageBox.Show("Are you sure, you want to close this application?", "PhotofingCapture: Confirm!", MessageBoxButtons.YesNo);
              if (result == DialogResult.Yes)
              {
@@ -112,8 +112,8 @@ namespace zsi.PhotoFingCapture
         }
         private void btnCapture_Click(object sender, EventArgs e)
         {
-            if (this._WebCam.CurrentCamera==null) return;
-            pbResult.Image = Util.CropImage(this._WebCam.CurrentCamera.GetCurrentImage(),310,233);
+            //if (this._WebCam.CurrentCamera==null) return;
+            //pbResult.Image = Util.CropImage(this._WebCam.CurrentCamera.GetCurrentImage(),310,233);
         }
 
     
@@ -167,7 +167,7 @@ namespace zsi.PhotoFingCapture
         {
             btnCapture.Enabled = IsEnable;           
             btnUploadPhoto.Enabled = IsEnable;
-            btnUploadSig.Enabled = IsEnable;
+            
             btnUpdateClient.Enabled = IsEnable;
         }
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -315,14 +315,14 @@ namespace zsi.PhotoFingCapture
 
             if (!DesignMode)
             {
-                _WebCam = new WebCamService(picture, comboBoxCameras);
+               // _WebCam = new WebCamService(picture, comboBoxCameras);
             }
 
 
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _WebCam.Stop();
+           // _WebCam.Stop();
             this.WindowState = FormWindowState.Minimized;
             if(IsApplicationExit==false) e.Cancel = true;
         }
@@ -337,7 +337,7 @@ namespace zsi.PhotoFingCapture
          {
              try
              {
-                 _WebCam.Stop();
+                // _WebCam.Stop();
                  btnUploadPhoto.Text = "Uploading...";
                  btnUploadPhoto.Enabled = false;
                  if (pbResult.Image == null)
@@ -352,7 +352,7 @@ namespace zsi.PhotoFingCapture
                  dcUserProfileImages dc = new dcUserProfileImages();
                  dc.UpdateUserProfileImages(ClientSettings.UserInfo.UserId, _ColumnName, _byteImage);
                  MessageBox.Show("Photo has been uploaded to the server.");
-                 _WebCam.Start();
+               //  _WebCam.Start();
              }
              catch (Exception ex)
              {
@@ -470,10 +470,7 @@ namespace zsi.PhotoFingCapture
 
         }
 
-        private void btnClearSig_Click(object sender, EventArgs e)
-        {
-            signature1.Clear();            
-        }
+        
 
         private void signature1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -482,47 +479,22 @@ namespace zsi.PhotoFingCapture
         }
 
 
-        private void btnUploadSig_Click(object sender, EventArgs e)
-        {
-            try
-            {   
-                btnUploadSig.Text = "Uploading...";
-                btnUploadSig.Enabled = false;                
-                //UpdateProfileNo();                
-                System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
-                this.signature1.bmp.Save(_MemoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                byte[] _byte = Util.StreamToByte(_MemoryStream);
-                dcUserProfileImages dc = new dcUserProfileImages();
-                dc.UpdateUserProfileImages(ClientSettings.UserInfo.UserId, "SigImg", _byte);
-                MessageBox.Show("Signature has been uploaded to the server.");
-                signature1.Clear();
-            }
-                      
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally{
-                btnUploadSig.Text = "Upload";
-                btnUploadSig.Enabled = true;
-            }
-        }
-
+      
         private void btnStart_Click(object sender, EventArgs e)
         {
 
-            _WebCam.Start();
+            //_WebCam.Start();
         }
  
         private void btnStop_Click(object sender, EventArgs e)
         {
-            _WebCam.Stop();
+         //   _WebCam.Stop();
         }
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
 
-            if (this._WebCam.CurrentCamera != null) this._WebCam.CurrentCamera.ShowPropertiesDialog(this.Handle);
+           // if (this._WebCam.CurrentCamera != null) this._WebCam.CurrentCamera.ShowPropertiesDialog(this.Handle);
 
         }
 
@@ -540,7 +512,7 @@ namespace zsi.PhotoFingCapture
                 string _guID = Guid.NewGuid().ToString();
                 dcUser _dc = new dcUser();
                 _dc.UpdateRequestCode(ClientSettings.UserInfo.UserId, _guID);
-                p.StartInfo.FileName = Settings.Default.DefaultWebsite + "Client?p_ClientAction=User Login&p_ClientRequestCode=" + _guID;
+                p.StartInfo.FileName = "";//Settings.Default.DefaultWebsite + "Client?p_ClientAction=User Login&p_ClientRequestCode=" + _guID;
                 p.Start();
                 return;
             

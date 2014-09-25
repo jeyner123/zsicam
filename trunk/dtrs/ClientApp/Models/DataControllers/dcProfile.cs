@@ -22,7 +22,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
     {
         public override void InitDataController()
         {
-            string _ConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.AccessDBConnection;
+            string _ConnectionString = "";//zsi.PhotoFingCapture.Properties.Settings.Default.AccessDBConnection;
             _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{p}.*.{p}", "{p}");
             this.DBConn = new OleDbConnection(_ConnectionString);
         }
@@ -42,7 +42,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         }
         public override void InitDataController()
         {
-            string _ConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.LiveSQLServerConnection;
+            string _ConnectionString = "";// zsi.PhotoFingCapture.Properties.Settings.Default.LiveSQLServerConnection;
             _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{u}.*.{u}", "{u}");
             _ConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_ConnectionString, "{p}.*.{p}", "{p}");
             
