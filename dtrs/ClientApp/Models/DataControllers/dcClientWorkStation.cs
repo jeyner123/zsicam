@@ -21,7 +21,7 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         public override void InitDataController()
         {
             //sql connection
-            string _SQLConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.LiveSQLServerConnection;
+            string _SQLConnectionString = "";// zsi.PhotoFingCapture.Properties.Settings.Default.LiveSQLServerConnection;
             _SQLConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_SQLConnectionString, "{u}.*.{u}", "{u}");
             _SQLConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_SQLConnectionString, "{p}.*.{p}", "{p}");
             this.DBConn = new SqlConnection(_SQLConnectionString);
@@ -55,12 +55,12 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
         public override void InitDataController()
         {
             //oledb connection
-            string _OLEDbConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.AccessDBConnection;
+            string _OLEDbConnectionString = "";// zsi.PhotoFingCapture.Properties.Settings.Default.AccessDBConnection;
             _OLEDbConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_OLEDbConnectionString, "{p}.*.{p}", "{p}");
             this.DBConn = new OleDbConnection(_OLEDbConnectionString);
 
             //sql connection
-            string _SQLConnectionString = zsi.PhotoFingCapture.Properties.Settings.Default.LiveSQLServerConnection;
+            string _SQLConnectionString = "";// zsi.PhotoFingCapture.Properties.Settings.Default.LiveSQLServerConnection;
             _SQLConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_SQLConnectionString, "{u}.*.{u}", "{u}");
             _SQLConnectionString = zsi.PhotoFingCapture.Util.DecryptStringData(_SQLConnectionString, "{p}.*.{p}", "{p}");
 
