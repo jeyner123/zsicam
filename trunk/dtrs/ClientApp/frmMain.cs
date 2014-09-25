@@ -638,6 +638,12 @@ namespace zsi.PhotoFingCapture
             }   
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            dcEmployee dc = new dcEmployee();
+            dc.SelectAll();
+        }
+
        
     }
 

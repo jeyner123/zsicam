@@ -89,6 +89,7 @@ namespace zsi.PhotoFingCapture
             this.btnUpdateClient = new System.Windows.Forms.Button();
             this.bgwProfiles = new System.ComponentModel.BackgroundWorker();
             this.tmrAppFocusChecker = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -734,12 +735,23 @@ namespace zsi.PhotoFingCapture
             this.tmrAppFocusChecker.Interval = 2000;
             this.tmrAppFocusChecker.Tick += new System.EventHandler(this.tmrAppFocusChecker_Tick);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(159, 10);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 43;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::zsi.PhotoFingCapture.Properties.Resources.photofingcapturemain;
             this.ClientSize = new System.Drawing.Size(808, 497);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnUpdateClient);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.lUser);
@@ -845,6 +857,7 @@ namespace zsi.PhotoFingCapture
         private System.Windows.Forms.Button btnUpdateClient;
         private System.ComponentModel.BackgroundWorker bgwProfiles;
         private System.Windows.Forms.Timer tmrAppFocusChecker;
+        private System.Windows.Forms.Button button1;
     }
 }
 
