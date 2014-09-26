@@ -191,6 +191,8 @@
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\DataControllers\dcEmployeeTSI.cs" />
+    <Compile Include="Models\EmployeeTSI.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\DataControllers\dcEmployee.cs" />
     <Compile Include="Models\DataControllers\dcClient.cs" />
