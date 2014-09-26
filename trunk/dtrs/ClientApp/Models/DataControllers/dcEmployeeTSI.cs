@@ -44,26 +44,63 @@ namespace zsi.PhotoFingCapture.Models.DataControllers
          }
 
 
-        public bool Insert(EmployeeTSI info)
+        public void Insert(EmployeeTSI info)
         {
             OracleConnection conn = new OracleConnection(ConStr);
-            OracleCommand command = new OracleCommand("EmpTSI_Update", conn);
 
             try
             {
-                command.CommandType = CommandType.StoredProcedure;
-                //command.Parameters.AddWithValue("@param1", info.field1);
-                //RowsAffected = command.ExecuteNonQuery();
+                /*
+                string sql = "Insert into EmpTSI(Empl_Id_No,IMG,RTF,RIF,RMF,RRF,RSF,LTF,LIF,LMF,LRF,LSF,Date_Created,Date_Modified) "
+                + "Values(:Empl_Id_No,:IMG,:RTF,:RIF,:RMF,:RRF,:RSF,:LTF,:LIF,:LMF,:LRF,:LSF,:Date_Created,:Date_Modified)";
+                */
+                string sql = "Insert into EmpTSI(Empl_Id_No,RTF) Values(:Empl_Id_No,:RTF)";
+
+                OracleCommand command = new OracleCommand(sql, conn);
+
+                var _params = command.Parameters;
+                conn.Open();
+
+
+                SetParameterValue(_params, "Empl_Id_No", info.Empl_Id_No, OracleDbType.Int32);
+
+                //SetParameterValue(_params, info.IMG, OracleDbType.Blob);
+                SetParameterValue(_params, "RTF", info.RTF, OracleDbType.Blob);
+                /*
+                SetParameterValue(_params,"RIF", info.RIF, OracleDbType.Blob);
+                SetParameterValue(_params,"RMF", info.RMF, OracleDbType.Blob);
+                SetParameterValue(_params,"RRF", info.RRF, OracleDbType.Blob);
+                SetParameterValue(_params,"RSF", info.RSF, OracleDbType.Blob);
+                SetParameterValue(_params,"LTF", info.LTF, OracleDbType.Blob);
+                SetParameterValue(_params,"LIF", info.LIF, OracleDbType.Blob);
+                SetParameterValue(_params,"LMF", info.LMF, OracleDbType.Blob);
+                SetParameterValue(_params,"LRF", info.LRF, OracleDbType.Blob);
+                SetParameterValue(_params,"LSF", info.LSF, OracleDbType.Blob);
+                SetParameterValue(_params,"Date_Created", info.Date_Created, OracleDbType.Date);
+                SetParameterValue(_params,"Date_Modified", info.Date_Modified, OracleDbType.Date);
+                 */
+
+                command.ExecuteNonQuery();
                 conn.Close();
-                return true;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-       
 
+        void SetParameterValue(OracleParameterCollection Params,string ColumnName, object value, OracleDbType type)
+        {
+            if (value != null)
+            {
+                Params.Add(":" + ColumnName, type).Value = value;
+            }
+            else
+            {
+                Params.Add(":" + ColumnName, DBNull.Value);
+            }
+
+        }
 
 
 

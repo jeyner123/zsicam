@@ -202,7 +202,26 @@ namespace zsi.PhotoFingCapture
         {
             UploadFingerTemplates();
         }
+        private void testUpload() {
+          
+            DPFP.Template[] tmps = this.FingerBiometrics.Templates;
+            System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
+            byte[] _template = null;
+            this.FingerBiometrics.Templates[0].Serialize(ref _template);
+            byte[] _sample = Util.StreamToByte(Util.BmpToStream((Bitmap)this.FingerBiometrics.Images[0]));
+            string _ColName = GetTemplateColumnName(0);
+           // new dcUserProfileFP().UpdateUserProfileFP(ClientSettings.UserInfo.UserId, _ColName + "F", _template);
+            dcEmployeeTSI dc = new dcEmployeeTSI();
+            EmployeeTSI info = new EmployeeTSI();
+            info.Empl_Id_No = 1;
+            info.RTF = _template;
+            dc.Insert(info);
+
+            ClearFingerBiometrics();
+        }
         private void UploadFingerTemplates(){
+            testUpload();
+            /* 
             try
             {
                 btnUploadFG.Text = "Uploading...";
@@ -232,23 +251,23 @@ namespace zsi.PhotoFingCapture
                 btnUploadFG.Text = "Upload";
                 btnUploadFG.Enabled = true;
             }
-        
+            */
         }
         private string GetTemplateColumnName(int x) {
             string _result = "";
             switch(x){
                 //right
-                case 0: _result = "RightT"; break;
-                case 1: _result = "RightI"; break;
-                case 2: _result = "RightM"; break;
-                case 3: _result = "RightR"; break;
-                case 4: _result = "RightS"; break;
+                case 0: _result = "RT"; break;
+                case 1: _result = "RI"; break;
+                case 2: _result = "RM"; break;
+                case 3: _result = "RR"; break;
+                case 4: _result = "RS"; break;
                 //left
-                case 5: _result = "leftT"; break;
-                case 6: _result = "leftI"; break;
-                case 7: _result = "leftM"; break;
-                case 8: _result = "leftR"; break;
-                case 9: _result = "leftS"; break;
+                case 5: _result = "LT"; break;
+                case 6: _result = "LI"; break;
+                case 7: _result = "LM"; break;
+                case 8: _result = "LR"; break;
+                case 9: _result = "LS"; break;
                 default: break;            
             }
             return _result;
