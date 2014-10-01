@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="zsi.dtrs.camera.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LiveSQLServerConnection" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=sqlserver8.loosefoot.com,1433;Initial Catalog=zpolice40demo;User ID={u}UEIwVUv7BKszC7uozCVFE1glf06dGha+lxTRqiH11Xc={u};Password={p}guP3+y74kh5HQdFdbNoImrYoag4i/4ItAH7N4P0YMq4={p};&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.OleDb&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=sqlserver8.loosefoot.com,1433;Initial Catalog=zpolice40demo;User ID={u}UEIwVUv7BKszC7uozCVFE1glf06dGha+lxTRqiH11Xc={u};Password={p}guP3+y74kh5HQdFdbNoImrYoag4i/4ItAH7N4P0YMq4={p};</Value>
+    </Setting>
+    <Setting Name="AccessDBConnection" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Provider=Microsoft.ACE.OLEDB.12.0;Data Source=templates.accdb;Jet OLEDB:Database Password={p}+Q0pGxwnOcU2kj+9NbJukY7o8PYNyRw6K5gdIKOwEkI={p};&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=templates.accdb;Jet OLEDB:Database Password={p}+Q0pGxwnOcU2kj+9NbJukY7o8PYNyRw6K5gdIKOwEkI={p};</Value>
+    </Setting>
+    <Setting Name="DefaultWebsite" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:5445/</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
