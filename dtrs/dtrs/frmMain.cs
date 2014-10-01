@@ -118,9 +118,7 @@ namespace zsi.dtrs
             System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
             byte[] _template = null;
             this.FingerBiometrics.Templates[0].Serialize(ref _template);
-            byte[] _sample = zsi.Biometrics.Util.StreamToByte(zsi.Biometrics.Util.BmpToStream((Bitmap)this.FingerBiometrics.Images[0]));
             string _ColName = GetTemplateColumnName(0);
-            // new dcUserProfileFP().UpdateUserProfileFP(ClientSettings.UserInfo.UserId, _ColName + "F", _template);
             dcEmployeeTSI dc = new dcEmployeeTSI();
             EmployeeTSI info = new EmployeeTSI();
             info.Empl_Id_No = 1;

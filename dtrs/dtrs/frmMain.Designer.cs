@@ -46,7 +46,6 @@
             this.btnUploadPhoto = new System.Windows.Forms.Button();
             this.picture = new System.Windows.Forms.PictureBox();
             this.tabFingers = new System.Windows.Forms.TabPage();
-            this.btnFingerUpdate = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkAutoClose = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -260,7 +259,6 @@
             // 
             // tabFingers
             // 
-            this.tabFingers.Controls.Add(this.btnFingerUpdate);
             this.tabFingers.Controls.Add(this.groupBox1);
             this.tabFingers.Location = new System.Drawing.Point(4, 22);
             this.tabFingers.Name = "tabFingers";
@@ -269,16 +267,6 @@
             this.tabFingers.TabIndex = 1;
             this.tabFingers.Text = "Register Finger(s)";
             this.tabFingers.UseVisualStyleBackColor = true;
-            // 
-            // btnFingerUpdate
-            // 
-            this.btnFingerUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFingerUpdate.Location = new System.Drawing.Point(84, 227);
-            this.btnFingerUpdate.Name = "btnFingerUpdate";
-            this.btnFingerUpdate.Size = new System.Drawing.Size(146, 35);
-            this.btnFingerUpdate.TabIndex = 45;
-            this.btnFingerUpdate.Text = "Update Fingers Templates";
-            this.btnFingerUpdate.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -496,7 +484,6 @@
         private System.Windows.Forms.Button btnUploadPhoto;
         private System.Windows.Forms.PictureBox picture;
         private System.Windows.Forms.TabPage tabFingers;
-        private System.Windows.Forms.Button btnFingerUpdate;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox chkAutoClose;
         private System.Windows.Forms.Label label1;
