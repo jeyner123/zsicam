@@ -104,7 +104,8 @@ namespace zsi.dtrs.Models.DataControllers
 
 
 
-        public static Employee VerifyBiometricsData(int FingNo, byte[] data)
+   
+        public static Employee VerifyBiometricsData(int FingNo, DPFP.Sample Sample)
         {
             OracleConnection conn = new OracleConnection(ConStr);
             Employee _info = new Employee();
@@ -115,10 +116,6 @@ namespace zsi.dtrs.Models.DataControllers
                 string _result = string.Empty;
                 string _Finger = string.Empty;
                 DPFP.Template _template = null;
-                Stream _msSample = new MemoryStream(data);
-                DPFP.Sample _sample = new DPFP.Sample();
-                //deserialize
-                _sample.DeSerialize(_msSample);
                 switch (FingNo)
                 {
                     case 9: _Finger = "LSF"; break;
@@ -148,26 +145,26 @@ namespace zsi.dtrs.Models.DataControllers
                         if (reader[0] != DBNull.Value)
                         {
                             _template = ProcessDBTemplate((byte[])reader[_Finger]);
-                            IsFound = Verify(_sample, _template);
+                            IsFound = Verify(Sample, _template);
                         }
                         if (IsFound == true)
                         {
-                           string sqlEmp ="select * from employees where Empl_Id_No="  + reader["Empl_Id_No"] ;
-                           OracleCommand cmd2 = new OracleCommand(sqlEmp, conn);
-                           cmd2.CommandType = CommandType.Text;                           
-                           OracleDataReader reader2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
-                           if (reader2.HasRows)
-                           {
-                               _info.Empl_Id_No = Convert.ToInt32(reader["Empl_Id_No"]);
-                               _info.Empl_Name = (string)reader2["Empl_Name"];
-                               _info.Empl_Deptname = (string)reader2["Empl_Deptname"];
-                               _info.Shift_Id = Convert.ToInt32(reader2["Shift_Id"]);
-                           }
-                           reader2.Dispose();
-                           reader.Dispose();
-                           cmd2.Dispose();
-                           command.Dispose();
-                           break;
+                            string sqlEmp = "select * from employees where Empl_Id_No=" + reader["Empl_Id_No"];
+                            OracleCommand cmd2 = new OracleCommand(sqlEmp, conn);
+                            cmd2.CommandType = CommandType.Text;
+                            OracleDataReader reader2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
+                            if (reader2.HasRows)
+                            {
+                                _info.Empl_Id_No = Convert.ToInt32(reader["Empl_Id_No"]);
+                                _info.Empl_Name = (string)reader2["Empl_Name"];
+                                _info.Empl_Deptname = (string)reader2["Empl_Deptname"];
+                                _info.Shift_Id = Convert.ToInt32(reader2["Shift_Id"]);
+                            }
+                            reader2.Dispose();
+                            reader.Dispose();
+                            cmd2.Dispose();
+                            command.Dispose();
+                            break;
                         }
                     }
                 }
@@ -180,6 +177,7 @@ namespace zsi.dtrs.Models.DataControllers
                 throw ex;
             }
         }
+
 
         private static DPFP.Template ProcessDBTemplate(byte[] _data)
         {

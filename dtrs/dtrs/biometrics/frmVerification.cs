@@ -51,17 +51,13 @@ namespace zsi.Biometrics
  
                     base.Process(Sample);
                     frmMain _frm = this._ParentForm;
-                    byte[] _byte = null;
-                    Sample.Serialize(ref _byte);
-
                     //Wait Start
-
                     this.Invoke(new Function(delegate()
                     {
                         this.lblPlsWait.Visible = true;                     
                     }));
 
-                    Employee info = zsi.dtrs.Models.DataControllers.dcEmployeeTSI.VerifyBiometricsData(GetFingNo(), _byte);
+                    Employee info = zsi.dtrs.Models.DataControllers.dcEmployeeTSI.VerifyBiometricsData(GetFingNo(), Sample);
                    
 
                     //WaitStop
