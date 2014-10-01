@@ -215,6 +215,11 @@ namespace zsi.dtrs
             zsi.Biometrics.frmVerification _frmVerify = new frmVerification(this);
             _frmVerify.ShowDialog();
         }
+        private void testverify()
+        {
+            zsi.Biometrics.frmVerification _frmVerify = new frmVerification(this);
+            _frmVerify.ShowDialog();
+        }
 
     }
 }
