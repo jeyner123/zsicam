@@ -121,7 +121,7 @@ namespace zsi.dtrs
             string _ColName = GetTemplateColumnName(0);
             dcEmployeeTSI dc = new dcEmployeeTSI();
             EmployeeTSI info = new EmployeeTSI();
-            info.Empl_Id_No = 1;
+            info.Empl_Id_No = 2;
             info.RTF = _template;
             dc.Insert(info);
 
@@ -208,6 +208,12 @@ namespace zsi.dtrs
                 if (item != null) _result += 1;
             }
             return _result;
+        }
+
+        private void btnVerify_Click(object sender, EventArgs e)
+        {
+            zsi.Biometrics.frmVerification _frmVerify = new frmVerification(this);
+            _frmVerify.ShowDialog();
         }
 
     }
