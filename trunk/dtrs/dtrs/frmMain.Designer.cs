@@ -61,6 +61,7 @@
             this.btnRRF = new System.Windows.Forms.Button();
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
+            this.btnVerify = new System.Windows.Forms.Button();
             this.tab.SuspendLayout();
             this.tabPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -259,6 +260,7 @@
             // 
             // tabFingers
             // 
+            this.tabFingers.Controls.Add(this.btnVerify);
             this.tabFingers.Controls.Add(this.groupBox1);
             this.tabFingers.Location = new System.Drawing.Point(4, 22);
             this.tabFingers.Name = "tabFingers";
@@ -440,6 +442,16 @@
             this.btnLSF.UseVisualStyleBackColor = false;
             this.btnLSF.Click += new System.EventHandler(this.btnLSF_Click);
             // 
+            // btnVerify
+            // 
+            this.btnVerify.Location = new System.Drawing.Point(581, 232);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(68, 36);
+            this.btnVerify.TabIndex = 45;
+            this.btnVerify.Text = "Verify";
+            this.btnVerify.UseVisualStyleBackColor = true;
+            this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -499,6 +511,7 @@
         private System.Windows.Forms.Button btnRRF;
         private System.Windows.Forms.Button btnRMF;
         private System.Windows.Forms.Button btnLSF;
+        private System.Windows.Forms.Button btnVerify;
 
 
     }

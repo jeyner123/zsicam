@@ -61,8 +61,8 @@ namespace zsi.Biometrics
                         this.lblPlsWait.Visible = true;                     
                     }));
 
-
-                    //Profile info = zsi.dtrs.Models.DataControllers.dcProfile_SQL.VerifyBiometricsData(GetFingNo(), _byte);
+                    Employee info = zsi.dtrs.Models.DataControllers.dcEmployeeTSI.VerifyBiometricsData(GetFingNo(), _byte);
+                   
 
                     //WaitStop
                     this.Invoke(new Function(delegate()
@@ -70,8 +70,8 @@ namespace zsi.Biometrics
                         this.lblPlsWait.Visible = false; 
                     }));
 
-                 /*
-                    if (info.ProfileId > 0)
+                  
+                    if (info!=null)
                     {
                         ProcessProfile(info);
                     }
@@ -79,7 +79,7 @@ namespace zsi.Biometrics
                     {
                         MessageBox.Show("Finger not identified");
                     }
-                  */ 
+                   
             }
             catch (Exception ex)
             {
@@ -88,9 +88,60 @@ namespace zsi.Biometrics
         }
 
 
-        private void ProcessProfile(object info)
+        private void ProcessProfile(Employee info)
         {
-            
+            try
+            {
+                this.ClientAction = "";
+                string _ClientRequestCode = string.Empty;
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                //dcUser _dc = new dcUser();
+                //zsi.Framework.Security.Cryptography _crypt = new zsi.Framework.Security.Cryptography();
+
+                this.Invoke(new Function(delegate()
+                {
+                    if(this.cbVerificationPurpose.SelectedItem!=null)
+                        this.ClientAction = this.cbVerificationPurpose.SelectedItem.ToString().ToLower();
+                }));
+                switch (this.ClientAction)
+                {
+
+                    case "user login":
+                        //ClientSettings.UserInfo = _dc.GetUserInfo(info.ProfileId);
+                        /*ClientSettings.UserInfo = new User();
+                        ClientSettings.UserInfo.UserId = info.UserId;
+                        ClientSettings.UserInfo.WSMacAddress = "add";
+                        if (ClientSettings.UserInfo.UserId != 0)
+                        {
+                            this.Invoke(new Function(delegate()
+                            {
+                                //    this.ParentForm.EnableControls(true);
+                                this._ParentForm.CheckPermission(true);
+                                this.Close();
+
+                            }));
+                        }
+                        else
+                        {
+                            MessageBox.Show("User not login.");
+                        }
+                         */
+                        break;
+                    
+                    default:
+                        MessageBox.Show("Finger identified: (" + info.Empl_Id_No + ") - " + info.Empl_Name);
+
+                        break;
+
+
+                }
+                return;
+ 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }        
         }
  
 
@@ -151,6 +202,27 @@ namespace zsi.Biometrics
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // CloseButton
+            // 
+            CloseButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            CloseButton.Location = new System.Drawing.Point(45, 307);
+            CloseButton.Name = "CloseButton";
+            CloseButton.Size = new System.Drawing.Size(75, 23);
+            CloseButton.TabIndex = 26;
+            CloseButton.Text = "Close";
+            CloseButton.UseVisualStyleBackColor = true;
+            // 
+            // lblPrompt
+            // 
+            lblPrompt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(235)))), ((int)(((byte)(226)))));
+            lblPrompt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            lblPrompt.Location = new System.Drawing.Point(184, 20);
+            lblPrompt.Name = "lblPrompt";
+            lblPrompt.Padding = new System.Windows.Forms.Padding(5);
+            lblPrompt.Size = new System.Drawing.Size(338, 128);
+            lblPrompt.TabIndex = 27;
+            lblPrompt.Text = "To verify your identity, touch fingerprint reader with any enrolled finger.";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -166,7 +238,6 @@ namespace zsi.Biometrics
             this.cbVerificationPurpose.FormattingEnabled = true;
             this.cbVerificationPurpose.Items.AddRange(new object[] {
             "User Login",
-            "Profile Info",
             "Verify Finger"});
             this.cbVerificationPurpose.Location = new System.Drawing.Point(22, 253);
             this.cbVerificationPurpose.Name = "cbVerificationPurpose";
@@ -243,16 +314,6 @@ namespace zsi.Biometrics
             this.pbFinger.Size = new System.Drawing.Size(146, 189);
             this.pbFinger.TabIndex = 28;
             this.pbFinger.TabStop = false;
-            // 
-            // CloseButton
-            // 
-            CloseButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            CloseButton.Location = new System.Drawing.Point(45, 307);
-            CloseButton.Name = "CloseButton";
-            CloseButton.Size = new System.Drawing.Size(75, 23);
-            CloseButton.TabIndex = 26;
-            CloseButton.Text = "Close";
-            CloseButton.UseVisualStyleBackColor = true;
             // 
             // rdRS
             // 
@@ -344,17 +405,6 @@ namespace zsi.Biometrics
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Fingers";
-            // 
-            // lblPrompt
-            // 
-            lblPrompt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(235)))), ((int)(((byte)(226)))));
-            lblPrompt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            lblPrompt.Location = new System.Drawing.Point(184, 20);
-            lblPrompt.Name = "lblPrompt";
-            lblPrompt.Padding = new System.Windows.Forms.Padding(5);
-            lblPrompt.Size = new System.Drawing.Size(338, 128);
-            lblPrompt.TabIndex = 27;
-            lblPrompt.Text = "To verify your identity, touch fingerprint reader with any enrolled finger.";
             // 
             // frmVerification
             // 
