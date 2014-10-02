@@ -43,6 +43,7 @@
             this.btnRRF = new System.Windows.Forms.Button();
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
+            this.btnCamera = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +52,6 @@
             this.groupBox1.Controls.Add(this.chkAutoClose);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnLTF);
-            this.groupBox1.Controls.Add(this.btnUploadFG);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.btnLIF);
             this.groupBox1.Controls.Add(this.btnRTF);
@@ -64,7 +64,7 @@
             this.groupBox1.Controls.Add(this.btnLSF);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(667, 142);
+            this.groupBox1.Size = new System.Drawing.Size(550, 122);
             this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Register Fingers";
@@ -72,7 +72,7 @@
             // chkAutoClose
             // 
             this.chkAutoClose.AutoSize = true;
-            this.chkAutoClose.Location = new System.Drawing.Point(574, 19);
+            this.chkAutoClose.Location = new System.Drawing.Point(454, 19);
             this.chkAutoClose.Name = "chkAutoClose";
             this.chkAutoClose.Size = new System.Drawing.Size(77, 17);
             this.chkAutoClose.TabIndex = 44;
@@ -101,10 +101,9 @@
             // 
             // btnUploadFG
             // 
-            this.btnUploadFG.Enabled = false;
-            this.btnUploadFG.Location = new System.Drawing.Point(574, 69);
+            this.btnUploadFG.Location = new System.Drawing.Point(472, 149);
             this.btnUploadFG.Name = "btnUploadFG";
-            this.btnUploadFG.Size = new System.Drawing.Size(68, 36);
+            this.btnUploadFG.Size = new System.Drawing.Size(90, 25);
             this.btnUploadFG.TabIndex = 31;
             this.btnUploadFG.Text = "Upload";
             this.btnUploadFG.UseVisualStyleBackColor = true;
@@ -218,12 +217,24 @@
             this.btnLSF.UseVisualStyleBackColor = false;
             this.btnLSF.Click += new System.EventHandler(this.btnLSF_Click);
             // 
+            // btnCamera
+            // 
+            this.btnCamera.Location = new System.Drawing.Point(361, 149);
+            this.btnCamera.Name = "btnCamera";
+            this.btnCamera.Size = new System.Drawing.Size(88, 25);
+            this.btnCamera.TabIndex = 45;
+            this.btnCamera.Text = "Capture Photo";
+            this.btnCamera.UseVisualStyleBackColor = true;
+            this.btnCamera.Click += new System.EventHandler(this.btnCamera_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 180);
+            this.ClientSize = new System.Drawing.Size(579, 197);
+            this.Controls.Add(this.btnCamera);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnUploadFG);
             this.Name = "frmMain";
             this.Text = "DTR - Monitoring";
             this.groupBox1.ResumeLayout(false);
@@ -249,6 +260,7 @@
         private System.Windows.Forms.Button btnRRF;
         private System.Windows.Forms.Button btnRMF;
         private System.Windows.Forms.Button btnLSF;
+        private System.Windows.Forms.Button btnCamera;
 
 
     }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -219,6 +221,19 @@ namespace zsi.dtrs
         {
             zsi.Biometrics.frmVerification _frmVerify = new frmVerification(this);
             _frmVerify.ShowDialog();
+        }
+
+        private void btnCamera_Click(object sender, EventArgs e)
+        {
+            string imgLoc = ConfigurationManager.AppSettings["ImageLocation"].ToString();
+            if (!System.IO.Directory.Exists(imgLoc)) System.IO.Directory.CreateDirectory(imgLoc);
+
+
+            Process p = new Process();
+            p.StartInfo.FileName = @"camera\zsi.dtrs.camera.exe";
+            p.StartInfo.Arguments= imgLoc + @"\emp54321.jpg";
+            p.Start();
+            p.WaitForExit();
         }
 
     }
