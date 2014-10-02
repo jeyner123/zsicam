@@ -36,8 +36,6 @@ namespace zsi.Biometrics
             this.Control.BackColor = Color.White;
             this.Control.ForeColor = Color.Black;
             this.Data.UpdateTemplates(FingerPosition, null);
-            this.Data.UpdateSamples(FingerPosition, null);
-
         }
 
         public void CloseForm()
@@ -52,8 +50,6 @@ namespace zsi.Biometrics
         public override void Process(DPFP.Sample Sample)
         {
             base.Process(Sample);
-            //this.Data.Images[this.FingerPosition] = Picture.Image;
-          //  this.Data.UpdateSamples(this.FingerPosition, Sample);
            
             // Process the sample and create a feature set for the enrollment purpose.
             DPFP.FeatureSet features = zsi.dtrs.Util.ExtractFeatures(Sample, DPFP.Processing.DataPurpose.Enrollment);

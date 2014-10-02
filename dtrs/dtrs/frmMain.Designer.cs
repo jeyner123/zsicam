@@ -32,7 +32,6 @@
             this.chkAutoClose = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnLTF = new System.Windows.Forms.Button();
-            this.btnUploadFG = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnLIF = new System.Windows.Forms.Button();
             this.btnRTF = new System.Windows.Forms.Button();
@@ -43,6 +42,7 @@
             this.btnRRF = new System.Windows.Forms.Button();
             this.btnRMF = new System.Windows.Forms.Button();
             this.btnLSF = new System.Windows.Forms.Button();
+            this.btnUploadFG = new System.Windows.Forms.Button();
             this.btnCamera = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -98,16 +98,6 @@
             this.btnLTF.Text = "Thumb";
             this.btnLTF.UseVisualStyleBackColor = false;
             this.btnLTF.Click += new System.EventHandler(this.btnLTF_Click);
-            // 
-            // btnUploadFG
-            // 
-            this.btnUploadFG.Location = new System.Drawing.Point(472, 149);
-            this.btnUploadFG.Name = "btnUploadFG";
-            this.btnUploadFG.Size = new System.Drawing.Size(90, 25);
-            this.btnUploadFG.TabIndex = 31;
-            this.btnUploadFG.Text = "Upload";
-            this.btnUploadFG.UseVisualStyleBackColor = true;
-            this.btnUploadFG.Click += new System.EventHandler(this.btnUploadFG_Click);
             // 
             // label2
             // 
@@ -217,6 +207,16 @@
             this.btnLSF.UseVisualStyleBackColor = false;
             this.btnLSF.Click += new System.EventHandler(this.btnLSF_Click);
             // 
+            // btnUploadFG
+            // 
+            this.btnUploadFG.Location = new System.Drawing.Point(472, 149);
+            this.btnUploadFG.Name = "btnUploadFG";
+            this.btnUploadFG.Size = new System.Drawing.Size(90, 25);
+            this.btnUploadFG.TabIndex = 31;
+            this.btnUploadFG.Text = "Upload";
+            this.btnUploadFG.UseVisualStyleBackColor = true;
+            this.btnUploadFG.Click += new System.EventHandler(this.btnUploadFG_Click);
+            // 
             // btnCamera
             // 
             this.btnCamera.Location = new System.Drawing.Point(361, 149);
@@ -237,6 +237,7 @@
             this.Controls.Add(this.btnUploadFG);
             this.Name = "frmMain";
             this.Text = "DTR - Monitoring";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

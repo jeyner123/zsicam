@@ -49,23 +49,18 @@ namespace zsi.dtrs.Models.DataControllers
 
             try
             {
-                /*
+                
                 string sql = "Insert into EmpTSI(Empl_Id_No,IMG,RTF,RIF,RMF,RRF,RSF,LTF,LIF,LMF,LRF,LSF,Date_Created,Date_Modified) "
-                + "Values(:Empl_Id_No,:IMG,:RTF,:RIF,:RMF,:RRF,:RSF,:LTF,:LIF,:LMF,:LRF,:LSF,:Date_Created,:Date_Modified)";
-                */
-                string sql = "Insert into EmpTSI(Empl_Id_No,RTF) Values(:Empl_Id_No,:RTF)";
-
+                + "Values(:Empl_Id_No,:IMG,:RTF,:RIF,:RMF,:RRF,:RSF,:LTF,:LIF,:LMF,:LRF,:LSF,:Date_Created,:Date_Modified)";       
+        
                 OracleCommand command = new OracleCommand(sql, conn);
-
                 var _params = command.Parameters;
+
                 conn.Open();
 
-
-                SetParameterValue(_params, "Empl_Id_No", info.Empl_Id_No, OracleDbType.Int32);
-
-                //SetParameterValue(_params, info.IMG, OracleDbType.Blob);
-                SetParameterValue(_params, "RTF", info.RTF, OracleDbType.Blob);
-                /*
+                SetParameterValue(_params,"Empl_Id_No", info.Empl_Id_No, OracleDbType.Int32);
+                SetParameterValue(_params,"IMG", info.IMG, OracleDbType.Blob);
+                SetParameterValue(_params,"RTF", info.RTF, OracleDbType.Blob);                
                 SetParameterValue(_params,"RIF", info.RIF, OracleDbType.Blob);
                 SetParameterValue(_params,"RMF", info.RMF, OracleDbType.Blob);
                 SetParameterValue(_params,"RRF", info.RRF, OracleDbType.Blob);
@@ -77,7 +72,6 @@ namespace zsi.dtrs.Models.DataControllers
                 SetParameterValue(_params,"LSF", info.LSF, OracleDbType.Blob);
                 SetParameterValue(_params,"Date_Created", info.Date_Created, OracleDbType.Date);
                 SetParameterValue(_params,"Date_Modified", info.Date_Modified, OracleDbType.Date);
-                 */
 
                 command.ExecuteNonQuery();
                 conn.Close();
