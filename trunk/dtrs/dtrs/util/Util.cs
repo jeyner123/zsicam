@@ -6,8 +6,6 @@ using System.Xml;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-
-using zsi.Framework.Security;
 using System.Text.RegularExpressions;
 using System.Reflection;
 namespace zsi.Biometrics
@@ -171,22 +169,7 @@ namespace zsi.Biometrics
 
         }
 
-        /// <summary>
-        /// Decrypt the encrypted string.
-        /// </summary>
-        /// <param name="Input">The string search for match.</param>
-        /// <param name="Pattern">The regular expression to match.</param>
-        /// <param name="Tag">A unicode character to be removed.</param>
-        /// <returns></returns>
-        public static string DecryptStringData(string Input, string Pattern,string Tag) {
-            string _result = string.Empty;
-            Cryptography _cryp = new Cryptography();
-            string _DecryptedVal = Regex.Match(Input, Pattern).ToString();
-            Input = Input.Replace(_DecryptedVal, _cryp.Decrypt(_DecryptedVal.Replace(Tag, "")));
-            return Input;
-        }
-
-
+ 
         public static void LogError(string ErrorMessage) {
             try
             {

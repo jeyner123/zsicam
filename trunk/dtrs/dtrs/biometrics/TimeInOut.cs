@@ -13,7 +13,6 @@ using zsi.dtrs.Models;
 //using System.Web.Script.Serialization;
 using zsi.dtrs.Properties;
 using zsi.dtrs.Models.DataControllers;
-using zsi.Framework.Common;
 using System.Threading;
 namespace zsi.Biometrics
 {
@@ -159,6 +158,7 @@ namespace zsi.Biometrics
            // ssStatus1.Text = "Updating Fingers Templates...";
             Application.DoEvents();
             object _dc = new object();
+            /*
             ProcessMaster _pm = new ProcessMaster(GetTime);
             _pm.OnProcessStop = delegate()
             {
@@ -169,6 +169,7 @@ namespace zsi.Biometrics
                 Application.DoEvents();
             };
             _pm.Start();
+            */
         }
 
         private void frmTimInOut_DoubleClick(object sender, EventArgs e)

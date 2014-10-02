@@ -6,8 +6,6 @@ using System.Xml;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-
-using zsi.Framework.Security;
 using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Diagnostics;

@@ -63,9 +63,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="zsi.Framework">
-      <HintPath>bin\zsi.Framework.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="biometrics\FingerBiometrics.cs" />
@@ -88,14 +85,10 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="models\Client.cs" />
-    <Compile Include="models\DataControllers\dcClient.cs" />
     <Compile Include="models\DataControllers\dcEmployee.cs" />
     <Compile Include="models\DataControllers\dcEmployeeTSI.cs" />
-    <Compile Include="models\DataControllers\dcTimeInOutLog.cs" />
     <Compile Include="models\Employee.cs" />
     <Compile Include="models\EmployeeTSI.cs" />
-    <Compile Include="models\TimeInOutLog.cs" />
     <Compile Include="models\UserStamp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
