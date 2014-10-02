@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace zsi.dtrs
 {
     public partial class frmMain : Form
     {
+        private string ImageLocation { get { return ConfigurationManager.AppSettings["ImageLocation"].ToString(); } }
+        private string FileName { get; set; }
         public FingersBiometrics FingerBiometrics { get; set; }
         public frmMain()
         {
@@ -25,6 +28,8 @@ namespace zsi.dtrs
             {
                 InitializeComponent();
                 InitFingerPrintSettings();
+                //temporary filename;
+                this.FileName = "emp54321.jpg";
             }
             catch (Exception ex)
             {
@@ -114,21 +119,49 @@ namespace zsi.dtrs
         {
             UploadFingerTemplates();
         }
+        private byte[] LoadImgFile(string FileName) {
+            byte[] bImg=null;
+            if (File.Exists(FileName))
+            {
+                Image img = Image.FromFile(FileName);
+               
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    bImg = ms.ToArray();
+                }
+            }
+            return bImg;
+        }
         private void UploadFingerTemplates()
         {
-            DPFP.Template[] tmps = this.FingerBiometrics.Templates;
-            System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
-            byte[] _template = null;
-            this.FingerBiometrics.Templates[0].Serialize(ref _template);
-            string _ColName = GetTemplateColumnName(0);
-            dcEmployeeTSI dc = new dcEmployeeTSI();
-            EmployeeTSI info = new EmployeeTSI();
-            info.Empl_Id_No = 2;
-            info.RTF = _template;
-            dc.Insert(info);
+            try
+            {
+                FingersBiometrics f = this.FingerBiometrics;
+                EmployeeTSI info = new EmployeeTSI();
+                info.Empl_Id_No = 1;
+                info.IMG = this.LoadImgFile(this.ImageLocation + @"\" + this.FileName);
+                info.RTF = f.Template.RTF;
+                info.RIF = f.Template.RIF;
+                info.RMF = f.Template.RMF;
+                info.RRF = f.Template.RRF;
+                info.RSF = f.Template.RSF;
+                info.LTF = f.Template.LTF;
+                info.LIF = f.Template.LIF;
+                info.LMF = f.Template.LMF;
+                info.LRF = f.Template.LRF;
+                info.LSF = f.Template.LSF;
 
-            ClearFingerBiometrics();
-
+                new dcEmployeeTSI().Insert(info);
+                ClearFingerBiometrics();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally {
+                MessageBox.Show("Data has been saved.");
+            }
         }
 
         private string GetTemplateColumnName(int x)
@@ -165,7 +198,7 @@ namespace zsi.dtrs
             ResetColor(btnRMF);
             ResetColor(btnRIF);
             ResetColor(btnRTF);
-            FingerBiometrics.Templates = new DPFP.Template[10];
+           // FingerBiometrics.Templates = new DPFP.Template[10];
         }
         private void ResetColor(object sender)
         {
@@ -183,7 +216,7 @@ namespace zsi.dtrs
 
         private void OnFingerBiometricsChange()
         {
-            int _registeredFingers = CountRegisteredFingers(this.FingerBiometrics);
+            int _registeredFingers =this.FingerBiometrics.RecordCount;
             if (_registeredFingers > 0)
             {
                 this.Invoke(new Function(delegate
@@ -202,16 +235,6 @@ namespace zsi.dtrs
             }
         }
 
-        private int CountRegisteredFingers(FingersBiometrics fb)
-        {
-            int _result = 0;
-            foreach (DPFP.Template item in fb.Templates)
-            {
-                if (item != null) _result += 1;
-            }
-            return _result;
-        }
-
         private void btnVerify_Click(object sender, EventArgs e)
         {
             zsi.Biometrics.frmVerification _frmVerify = new frmVerification(this);
@@ -225,15 +248,19 @@ namespace zsi.dtrs
 
         private void btnCamera_Click(object sender, EventArgs e)
         {
-            string imgLoc = ConfigurationManager.AppSettings["ImageLocation"].ToString();
-            if (!System.IO.Directory.Exists(imgLoc)) System.IO.Directory.CreateDirectory(imgLoc);
+            if (!System.IO.Directory.Exists(this.ImageLocation)) System.IO.Directory.CreateDirectory(this.ImageLocation);
 
 
             Process p = new Process();
             p.StartInfo.FileName = @"camera\zsi.dtrs.camera.exe";
-            p.StartInfo.Arguments= imgLoc + @"\emp54321.jpg";
+            p.StartInfo.Arguments = this.ImageLocation + @"\" + this.FileName;
             p.Start();
             p.WaitForExit();
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+
         }
 
     }
