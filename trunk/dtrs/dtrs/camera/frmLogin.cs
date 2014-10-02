@@ -43,24 +43,5 @@ namespace zsi.dtrs.camera
             }
         }
 
-        private void EnableControls(Boolean IsEnable)
-        {
-            txtUserName.Enabled = IsEnable;
-            txtPassword.Enabled = IsEnable;
-            this._ParentForm.EnableControls(IsEnable);
-        }
-
- 
-
-    
-
-        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue  == 13)
-            {
-                //login();
-            }
-        }
-
     }
 }

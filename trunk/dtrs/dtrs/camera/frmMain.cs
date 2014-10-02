@@ -20,52 +20,43 @@ namespace zsi.dtrs.camera
     public partial class frmMain : Form
     {
         private WebCamService _WebCam;
-        private NotifyIcon  trayIcon;
-        private ContextMenu trayMenu;
-        private bool IsApplicationExit;
-        private void OnExit(object sender, EventArgs e)
-        {
-            _WebCam.Stop();
-            DialogResult result = MessageBox.Show("Are you sure, you want to close this application?", "PhotofingCapture: Confirm!", MessageBoxButtons.YesNo);
-             if (result == DialogResult.Yes)
-             {
-                 IsApplicationExit = true;
-                 Application.Exit();
-                  
-             }
-             
-        }
-        public frmMain()
-        {
+        private string FileName = "tmp.jpg";
+     
+        private void Start() {
             try
             {
                 this.InitializeComponent();
-                        
-               // SysTray();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+        public frmMain()
+        {
+            Start();
+        }
+        public frmMain(string FileName) {
+            this.FileName=FileName;            
+            Start();
+        }
 
         private void btnCapture_Click(object sender, EventArgs e)
         {
             if (this._WebCam.CurrentCamera==null) return;
-            pbResult.Image = Util.CropImage(this._WebCam.CurrentCamera.GetCurrentImage(),310,233);
+            pbResult.Image = Util.CropImage(this._WebCam.CurrentCamera.GetCurrentImage(),310,233); 
+            pbResult.Image.Save(this.FileName);
         }
 
  
         public void EnableControls(Boolean IsEnable)
         {
             btnCapture.Enabled = IsEnable;           
-            btnOK.Enabled = IsEnable;
          
         }
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             EnableControls(false);
-            btnOK.Enabled = false;
             lUser.Text = "";
         }
 
@@ -100,44 +91,10 @@ namespace zsi.dtrs.camera
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             _WebCam.Stop();
-            //this.WindowState = FormWindowState.Minimized;
-            //if(IsApplicationExit==false) e.Cancel = true;
+
         }
 
-         private void btnUploadPhoto_Click(object sender, EventArgs e)
-        {
-
-            uploadphoto();
-        }
-
-         private void uploadphoto()
-         {
-             try
-             {
-                 _WebCam.Stop();
-                 btnOK.Text = "Processing...";
-                 btnOK.Enabled = false;
-                 if (pbResult.Image == null)
-                 {
-                     MessageBox.Show("Sorry, No photo has been captured.");
-                     return;
-                 }
-                 byte[] _byteImage = Util.ImageToByte(pbResult.Image);
-                 MessageBox.Show("Photo has been uploaded to the server.");
-                 _WebCam.Start();
-             }
-             catch (Exception ex)
-             {
-                 MessageBox.Show(ex.Message);
-             }
-             finally
-             {
-                 btnOK.Text = "OK";
-                 btnOK.Enabled = true;
-             }
-         }
-
-       
+     
         
         private void ResetColor(object sender) 
         {
@@ -171,6 +128,11 @@ namespace zsi.dtrs.camera
         {
             frmAbout _frm = new frmAbout();
             _frm.ShowDialog();            
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            
         }
   
     }

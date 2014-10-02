@@ -10,7 +10,7 @@ namespace zsi.dtrs.camera
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             bool createdNew;
             Mutex m = new Mutex(true, "ZSI DTR - Camera", out createdNew);
@@ -23,7 +23,12 @@ namespace zsi.dtrs.camera
             else {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new frmMain());
+
+                if(args.Length>0)
+                    Application.Run(new frmMain(args[0]));
+                else 
+                    Application.Run(new frmMain());
+     
                 //Application.Run(new zsi.Biometrics.frmTimInOut());
             }
 
