@@ -11,7 +11,9 @@ CREATE OR REPLACE PROCEDURE EmpTSI_update (
    ,p_lmf         IN blob
    ,p_lrf         IN blob
    ,p_lsf         IN blob
-   ,p_tsi         IN number) AS
+   ,p_tsi         IN number
+   ,p_user_id     IN VARCHAR2   
+) AS
    
 /*
    ========================================================================
@@ -22,8 +24,8 @@ CREATE OR REPLACE PROCEDURE EmpTSI_update (
    * modification is strictly prohibited.
    *
    ========================================================================
-*/
-   Date"       By    History
+
+   Date       By    History
    ---------  ----  ---------------------------------------------------------------------
    03-OCT-14  GT    New
 */
@@ -67,25 +69,25 @@ CREATE OR REPLACE PROCEDURE EmpTSI_update (
                            ,p_lrf         
                            ,p_lsf         
                            ,p_tsi         
-                           ,zsi_sessions_lib.GetCookieUser  
-                           ,SYSDATE)
+                           ,p_user_id
+                           ,SYSDATE);
      ELSE
 
           UPDATE EMPTSI SET empl_id_no    = p_empl_id_no   
-                            img           = p_img         
-                            rtf           = p_rtf         
-                            rif           = p_rif         
-                            rmf           = p_rmf         
-                            rrf           = p_rrf         
-                            rsf           = p_rsf         
-                            ltf           = p_ltf         
-                            lif           = p_lif         
-                            lmf           = p_lmf         
-                            lrf           = p_lrf         
-                            lsf           = p_lsf         
-                            tsi           = p_tsi         
-                            modified_by   = zsi_sessions_lib.GetCookieUser
-                            date_modified = SYSDATE
+                           ,img           = p_img         
+                           ,rtf           = p_rtf         
+                           ,rif           = p_rif         
+                           ,rmf           = p_rmf         
+                           ,rrf           = p_rrf         
+                           ,rsf           = p_rsf         
+                           ,ltf           = p_ltf         
+                           ,lif           = p_lif         
+                           ,lmf           = p_lmf         
+                           ,lrf           = p_lrf         
+                           ,lsf           = p_lsf         
+                           ,tsi           = p_tsi         
+                           ,modified_by   = p_user_id
+                           ,date_modified = SYSDATE
                       WHERE empl_id_no = p_empl_id_no; 
      END IF;
 END;
