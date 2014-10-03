@@ -1,5 +1,7 @@
 CREATE OR REPLACE PROCEDURE EmpTSI_update (
     p_empl_id_no  IN number
+   ,p_tsi         IN VARCHAR2 default NULL 
+   ,p_user_id     IN VARCHAR2 default NULL   
    ,p_img         IN blob default NULL
    ,p_rtf         IN blob default NULL
    ,p_rif         IN blob default NULL
@@ -11,8 +13,6 @@ CREATE OR REPLACE PROCEDURE EmpTSI_update (
    ,p_lmf         IN blob default NULL
    ,p_lrf         IN blob default NULL
    ,p_lsf         IN blob default NULL
-   ,p_tsi         IN number default NULL 
-   ,p_user_id     IN VARCHAR2 default NULL   
 ) AS
    
 /*
@@ -31,8 +31,6 @@ CREATE OR REPLACE PROCEDURE EmpTSI_update (
 */
 
    --DECLARATION SECTION
-   l_dhtmlx_path                VARCHAR2(100) := zsi_lib.DHTMLXPath;
-   l_js_path                    VARCHAR2(100) := zsi_lib.JSPath;
    l_recCount                   NUMBER := 0;
 
 

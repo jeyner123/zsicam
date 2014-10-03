@@ -28,7 +28,8 @@ namespace zsi.dtrs.Models
             public byte[] LMF { get; set; }
             public byte[] LRF { get; set; }
             public byte[] LSF { get; set; }
-            public int TSI { get; set; }
+            public string TSI { get; set; }
+            public string UserId { get; set; }
             public string Created_By { get; set; }
             public string Modified_By { get; set; }
             public DateTime Date_Modified { get; set; }
@@ -101,7 +102,7 @@ namespace zsi.dtrs.Models
 
                      if (reader["TSI"] != DBNull.Value)
                      {
-                         this.TSI = Convert.ToInt32(reader["TSI"]);
+                         this.TSI = (string)reader["TSI"];
                      }
 
                      if (reader["Created_By"] != DBNull.Value)
