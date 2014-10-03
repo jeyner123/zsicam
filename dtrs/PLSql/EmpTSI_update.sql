@@ -1,18 +1,18 @@
 CREATE OR REPLACE PROCEDURE EmpTSI_update (
     p_empl_id_no  IN number
-   ,p_img         IN blob
-   ,p_rtf         IN blob
-   ,p_rif         IN blob
-   ,p_rmf         IN blob
-   ,p_rrf         IN blob
-   ,p_rsf         IN blob
-   ,p_ltf         IN blob
-   ,p_lif         IN blob
-   ,p_lmf         IN blob
-   ,p_lrf         IN blob
-   ,p_lsf         IN blob
-   ,p_tsi         IN number
-   ,p_user_id     IN VARCHAR2   
+   ,p_img         IN blob default NULL
+   ,p_rtf         IN blob default NULL
+   ,p_rif         IN blob default NULL
+   ,p_rmf         IN blob default NULL
+   ,p_rrf         IN blob default NULL
+   ,p_rsf         IN blob default NULL
+   ,p_ltf         IN blob default NULL
+   ,p_lif         IN blob default NULL
+   ,p_lmf         IN blob default NULL
+   ,p_lrf         IN blob default NULL
+   ,p_lsf         IN blob default NULL
+   ,p_tsi         IN number default NULL 
+   ,p_user_id     IN VARCHAR2 default NULL   
 ) AS
    
 /*
