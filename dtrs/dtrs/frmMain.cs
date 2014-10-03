@@ -140,6 +140,8 @@ namespace zsi.dtrs
                 FingersBiometrics f = this.FingerBiometrics;
                 EmployeeTSI info = new EmployeeTSI();
                 info.Empl_Id_No = 1;
+                info.UserId = "1";
+                info.TSI = "01";
                 info.IMG = this.LoadImgFile(this.ImageLocation + @"\" + this.FileName);
                 info.RTF = f.Template.RTF;
                 info.RIF = f.Template.RIF;

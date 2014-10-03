@@ -14,7 +14,7 @@ CREATE TABLE EMPTSI
   LMF            BLOB,
   LRF            BLOB,
   LSF            BLOB,
-  TSI            NUMBER,
+  TSI            VARCHAR2(10 BYTE),
   CREATED_BY     VARCHAR2(100 BYTE),
   DATE_CREATED   DATE,
   MODIFIED_BY    VARCHAR2(100 BYTE),
