@@ -22,6 +22,7 @@ namespace zsi.dtrs
         private string ImageLocation { get { return ConfigurationManager.AppSettings["ImageLocation"].ToString(); } }
         private string FileName { get; set; }
         public FingersBiometrics FingerBiometrics { get; set; }
+        
         public frmMain()
         {
             try
@@ -43,7 +44,7 @@ namespace zsi.dtrs
         {
             Color _bcolor = ((Control)sender).BackColor;
             DialogResult result = DialogResult.None;
-
+            
             if (_bcolor == Color.Green)
             {
                 result = MessageBox.Show("Do you want to delete data?", "Confirmation!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -52,7 +53,7 @@ namespace zsi.dtrs
             if (result == DialogResult.Cancel) return;
 
             zsi.Biometrics.frmScanFinger scanf = new frmScanFinger(sender, this.FingerBiometrics, FingerPosition);
-            scanf.IsAutoClose = chkAutoClose.Checked;
+            scanf.IsAutoClose = chkAutoClose.Checked;           
             scanf.ShowDialog();
         }
 
@@ -141,7 +142,7 @@ namespace zsi.dtrs
                 EmployeeTSI info = new EmployeeTSI();
                 info.Empl_Id_No = 1;
                 info.UserId = "1";
-                info.TSI = "01";
+                info.TSI = f.TSI;
                 info.IMG = this.LoadImgFile(this.ImageLocation + @"\" + this.FileName);
                 info.RTF = f.Template.RTF;
                 info.RIF = f.Template.RIF;
@@ -200,7 +201,7 @@ namespace zsi.dtrs
             ResetColor(btnRMF);
             ResetColor(btnRIF);
             ResetColor(btnRTF);
-           // FingerBiometrics.Templates = new DPFP.Template[10];
+            FingerBiometrics.Template =null;
         }
         private void ResetColor(object sender)
         {
