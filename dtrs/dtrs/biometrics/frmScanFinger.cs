@@ -26,7 +26,7 @@ namespace zsi.Biometrics
             this.FingerPosition = FingerPosition;
             this.Data = Data;
             this.Control = (Control)sender;
-           // DeleteData();
+           DeleteData();
             this.FormClosing +=new FormClosingEventHandler(delegate{CloseForm();});
             this.SetControls(Picture, StatusText, Prompt, StatusLine);
             this.CloseButton.Click += new EventHandler(delegate { this.Close(); });

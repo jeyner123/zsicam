@@ -13,30 +13,63 @@ namespace zsi.Biometrics
         public const int MaxFingers = 10;
         public int RecordCount { get; set; }
         public ByteData Template { get; set; }
-        public ByteData Sample { get; set; } 
+        public ByteData Sample { get; set; }
+        public string TSI { get; set; }
+        private List<int> _TSI { get; set; }
+
+        private void SetTSI(int pos)
+        {
+            if (this._TSI == null) this._TSI = new List<int>();
+            if (!this._TSI.Exists(delegate(int p) { return p == pos; }) || this._TSI.Count == 0)
+            {
+                this._TSI.Add(pos);
+            }
+            this.TSI = "";
+            foreach (int x in this._TSI)
+            {
+                this.TSI += "" + x; 
+            }
+        }
 
         public void UpdateTemplates(int FingerPosition,DPFP.Template Template)
         {
             MemoryStream _MemoryStream = new MemoryStream();
             byte[] bTemplate = null;
-            Template.Serialize(ref bTemplate);
+            if (Template!=null) Template.Serialize(ref bTemplate);
             if (this.Template == null) this.Template = new ByteData();
             switch (FingerPosition) {
-                case 0: this.Template.RTF = bTemplate; this.RecordCount++; break;
-                case 1: this.Template.RIF = bTemplate; this.RecordCount++; break;
-                case 2: this.Template.RMF = bTemplate; this.RecordCount++; break;
-                case 3: this.Template.RRF = bTemplate; this.RecordCount++; break;
-                case 4: this.Template.RSF = bTemplate; this.RecordCount++; break;
-                case 5: this.Template.LTF = bTemplate; this.RecordCount++; break;
-                case 6: this.Template.LIF = bTemplate; this.RecordCount++; break;
-                case 7: this.Template.LMF = bTemplate; this.RecordCount++; break;
-                case 8: this.Template.LRF = bTemplate; this.RecordCount++; break;
-                case 9: this.Template.LSF = bTemplate; this.RecordCount++; break;
+                case 0: this.Template.RTF =bTemplate; break;             
+                case 1: this.Template.RIF = bTemplate; break;
+                case 2: this.Template.RMF = bTemplate; break;
+                case 3: this.Template.RRF = bTemplate; break;
+                case 4: this.Template.RSF = bTemplate; break;
+                case 5: this.Template.LTF = bTemplate; break;
+                case 6: this.Template.LIF = bTemplate; break;
+                case 7: this.Template.LMF = bTemplate; break;
+                case 8: this.Template.LRF = bTemplate; break;
+                case 9: this.Template.LSF = bTemplate; break; 
                 default: break;
             }
+            this.RecordCount = CountRecord();
+            SetTSI(FingerPosition);
+
             if (DataChanged != null)this.DataChanged();            
         }
-
+    
+        private int CountRecord(){
+            int result=0;
+            if (this.Template.RTF!=null) result++;
+            if (this.Template.RIF!=null) result++;
+            if (this.Template.RMF!=null) result++;
+            if (this.Template.RRF!=null) result++;
+            if (this.Template.RSF!=null) result++;
+            if (this.Template.LTF!=null) result++;
+            if (this.Template.LIF!=null) result++;
+            if (this.Template.LMF!=null) result++;
+            if (this.Template.LRF!=null) result++;
+            if (this.Template.LSF!= null) result++;
+            return result;
+        }
           
 	}
     public class ByteData
