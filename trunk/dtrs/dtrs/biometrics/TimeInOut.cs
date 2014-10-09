@@ -27,7 +27,6 @@ namespace zsi.Biometrics
         private TextBox txtName;
         private PictureBox pbProfileImage;
         private PictureBox pbFinger;
-        private BackgroundWorker bgwTimeInOut;
         private Label lblActualTimeOut;
         private GroupBox groupBox1;
         private Label lblActualTimeIn;
@@ -35,7 +34,6 @@ namespace zsi.Biometrics
         private TextBox txtDay;
         private TextBox txtTime;
         private Label lblPlsWait;
-        private System.Windows.Forms.Timer timer1;
         private GroupBox groupBox2;
         private Panel pnlMain;
     
@@ -210,7 +208,6 @@ namespace zsi.Biometrics
             this.txtName = new System.Windows.Forms.TextBox();
             this.pbProfileImage = new System.Windows.Forms.PictureBox();
             this.pbFinger = new System.Windows.Forms.PictureBox();
-            this.bgwTimeInOut = new System.ComponentModel.BackgroundWorker();
             this.lblActualTimeOut = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblActualTimeIn = new System.Windows.Forms.Label();
@@ -218,7 +215,6 @@ namespace zsi.Biometrics
             this.txtDay = new System.Windows.Forms.TextBox();
             this.txtTime = new System.Windows.Forms.TextBox();
             this.lblPlsWait = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pnlMain = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -397,11 +393,6 @@ namespace zsi.Biometrics
             this.lblPlsWait.TabIndex = 22;
             this.lblPlsWait.Text = "Verifying... Pls. wait.";
             this.lblPlsWait.Visible = false;
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
             // 
             // groupBox2
             // 
