@@ -204,6 +204,83 @@ namespace zsi.dtrs.Models.DataControllers
             }
         }
 
+
+
+        private static bool Verify(OracleDataReader dr, DPFP.Sample sample)
+        {
+            try
+            {
+                DPFP.Template _template = null;
+
+                //right fingers
+                if (dr["RTF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["RTF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["RIF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["RIF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["RMF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["RMF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+
+                if (dr["RRF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["RRF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["RSF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["RSF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+
+
+                //left fingers
+                if (dr["LTF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["LTF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["LIF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["LIF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["LMF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["LMF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["LRF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["LRF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                if (dr["LSF"] != DBNull.Value)
+                {
+                    _template = ProcessDBTemplate((byte[])dr["LSF"]);
+                    if (Verify(sample, _template)) goto Found;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+        Found:
+            return true;
+
+        }
+
     }
  
 }
