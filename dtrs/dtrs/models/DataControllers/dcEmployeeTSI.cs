@@ -68,6 +68,7 @@ namespace zsi.dtrs.Models.DataControllers
                 SetParameterValue(_params, "p_lmf", info.LMF, OracleDbType.Blob);
                 SetParameterValue(_params, "p_lrf", info.LRF, OracleDbType.Blob);
                 SetParameterValue(_params, "p_lsf", info.LSF, OracleDbType.Blob);
+                
                 command.ExecuteNonQuery();
                 conn.Close();
             }

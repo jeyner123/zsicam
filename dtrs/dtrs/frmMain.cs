@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oracle.DataAccess.Client;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -154,7 +155,6 @@ namespace zsi.dtrs
                 info.LMF = f.Template.LMF;
                 info.LRF = f.Template.LRF;
                 info.LSF = f.Template.LSF;
-
                 new dcEmployeeTSI().Insert(info);
                 ClearFingerBiometrics();
             }
@@ -201,7 +201,8 @@ namespace zsi.dtrs
             ResetColor(btnRMF);
             ResetColor(btnRIF);
             ResetColor(btnRTF);
-            FingerBiometrics.Template =null;
+            FingerBiometrics.Template = null;
+            FingerBiometrics.Samples = new DPFP.Sample[10, 4];
         }
         private void ResetColor(object sender)
         {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace zsi.Biometrics
 {
@@ -13,7 +14,7 @@ namespace zsi.Biometrics
         public const int MaxFingers = 10;
         public int RecordCount { get; set; }
         public ByteData Template { get; set; }
-        public DPFP.Sample[] Samples = new DPFP.Sample[10];
+        public DPFP.Sample[,] Samples = new DPFP.Sample[10, 4];
         public string TSI { get; set; }
         private List<int> _TSI { get; set; }
 
@@ -30,10 +31,11 @@ namespace zsi.Biometrics
                 this.TSI += "" + x; 
             }
         }
-
-        public void UpdateTemplates(int FingerPosition, DPFP.Template Template, DPFP.Sample Sample)
+       
+        public void UpdateTemplates(int FingerPosition, DPFP.Template Template)
         {
-            this.Samples[FingerPosition] = Sample;
+           // this.Samples[FingerPosition].LIF[0] = Sample;
+
             MemoryStream _MemoryStream = new MemoryStream();
             byte[] bTemplate = null;
             if (Template!=null) Template.Serialize(ref bTemplate);
@@ -73,6 +75,7 @@ namespace zsi.Biometrics
         }
           
 	}
+   
     public class ByteData
     {
         public byte[] RTF { get; set; }
