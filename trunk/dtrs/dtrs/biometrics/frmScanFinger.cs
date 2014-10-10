@@ -22,7 +22,7 @@ namespace zsi.Biometrics
  
         public frmScanFinger(Object sender,FingersBiometrics Data,int FingerPosition)
         {
-
+            this.SampleIndex = 0;
             InitializeComponent();
             this.FingerPosition = FingerPosition;
             this.Data = Data;
@@ -36,7 +36,7 @@ namespace zsi.Biometrics
         private void DeleteData(){
             this.Control.BackColor = Color.White;
             this.Control.ForeColor = Color.Black;
-            this.Data.UpdateTemplates(FingerPosition, null,null);
+            this.Data.UpdateTemplates(FingerPosition, null);
         }
 
         public void CloseForm()
@@ -50,9 +50,8 @@ namespace zsi.Biometrics
         }
         public override void Process(DPFP.Sample Sample)
         {
+
             base.Process(Sample);
-            
-           
             // Process the sample and create a feature set for the enrollment purpose.
             DPFP.FeatureSet features = zsi.dtrs.Util.ExtractFeatures(Sample, DPFP.Processing.DataPurpose.Enrollment);
             // Check quality of the sample and add to enroller if it's good
@@ -70,7 +69,7 @@ namespace zsi.Biometrics
                     {
                         case DPFP.Processing.Enrollment.Status.Ready:	// report success and stop capturing
                             //OnTemplate(Enroller.Template);
-                            this.Data.UpdateTemplates(this.FingerPosition, Enroller.Template,Sample);
+                            this.Data.UpdateTemplates(this.FingerPosition, Enroller.Template);
 
                             this.IsComplete = true;
                             SetPrompt("Click Close, and then click Fingerprint Verification.");

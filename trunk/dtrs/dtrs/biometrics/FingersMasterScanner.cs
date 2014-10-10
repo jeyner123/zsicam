@@ -40,6 +40,7 @@ namespace zsi.Biometrics
         public DPFP.Sample Sample{get;set;}
         public bool IsAutoClose { get; set; }
         public int FingerPosition { get; set; }
+        public int SampleIndex { get; set; }
         public FingersBiometrics Data { get; set; }
         public bool IsComplete { get; set; } 
         public string ReaderSerialNumber{get;set;}
@@ -107,8 +108,10 @@ namespace zsi.Biometrics
         }
  
         public virtual void Process(DPFP.Sample Sample){
-        
+            if (this.SampleIndex > 3) this.SampleIndex = 3;
+            this.Data.Samples[this.FingerPosition, this.SampleIndex] = Sample;                
             DrawPicture(zsi.dtrs.Util.ConvertSampleToBitmap(Sample));
+            this.SampleIndex++;
         }
        
 
