@@ -16,6 +16,7 @@ namespace zsi.Biometrics
         private TextBox StatusText;
         private TextBox Prompt;
         private PictureBox Picture;
+       
     
         private Control Control { get; set; }
  
@@ -35,7 +36,7 @@ namespace zsi.Biometrics
         private void DeleteData(){
             this.Control.BackColor = Color.White;
             this.Control.ForeColor = Color.Black;
-            this.Data.UpdateTemplates(FingerPosition, null);
+            this.Data.UpdateTemplates(FingerPosition, null,null);
         }
 
         public void CloseForm()
@@ -50,6 +51,7 @@ namespace zsi.Biometrics
         public override void Process(DPFP.Sample Sample)
         {
             base.Process(Sample);
+            
            
             // Process the sample and create a feature set for the enrollment purpose.
             DPFP.FeatureSet features = zsi.dtrs.Util.ExtractFeatures(Sample, DPFP.Processing.DataPurpose.Enrollment);
@@ -68,7 +70,7 @@ namespace zsi.Biometrics
                     {
                         case DPFP.Processing.Enrollment.Status.Ready:	// report success and stop capturing
                             //OnTemplate(Enroller.Template);
-                            this.Data.UpdateTemplates(this.FingerPosition, Enroller.Template);
+                            this.Data.UpdateTemplates(this.FingerPosition, Enroller.Template,Sample);
 
                             this.IsComplete = true;
                             SetPrompt("Click Close, and then click Fingerprint Verification.");
