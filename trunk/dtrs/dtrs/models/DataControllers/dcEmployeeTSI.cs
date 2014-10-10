@@ -8,6 +8,7 @@ using zsi.dtrs.Models;
 using System.IO;
 using System.Configuration;
 using Oracle.DataAccess.Client;
+using zsi.Biometrics;
 namespace zsi.dtrs.Models.DataControllers
 {
 
@@ -43,13 +44,13 @@ namespace zsi.dtrs.Models.DataControllers
          }
 
 
-        public void Insert(EmployeeTSI info)
+        public int Insert(EmployeeTSI info)
         {
             OracleConnection conn = new OracleConnection(ConStr);
 
             try
             {
-
+                int EmpId=0;
                 OracleCommand command = new OracleCommand("EmpTSI_update", conn);
                  command.CommandType = CommandType.StoredProcedure;
                 var _params = command.Parameters;
@@ -71,6 +72,7 @@ namespace zsi.dtrs.Models.DataControllers
                 
                 command.ExecuteNonQuery();
                 conn.Close();
+                return EmpId;
             }
             catch (Exception ex)
             {
@@ -78,6 +80,39 @@ namespace zsi.dtrs.Models.DataControllers
             }
         }
 
+
+        public void UpdateEmployeeMatches(int Empl_Id_No, FingersBiometrics fbInfo)
+        {
+            OracleConnection conn = new OracleConnection(ConStr);
+            List<Employee> list = new List<Employee>();
+            for (int FingerNo = 0; FingerNo < FingersBiometrics.MaxFingers; FingerNo++)
+            {
+                for (int x = 0; x < FingersBiometrics.MaxSamples; x++)
+                {
+                    if (fbInfo.Samples[FingerNo, x] != null)
+                    {
+                        GetEmployeeMatches(list, fbInfo.Samples[FingerNo, x], FingerNo);
+                    }
+                }
+
+                foreach (Employee info in list)
+                {
+
+                    OracleCommand command = new OracleCommand("EmployeeMatches_update", conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    var _params = command.Parameters;
+                    conn.Open();
+                    SetParameterValue(_params, "p_empl_id_no", Empl_Id_No, OracleDbType.Int32);
+                    SetParameterValue(_params, "p_match_id_no", info.Empl_Id_No, OracleDbType.Int32);
+                    SetParameterValue(_params, Util.GetFingerDesc(FingerNo), "Y", OracleDbType.Varchar2);
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+
+ 
+             
+        }
         void SetParameterValue(OracleParameterCollection Params,string ColumnName, object value, OracleDbType type)
         {
             if (value != null)
@@ -87,44 +122,7 @@ namespace zsi.dtrs.Models.DataControllers
  
         }
 
-
-        private static Employee GetInfo(OracleDataReader reader, DPFP.Sample Sample, string Finger )
-        {
-
-            OracleConnection conn = new OracleConnection(ConStr);
-            Employee _info = null;
-             DPFP.Template _template = null;
-             bool IsFound = false;
-             if (reader[Finger] != DBNull.Value)
-             {
-                 _template = ProcessDBTemplate((byte[])reader[Finger]);
-                 IsFound = Verify(Sample, _template);
-             }
-            if (IsFound == true)
-            {
-                string sqlEmp = "select * from employees where Empl_Id_No=" + reader["Empl_Id_No"];
-                OracleCommand cmd = new OracleCommand(sqlEmp, conn);
-                cmd.CommandType = CommandType.Text;
-                conn.Open();
-                OracleDataReader odr = cmd.ExecuteReader();
-                if (odr.HasRows)
-                {
-                    _info = new Employee();
-                    _info.Empl_Id_No = Convert.ToInt32(reader["Empl_Id_No"]);
-                    _info.Empl_Name = (string)odr["Empl_Name"];
-                    _info.Empl_Deptname = (string)odr["Empl_Deptname"];
-                    _info.Shift_Id = Convert.ToInt32(odr["Shift_Id"]);
-                }
-                odr.Dispose();
-                cmd.Dispose();
-                conn.Close();
-                conn.Dispose();               
-            }
-           
-            return _info;
-
-        }
-
+         
         private static void AddInfo(List<Employee> list, Employee info) {
             if (info != null)
             {
@@ -143,12 +141,11 @@ namespace zsi.dtrs.Models.DataControllers
             }
         }
 
-        public static List<Employee> GetEmployeeMatches(DPFP.Sample Sample,int FingerNo)
+        public static void GetEmployeeMatches(List<Employee> list, DPFP.Sample Sample,int FingerNo)
         {
             OracleConnection conn = new OracleConnection(ConStr);
             Employee info = null;
-            List<Employee> list = new List<Employee>();
-            string FingerDesc = GetFingerDesc(FingerNo);
+            string FingerDesc = Util.GetFingerDesc(FingerNo);
             try
             {
                 string _result = string.Empty;
@@ -166,7 +163,6 @@ namespace zsi.dtrs.Models.DataControllers
                     }
                 }
                 if (conn.State == ConnectionState.Open) conn.Close();
-                return list;
             }
             catch (Exception ex)
             {
@@ -175,203 +171,6 @@ namespace zsi.dtrs.Models.DataControllers
             }
         }
 
-        public static string GetFingerDesc(int FingNo) {
-            string _Finger="";
-            switch (FingNo)
-            {
-                case 9: _Finger = "LSF"; break;
-                case 8: _Finger = "LRF"; break;
-                case 7: _Finger = "LMF"; break;
-                case 6: _Finger = "LIF"; break;
-                case 5: _Finger = "LTF"; break;
-                case 4: _Finger = "RSF"; break;
-                case 3: _Finger = "RRF"; break;
-                case 2: _Finger = "RMF"; break;
-                case 1: _Finger = "RIF"; break;
-                case 0: _Finger = "RTF"; break;
-                default: break;
-            }
-            return _Finger;
-        }
-
-
-   
-        public static Employee VerifyBiometricsData(int FingNo, DPFP.Sample Sample)
-        {
-            OracleConnection conn = new OracleConnection(ConStr);
-            Employee _info = new Employee();
-            try
-            {
-
-
-                string _result = string.Empty;
-                string _Finger = GetFingerDesc(FingNo);
-                DPFP.Template _template = null;
-                string sql = string.Format("select Empl_Id_No, {0} from EMPTSI", _Finger); ;
-                OracleCommand command = new OracleCommand(sql, conn);
-                command.CommandType = CommandType.Text;
-                conn.Open();
-                OracleDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-
-                bool IsFound = false;
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        if (reader[0] != DBNull.Value)
-                        {
-                            _template = ProcessDBTemplate((byte[])reader[_Finger]);
-                            IsFound = Verify(Sample, _template);
-                        }
-                        if (IsFound == true)
-                        {
-                            string sqlEmp = "select * from employees where Empl_Id_No=" + reader["Empl_Id_No"];
-                            OracleCommand cmd2 = new OracleCommand(sqlEmp, conn);
-                            cmd2.CommandType = CommandType.Text;
-                            OracleDataReader reader2 = cmd2.ExecuteReader(CommandBehavior.CloseConnection);
-                            if (reader2.HasRows)
-                            {
-                                _info.Empl_Id_No = Convert.ToInt32(reader["Empl_Id_No"]);
-                                _info.Empl_Name = (string)reader2["Empl_Name"];
-                                _info.Empl_Deptname = (string)reader2["Empl_Deptname"];
-                                _info.Shift_Id = Convert.ToInt32(reader2["Shift_Id"]);
-                            }
-                            reader2.Dispose();
-                            reader.Dispose();
-                            cmd2.Dispose();
-                            command.Dispose();
-                            break;
-                        }
-                    }
-                }
-                if (conn.State == ConnectionState.Open) conn.Close();
-                return _info;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-
-        private static DPFP.Template ProcessDBTemplate(byte[] _data)
-        {
-            DPFP.Template _template = null;
-            Stream _ms = new MemoryStream(_data);
-            _template = new DPFP.Template();
-            //deserialize
-            _template.DeSerialize(_ms);
-            return _template;
-        }
-
-        private static bool Verify(DPFP.Sample _sample, DPFP.Template _template)
-        {
-            try
-            {
-                bool _result = false;
-                DPFP.Verification.Verification Verificator = new DPFP.Verification.Verification();
-                DPFP.FeatureSet features = zsi.dtrs.Util.ExtractFeatures(_sample, DPFP.Processing.DataPurpose.Verification);
-
-                // Check quality of the sample and start verification if it's good
-                // TODO: move to a separate task
-                if (features != null)
-                {
-                    // Compare the feature set with our template
-                    DPFP.Verification.Verification.Result result = new DPFP.Verification.Verification.Result();
-                    Verificator.Verify(features, _template, ref result);
-
-                    if (result.Verified)
-                        _result = true;
-                    else
-                        _result = false;
-
-                }
-                return _result;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-
-
-        private static bool Verify(OracleDataReader dr, DPFP.Sample sample)
-        {
-            try
-            {
-                DPFP.Template _template = null;
-
-                //right fingers
-                if (dr["RTF"] != DBNull.Value)
-                {
-                    _template = ProcessDBTemplate((byte[])dr["RTF"]);
-                    if (Verify(sample, _template)) goto Found;
-                }
-                if (dr["RIF"] != DBNull.Value)
-                {
-                    _template = ProcessDBTemplate((byte[])dr["RIF"]);
-                    if (Verify(sample, _template)) goto Found;
-                }
-                if (dr["RMF"] != DBNull.Value)
-                {
-                    _template = ProcessDBTemplate((byte[])dr["RMF"]);
-                    if (Verify(sample, _template)) goto Found;
-                }
-
-                if (dr["RRF"] != DBNull.Value)
-                {
-                    _template = ProcessDBTemplate((byte[])dr["RRF"]);
-                    if (Verify(sample, _template)) goto Found;
-                }
-                if (dr["RSF"] != DBNull.Value)
-                {
-                    _template = ProcessDBTemplate((byte[])dr["RSF"]);
-                    if (Verify(sample, _template)) goto Found;
-                }
-
-
-                //left fingers
-                if (dr["LTF"] != DBNull.Value)
-                {
-                    _template = ProcessDBTemplate((byte[])dr["LTF"]);
-                    if (Verify(sample, _template)) goto Found;
-                }
-                if (dr["LIF"] != DBNull.Value)
-                {
-                    _template = ProcessDBTemplate((byte[])dr["LIF"]);
-                    if (Verify(sample, _template)) goto Found;
-                }
-                if (dr["LMF"] != DBNull.Value)
-                {
-                    _template = ProcessDBTemplate((byte[])dr["LMF"]);
-                    if (Verify(sample, _template)) goto Found;
-                }
-                if (dr["LRF"] != DBNull.Value)
-                {
-                    _template = ProcessDBTemplate((byte[])dr["LRF"]);
-                    if (Verify(sample, _template)) goto Found;
-                }
-                if (dr["LSF"] != DBNull.Value)
-                {
-                    _template = ProcessDBTemplate((byte[])dr["LSF"]);
-                    if (Verify(sample, _template)) goto Found;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-
-        Found:
-            return true;
-
-        }
 
     }
  

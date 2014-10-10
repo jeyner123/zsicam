@@ -57,7 +57,7 @@ namespace zsi.Biometrics
                         this.lblPlsWait.Visible = true;                     
                     }));
 
-                    Employee info = zsi.dtrs.Models.DataControllers.dcEmployeeTSI.VerifyBiometricsData(GetFingNo(), Sample);
+                    Employee info = zsi.dtrs.Models.DataControllers.dcEmployee.VerifyBiometricsData(GetFingNo(), Sample);
                    
 
                     //WaitStop
