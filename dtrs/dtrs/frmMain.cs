@@ -145,17 +145,20 @@ namespace zsi.dtrs
                 info.UserId = "1";
                 info.TSI = f.TSI;
                 info.IMG = this.LoadImgFile(this.ImageLocation + @"\" + this.FileName);
-                info.RTF = f.Template.RTF;
-                info.RIF = f.Template.RIF;
-                info.RMF = f.Template.RMF;
-                info.RRF = f.Template.RRF;
-                info.RSF = f.Template.RSF;
-                info.LTF = f.Template.LTF;
-                info.LIF = f.Template.LIF;
-                info.LMF = f.Template.LMF;
-                info.LRF = f.Template.LRF;
-                info.LSF = f.Template.LSF;
-                new dcEmployeeTSI().Insert(info);
+                info.RTF = f.ByteTemplate.RTF;
+                info.RIF = f.ByteTemplate.RIF;
+                info.RMF = f.ByteTemplate.RMF;
+                info.RRF = f.ByteTemplate.RRF;
+                info.RSF = f.ByteTemplate.RSF;
+                info.LTF = f.ByteTemplate.LTF;
+                info.LIF = f.ByteTemplate.LIF;
+                info.LMF = f.ByteTemplate.LMF;
+                info.LRF = f.ByteTemplate.LRF;
+                info.LSF = f.ByteTemplate.LSF;
+                dcEmployeeTSI dc = new dcEmployeeTSI();
+                int EmployeeId =dc.Insert(info);
+                dc.UpdateEmployeeMatches(EmployeeId, f);
+
                 ClearFingerBiometrics();
             }
             catch (Exception ex)
