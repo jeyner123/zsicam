@@ -87,6 +87,112 @@ namespace zsi.dtrs.Models.DataControllers
         }
 
 
+        private static Employee GetInfo(OracleDataReader reader, DPFP.Sample Sample, string Finger )
+        {
+
+            OracleConnection conn = new OracleConnection(ConStr);
+            Employee _info = null;
+             DPFP.Template _template = null;
+             bool IsFound = false;
+             if (reader[Finger] != DBNull.Value)
+             {
+                 _template = ProcessDBTemplate((byte[])reader[Finger]);
+                 IsFound = Verify(Sample, _template);
+             }
+            if (IsFound == true)
+            {
+                string sqlEmp = "select * from employees where Empl_Id_No=" + reader["Empl_Id_No"];
+                OracleCommand cmd = new OracleCommand(sqlEmp, conn);
+                cmd.CommandType = CommandType.Text;
+                conn.Open();
+                OracleDataReader odr = cmd.ExecuteReader();
+                if (odr.HasRows)
+                {
+                    _info = new Employee();
+                    _info.Empl_Id_No = Convert.ToInt32(reader["Empl_Id_No"]);
+                    _info.Empl_Name = (string)odr["Empl_Name"];
+                    _info.Empl_Deptname = (string)odr["Empl_Deptname"];
+                    _info.Shift_Id = Convert.ToInt32(odr["Shift_Id"]);
+                }
+                odr.Dispose();
+                cmd.Dispose();
+                conn.Close();
+                conn.Dispose();               
+            }
+           
+            return _info;
+
+        }
+
+        private static void AddInfo(List<Employee> list, Employee info) {
+            if (info != null)
+            {
+                bool isFound=false;
+                foreach(Employee i in list){
+                    if (i.Empl_Id_No == info.Empl_Id_No)
+                    {
+                        isFound = true;
+                        break;
+                    }
+                }
+                if (isFound == false)
+                {
+                    list.Add(info);
+                }
+            }
+        }
+
+        public static List<Employee> GetEmployeeMatches(DPFP.Sample Sample,int FingerNo)
+        {
+            OracleConnection conn = new OracleConnection(ConStr);
+            Employee info = null;
+            List<Employee> list = new List<Employee>();
+            string FingerDesc = GetFingerDesc(FingerNo);
+            try
+            {
+                string _result = string.Empty;
+                string sql = "select Empl_Id_No,RTF,RIF,RMF,RRF,RSF,LTF,LIF,LMF,LRF,LSF from EMPTSI";
+                OracleCommand command = new OracleCommand(sql, conn);
+                command.CommandType = CommandType.Text;
+                conn.Open();
+                OracleDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        info = GetInfo(reader, Sample, FingerDesc); 
+                        AddInfo(list, info);
+                    }
+                }
+                if (conn.State == ConnectionState.Open) conn.Close();
+                return list;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public static string GetFingerDesc(int FingNo) {
+            string _Finger="";
+            switch (FingNo)
+            {
+                case 9: _Finger = "LSF"; break;
+                case 8: _Finger = "LRF"; break;
+                case 7: _Finger = "LMF"; break;
+                case 6: _Finger = "LIF"; break;
+                case 5: _Finger = "LTF"; break;
+                case 4: _Finger = "RSF"; break;
+                case 3: _Finger = "RRF"; break;
+                case 2: _Finger = "RMF"; break;
+                case 1: _Finger = "RIF"; break;
+                case 0: _Finger = "RTF"; break;
+                default: break;
+            }
+            return _Finger;
+        }
+
 
    
         public static Employee VerifyBiometricsData(int FingNo, DPFP.Sample Sample)
@@ -98,23 +204,8 @@ namespace zsi.dtrs.Models.DataControllers
 
 
                 string _result = string.Empty;
-                string _Finger = string.Empty;
+                string _Finger = GetFingerDesc(FingNo);
                 DPFP.Template _template = null;
-                switch (FingNo)
-                {
-                    case 9: _Finger = "LSF"; break;
-                    case 8: _Finger = "LRF"; break;
-                    case 7: _Finger = "LMF"; break;
-                    case 6: _Finger = "LIF"; break;
-                    case 5: _Finger = "LTF"; break;
-                    case 4: _Finger = "RSF"; break;
-                    case 3: _Finger = "RRF"; break;
-                    case 2: _Finger = "RMF"; break;
-                    case 1: _Finger = "RIF"; break;
-                    case 0: _Finger = "RTF"; break;
-                    default: break;
-                }
-
                 string sql = string.Format("select Empl_Id_No, {0} from EMPTSI", _Finger); ;
                 OracleCommand command = new OracleCommand(sql, conn);
                 command.CommandType = CommandType.Text;

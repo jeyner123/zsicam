@@ -13,7 +13,7 @@ namespace zsi.Biometrics
         public const int MaxFingers = 10;
         public int RecordCount { get; set; }
         public ByteData Template { get; set; }
-        public ByteData Sample { get; set; }
+        public DPFP.Sample[] Samples = new DPFP.Sample[10];
         public string TSI { get; set; }
         private List<int> _TSI { get; set; }
 
@@ -31,8 +31,9 @@ namespace zsi.Biometrics
             }
         }
 
-        public void UpdateTemplates(int FingerPosition,DPFP.Template Template)
+        public void UpdateTemplates(int FingerPosition, DPFP.Template Template, DPFP.Sample Sample)
         {
+            this.Samples[FingerPosition] = Sample;
             MemoryStream _MemoryStream = new MemoryStream();
             byte[] bTemplate = null;
             if (Template!=null) Template.Serialize(ref bTemplate);
