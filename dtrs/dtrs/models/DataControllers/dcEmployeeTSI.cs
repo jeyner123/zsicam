@@ -158,7 +158,7 @@ namespace zsi.dtrs.Models.DataControllers
                 {
                     while (reader.Read())
                     {
-                        info = GetInfo(reader, Sample, FingerDesc); 
+                        info =  dcEmployee.GetInfo(reader, Sample, FingerDesc); 
                         AddInfo(list, info);
                     }
                 }
