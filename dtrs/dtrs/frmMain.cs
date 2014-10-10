@@ -201,8 +201,7 @@ namespace zsi.dtrs
             ResetColor(btnRMF);
             ResetColor(btnRIF);
             ResetColor(btnRTF);
-            FingerBiometrics.Template = null;
-            FingerBiometrics.Samples = new DPFP.Sample[10, 4];
+            FingerBiometrics.Clear();
         }
         private void ResetColor(object sender)
         {

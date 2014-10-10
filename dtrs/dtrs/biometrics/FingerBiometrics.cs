@@ -13,8 +13,8 @@ namespace zsi.Biometrics
         public event OnChangeHandler DataChanged; 		
         public const int MaxFingers = 10;
         public int RecordCount { get; set; }
-        public ByteData Template { get; set; }
-        public DPFP.Sample[,] Samples = new DPFP.Sample[10, 4];
+        public TemplateData Template { get; set; }
+        public DPFP.Sample[,] Samples = new DPFP.Sample[FingersBiometrics.MaxFingers, 4];
         public string TSI { get; set; }
         private List<int> _TSI { get; set; }
 
@@ -31,15 +31,28 @@ namespace zsi.Biometrics
                 this.TSI += "" + x; 
             }
         }
-       
+        private int CountRecord()
+        {
+            int result = 0;
+            if (this.Template.RTF != null) result++;
+            if (this.Template.RIF != null) result++;
+            if (this.Template.RMF != null) result++;
+            if (this.Template.RRF != null) result++;
+            if (this.Template.RSF != null) result++;
+            if (this.Template.LTF != null) result++;
+            if (this.Template.LIF != null) result++;
+            if (this.Template.LMF != null) result++;
+            if (this.Template.LRF != null) result++;
+            if (this.Template.LSF != null) result++;
+            return result;
+        }
+          
         public void UpdateTemplates(int FingerPosition, DPFP.Template Template)
         {
-           // this.Samples[FingerPosition].LIF[0] = Sample;
-
             MemoryStream _MemoryStream = new MemoryStream();
             byte[] bTemplate = null;
             if (Template!=null) Template.Serialize(ref bTemplate);
-            if (this.Template == null) this.Template = new ByteData();
+            if (this.Template == null) this.Template = new TemplateData();
             switch (FingerPosition) {
                 case 0: this.Template.RTF =bTemplate; break;             
                 case 1: this.Template.RIF = bTemplate; break;
@@ -58,25 +71,18 @@ namespace zsi.Biometrics
 
             if (DataChanged != null)this.DataChanged();            
         }
-    
-        private int CountRecord(){
-            int result=0;
-            if (this.Template.RTF!=null) result++;
-            if (this.Template.RIF!=null) result++;
-            if (this.Template.RMF!=null) result++;
-            if (this.Template.RRF!=null) result++;
-            if (this.Template.RSF!=null) result++;
-            if (this.Template.LTF!=null) result++;
-            if (this.Template.LIF!=null) result++;
-            if (this.Template.LMF!=null) result++;
-            if (this.Template.LRF!=null) result++;
-            if (this.Template.LSF!= null) result++;
-            return result;
+
+        public void Clear() {
+            this.Template = new TemplateData();
+            this.Samples = new DPFP.Sample[FingersBiometrics.MaxFingers, 4];
+            this.RecordCount = 0;
+            this.TSI = "";
+            this._TSI = null;
         }
-          
+      
 	}
    
-    public class ByteData
+    public class TemplateData
     {
         public byte[] RTF { get; set; }
         public byte[] RIF { get; set; }
