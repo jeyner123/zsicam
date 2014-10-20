@@ -142,7 +142,6 @@ namespace zsi.dtrs
                 FingersBiometrics f = this.FingerBiometrics;
                 EmployeeTSI info = new EmployeeTSI();
                 info.Empl_Id_No = 1;
-                info.UserId = "1";
                 info.TSI = f.TSI;
                 info.IMG = this.LoadImgFile(this.ImageLocation + @"\" + this.FileName);
                 info.RTF = f.ByteTemplate.RTF;
@@ -270,12 +269,8 @@ namespace zsi.dtrs
         }
 
         private void RegisterMe() {
-
-            string macAdd = zsi.Biometrics.Util.GetMacAddress();
-            string key = "zs1@" + "password";
-            dcClient dc = new dcClient();
-            Client info = new Client { MacAddress = macAdd, RegKey = key };
-            dc.Register(info);
+            dcClient dc = new dcClient();           
+            dc.Register("1");
         }
 
     }
