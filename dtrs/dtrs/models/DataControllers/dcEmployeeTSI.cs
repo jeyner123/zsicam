@@ -50,7 +50,7 @@ namespace zsi.dtrs.Models.DataControllers
                 conn.Open();         
                 SetParameterValue(_params, "p_empl_id_no", info.Empl_Id_No, OracleDbType.Int32);
                 SetParameterValue(_params, "p_tsi", info.TSI, OracleDbType.Varchar2);
-                SetParameterValue(_params, "p_user_id", info.UserId, OracleDbType.Varchar2);
+                SetParameterValue(_params, "p_user_id", this.UserId, OracleDbType.Varchar2);
                 SetParameterValue(_params, "p_img", info.IMG, OracleDbType.Blob);
                 SetParameterValue(_params, "p_rtf", info.RTF, OracleDbType.Blob);
                 SetParameterValue(_params, "p_rif", info.RIF, OracleDbType.Blob);                
