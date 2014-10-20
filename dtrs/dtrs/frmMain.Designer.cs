@@ -44,6 +44,7 @@
             this.btnLSF = new System.Windows.Forms.Button();
             this.btnUploadFG = new System.Windows.Forms.Button();
             this.btnCamera = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -227,11 +228,22 @@
             this.btnCamera.UseVisualStyleBackColor = true;
             this.btnCamera.Click += new System.EventHandler(this.btnCamera_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(151, 149);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 46;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 197);
+            this.ClientSize = new System.Drawing.Size(579, 358);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnCamera);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnUploadFG);
@@ -262,6 +274,7 @@
         private System.Windows.Forms.Button btnRMF;
         private System.Windows.Forms.Button btnLSF;
         private System.Windows.Forms.Button btnCamera;
+        private System.Windows.Forms.Button button1;
 
 
     }
