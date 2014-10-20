@@ -269,5 +269,13 @@ namespace zsi.dtrs
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string macAdd = zsi.Biometrics.Util.GetMacAddress();
+            string key = "zsi" + "password";
+             
+
+        }
+
     }
 }

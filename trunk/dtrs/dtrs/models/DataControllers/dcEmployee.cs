@@ -11,13 +11,8 @@ using Oracle.DataAccess.Client;
 using zsi.Biometrics;
 namespace zsi.dtrs.Models.DataControllers
 {
-
-
-    public class dcEmployee
+    public class dcEmployee:DataController
     {
-        private static string ConStr { get { return ConfigurationManager.AppSettings["Constr"].ToString(); } }
- 
-
         public List<Employee> SelectAll()
         {
 	            try
@@ -42,8 +37,6 @@ namespace zsi.dtrs.Models.DataControllers
 		             throw ex;
 	         }
          }
-
-      
         public bool Insert(Employee info)
         {
             OracleConnection conn = new OracleConnection(ConStr);
@@ -62,8 +55,6 @@ namespace zsi.dtrs.Models.DataControllers
                 throw ex;
             }
         }
-
-
         public static Employee VerifyBiometricsData(int FingNo, DPFP.Sample Sample)
         {
             OracleConnection conn = new OracleConnection(ConStr);
@@ -121,7 +112,6 @@ namespace zsi.dtrs.Models.DataControllers
                 throw ex;
             }
         }
-
         public static Employee GetInfo(OracleDataReader reader, DPFP.Sample Sample, string Finger)
         {
 
@@ -158,7 +148,6 @@ namespace zsi.dtrs.Models.DataControllers
             return _info;
 
         }
-
         private static bool Verify(OracleDataReader dr, DPFP.Sample sample)
         {
             try
@@ -233,9 +222,7 @@ namespace zsi.dtrs.Models.DataControllers
             return true;
 
         }
-
     }
- 
 }
 
 

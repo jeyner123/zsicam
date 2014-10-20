@@ -85,6 +85,9 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="models\Client.cs" />
+    <Compile Include="models\DataControllers\DataController.cs" />
+    <Compile Include="models\DataControllers\dcClient.cs" />
     <Compile Include="models\EmployeeMatches.cs" />
     <Compile Include="models\DataControllers\dcEmployee.cs" />
     <Compile Include="models\DataControllers\dcEmployeeTSI.cs" />

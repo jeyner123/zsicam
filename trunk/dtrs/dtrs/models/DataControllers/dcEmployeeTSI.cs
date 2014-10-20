@@ -11,13 +11,8 @@ using Oracle.DataAccess.Client;
 using zsi.Biometrics;
 namespace zsi.dtrs.Models.DataControllers
 {
-
-
-    public class dcEmployeeTSI
+    public class dcEmployeeTSI :DataController
     {
-        private static string ConStr { get { return ConfigurationManager.AppSettings["Constr"].ToString(); } }
- 
-
         public List<EmployeeTSI> SelectAll()
         {
 	            try
@@ -42,8 +37,6 @@ namespace zsi.dtrs.Models.DataControllers
 		             throw ex;
 	         }
          }
-
-
         public int Insert(EmployeeTSI info)
         {
             OracleConnection conn = new OracleConnection(ConStr);
@@ -79,8 +72,6 @@ namespace zsi.dtrs.Models.DataControllers
                 throw ex;
             }
         }
-
-
         public void UpdateEmployeeMatches(int Empl_Id_No, FingersBiometrics fbInfo)
         {
             OracleConnection conn = new OracleConnection(ConStr);
@@ -112,17 +103,7 @@ namespace zsi.dtrs.Models.DataControllers
 
  
              
-        }
-        void SetParameterValue(OracleParameterCollection Params,string ColumnName, object value, OracleDbType type)
-        {
-            if (value != null)
-            {
-                Params.Add( ColumnName, type).Value = value;
-            }
- 
-        }
-
-         
+        }      
         private static void AddInfo(List<Employee> list, Employee info) {
             if (info != null)
             {
@@ -140,7 +121,6 @@ namespace zsi.dtrs.Models.DataControllers
                 }
             }
         }
-
         public static void GetEmployeeMatches(List<Employee> list, DPFP.Sample Sample,int FingerNo)
         {
             OracleConnection conn = new OracleConnection(ConStr);
@@ -170,10 +150,7 @@ namespace zsi.dtrs.Models.DataControllers
                 throw ex;
             }
         }
-
-
     }
- 
 }
 
 
