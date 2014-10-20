@@ -2,6 +2,23 @@ SET SCAN OFF
 CREATE OR REPLACE
 PACKAGE BODY zsi_wsa_lib IS
 
+   /*
+   =======================================================================
+   *
+   * Copyright (c) 20014-2014 by ZSI.  All rights reserved.
+   *
+   * Redistribution and use in source and binary forms, with or without
+   * modification is strictly prohibited.
+   *
+   ===========================================================================================================================
+   */
+
+   /* Modification History
+   Date       By    History
+   ---------  ----  ----------------------------------------------------------------------------------------------------------
+   20-OCT-14  BD    New
+   */
+
    TYPE VC2_255_ARR  IS TABLE OF VARCHAR2(255)  INDEX BY BINARY_INTEGER;
    l_mac_addr        vc2_255_arr;
    l_mac_index       NUMBER(3) := 0;
